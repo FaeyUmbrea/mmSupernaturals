@@ -1,0 +1,98 @@
+mmSupernaturals, based off of the plugin "Supernatural Players" by [[http://forums.bukkit.org/members/matterz.8906/|Matterz]], is now being continued!It includes Vampires, Ghouls, Werewolves, Demons, Priests, and WitchHunter.
+
+Recommended Plugins:
+Permissions
+WorldGuard
+
+Todo:
+Add (Offical) support for many permissions plugin
+Add a new (Secret) supernatural type
+I will give some hints to the new type as I develop it ;)
+
+Features
+General:
+Classes are Vampire, Ghoul, Werewolf, Demon, Priest, and WitchHunter.
+All classes have abilities that depend on your power level.
+All classes gain power in a certain way.
+WitchHunter kill list generate on server start. (Admins can remove players with the command /sn rmTarget)
+Class Join/Leave Information:
+Each class has a unique event required for joining or leaving.
+Joining a Class:
+Humans construct special Altars to convert to Vampires, starting with a solid Gold Block.
+Humans sometimes convert to Werewolves when dying to wild wolves at night.
+Pig Zombies sometimes have the ability to make humans undead rather than just dead.
+Any human who shows proper devotion to the Church may become a Priest.
+Non-Priest humans who can prove their Supernatural Hunting Abilities by slaying 3 different types of supernaturals without dying will be invited to the WitchHunters' Association.
+Humans who enter the Nether covered in dead animal skins (leather armor) and sacrifice themselves to the Inferno will become Demonic.
+Leaving a Class:
+Vampires construct special Altars to regain their humanity, starting with a solid Lapis Block.
+Werewolves must make themselves a Wolfbane potion, starting with an empty Bowl.
+Priests merely have to insult the Church by offering Coal to the donations' Altar.
+The Holy energy of the Church's Altar will sometimes cleanse a Ghoul and restore their humanity.
+Demons who die in icy water while carrying snowballs will find the demonic fire in their blood cooled.
+WitchHunters who exhibit extremely poor bow skills (kill themselves) will be removed from the Association.
+
+
+[[http://dev.bukkit.org/server-mods/supernaturalplayers/pages/classes/|Classes]] (Includes spell details)
+
+Commands:
+<optional Parameter>
+[required Parameter]
+
+Player:
+/sn help - Shows a list of available commands
+/sn power - Shows current class and powerlevel
+/sn list - Shows a list of online players in each class
+/sn classes - Shows a list of classes with a short description of each
+
+Admins:
+/sn admin - Shows a list of available Admin commands
+/sn cure <playername> - Restores player to humanity (either reverting them to Priest or making them human)
+/sn convert <playername> [class] - Converts a player to the specified class
+/sn power <playername> [amount] - Gives player specified amount of power
+/sn reset <playername> - Resets a player's power to zero
+/sn rmTarget <playername> - Removes player from the WitchHunter kill list
+/sn reload <type> - Reloads the config.yml or data.yml file
+/sn save - Saves both the config.yml and data.yml files (default: config.yml)
+/sn restartTask - Restarts the task timer used for many passive abilities (in case of it crashing due to overload)
+/sn setChurch - Sets the player's current location as the Church
+/sn setBanish - Sets the player's current location as the Banish location
+
+Permissions:
+
+supernatural.command.help - access to /sn help
+supernatural.command.list - access to /sn list
+supernatural.command.power - access to /sn power
+supernatural.command.classes - access to /sn classes
+supernatural.command.killlist - access to /sn killlist
+
+supernatural.player.shrineuse - access to vampire and priest shrines
+supernatural.player.wolfbane - access to wolfbane potion creation
+supernatural.player.preventwaterdamage - prevents ghouls from taking water damage
+supernatural.player.preventsundamage - prevents vampires from taking damage in sunlight
+supernatural.player.witchhuntersign - allows player to create WitchHunter signs used for WitchHunter Halls
+
+supernatural.admin.infinitepower - gives player unlimited power
+supernatural.admin.partial.curse - allows player to change their own class only
+
+supernatural.world.disabled - disables supernatural players in world if: (multiworld: true) in the config.yml
+
+supernatural.admin.command.adminhelp - access to /sn admin
+supernatural.admin.command.cure - access to /sn cure
+supernatural.admin.command.curse - access to /sn convert
+supernatural.admin.command.power - access to /sn power <playername> [amount]
+supernatural.admin.command.reset - access to /sn reset
+supernatural.admin.command.reload - access to /sn reload
+supernatural.admin.command.save - access to /sn save
+supernatural.admin.command.setchurch - access to /sn setChurch
+supernatural.admin.command.setbanish - access to /sn setBanish
+
+Setting up:
+
+Download the plugin,
+Place it in your plugins directory,
+Start your server,
+Go to the Church and type the command: /sn setChurch,
+Go to the Banish location and type the command: /sn setBanish,
+Make a WitchHunter's Hall by placing an Iron Door with a sign next to it saying "WitchHunter" (Default)
+Done!
