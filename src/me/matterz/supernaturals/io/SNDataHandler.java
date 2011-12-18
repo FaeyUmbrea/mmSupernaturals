@@ -43,7 +43,7 @@ public class SNDataHandler implements Serializable{
 	private HashMap<SuperNPlayer, SuperNPlayer> angels = new HashMap<SuperNPlayer, SuperNPlayer>();
 	private HashMap<SuperNPlayer, ArrayList<String>> hunterApps = new HashMap<SuperNPlayer, ArrayList<String>>();
 
-	private static String path = "plugins/SupernaturalPlayers/storage.dat";
+	private static String path = "plugins/mmSupernaturals/storage.dat";
 
 	// -------------------------------------------- //
 	// 					Read/Write					//
@@ -69,7 +69,9 @@ public class SNDataHandler implements Serializable{
 			handler = (SNDataHandler) ois.readObject();
 			ois.close();
 		}catch(Exception e){
-			SupernaturalsPlugin.log(Level.WARNING, "Storage Data not found.");
+			if(SNConfigHandler.debugMode) {
+				SupernaturalsPlugin.log(Level.WARNING, "Storage Data not found.");
+			}
 		}
 		return handler;
 	}

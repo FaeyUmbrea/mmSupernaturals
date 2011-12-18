@@ -45,6 +45,7 @@ import me.matterz.supernaturals.commands.SNCommandSetChurch;
 import me.matterz.supernaturals.io.SNConfigHandler;
 import me.matterz.supernaturals.io.SNDataHandler;
 import me.matterz.supernaturals.io.SNPlayerHandler;
+import me.matterz.supernaturals.io.SNVersionHandler;
 import me.matterz.supernaturals.listeners.SNBlockListener;
 import me.matterz.supernaturals.listeners.SNEntityListener;
 import me.matterz.supernaturals.listeners.SNEntityMonitor;
@@ -230,6 +231,9 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 		dataFolder = getDataFolder();
 
+		if(!SNVersionHandler.fileExists()) {
+			SNVersionHandler.writeVersion();
+		}
 		SNConfigHandler.getConfiguration();
 
 		loadData();

@@ -279,8 +279,8 @@ public class VampireManager extends ClassManager{
 		if (count < SNConfigHandler.vampireAltarInfectMaterialSurroundCount) {
 			SuperNManager.sendMessage(snplayer, "Something happens... The "
 					+SNConfigHandler.vampireAltarInfectMaterial.toLowerCase()
-					+" draws energy from the "+SNConfigHandler.vampireAltarInfectMaterialSurround.toLowerCase()
-					+"... But there doesn't seem to be enough "+SNConfigHandler.vampireAltarInfectMaterialSurround.toLowerCase()
+					+" draws energy from the "+SNConfigHandler.vampireAltarInfectMaterialSurround.toLowerCase().replace('_', ' ')
+					+"... But there doesn't seem to be enough "+SNConfigHandler.vampireAltarInfectMaterialSurround.toLowerCase().replace('_', ' ')
 					+" nearby.");
 			return;
 		}
@@ -303,7 +303,7 @@ public class VampireManager extends ClassManager{
 			SuperNManager.sendMessage(snplayer, SNConfigHandler.vampireAltarInfectRecipe.getRecipeLine());
 			SuperNManager.sendMessage(snplayer, "The "
 					+SNConfigHandler.vampireAltarInfectMaterial.toLowerCase()
-					+" draws energy from the "+SNConfigHandler.vampireAltarInfectMaterialSurround.toLowerCase()
+					+" draws energy from the "+SNConfigHandler.vampireAltarInfectMaterialSurround.toLowerCase().replace('_', ' ')
 					+"... The energy rushes through you and you feel a bitter cold...");
 			SNConfigHandler.vampireAltarInfectRecipe.removeFromPlayer(player);
 			SuperNManager.convert(snplayer, "vampire", SNConfigHandler.vampirePowerStart);
@@ -326,8 +326,8 @@ public class VampireManager extends ClassManager{
 		if (count < SNConfigHandler.vampireAltarCureMaterialSurroundCount) {
 			SuperNManager.sendMessage(snplayer, "Something happens... The "
 					+SNConfigHandler.vampireAltarCureMaterial.toLowerCase()
-					+" draws energy from the "+SNConfigHandler.vampireAltarCureMaterialSurround.toLowerCase()
-					+"... But there doesn't seem to be enough "+SNConfigHandler.vampireAltarCureMaterialSurround.toLowerCase()
+					+" draws energy from the "+SNConfigHandler.vampireAltarCureMaterialSurround.toLowerCase().replace('_', ' ')
+					+"... But there doesn't seem to be enough "+SNConfigHandler.vampireAltarCureMaterialSurround.toLowerCase().replace('_', ' ')
 					+" nearby.");
 			return;
 		}
@@ -348,7 +348,7 @@ public class VampireManager extends ClassManager{
 			SuperNManager.sendMessage(snplayer, SNConfigHandler.vampireAltarCureRecipe.getRecipeLine());
 			SuperNManager.sendMessage(snplayer, "The "
 					+SNConfigHandler.vampireAltarCureMaterial.toLowerCase()
-					+" draws energy from the "+SNConfigHandler.vampireAltarCureMaterialSurround.toLowerCase()
+					+" draws energy from the "+SNConfigHandler.vampireAltarCureMaterialSurround.toLowerCase().replace('_', ' ')
 					+"... Then the energy rushes through you and you feel pure and clean.");
 			SNConfigHandler.vampireAltarCureRecipe.removeFromPlayer(player);
 			SuperNManager.cure(snplayer);

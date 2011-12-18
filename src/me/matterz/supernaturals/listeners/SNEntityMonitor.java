@@ -81,39 +81,40 @@ public class SNEntityMonitor extends EntityListener {
 		if(event.isCancelled()){
 			return;
 		}
+		if(event instanceof EntityDamageByEntityEvent) {
+			EntityDamageByEntityEvent edbeEvent = (EntityDamageByEntityEvent)event;
 
-		EntityDamageByEntityEvent edbeEvent = (EntityDamageByEntityEvent)event;
+			// Define local fields
+			Entity victim = event.getEntity();
 
-		// Define local fields
-		Entity victim = event.getEntity();
+			Entity damager = edbeEvent.getDamager();
+			Player pDamager = null;
 
-		Entity damager = edbeEvent.getDamager();
-		Player pDamager = null;
-
-		//For further interest that attacker must be a player.
-		if(damager instanceof Projectile) {
-			if(((Projectile)damager).getShooter() instanceof Player) {
-				pDamager = (Player)((Projectile)damager).getShooter();
+			//For further interest that attacker must be a player.
+			if(damager instanceof Projectile) {
+				if(((Projectile)damager).getShooter() instanceof Player) {
+					pDamager = (Player)((Projectile)damager).getShooter();
+				}
+			} else if (damager instanceof Player) {
+				pDamager = (Player)damager;
 			}
-		} else if (damager instanceof Player) {
-			pDamager = (Player)damager;
-		}
-		if(damager == null) {
-			return;
-		}
-		if(pDamager == null) {
-			return;
-		}
-		SuperNPlayer snDamager = SuperNManager.get(pDamager);
+			if(damager == null) {
+				return;
+			}
+			if(pDamager == null) {
+				return;
+			}
+			SuperNPlayer snDamager = SuperNManager.get(pDamager);
 
-		if(victim instanceof Creature){
-			Creature cVictim = (Creature)victim;
+			if(victim instanceof Creature){
+				Creature cVictim = (Creature)victim;
 
-			//Break vampire truce
-			if(snDamager.isVampire() && SNConfigHandler.vampireTruce.contains(EntityUtil.creatureTypeFromEntity(cVictim))){
-				plugin.getSuperManager().truceBreak(snDamager);
-			} else if(snDamager.isGhoul() && SNConfigHandler.ghoulTruce.contains(EntityUtil.creatureTypeFromEntity(cVictim))){
-				plugin.getSuperManager().truceBreak(snDamager);
+				//Break vampire truce
+				if(snDamager.isVampire() && SNConfigHandler.vampireTruce.contains(EntityUtil.creatureTypeFromEntity(cVictim))){
+					plugin.getSuperManager().truceBreak(snDamager);
+				} else if(snDamager.isGhoul() && SNConfigHandler.ghoulTruce.contains(EntityUtil.creatureTypeFromEntity(cVictim))){
+					plugin.getSuperManager().truceBreak(snDamager);
+				}
 			}
 		}
 	}

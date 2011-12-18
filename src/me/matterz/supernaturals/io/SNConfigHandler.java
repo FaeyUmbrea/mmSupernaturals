@@ -264,6 +264,9 @@ public class SNConfigHandler {
 
 	public static void loadValues(Configuration config){
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
+		if(!SNVersionHandler.readVersion().equals(plugin.getDescription().getVersion())) {
+			SNVersionHandler.writeVersion();
+		}
 		if(!configFile.exists()) {
 			config.set("DebugMode", false);
 			config.set("MultiWorld", false);
@@ -858,7 +861,7 @@ public class SNConfigHandler {
 		ghoulDeathPowerPenalty = config.getInt("Ghoul.Power.DeathPenalty", 2000);
 		ghoulDamageReceivedFactor = config.getDouble("Ghoul.DamageFactor.DefenseBonus", 0.65);
 		ghoulWeaponsString = config.getStringList("Ghoul.Weapon.Restrictions");
-		ghoulTruceString = config.getStringList("Ghoul.TruceString");
+		ghoulTruceString = config.getStringList("Ghoul.Truce.Creatures");
 		ghoulDamageFactor = config.getDouble("Ghoul.DamageFactor.AttackBonus", 2);
 		ghoulDamageWater = config.getInt("Ghoul.WaterDamage", 4);
 		ghoulHealthGained = config.getDouble("Ghoul.Time.HealthGained", 0.1);
