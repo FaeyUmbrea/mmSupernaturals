@@ -42,18 +42,18 @@ import me.matterz.supernaturals.SupernaturalsPlugin;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
 public class GhoulManager extends ClassManager{
-	
+
 	public GhoulManager(){
 		super();
 	}
-	
+
 	private String permissions = "supernatural.player.preventwaterdamage";
 	private HashMap<SuperNPlayer, SuperNPlayer> bonds = new HashMap<SuperNPlayer, SuperNPlayer>();
-	
+
 	// -------------------------------------------- //
 	// 					Damage Events				//
 	// -------------------------------------------- //
-	
+
 	@Override
 	public double victimEvent(EntityDamageEvent event, double damage){
 		if(event.getCause().equals(DamageCause.FALL)){
@@ -68,7 +68,7 @@ public class GhoulManager extends ClassManager{
 				Player victim = (Player) event.getEntity();
 				SuperNPlayer snVictim = SuperNManager.get(victim);
 				ItemStack item = pDamager.getItemInHand();
-				
+
 				if(SNConfigHandler.ghoulWeaponImmunity.contains(item.getType())){
 					damage = 0;
 					SuperNManager.sendMessage(snDamager, "Ghouls are immune to that weapon!");
@@ -79,7 +79,7 @@ public class GhoulManager extends ClassManager{
 		}
 		return damage;
 	}
-	
+
 	@Override
 	public double damagerEvent(EntityDamageByEntityEvent event, double damage){
 		Entity damager = event.getDamager();
@@ -97,16 +97,16 @@ public class GhoulManager extends ClassManager{
 		}
 		return damage;
 	}
-	
+
 	@Override
 	public void deathEvent(Player player){
 		if(SNConfigHandler.debugMode)
 			SupernaturalsPlugin.log("Player died.");
-		
+
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNManager.alterPower(snplayer, -SNConfigHandler.ghoulDeathPowerPenalty, "You died!");
 	}
-	
+
 	@Override
 	public void killEvent(SuperNPlayer damager, SuperNPlayer victim){
 		if(victim==null){
@@ -127,25 +127,25 @@ public class GhoulManager extends ClassManager{
 			}
 		}
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Interact					//
 	// -------------------------------------------- //
-	
+
 	@Override
 	public boolean playerInteract(PlayerInteractEvent event){
-	
+
 		Action action = event.getAction();
 		Player player = event.getPlayer();
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		
+
 		Material itemMaterial = event.getMaterial();
-		
+
 		if(action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)){
 			if(player.getItemInHand()==null){
 				return false;
 			}
-			
+
 			if(itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.ghoulMaterial)){
 				summon(player);
 				event.setCancelled(true);
@@ -163,11 +163,11 @@ public class GhoulManager extends ClassManager{
 		}
 		return false;
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Armor						//
 	// -------------------------------------------- //
-	
+
 	@Override
 	public void armorCheck(Player player){
 		PlayerInventory inv = player.getInventory();
@@ -175,7 +175,7 @@ public class GhoulManager extends ClassManager{
 		ItemStack chest = inv.getChestplate();
 		ItemStack leggings = inv.getLeggings();
 		ItemStack boots = inv.getBoots();
-		
+
 		if(!(SNConfigHandler.ghoulArmor.contains(helmet.getType()))){
 			inv.setHelmet(null);
 			dropItem(player, helmet);
@@ -193,11 +193,11 @@ public class GhoulManager extends ClassManager{
 			dropItem(player, boots);
 		}
 	}
-	
+
 	// -------------------------------------------- //
 	// 				Water Damage					//
 	// -------------------------------------------- //
-	
+
 	public void waterAdvanceTime(Player player){
 		if(player.isDead())
 			return;
@@ -208,10 +208,10 @@ public class GhoulManager extends ClassManager{
 				return;
 			}
 		}
-		
+
 		Material material = player.getLocation().getBlock().getType();
-		
-		if(material == Material.STATIONARY_WATER || material == Material.WATER){
+
+		if((material == Material.STATIONARY_WATER) || (material == Material.WATER)){
 			int health = (player.getHealth()-SNConfigHandler.ghoulDamageWater);
 			if(health<0)
 				health=0;
@@ -221,11 +221,11 @@ public class GhoulManager extends ClassManager{
 			SuperNManager.sendMessage(SuperNManager.get(player), "Ghouls disintegrate in water!  Get Out Quick!");
 		}
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Spells						//
 	// -------------------------------------------- //
-	
+
 	public void removeBond(SuperNPlayer player){
 		if(bonds.containsKey(player)){
 			SuperNManager.sendMessage(player, "Removed Unholy Bond from "+ChatColor.WHITE+bonds.get(player).getName());
@@ -247,12 +247,12 @@ public class GhoulManager extends ClassManager{
 				}
 			}
 		}
-			
+
 	}
-	
+
 	public boolean createBond(Player player, Player victim){
 		SuperNPlayer ghoul = SuperNManager.get(player);
-		
+
 		if(victim == null){
 			if(bonds.containsKey(ghoul)){
 				SuperNManager.sendMessage(ghoul, "Removed Unholy Bond from "+ChatColor.WHITE+bonds.get(ghoul).getName());
@@ -263,9 +263,9 @@ public class GhoulManager extends ClassManager{
 			}
 			return false;
 		}
-		
+
 		SuperNPlayer snvictim = SuperNManager.get(victim);
-		
+
 		if(snvictim.isSuper()){
 			if(bonds.containsKey(ghoul)){
 				SuperNManager.sendMessage(ghoul, "Removed Unholy Bond from "+ChatColor.WHITE+bonds.get(ghoul).getName());
@@ -280,7 +280,7 @@ public class GhoulManager extends ClassManager{
 			if(SNConfigHandler.debugMode)
 				SupernaturalsPlugin.log("Unholy Bond formed for "+ghoul.getName()+" with "+snvictim.getName());
 			bonds.put(ghoul, snvictim);
-			
+
 			ItemStack item = player.getItemInHand();
 			if(item.getAmount()==1){
 				player.setItemInHand(null);
@@ -292,11 +292,11 @@ public class GhoulManager extends ClassManager{
 		SuperNManager.sendMessage(ghoul, "You cannot form a bond with a human.");
 		return false;
 	}
-	
+
 	public boolean checkBond(Player player){
 		SuperNPlayer snvictim = SuperNManager.get(player);
 		SuperNPlayer snplayer = null;
-		
+
 		if(bonds.containsValue(snvictim)){
 			for(SuperNPlayer ghoul : bonds.keySet()){
 				if(bonds.get(ghoul).equals(snvictim)){
@@ -305,23 +305,23 @@ public class GhoulManager extends ClassManager{
 				}
 			}
 		}
-		
+
 		if(snplayer==null)
 			return false;
 
-        if(!snplayer.isOnline() || snplayer.isDead())
+		if(!snplayer.isOnline() || snplayer.isDead())
 			return false;
-		
+
 		Player gPlayer = SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName());
-		
+
 		if(!gPlayer.getWorld().equals(player.getWorld()))
 			return false;
-		
+
 		double distance = gPlayer.getLocation().distance(player.getLocation());
-		
+
 		if(distance > 10)
 			return false;
-		
+
 		if(snplayer.getPower() > SNConfigHandler.ghoulPowerBond){
 			if(SNConfigHandler.debugMode)
 				SupernaturalsPlugin.log("Unholy Bond activated for "+snplayer.getName()+" with "+snvictim.getName());
@@ -332,7 +332,7 @@ public class GhoulManager extends ClassManager{
 			return false;
 		}
 	}
-	
+
 	public SuperNPlayer getGhoul(SuperNPlayer snplayer){
 		if(bonds.containsValue(snplayer)){
 			for(SuperNPlayer ghoul : bonds.keySet()){
@@ -343,7 +343,7 @@ public class GhoulManager extends ClassManager{
 		}
 		return null;
 	}
-	
+
 	public boolean summon(Player player){
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		ItemStack item = player.getItemInHand();
@@ -367,21 +367,21 @@ public class GhoulManager extends ClassManager{
 			return false;
 		}
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Rain Check					//
 	// -------------------------------------------- //
-	
+
 	@SuppressWarnings("deprecation")
 	public boolean isUnderRoof(Player player) {
 		/*
 		We start checking opacity 2 blocks up.
 		As Max Y is 127 there CAN be a roof over the player if he is standing in block 125:
 		127 Solid Block
-		126 
+		126
 		125 Player
 		However if he is standing in 126 there is no chance.
-		*/
+		 */
 		boolean retVal = false;
 		Block blockCurrent = player.getLocation().getBlock();
 
@@ -392,10 +392,10 @@ public class GhoulManager extends ClassManager{
 		else
 		{
 			blockCurrent = blockCurrent.getFace(BlockFace.UP, 1);
-			while (blockCurrent.getY() + 1 <= 127) 
+			while ((blockCurrent.getY() + 1) <= 127)
 			{
 				blockCurrent = blockCurrent.getRelative(BlockFace.UP);
-			
+
 				if(!blockCurrent.getType().equals(Material.AIR)){
 					retVal = true;
 					break;

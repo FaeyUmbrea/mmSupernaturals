@@ -30,7 +30,7 @@ import org.bukkit.entity.Player;
 
 
 public class SNCommandPower extends SNCommand {
-	
+
 	public SNCommandPower() {
 		super();
 		requiredParameters = new ArrayList<String>();
@@ -43,20 +43,20 @@ public class SNCommandPower extends SNCommand {
 		helpNameAndParams = "power [amount] | power [playername] [amount]";
 		helpDescription = "See current power level";
 	}
-	
+
 	@Override
 	public void perform() {
-		
+
 		Player senderPlayer = (Player) sender;
 		String permissions2 = "supernatural.admin.command.power";
-		
+
 		if(parameters.isEmpty()){
 			if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
 				this.sendMessage("You do not have permissions to use this command.");
 				return;
 			}
 			SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
-					
+
 			this.sendMessage("You are a "+ChatColor.WHITE+snplayer.getType()+ChatColor.RED+" and your current power level is: " +ChatColor.WHITE+ (int) snplayer.getPower());
 			return;
 		} else {
@@ -66,7 +66,7 @@ public class SNCommandPower extends SNCommand {
 			}
 			if(parameters.size()==1){
 				double powerGain;
-				
+
 				try{
 					powerGain = Double.parseDouble(parameters.get(0));
 				} catch(NumberFormatException e) {
@@ -76,7 +76,7 @@ public class SNCommandPower extends SNCommand {
 				if(powerGain>=10000D){
 					powerGain=9999;
 				}
-				
+
 				SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
 				SuperNManager.alterPower(snplayer, powerGain, "Admin boost!");
 			}else{
@@ -87,7 +87,7 @@ public class SNCommandPower extends SNCommand {
 					return;
 				}
 				double powerGain;
-				
+
 				try{
 					powerGain = Double.parseDouble(parameters.get(1));
 				} catch(NumberFormatException e) {

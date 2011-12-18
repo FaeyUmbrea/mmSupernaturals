@@ -41,25 +41,25 @@ import me.matterz.supernaturals.SupernaturalsPlugin;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
 public class PriestManager extends HumanManager{
-	
+
 	public PriestManager(){
 		super();
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Damage Events				//
 	// -------------------------------------------- //
-	
+
 	@Override
 	public double victimEvent(EntityDamageEvent event, double damage){
 		return damage;
 	}
-	
+
 	@Override
 	public double damagerEvent(EntityDamageByEntityEvent event, double damage){
 		Player pDamager = (Player) event.getDamager();
 		Entity victim = event.getEntity();
-		
+
 		SuperNPlayer snDamager = SuperNManager.get(pDamager);
 		ItemStack item = pDamager.getItemInHand();
 
@@ -69,7 +69,7 @@ public class PriestManager extends HumanManager{
 			SuperNManager.sendMessage(snDamager, "Priests cannot use this weapon!");
 			return 0;
 		}
-		
+
 		if((victim instanceof Animals) && !(victim instanceof Wolf)){
 			SuperNManager.sendMessage(SuperNManager.get(pDamager), "You cannot hurt innocent animals.");
 			damage = 0;
@@ -83,7 +83,7 @@ public class PriestManager extends HumanManager{
 					pVictim.setFireTicks(SNConfigHandler.priestFireTicks);
 				damage += damage * SuperNManager.get(pDamager).scale(SNConfigHandler.priestDamageFactorAttackSuper);
 			}else{
-				damage += damage * SuperNManager.get(pDamager).scale(SNConfigHandler.priestDamageFactorAttackHuman); 
+				damage += damage * SuperNManager.get(pDamager).scale(SNConfigHandler.priestDamageFactorAttackHuman);
 			}
 		}else if(victim instanceof Monster){
 			Monster mVictim = (Monster) victim;
@@ -91,37 +91,37 @@ public class PriestManager extends HumanManager{
 		}
 		return damage;
 	}
-	
+
 	@Override
 	public void deathEvent(Player player){
-        super.deathEvent(player);
+		super.deathEvent(player);
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNManager.alterPower(snplayer, -SNConfigHandler.priestDeathPowerPenalty, "You died!");
 	}
-	
+
 	@Override
 	public void killEvent(SuperNPlayer damager, SuperNPlayer victim){
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Interact					//
 	// -------------------------------------------- //
-	
+
 	@Override
 	public boolean playerInteract(PlayerInteractEvent event){
-		
+
 		Action action = event.getAction();
 		Player player = event.getPlayer();
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		Material itemMaterial = event.getMaterial();
-		
+
 		boolean cancelled = false;
-		
+
 		if(action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)){
 			if(player.getItemInHand()==null){
 				return false;
 			}
-			
+
 			if(SNConfigHandler.priestSpellMaterials.contains(itemMaterial)){
 				if(SNConfigHandler.debugMode)
 					SupernaturalsPlugin.log(snplayer.getName() + " is attempting to cast a spell...");
@@ -166,14 +166,14 @@ public class PriestManager extends HumanManager{
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Armor						//
 	// -------------------------------------------- //
-	
+
 	@Override
 	public void armorCheck(Player player){
 		PlayerInventory inv = player.getInventory();
@@ -181,7 +181,7 @@ public class PriestManager extends HumanManager{
 		ItemStack chest = inv.getChestplate();
 		ItemStack leggings = inv.getLeggings();
 		ItemStack boots = inv.getBoots();
-		
+
 		if(!(SNConfigHandler.priestArmor.contains(helmet.getType()))){
 			inv.setHelmet(null);
 			dropItem(player, helmet);
@@ -199,11 +199,11 @@ public class PriestManager extends HumanManager{
 			dropItem(player, boots);
 		}
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Church						//
 	// -------------------------------------------- //
-	
+
 	@SuppressWarnings("deprecation")
 	public void useAltar(Player player){
 		Location location = player.getLocation();
@@ -251,7 +251,7 @@ public class PriestManager extends HumanManager{
 								player.setLastDamageCause(event);
 								player.setHealth(0);
 								if(snplayer.isGhoul()){
-								double random = Math.random();
+									double random = Math.random();
 									if(random<(SNConfigHandler.spreadChance-0.1)){
 										SuperNManager.cure(snplayer);
 									}
@@ -274,7 +274,7 @@ public class PriestManager extends HumanManager{
 			}
 		}
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public void remoteDonations(Player player){
 		SuperNPlayer snplayer = SuperNManager.get(player);
@@ -282,34 +282,34 @@ public class PriestManager extends HumanManager{
 		ItemStack[] items = inv.getContents();
 		double delta = 0;
 		invCheck:
-		for(Material mat : SNConfigHandler.priestDonationMap.keySet()){
-			for(ItemStack itemStack : items){
-				if(itemStack!=null){
-					if(itemStack.getType().equals(mat)){
-						delta = SNConfigHandler.priestDonationMap.get(mat);
-						if(itemStack.getAmount()==1){
-							inv.clear(inv.first(itemStack.getType()));
-						}else{
-							itemStack.setAmount(itemStack.getAmount()-1);
+			for(Material mat : SNConfigHandler.priestDonationMap.keySet()){
+				for(ItemStack itemStack : items){
+					if(itemStack!=null){
+						if(itemStack.getType().equals(mat)){
+							delta = SNConfigHandler.priestDonationMap.get(mat);
+							if(itemStack.getAmount()==1){
+								inv.clear(inv.first(itemStack.getType()));
+							}else{
+								itemStack.setAmount(itemStack.getAmount()-1);
+							}
+							break invCheck;
 						}
-						break invCheck;
 					}
 				}
 			}
-		}
 		if(delta==0){
 			SuperNManager.sendMessage(snplayer, "The Church only accepts donations of Bread, Fish, Grilled Pork and Apples.");
 		}else{
 			player.updateInventory();
 			SuperNManager.sendMessage(snplayer, "You receive some power for your remote donations.");
 			SuperNManager.alterPower(snplayer, delta*.5, "Donations!");
-		}		
+		}
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Spells						//
 	// -------------------------------------------- //
-	
+
 	public boolean banish(Player player, Player victim){
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNPlayer snvictim = SuperNManager.get(victim);
@@ -337,12 +337,12 @@ public class PriestManager extends HumanManager{
 			return false;
 		}
 	}
-	
+
 	public boolean heal(Player player, Player victim){
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNPlayer snvictim = SuperNManager.get(victim);
 		if(snplayer.getPower() > SNConfigHandler.priestPowerHeal){
-			if(!snvictim.isSuper() && victim.getHealth()<20 && !victim.isDead()){
+			if(!snvictim.isSuper() && (victim.getHealth()<20) && !victim.isDead()){
 				SuperNManager.alterPower(snplayer, -SNConfigHandler.priestPowerHeal, "Healed "+victim.getName());
 				SuperNManager.sendMessage(snvictim, "You were healed by "+ChatColor.WHITE+snplayer.getName()+ChatColor.RED+"!");
 				int health = victim.getHealth()+SNConfigHandler.priestHealAmount;
@@ -365,7 +365,7 @@ public class PriestManager extends HumanManager{
 			return false;
 		}
 	}
-	
+
 	public boolean exorcise(Player player, Player victim){
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNPlayer snvictim = SuperNManager.get(victim);
@@ -394,7 +394,7 @@ public class PriestManager extends HumanManager{
 			return false;
 		}
 	}
-	
+
 	public boolean cure(Player player, Player victim, Material material){
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNPlayer snvictim = SuperNManager.get(victim);
@@ -431,7 +431,7 @@ public class PriestManager extends HumanManager{
 			return false;
 		}
 	}
-	
+
 	public boolean drainPower(Player player, Player victim){
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNPlayer snvictim = SuperNManager.get(victim);
@@ -461,11 +461,11 @@ public class PriestManager extends HumanManager{
 			return false;
 		}
 	}
-	
+
 	public boolean guardianAngel(Player player, Player victim){
 		SuperNPlayer priest = SuperNManager.get(player);
 		SuperNPlayer snvictim = SuperNManager.get(victim);
-		
+
 		if(priest.getPower() > SNConfigHandler.priestPowerGuardianAngel){
 			if(!snvictim.isSuper()){
 				if(SupernaturalsPlugin.instance.getDataHandler().hasAngel(priest)){
@@ -476,7 +476,7 @@ public class PriestManager extends HumanManager{
 				SuperNManager.sendMessage(snvictim, "You now have a Guardian Angel!");
 				SuperNManager.alterPower(priest, -SNConfigHandler.priestPowerGuardianAngel, "Guardian Angel on "+ChatColor.WHITE+snvictim.getName()+ChatColor.RED+"!");
 				SupernaturalsPlugin.instance.getDataHandler().addAngel(priest, snvictim);
-				
+
 				ItemStack item = player.getItemInHand();
 				if(item.getAmount()==1){
 					player.setItemInHand(null);

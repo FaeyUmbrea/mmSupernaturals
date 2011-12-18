@@ -29,7 +29,7 @@ import org.bukkit.entity.Player;
 
 public class SNCommandClasses extends SNCommand{
 	private static List<String> classMessages = new ArrayList<String>();
-	
+
 	public SNCommandClasses(){
 		super();
 		requiredParameters = new ArrayList<String>();
@@ -38,7 +38,7 @@ public class SNCommandClasses extends SNCommand{
 		senderMustBeSupernatural = false;
 		permissions = "supernatural.command.classes";
 	}
-	
+
 	static{
 		classMessages.add("*** "+ChatColor.WHITE+"Supernatural Classes "+ChatColor.RED+"***");
 		classMessages.add("Human: "+ChatColor.WHITE+"- Your standard run of the mill person.");
@@ -49,17 +49,17 @@ public class SNCommandClasses extends SNCommand{
 		classMessages.add("WitchHunter: "+ChatColor.WHITE+"- Expert at bows and stealth.");
 		classMessages.add("Demon: "+ChatColor.WHITE+"- Possesses an unholy union with fire.");
 	}
-	
+
 	@Override
 	public void perform()
 	{
 		Player senderPlayer = (Player) sender;
-		
+
 		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
 			this.sendMessage("You do not have permissions to use this command.");
 			return;
 		}
-		
+
 		this.sendMessage(classMessages);
 	}
 

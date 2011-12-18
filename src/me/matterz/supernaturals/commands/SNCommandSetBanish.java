@@ -27,7 +27,7 @@ import me.matterz.supernaturals.io.SNConfigHandler;
 import org.bukkit.entity.Player;
 
 public class SNCommandSetBanish extends SNCommand {
-	
+
 	public SNCommandSetBanish() {
 		super();
 		requiredParameters = new ArrayList<String>();
@@ -38,34 +38,34 @@ public class SNCommandSetBanish extends SNCommand {
 		helpNameAndParams = "";
 		helpDescription = "Sets the current location as the priests' banish location";
 	}
-	
+
 	@Override
 	public void perform() {
-		
+
 		Player senderPlayer = (Player) sender;
 		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
 			this.sendMessage("You do not have permissions to use this command.");
 			return;
 		}
-		
+
 		double currentX = senderPlayer.getLocation().getX();
 		double currentY = senderPlayer.getLocation().getY();
 		double currentZ = senderPlayer.getLocation().getZ();
-		
+
 		SNConfigHandler.priestBanishWorld = senderPlayer.getWorld().getName();
 		SNConfigHandler.priestBanishLocationX = (int) currentX;
 		SNConfigHandler.priestBanishLocationY = (int) currentY;
 		SNConfigHandler.priestBanishLocationZ = (int) currentZ;
-		
+
 		SNConfigHandler.priestBanishLocation = senderPlayer.getLocation();
-		
-		SNConfigHandler.getConfig().setProperty("Priest.Banish.World", SNConfigHandler.priestBanishWorld);
-		SNConfigHandler.getConfig().setProperty("Priest.Banish.Location.X", SNConfigHandler.priestBanishLocationX);
-		SNConfigHandler.getConfig().setProperty("Priest.Banish.Location.Y", SNConfigHandler.priestBanishLocationY);
-		SNConfigHandler.getConfig().setProperty("Priest.Banish.Location.Z", SNConfigHandler.priestBanishLocationZ);
-		
+
+		SNConfigHandler.getConfig().set("Priest.Banish.World", SNConfigHandler.priestBanishWorld);
+		SNConfigHandler.getConfig().set("Priest.Banish.Location.X", SNConfigHandler.priestBanishLocationX);
+		SNConfigHandler.getConfig().set("Priest.Banish.Location.Y", SNConfigHandler.priestBanishLocationY);
+		SNConfigHandler.getConfig().set("Priest.Banish.Location.Z", SNConfigHandler.priestBanishLocationZ);
+
 		SupernaturalsPlugin.saveData();
-				
+
 		this.sendMessage("Banish location set.");
 	}
 }

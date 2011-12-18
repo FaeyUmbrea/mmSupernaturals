@@ -32,21 +32,21 @@ import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerPortalEvent;
 
 public class SNPlayerMonitor extends PlayerListener {
-	
+
 	private SupernaturalsPlugin plugin;
 	private String worldPermission = "supernatural.world.disabled";
-	
+
 	public SNPlayerMonitor(SupernaturalsPlugin instance){
 		this.plugin = instance;
 	}
-	
-//	@Override
-//	public void onPlayerRespawn(PlayerRespawnEvent event){
-//		if(SupernaturalManager.get(event.getPlayer()).isHunter()){
-//			event.getPlayer().setSneaking(true);
-//		}
-//	}
-	
+
+	//	@Override
+	//	public void onPlayerRespawn(PlayerRespawnEvent event){
+	//		if(SupernaturalManager.get(event.getPlayer()).isHunter()){
+	//			event.getPlayer().setSneaking(true);
+	//		}
+	//	}
+
 	@Override
 	public void onPlayerPortal(PlayerPortalEvent event){
 		Player player = event.getPlayer();
@@ -58,14 +58,14 @@ public class SNPlayerMonitor extends PlayerListener {
 			plugin.getDemonManager().checkInventory(player);
 		}
 	}
-	
+
 	@Override
-	public void onPlayerJoin(PlayerJoinEvent event){	    
+	public void onPlayerJoin(PlayerJoinEvent event){
 		Player player = event.getPlayer();
 		if(SupernaturalsPlugin.hasPermissions(event.getPlayer(), worldPermission) && SNConfigHandler.multiworld)
 			return;
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		
+
 		if(SNConfigHandler.enableColors){
 			if(snplayer.isHuman()){
 				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.WHITE+player.getName()));
@@ -83,7 +83,7 @@ public class SNPlayerMonitor extends PlayerListener {
 				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.GOLD+player.getName()));
 				plugin.getServer().broadcastMessage(ChatColor.GOLD + "Priest " + player.getName() + ChatColor.GOLD + " has joined the server.");
 			} else if(snplayer.isHunter()){
-	//			player.setSneaking(true);
+				//			player.setSneaking(true);
 				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.GREEN+player.getName()));
 				plugin.getServer().broadcastMessage(ChatColor.GREEN + "WitchHunter " + player.getName() + ChatColor.GOLD + " has joined the server.");
 			} else if(snplayer.isDemon()){
@@ -91,6 +91,6 @@ public class SNPlayerMonitor extends PlayerListener {
 				plugin.getServer().broadcastMessage(ChatColor.RED + "Demon " + player.getName() + ChatColor.GOLD + " has joined the server.");
 			}
 		}
-		
+
 	}
 }

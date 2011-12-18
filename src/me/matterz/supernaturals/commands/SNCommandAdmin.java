@@ -29,7 +29,7 @@ import me.matterz.supernaturals.SupernaturalsPlugin;
 
 public class SNCommandAdmin extends SNCommand{
 	private static List<String> adminHelpMessages = new ArrayList<String>();
-	
+
 	public SNCommandAdmin(){
 		super();
 		requiredParameters = new ArrayList<String>();
@@ -38,7 +38,7 @@ public class SNCommandAdmin extends SNCommand{
 		senderMustBeSupernatural = false;
 		permissions = "supernatural.admin.command.adminhelp";
 	}
-	
+
 	static{
 		adminHelpMessages.add("*** "+ChatColor.WHITE+"Supernatural Admin Help"+ChatColor.RED+" ***");
 		adminHelpMessages.add("/sn cure <PlayerName> "+ChatColor.WHITE+"- Cure self or player.");
@@ -52,7 +52,7 @@ public class SNCommandAdmin extends SNCommand{
 		adminHelpMessages.add("/sn setchurch "+ChatColor.WHITE+"- Sets your current location as the priests' church.");
 		adminHelpMessages.add("/sn setbanish "+ChatColor.WHITE+"- Sets your current location as the priests' banish spot.");
 	}
-	
+
 	@Override
 	public void perform()
 	{

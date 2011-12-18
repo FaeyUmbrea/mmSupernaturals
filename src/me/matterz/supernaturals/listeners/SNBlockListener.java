@@ -36,28 +36,28 @@ public class SNBlockListener extends BlockListener{
 	private SupernaturalsPlugin plugin;
 	private String permissions = "supernatural.player.witchhuntersign";
 	private String worldPermission = "supernatural.world.disabled";
-	
+
 	public SNBlockListener(SupernaturalsPlugin instance){
 		this.plugin = instance;
 	}
-	
+
 	@Override
 	public void onBlockBreak(BlockBreakEvent event){
 		Block eventBlock = event.getBlock();
 		if(eventBlock.getType().equals(Material.WEB)) {
-    		for(Block block : plugin.getDemonManager().getWebs().keySet()){
-    			if(block.equals(eventBlock)){
-    				event.setCancelled(true);
-    				block.setType(Material.AIR);
-    				plugin.getDemonManager().removeWeb(block);
-    				if(SNConfigHandler.debugMode)
-    					SupernaturalsPlugin.log("Removed web block through destruction.");
-    				return;
-    			}
-    		}
+			for(Block block : plugin.getDemonManager().getWebs().keySet()){
+				if(block.equals(eventBlock)){
+					event.setCancelled(true);
+					block.setType(Material.AIR);
+					plugin.getDemonManager().removeWeb(block);
+					if(SNConfigHandler.debugMode)
+						SupernaturalsPlugin.log("Removed web block through destruction.");
+					return;
+				}
+			}
 		}
 	}
-	
+
 	@Override
 	public void onSignChange(SignChangeEvent event){
 		Player player = event.getPlayer();

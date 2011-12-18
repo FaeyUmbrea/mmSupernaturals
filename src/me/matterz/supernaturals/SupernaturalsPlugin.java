@@ -84,16 +84,16 @@ import static com.sk89q.worldguard.bukkit.BukkitUtil.*;
 
 public class SupernaturalsPlugin extends JavaPlugin {
 	public static SupernaturalsPlugin instance;
-	
+
 	private final SNConfigHandler snConfig = new SNConfigHandler(this);
 	private SNDataHandler snData = new SNDataHandler();
-	
+
 	private final SNEntityListener entityListener = new SNEntityListener(this);
 	private final SNPlayerListener playerListener = new SNPlayerListener(this);
 	private final SNPlayerMonitor playerMonitor = new SNPlayerMonitor(this);
 	private final SNEntityMonitor entityMonitor = new SNEntityMonitor(this);
 	private final SNBlockListener blockListener = new SNBlockListener(this);
-	
+
 	private SuperNManager superManager = new SuperNManager(this);
 	private HumanManager humanManager = new HumanManager();
 	private VampireManager vampManager = new VampireManager();
@@ -102,94 +102,94 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	private GhoulManager ghoulManager = new GhoulManager();
 	private HunterManager hunterManager = new HunterManager();
 	private DemonManager demonManager = new DemonManager();
-	
+
 	public List<SNCommand> commands = new ArrayList<SNCommand>();
-	
+
 	private static File dataFolder;
-	
+
 	private static PermissionHandler permissionHandler;
-	
+
 	public SupernaturalsPlugin(){
 		SupernaturalsPlugin.instance = this;
 	}
-	
+
 	public SNDataHandler getDataHandler(){
 		return snData;
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Managers					//
 	// -------------------------------------------- //
-	
+
 	public SuperNManager getSuperManager(){
 		return superManager;
 	}
-	
+
 	public SNConfigHandler getConfigManager(){
 		return snConfig;
 	}
-	
+
 	public VampireManager getVampireManager(){
 		return vampManager;
 	}
-	
+
 	public PriestManager getPriestManager(){
 		return priestManager;
 	}
-	
+
 	public WereManager getWereManager(){
 		return wereManager;
 	}
-	
+
 	public GhoulManager getGhoulManager(){
 		return ghoulManager;
 	}
-	
+
 	public HunterManager getHunterManager(){
 		return hunterManager;
 	}
-	
+
 	public DemonManager getDemonManager(){
 		return demonManager;
 	}
-	
+
 	public ClassManager getClassManager(Player player){
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		if(snplayer.getType().equalsIgnoreCase("demon"))
 			return demonManager;
 		else if(snplayer.getType().equalsIgnoreCase("ghoul"))
-				return ghoulManager;
+			return ghoulManager;
 		else if(snplayer.getType().equalsIgnoreCase("witchhunter"))
-				return hunterManager;
+			return hunterManager;
 		else if(snplayer.getType().equalsIgnoreCase("priest"))
-				return priestManager;
+			return priestManager;
 		else if(snplayer.getType().equalsIgnoreCase("vampire"))
-				return vampManager;
+			return vampManager;
 		else if(snplayer.getType().equalsIgnoreCase("werewolf"))
-				return wereManager;
+			return wereManager;
 		else
 			return humanManager;
 	}
-	
+
 	// -------------------------------------------- //
 	// 			Plugin Enable/Disable				//
 	// -------------------------------------------- //
-	
+
 	@Override
 	public void onDisable() {
 		SuperNManager.cancelTimer();
 		snData.write();
-		
+
 		saveData();
 		demonManager.removeAllWebs();
 		PluginDescriptionFile pdfFile = this.getDescription();
-        log(pdfFile.getName() + " version " + pdfFile.getVersion() + " disabled.");
-		
+		log(pdfFile.getName() + " version " + pdfFile.getVersion() + " disabled.");
+
 	}
 
 	@Override
 	public void onEnable() {
-		
+
 		// Add the commands
 		commands.add(new SNCommandHelp());
 		commands.add(new SNCommandAdmin());
@@ -206,46 +206,46 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		commands.add(new SNCommandKillList());
 		commands.add(new SNCommandRmTarget());
 		commands.add(new SNCommandRestartTask());
-		
+
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvent(Type.PLAYER_INTERACT, this.playerListener, Priority.Low, this);
 		pm.registerEvent(Type.PLAYER_KICK, this.playerListener, Priority.Low, this);
-		
+
 		pm.registerEvent(Type.PLAYER_JOIN, this.playerMonitor, Priority.Monitor, this);
 		pm.registerEvent(Type.PLAYER_PORTAL, this.playerMonitor, Priority.Monitor, this);
-		
+
 		pm.registerEvent(Type.ENTITY_DAMAGE, this.entityListener, Priority.Normal, this);
 		pm.registerEvent(Type.ENTITY_TARGET, this.entityListener, Priority.Normal, this);
 		pm.registerEvent(Type.ENTITY_EXPLODE, this.entityListener, Priority.Normal, this);
-		
+
 		pm.registerEvent(Type.ENTITY_DAMAGE, this.entityMonitor, Priority.Monitor, this);
 		pm.registerEvent(Type.ENTITY_DEATH, this.entityMonitor, Priority.Monitor, this);
 		pm.registerEvent(Type.PROJECTILE_HIT, this.entityMonitor, Priority.Monitor, this);
-		
+
 		pm.registerEvent(Type.BLOCK_BREAK, this.blockListener, Priority.Low, this);
 		pm.registerEvent(Type.SIGN_CHANGE, this.blockListener, Priority.Low, this);
-		
-        PluginDescriptionFile pdfFile = this.getDescription();
-        log(pdfFile.getName() + " version " + pdfFile.getVersion() + " enabled.");
-        
-        dataFolder = getDataFolder();
-        
-        SNConfigHandler.getConfiguration();
 
-	    loadData();
+		PluginDescriptionFile pdfFile = this.getDescription();
+		log(pdfFile.getName() + " version " + pdfFile.getVersion() + " enabled.");
+
+		dataFolder = getDataFolder();
+
+		SNConfigHandler.getConfiguration();
+
+		loadData();
 		snData = SNDataHandler.read();
 		if(snData == null)
 			snData = new SNDataHandler();
-			
-	    SuperNManager.startTimer();
-	    HunterManager.createBounties();
-	    setupPermissions();	    
+
+		SuperNManager.startTimer();
+		HunterManager.createBounties();
+		setupPermissions();
 	}
-	
+
 	// -------------------------------------------- //
 	// 				Chat Commands					//
 	// -------------------------------------------- //
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args)
 	{
@@ -253,14 +253,14 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		{
 			List<String> parameters = new ArrayList<String>(Arrays.asList(args));
 			if(SNConfigHandler.debugMode)
-				SupernaturalsPlugin.log(((Player) sender).getName() + " used command: " + commandLabel 
+				SupernaturalsPlugin.log(((Player) sender).getName() + " used command: " + commandLabel
 						+ " with args: " + TextUtil.implode(parameters, ", "));
 			this.handleCommand(sender, parameters);
 			return true;
 		}
 		return false;
 	}
-	
+
 	public void handleCommand(CommandSender sender, List<String> parameters) {
 		if (parameters.size() == 0) {
 			for (SNCommand vampcommand : this.commands) {
@@ -272,92 +272,92 @@ public class SupernaturalsPlugin extends JavaPlugin {
 			sender.sendMessage(ChatColor.RED+"Unknown command. Try /sn help");
 			return;
 		}
-		
+
 		String command = parameters.get(0).toLowerCase();
 		parameters.remove(0);
-		
+
 		for (SNCommand vampcommand : this.commands) {
 			if (command.equals(vampcommand.getName())) {
 				vampcommand.execute(sender, parameters);
 				return;
 			}
 		}
-		
+
 		sender.sendMessage(ChatColor.RED+"Unknown command \""+command+"\". Try /sn help");
 	}
-	
+
 	// -------------------------------------------- //
 	// 				Data Management					//
 	// -------------------------------------------- //
-	
+
 	public static void saveData(){
 		File file = new File(dataFolder, "data.yml");
-        SNPlayerHandler.save(SuperNManager.getSupernaturals(), file);
-        
-        SNConfigHandler.saveConfig();
+		SNPlayerHandler.save(SuperNManager.getSupernaturals(), file);
+
+		SNConfigHandler.saveConfig();
 	}
-	
+
 	public static void loadData(){
 		File file = new File(dataFolder, "data.yml");
 		SuperNManager.setSupernaturals(SNPlayerHandler.load(file));
 	}
-	
-	public static void reloadConfig(){
+
+	public static void reConfig(){
 		if(SNConfigHandler.debugMode)
 			SupernaturalsPlugin.log("Reloading config...");
 		SNConfigHandler.reloadConfig();
 	}
-	
+
 	public static void reloadData(){
 		File file = new File(dataFolder, "data.yml");
 		SuperNManager.setSupernaturals(SNPlayerHandler.load(file));
 	}
-	
+
 	public static void restartTask(){
 		SuperNManager.cancelTimer();
 		SuperNManager.startTimer();
 	}
-	
+
 	// -------------------------------------------- //
 	// 				Permissions						//
 	// -------------------------------------------- //
-	
+
 	private void setupPermissions() {
-	    if (permissionHandler != null) {
-	        return;
-	    }
+		if (permissionHandler != null) {
+			return;
+		}
 
-	    Plugin permissionsPlugin = this.getServer().getPluginManager().getPlugin("Permissions");
+		Plugin permissionsPlugin = this.getServer().getPluginManager().getPlugin("Permissions");
 
-	    if (permissionsPlugin == null) {
-	        log("Permission system not detected, defaulting to OP");
-	        return;
-	    }
+		if (permissionsPlugin == null) {
+			log("Permission system not detected, defaulting to OP");
+			return;
+		}
 
-	    permissionHandler = ((Permissions) permissionsPlugin).getHandler();
-	    log("Found and will use plugin "+((Permissions)permissionsPlugin).getDescription().getFullName());
+		permissionHandler = ((Permissions) permissionsPlugin).getHandler();
+		log("Found and will use plugin "+((Permissions)permissionsPlugin).getDescription().getFullName());
 	}
 
 	public static boolean hasPermissions(Player player, String permissions){
 		if(permissionHandler == null){
-		    if(permissions.startsWith("supernatural.admin.")){
-		        return player.isOp();
-		    }
-	        return true;
+			if(permissions.startsWith("supernatural.admin.")){
+				return player.isOp();
+			}
+			return true;
 		}else{
 			return permissionHandler.has(player, permissions);
 		}
 	}
 
 	private WorldGuardPlugin getWorldGuard() {
-	    Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
+		Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
 
-	    // WorldGuard may not be loaded
-	    if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
-	        return null; // Maybe you want throw an exception instead
-	    }
+		// WorldGuard may not be loaded
+		if ((plugin == null) || !(plugin instanceof WorldGuardPlugin)) {
+			return null; // Maybe you want throw an exception instead
+		}
 
-	    return (WorldGuardPlugin) plugin;
+		return (WorldGuardPlugin) plugin;
 	}
 
 	public boolean getPvP(Player player){
@@ -379,17 +379,17 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		ApplicableRegionSet set = regionManager.getApplicableRegions(pt);
 		return set.allows(DefaultFlag.MOB_SPAWNING);
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Logging						//
 	// -------------------------------------------- //
-	
-	 public static void log(String msg) {
-		 log(Level.INFO, msg);
-	 }
-	 
-	 public static void log(Level level, String msg) {
-		 Logger.getLogger("Minecraft").log(level, "["+instance.getDescription().getFullName()+"] "+msg);
+
+	public static void log(String msg) {
+		log(Level.INFO, msg);
+	}
+
+	public static void log(Level level, String msg) {
+		Logger.getLogger("Minecraft").log(level, "["+instance.getDescription().getFullName()+"] "+msg);
 	}
 
 }

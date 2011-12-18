@@ -33,6 +33,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -41,7 +42,7 @@ import me.matterz.supernaturals.SupernaturalsPlugin;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
 public class WereManager extends ClassManager{
-	
+
 	public WereManager(){
 		super();
 	}
@@ -52,7 +53,7 @@ public class WereManager extends ClassManager{
 	// -------------------------------------------- //
 	// 					Damage Events				//
 	// -------------------------------------------- //
-	
+
 	@Override
 	public double victimEvent(EntityDamageEvent event, double damage){
 		if(event.getCause().equals(DamageCause.FALL)){
@@ -60,14 +61,14 @@ public class WereManager extends ClassManager{
 		}
 		return damage;
 	}
-	
+
 	@Override
 	public double damagerEvent(EntityDamageByEntityEvent event, double damage){
 		Entity damager = event.getDamager();
 		Player pDamager = (Player)damager;
 		SuperNPlayer snDamager = SuperNManager.get(pDamager);
 		ItemStack item = pDamager.getItemInHand();
-		
+
 		if(SuperNManager.worldTimeIsNight(pDamager)){
 			if(SNConfigHandler.wereWeapons.contains(item.getType())){
 				if(SNConfigHandler.debugMode)
@@ -80,19 +81,19 @@ public class WereManager extends ClassManager{
 		}
 		return damage;
 	}
-	
+
 	@Override
 	public void deathEvent(Player player){
 		if(SNConfigHandler.debugMode)
 			SupernaturalsPlugin.log("Player died.");
-		
+
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		
+
 		SuperNManager.alterPower(snplayer, -SNConfigHandler.wereDeathPowerPenalty, "You died!");
 	}
-	
+
 	@Override
-	public void killEvent(SuperNPlayer damager, SuperNPlayer victim){	
+	public void killEvent(SuperNPlayer damager, SuperNPlayer victim){
 		if(victim==null){
 			SuperNManager.alterPower(damager, SNConfigHandler.wereKillPowerCreatureGain, "Creature death!");
 		}else{
@@ -110,26 +111,27 @@ public class WereManager extends ClassManager{
 				}
 			}
 		}
-			
+
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Interact					//
 	// -------------------------------------------- //
-	
+
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean playerInteract(PlayerInteractEvent event){
-		
+
 		Action action = event.getAction();
 		Player player = event.getPlayer();
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		Material itemMaterial = event.getMaterial();
-		
+
 		if(action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)){
 			if(player.getItemInHand()==null){
 				return false;
 			}
-			
+
 			if(itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.wolfMaterial)){
 				if(SuperNManager.worldTimeIsNight(player)){
 					summon(player);
@@ -162,11 +164,11 @@ public class WereManager extends ClassManager{
 				}
 			}
 		}
-		
+
 		if(!(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK))){
 			return false;
 		}
-		
+
 		if(action.equals(Action.RIGHT_CLICK_AIR)){
 			if(SNConfigHandler.foodMaterials.contains(itemMaterial)){
 				if(itemMaterial.equals(Material.BREAD)){
@@ -176,17 +178,20 @@ public class WereManager extends ClassManager{
 					SuperNManager.alterPower(snplayer, SNConfigHandler.werePowerFood, "Eating!");
 					if(SNConfigHandler.debugMode)
 						SupernaturalsPlugin.log(snplayer.getName() + " ate " + itemMaterial.toString() + " to gain " + SNConfigHandler.werePowerFood + " power!");
+					Inventory inv = player.getInventory();
+					inv.removeItem(new ItemStack (itemMaterial, 1));
+					player.updateInventory();
 					return true;
 				}
 			}
 		}
 		return false;
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Armor						//
 	// -------------------------------------------- //
-	
+
 	@Override
 	public void armorCheck(Player player){
 		PlayerInventory inv = player.getInventory();
@@ -194,7 +199,7 @@ public class WereManager extends ClassManager{
 		ItemStack chest = inv.getChestplate();
 		ItemStack leggings = inv.getLeggings();
 		ItemStack boots = inv.getBoots();
-		
+
 		if(!(SNConfigHandler.wereArmor.contains(helmet.getType()))){
 			inv.setHelmet(null);
 			dropItem(player, helmet);
@@ -231,11 +236,11 @@ public class WereManager extends ClassManager{
 			return false;
 		}
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Summonings					//
 	// -------------------------------------------- //
-	
+
 	public boolean summon(Player player){
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		ItemStack item = player.getItemInHand();
@@ -279,17 +284,17 @@ public class WereManager extends ClassManager{
 			return false;
 		}
 	}
-	
+
 	public static HashMap<Wolf, SuperNPlayer> getWolves(){
 		return wolvesMap;
 	}
-	
+
 	public static void removeWolf(Wolf wolf){
 		if(wolvesMap.containsKey(wolf)){
 			wolvesMap.remove(wolf);
 		}
 	}
-	
+
 	public static void removePlayer(SuperNPlayer player){
 		List<Wolf> removeWolf = new ArrayList<Wolf>();
 		for(Wolf wolf : wolvesMap.keySet()){

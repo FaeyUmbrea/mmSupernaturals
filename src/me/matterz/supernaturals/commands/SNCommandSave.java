@@ -24,13 +24,13 @@ import org.bukkit.entity.Player;
 import me.matterz.supernaturals.SupernaturalsPlugin;
 
 public class SNCommandSave extends SNCommandReload {
-	
+
 	public SNCommandSave() {
 		permissions = "supernatural.admin.command.save";
 		helpNameAndParams = "";
 		helpDescription = "Save data from disk.";
 	}
-	
+
 	@Override
 	public void perform()
 	{

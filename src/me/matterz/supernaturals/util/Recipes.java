@@ -35,7 +35,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class Recipes{
 	public Map<Material, Integer> materialQuantities = new HashMap<Material, Integer>();
-	
+
 	@SuppressWarnings("deprecation")
 	public void removeFromPlayer(Player player){
 		Inventory inventory = player.getInventory();
@@ -44,7 +44,7 @@ public class Recipes{
 		}
 		player.updateInventory();
 	}
-	
+
 	public boolean playerHasEnough(Player player){
 		Inventory inventory = player.getInventory();
 		for(Material material: this.materialQuantities.keySet()){
@@ -54,7 +54,7 @@ public class Recipes{
 		}
 		return true;
 	}
-	
+
 	public static int getMaterialCountFromInventory(Material material, Inventory inventory){
 		int count = 0;
 		for(ItemStack stack : inventory.all(material).values()){
@@ -62,7 +62,7 @@ public class Recipes{
 		}
 		return count;
 	}
-	
+
 	public String getRecipeLine(){
 		ArrayList<String> lines = new ArrayList<String>();
 		for (Entry<Material, Integer> item : entriesSortedByValues(this.materialQuantities)) {
@@ -70,18 +70,18 @@ public class Recipes{
 		}
 		return TextUtil.implode(lines, ", ");
 	}
-	
+
 	//http://stackoverflow.com/questions/2864840/treemap-sort-by-value
 	public static <K,V extends Comparable<? super V>> SortedSet<Map.Entry<K,V>> entriesSortedByValues(Map<K,V> map) {
-	    SortedSet<Map.Entry<K,V>> sortedEntries = new TreeSet<Map.Entry<K,V>>(
-	        new Comparator<Map.Entry<K,V>>() {
-	            @Override public int compare(Map.Entry<K,V> e1, Map.Entry<K,V> e2) {
-	            	int res = e1.getValue().compareTo(e2.getValue());
-	                return res != 0 ? res : 1; // Special fix to preserve items with equal values
-	            }
-	        }
-	    );
-	    sortedEntries.addAll(map.entrySet());
-	    return sortedEntries;
+		SortedSet<Map.Entry<K,V>> sortedEntries = new TreeSet<Map.Entry<K,V>>(
+				new Comparator<Map.Entry<K,V>>() {
+					@Override public int compare(Map.Entry<K,V> e1, Map.Entry<K,V> e2) {
+						int res = e1.getValue().compareTo(e2.getValue());
+						return res != 0 ? res : 1; // Special fix to preserve items with equal values
+					}
+				}
+				);
+		sortedEntries.addAll(map.entrySet());
+		return sortedEntries;
 	}
 }

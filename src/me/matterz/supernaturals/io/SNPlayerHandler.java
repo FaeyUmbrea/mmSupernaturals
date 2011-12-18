@@ -39,42 +39,42 @@ import org.yaml.snakeyaml.nodes.Tag;
 import org.yaml.snakeyaml.representer.Representer;
 
 public class SNPlayerHandler {
-	
+
 	@SuppressWarnings("unchecked")
-    public static List<SuperNPlayer> load(File file) {
-        Constructor constructor = new Constructor();
-        constructor.addTypeDescription(new TypeDescription(SuperNPlayer.class, new Tag("player")));
+	public static List<SuperNPlayer> load(File file) {
+		Constructor constructor = new Constructor();
+		constructor.addTypeDescription(new TypeDescription(SuperNPlayer.class, new Tag("player")));
 
-        Yaml yaml = new Yaml(constructor);
+		Yaml yaml = new Yaml(constructor);
 
-        try {
-            List<SuperNPlayer> supernaturals = (List<SuperNPlayer>) yaml.load(new FileReader(file));
+		try {
+			List<SuperNPlayer> supernaturals = (List<SuperNPlayer>) yaml.load(new FileReader(file));
 
-            if (supernaturals == null)
-                return new ArrayList<SuperNPlayer>();
-            
-            return supernaturals;
-        } catch (FileNotFoundException e) {
-        	 SupernaturalsPlugin.log(Level.WARNING, "Player data not found!");
-            return null;
-        }
-    }
-	
+			if (supernaturals == null)
+				return new ArrayList<SuperNPlayer>();
+
+			return supernaturals;
+		} catch (FileNotFoundException e) {
+			SupernaturalsPlugin.log(Level.WARNING, "Player data not found!");
+			return null;
+		}
+	}
+
 	public static void save(List<SuperNPlayer> supernaturals, File file) {
-        Representer representer = new Representer();
-        representer.addClassTag(SuperNPlayer.class, new Tag("player"));
+		Representer representer = new Representer();
+		representer.addClassTag(SuperNPlayer.class, new Tag("player"));
 
-        DumperOptions options = new DumperOptions();
-        options.setWidth(300);
-        options.setIndent(4);
+		DumperOptions options = new DumperOptions();
+		options.setWidth(300);
+		options.setIndent(4);
 
-        Yaml yaml = new Yaml(representer, options);
+		Yaml yaml = new Yaml(representer, options);
 
-        try {
-            yaml.dump(supernaturals, new FileWriter(file));
-        } catch (IOException e) {
-        	SupernaturalsPlugin.log(Level.WARNING, "Player data could not be written!");
-            e.printStackTrace();
-        }
-    }
+		try {
+			yaml.dump(supernaturals, new FileWriter(file));
+		} catch (IOException e) {
+			SupernaturalsPlugin.log(Level.WARNING, "Player data could not be written!");
+			e.printStackTrace();
+		}
+	}
 }

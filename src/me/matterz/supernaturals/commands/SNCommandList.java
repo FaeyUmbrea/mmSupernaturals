@@ -32,7 +32,7 @@ import org.bukkit.entity.Player;
 
 
 public class SNCommandList extends SNCommand {
-	
+
 	public SNCommandList() {
 		requiredParameters = new ArrayList<String>();
 		optionalParameters = new ArrayList<String>();
@@ -41,7 +41,7 @@ public class SNCommandList extends SNCommand {
 		helpNameAndParams = "list";
 		helpDescription = "List supernaturals on the server.";
 	}
-	
+
 	@Override
 	public void perform()
 	{
@@ -50,14 +50,14 @@ public class SNCommandList extends SNCommand {
 			this.sendMessage("You do not have permissions to use this command.");
 			return;
 		}
-		
+
 		List<String> vampires = new ArrayList<String>();
 		List<String> werewolves = new ArrayList<String>();
 		List<String> ghouls = new ArrayList<String>();
 		List<String> priests = new ArrayList<String>();
 		List<String> hunters = new ArrayList<String>();
 		List<String> demons = new ArrayList<String>();
-		
+
 		for (SuperNPlayer snplayer : SuperNManager.findAllOnline()) {
 			if (snplayer.isVampire()) {
 				vampires.add(snplayer.getName());
@@ -73,7 +73,7 @@ public class SNCommandList extends SNCommand {
 				demons.add(snplayer.getName());
 			}
 		}
-		
+
 		// Create Messages
 		List<String> messages = new ArrayList<String>();
 		messages.add("*** "+ChatColor.WHITE +"Online Supernatural Players "+ChatColor.RED +"***");
@@ -83,7 +83,7 @@ public class SNCommandList extends SNCommand {
 		messages.add("Priests: "+ ChatColor.WHITE + TextUtil.implode(priests, ", "));
 		messages.add("WitchHunters: "+ ChatColor.WHITE + TextUtil.implode(hunters, ", "));
 		messages.add("Demons: "+ ChatColor.WHITE + TextUtil.implode(demons, ", "));
-		
+
 		// Send them
 		this.sendMessage(messages);
 	}

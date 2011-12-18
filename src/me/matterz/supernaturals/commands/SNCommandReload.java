@@ -30,7 +30,7 @@ public class SNCommandReload extends SNCommand {
 	public String msgLoadFail = "FAILED to load %s.";
 	public String msgSaveSuccess = "Saved %s.";
 	public String msgSaveFail = "FAILED to save %s.";
-	
+
 	public SNCommandReload() {
 		requiredParameters = new ArrayList<String>();
 		optionalParameters = new ArrayList<String>();
@@ -40,7 +40,7 @@ public class SNCommandReload extends SNCommand {
 		helpNameAndParams = "";
 		helpDescription = "Reload Config or Data files";
 	}
-	
+
 	@Override
 	public void perform() {
 		Player senderPlayer = (Player) sender;
@@ -50,11 +50,11 @@ public class SNCommandReload extends SNCommand {
 		}
 		if(parameters.isEmpty()){
 			this.sendMessage("Config file has been reloaded");
-			SupernaturalsPlugin.reloadConfig();
+			SupernaturalsPlugin.reConfig();
 		}else{
 			if(parameters.get(0).equalsIgnoreCase("config")){
 				this.sendMessage("Config file has been reloaded");
-				SupernaturalsPlugin.reloadConfig();
+				SupernaturalsPlugin.reConfig();
 			}else if(parameters.get(0).equalsIgnoreCase("data")){
 				this.sendMessage("Data file has been reloaded");
 				SupernaturalsPlugin.reloadData();

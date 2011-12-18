@@ -22,12 +22,12 @@ package me.matterz.supernaturals;
 import java.io.Serializable;
 
 public class SuperNPlayer implements Serializable{
-	
+
 	/**
 	 * Auto-Generated serialVersionUID
 	 */
 	private static final long serialVersionUID = -2693531379993789149L;
-	
+
 	private String playername;
 	private String superType = "human";
 	private String oldSuperType = "human";
@@ -35,9 +35,9 @@ public class SuperNPlayer implements Serializable{
 	private double superPower = 0;
 	private boolean truce = true;
 	private int truceTimer = 0;
-	
+
 	public SuperNPlayer(){}
-	
+
 	public SuperNPlayer(String playername){
 		this.playername=playername;
 		this.superType = "human";
@@ -47,152 +47,152 @@ public class SuperNPlayer implements Serializable{
 		this.truce = true;
 		this.truceTimer = 0;
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Parameters					//
 	// -------------------------------------------- //
-	
+
 	public String getName(){
 		return this.playername;
 	}
-	
+
 	public void setName(String name){
 		this.playername=name;
 	}
-	
+
 	public String getType(){
 		return this.superType;
 	}
-	
+
 	public void setType(String type){
 		this.superType=type;
 	}
-	
+
 	public String getOldType(){
 		return this.oldSuperType;
 	}
-	
+
 	public void setOldType(String type){
 		this.oldSuperType=type;
 	}
-	
+
 	public double getOldPower(){
 		return this.oldSuperPower;
 	}
-	
+
 	public void setOldPower(double amount){
 		this.oldSuperPower=amount;
 	}
-	
+
 	public double getPower(){
 		return this.superPower;
 	}
-	
+
 	public void setPower(double amount){
 		this.superPower = this.limitDouble(amount);
 	}
-	
+
 	public boolean getTruce(){
 		return this.truce;
 	}
-	
+
 	public void setTruce(boolean truce){
 		this.truce = truce;
 		this.truceTimer = 0;
 	}
-	
+
 	public int getTruceTimer(){
 		return this.truceTimer;
 	}
-	
+
 	public void setTruceTimer(int timer){
 		this.truceTimer=timer;
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Booleans					//
 	// -------------------------------------------- //
-	
+
 	public boolean isSuper(){
-		if(this.getType().equalsIgnoreCase("human") 
-				|| this.getType().equalsIgnoreCase("priest") 
+		if(this.getType().equalsIgnoreCase("human")
+				|| this.getType().equalsIgnoreCase("priest")
 				|| this.getType().equalsIgnoreCase("witchhunter"))
 			return false;
 		return true;
 	}
-	
+
 	public boolean isHuman(){
 		if(this.getType().equalsIgnoreCase("human"))
 			return true;
 		return false;
 	}
-	
+
 	public boolean isVampire(){
 		if(this.getType().equalsIgnoreCase("vampire"))
 			return true;
 		return false;
 	}
-	
+
 	public boolean isPriest(){
 		if(this.getType().equalsIgnoreCase("priest")){
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean isWere(){
 		if(this.getType().equalsIgnoreCase("werewolf")){
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean isGhoul(){
 		if(this.getType().equalsIgnoreCase("ghoul")){
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean isHunter(){
 		if(this.getType().equalsIgnoreCase("witchhunter")){
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean isDemon(){
 		if(this.getType().equalsIgnoreCase("demon")){
 			return true;
 		}
 		return false;
 	}
-	
+
 	public double scale(double input){
 		double powerPercentage = input*(this.getPower()/10000);
 		return powerPercentage;
 	}
-	
+
 	public boolean isOnline(){
 		return SupernaturalsPlugin.instance.getServer().getPlayer(playername) != null;
 	}
-	
+
 	public boolean isDead(){
 		return SupernaturalsPlugin.instance.getServer().getPlayer(playername).isDead();
 	}
-	
+
 	@Override
 	public int hashCode(){
 		return playername.hashCode();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj){
 		if(obj instanceof SuperNPlayer)
 			return this.playername.equals(((SuperNPlayer) obj).getName());
 		return false;
 	}
-	
+
 	// -------------------------------------------- //
 	// 			Limiting value of double			//
 	// -------------------------------------------- //
@@ -205,7 +205,7 @@ public class SuperNPlayer implements Serializable{
 		}
 		return d;
 	}
-	
+
 	public double limitDouble(double d){
 		return this.limitDouble(d, 0, 10000);
 	}

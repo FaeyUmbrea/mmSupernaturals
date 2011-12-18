@@ -30,14 +30,14 @@ public class SNTaskTimer implements Runnable {
 		this.plugin = plugin;
 	}
 	@Override
-	public void run() {		
+	public void run() {
 		// Tick each online player
 		for(final SuperNPlayer snplayer : SuperNManager.findAllOnline()) {
-		    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
-		        public void run() {
-		            plugin.getSuperManager().advanceTime(snplayer);
-		        }
-		    });
+			plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
+				public void run() {
+					plugin.getSuperManager().advanceTime(snplayer);
+				}
+			});
 		}
 	}
 }

@@ -38,35 +38,35 @@ public class HumanManager extends ClassManager{
 	public HumanManager(){
 		super();
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Damage Events				//
 	// -------------------------------------------- //
-	
+
 	@Override
 	public double victimEvent(EntityDamageEvent event, double damage){
 		return damage;
 	}
-	
+
 	@Override
 	public double damagerEvent(EntityDamageByEntityEvent event, double damage){
 		return damage;
 	}
-	
+
 	@Override
 	public void deathEvent(Player player){
 		if(SNConfigHandler.debugMode)
 			SupernaturalsPlugin.log("Player died.");
-		
+
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		LivingEntity lDamager = null;
 		EntityDamageEvent e = player.getLastDamageCause();
-		
+
 		SupernaturalsPlugin.instance.getDataHandler().removePlayerApp(snplayer);
-			
+
 		if(e==null)
 			return;
-		
+
 		if(e.getCause().equals(DamageCause.LAVA) || e.getCause().equals(DamageCause.FIRE) || e.getCause().equals(DamageCause.FIRE_TICK)){
 			if(player.getWorld().getEnvironment().equals(Environment.NETHER)){
 				if(SupernaturalsPlugin.instance.getDemonManager().checkPlayerApp(player)){
@@ -75,15 +75,15 @@ public class HumanManager extends ClassManager{
 				}
 			}
 		}
-		
+
 		if(e instanceof EntityDamageByEntityEvent){
-		    if(((EntityDamageByEntityEvent) e).getDamager() instanceof LivingEntity) {
-		        lDamager = (LivingEntity)((EntityDamageByEntityEvent) e).getDamager();
-		    } else if(((EntityDamageByEntityEvent) e).getDamager() instanceof Projectile) {
-		        lDamager = ((Projectile)((EntityDamageByEntityEvent) e).getDamager()).getShooter();
-		    }
+			if(((EntityDamageByEntityEvent) e).getDamager() instanceof LivingEntity) {
+				lDamager = (LivingEntity)((EntityDamageByEntityEvent) e).getDamager();
+			} else if(((EntityDamageByEntityEvent) e).getDamager() instanceof Projectile) {
+				lDamager = ((Projectile)((EntityDamageByEntityEvent) e).getDamager()).getShooter();
+			}
 		}
-		
+
 		if(lDamager!=null){
 			double random = Math.random();
 			if(random<SNConfigHandler.spreadChance){
@@ -101,26 +101,26 @@ public class HumanManager extends ClassManager{
 			}
 		}
 	}
-	
+
 	@Override
-	public void killEvent(SuperNPlayer damager, SuperNPlayer victim){			
+	public void killEvent(SuperNPlayer damager, SuperNPlayer victim){
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Interact					//
 	// -------------------------------------------- //
-	
+
 	@Override
 	public boolean playerInteract(PlayerInteractEvent event){
 		return false;
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Armor						//
 	// -------------------------------------------- //
-	
+
 	@Override
 	public void armorCheck(Player player){
 	}
-	
+
 }

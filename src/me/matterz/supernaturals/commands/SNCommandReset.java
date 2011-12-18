@@ -29,7 +29,7 @@ import org.bukkit.entity.Player;
 
 public class SNCommandReset extends SNCommand {
 
-	public SNCommandReset() {	
+	public SNCommandReset() {
 		requiredParameters = new ArrayList<String>();
 		optionalParameters = new ArrayList<String>();
 		senderMustBePlayer = false;
@@ -38,10 +38,10 @@ public class SNCommandReset extends SNCommand {
 		helpNameAndParams = "reset | reset [playername]";
 		helpDescription = "Reset a player's power to zero";
 	}
-	
+
 	@Override
 	public void perform(){
-		
+
 		Player senderPlayer = (Player) sender;
 		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
 			this.sendMessage("You do not have permissions to use this command.");
@@ -53,11 +53,11 @@ public class SNCommandReset extends SNCommand {
 		}else{
 			String playername = parameters.get(0);
 			Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
-	
+
 			if (player == null){
 				this.sendMessage("Player not found!");
 				return;
-			}			
+			}
 			SuperNPlayer snplayer = SuperNManager.get(player);
 			SuperNManager.alterPower(snplayer, -10000, "Admin");
 			this.sendMessage("Power reset for player: "+snplayer.getName());

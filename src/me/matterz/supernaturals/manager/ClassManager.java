@@ -29,31 +29,31 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 public abstract class ClassManager {
-	
+
 	public ClassManager(){
 	}
-	
+
 	public double damagerEvent(EntityDamageByEntityEvent event, double damage){
 		return damage;
 	}
-	
+
 	public double victimEvent(EntityDamageEvent event, double damage){
 		return damage;
 	}
-	
+
 	public void deathEvent(Player player){
 	}
-	
+
 	public void killEvent(SuperNPlayer damager, SuperNPlayer victim){
 	}
-	
+
 	public boolean playerInteract(PlayerInteractEvent event){
 		return false;
 	}
-	
-	public void armorCheck(Player player){	
+
+	public void armorCheck(Player player){
 	}
-	
+
 	public void dropItem(Player player, ItemStack item){
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNManager.sendMessage(snplayer, "Your class cannot wear this type of armor!");

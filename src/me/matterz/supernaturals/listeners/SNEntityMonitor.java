@@ -45,67 +45,70 @@ import org.bukkit.event.entity.EntityListener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
 public class SNEntityMonitor extends EntityListener {
-	
+
 	private static SupernaturalsPlugin plugin;
 	private String worldPermission = "supernatural.world.disabled";
-	
+
 	public SNEntityMonitor(SupernaturalsPlugin instance){
 		SNEntityMonitor.plugin = instance;
 	}
-	
+
 	@Override
 	public void onProjectileHit(ProjectileHitEvent event) {
-        if(event.getEntity() instanceof Arrow) {
-            Arrow arrow = (Arrow)event.getEntity();
-            if(plugin.getHunterManager().getArrowMap().containsKey(arrow)){
-        		Player player = (Player)arrow.getShooter();
-        		if(SupernaturalsPlugin.hasPermissions(player, worldPermission) && SNConfigHandler.multiworld)
-        			return;
-            	String arrowType = plugin.getHunterManager().getArrowMap().get(arrow);
-            	if(arrowType.equalsIgnoreCase("grapple")){
-                    plugin.getHunterManager().startGrappling(player, arrow.getLocation());
-            	}else if(arrowType.equalsIgnoreCase("fire")){
-            		arrow.getLocation();
-            		Block block = arrow.getWorld().getBlockAt(arrow.getLocation());
-            		if(SNConfigHandler.burnableBlocks.contains(block.getType())){
-            			block.setType(Material.FIRE);
-            		}
-            	}
-            	plugin.getHunterManager().removeArrow(arrow);
-            }
-        }
-    }
-	
+		if(event.getEntity() instanceof Arrow) {
+			Arrow arrow = (Arrow)event.getEntity();
+			if(plugin.getHunterManager().getArrowMap().containsKey(arrow)){
+				Player player = (Player)arrow.getShooter();
+				if(SupernaturalsPlugin.hasPermissions(player, worldPermission) && SNConfigHandler.multiworld)
+					return;
+				String arrowType = plugin.getHunterManager().getArrowMap().get(arrow);
+				if(arrowType.equalsIgnoreCase("grapple")){
+					plugin.getHunterManager().startGrappling(player, arrow.getLocation());
+				}else if(arrowType.equalsIgnoreCase("fire")){
+					arrow.getLocation();
+					Block block = arrow.getWorld().getBlockAt(arrow.getLocation());
+					if(SNConfigHandler.burnableBlocks.contains(block.getType())){
+						block.setType(Material.FIRE);
+					}
+				}
+				plugin.getHunterManager().removeArrow(arrow);
+			}
+		}
+	}
+
 	@Override
 	public void onEntityDamage(EntityDamageEvent event){
 		if(event.isCancelled()){
 			return;
 		}
-		
+
 		EntityDamageByEntityEvent edbeEvent = (EntityDamageByEntityEvent)event;
-		
+
 		// Define local fields
 		Entity victim = event.getEntity();
-		
+
 		Entity damager = edbeEvent.getDamager();
-        Player pDamager = null;
-		
+		Player pDamager = null;
+
 		//For further interest that attacker must be a player.
 		if(damager instanceof Projectile) {
-		    if(((Projectile)damager).getShooter() instanceof Player) {
-		        pDamager = (Player)((Projectile)damager).getShooter();
-		    }
+			if(((Projectile)damager).getShooter() instanceof Player) {
+				pDamager = (Player)((Projectile)damager).getShooter();
+			}
 		} else if (damager instanceof Player) {
-		    pDamager = (Player)damager;
+			pDamager = (Player)damager;
 		}
 		if(damager == null) {
 			return;
 		}
+		if(pDamager == null) {
+			return;
+		}
 		SuperNPlayer snDamager = SuperNManager.get(pDamager);
-		
+
 		if(victim instanceof Creature){
 			Creature cVictim = (Creature)victim;
-			
+
 			//Break vampire truce
 			if(snDamager.isVampire() && SNConfigHandler.vampireTruce.contains(EntityUtil.creatureTypeFromEntity(cVictim))){
 				plugin.getSuperManager().truceBreak(snDamager);
@@ -114,61 +117,61 @@ public class SNEntityMonitor extends EntityListener {
 			}
 		}
 	}
-	
+
 	public void onEntityDeath(EntityDeathEvent event){
 		Entity entity = event.getEntity();
-		
-		Player pDamager = null;
-        LivingEntity lDamager = null;
-        Event e = entity.getLastDamageCause();
-        if(e instanceof EntityDamageByEntityEvent){
-            if(((EntityDamageByEntityEvent) e).getDamager() instanceof LivingEntity) {
-                lDamager = (LivingEntity)((EntityDamageByEntityEvent) e).getDamager();
-            } else if(((EntityDamageByEntityEvent) e).getDamager() instanceof Projectile) {
-                lDamager = ((Projectile)((EntityDamageByEntityEvent) e).getDamager()).getShooter();
-            }
-        }
-        
-        if(lDamager instanceof Player){
-            pDamager = (Player) lDamager;
-        }else if(lDamager instanceof Wolf){
-            Wolf wolf = (Wolf) lDamager;
-            if(!wolf.isTamed()){
-                return;
-            }
-            if(!(wolf.getOwner() instanceof Player)){
-                return;
-            }
-            pDamager = (Player) wolf.getOwner();
-        }
-        
-        if(entity instanceof Wolf){
-            WereManager.removeWolf((Wolf) entity);
-        }
 
-        if(entity instanceof Creature){
-            if(pDamager!=null){
-                if(SupernaturalsPlugin.hasPermissions(pDamager, worldPermission) && SNConfigHandler.multiworld)
-                    return;
-                SuperNPlayer snDamager = SuperNManager.get(pDamager);
-                SupernaturalsPlugin.instance.getClassManager(pDamager).killEvent(snDamager, null);
-            }
-        }
-		
+		Player pDamager = null;
+		LivingEntity lDamager = null;
+		Event e = entity.getLastDamageCause();
+		if(e instanceof EntityDamageByEntityEvent){
+			if(((EntityDamageByEntityEvent) e).getDamager() instanceof LivingEntity) {
+				lDamager = (LivingEntity)((EntityDamageByEntityEvent) e).getDamager();
+			} else if(((EntityDamageByEntityEvent) e).getDamager() instanceof Projectile) {
+				lDamager = ((Projectile)((EntityDamageByEntityEvent) e).getDamager()).getShooter();
+			}
+		}
+
+		if(lDamager instanceof Player){
+			pDamager = (Player) lDamager;
+		}else if(lDamager instanceof Wolf){
+			Wolf wolf = (Wolf) lDamager;
+			if(!wolf.isTamed()){
+				return;
+			}
+			if(!(wolf.getOwner() instanceof Player)){
+				return;
+			}
+			pDamager = (Player) wolf.getOwner();
+		}
+
+		if(entity instanceof Wolf){
+			WereManager.removeWolf((Wolf) entity);
+		}
+
+		if(entity instanceof Creature){
+			if(pDamager!=null){
+				if(SupernaturalsPlugin.hasPermissions(pDamager, worldPermission) && SNConfigHandler.multiworld)
+					return;
+				SuperNPlayer snDamager = SuperNManager.get(pDamager);
+				SupernaturalsPlugin.instance.getClassManager(pDamager).killEvent(snDamager, null);
+			}
+		}
+
 		if(!(entity instanceof Player)) {
 			return;
 		}
-		
+
 		Player pVictim = (Player) entity;
-		
+
 		if(SupernaturalsPlugin.hasPermissions(pVictim, worldPermission) && SNConfigHandler.multiworld)
 			return;
-		
+
 		if(!pVictim.isOnline())
 			return;
-		
+
 		SuperNPlayer snplayer = SuperNManager.get(pVictim);
-		
+
 		if(lDamager!=null){
 			if(lDamager instanceof Player){
 				pDamager = (Player) lDamager;

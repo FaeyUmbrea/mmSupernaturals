@@ -38,7 +38,7 @@ public class SNCommandCure extends SNCommand {
 		optionalParameters.add("playername");
 		permissions = "supernatural.admin.command.cure";
 	}
-	
+
 	@Override
 	public void perform()
 	{
@@ -47,7 +47,7 @@ public class SNCommandCure extends SNCommand {
 			this.sendMessage("You do not have permissions to use this command.");
 			return;
 		}
-		
+
 		if(parameters.isEmpty()){
 			SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
 			SuperNManager.cure(snplayer);
@@ -59,7 +59,7 @@ public class SNCommandCure extends SNCommand {
 				return;
 			}
 			this.sendMessage(ChatColor.WHITE + player.getDisplayName() + ChatColor.RED + " was cured of any curse!");
-			
+
 			SuperNPlayer snplayer = SuperNManager.get(player);
 			SuperNManager.cure(snplayer);
 		}

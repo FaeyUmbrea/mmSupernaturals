@@ -41,17 +41,17 @@ import me.matterz.supernaturals.io.SNConfigHandler;
 import me.matterz.supernaturals.util.GeometryUtil;
 
 public class VampireManager extends ClassManager{
-	
+
 	public VampireManager(){
 		super();
 	}
-	
+
 	private String permissions = "supernatural.player.preventsundamage";
-	
+
 	// -------------------------------------------- //
 	// 					Damage Events				//
 	// -------------------------------------------- //
-	
+
 	@Override
 	public double victimEvent(EntityDamageEvent event, double damage){
 		Player victim = (Player) event.getEntity();
@@ -66,17 +66,17 @@ public class VampireManager extends ClassManager{
 				return 0;
 			}
 		}else if(event.getCause().equals(DamageCause.FALL)){
-				event.setCancelled(true);
-				return 0;
+			event.setCancelled(true);
+			return 0;
 		}else if(event instanceof EntityDamageByEntityEvent){
 			EntityDamageByEntityEvent edbeEvent = (EntityDamageByEntityEvent) event;
-            Entity damager = edbeEvent.getDamager();
+			Entity damager = edbeEvent.getDamager();
 			if(damager instanceof Projectile){
 				return damage;
 			} else if(damager instanceof Player){
 				Player pDamager = (Player) damager;
 				ItemStack item = pDamager.getItemInHand();
-				
+
 				if(SNConfigHandler.woodMaterials.contains(item.getType())){
 					damage += (damage * SNConfigHandler.woodFactor);
 					SuperNManager.sendMessage(snVictim, "Vampires have a weakness to wood!");
@@ -87,21 +87,21 @@ public class VampireManager extends ClassManager{
 		}
 		return damage;
 	}
-	
+
 	@Override
 	public void deathEvent(Player player){
 		if(SNConfigHandler.debugMode)
 			SupernaturalsPlugin.log("Player died.");
-		
+
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		
+
 		SuperNManager.alterPower(snplayer, -SNConfigHandler.vampireDeathPowerPenalty, "You died!");
 	}
-	
+
 	@Override
 	public void killEvent(SuperNPlayer damager, SuperNPlayer victim){
 		if(victim==null){
-				SuperNManager.alterPower(damager, SNConfigHandler.vampireKillPowerCreatureGain, "Creature death!");
+			SuperNManager.alterPower(damager, SNConfigHandler.vampireKillPowerCreatureGain, "Creature death!");
 		}else{
 			double random = Math.random();
 			if(victim.getPower() > SNConfigHandler.vampireKillPowerPlayerGain){
@@ -118,44 +118,44 @@ public class VampireManager extends ClassManager{
 			}
 		}
 	}
-	
+
 	@Override
 	public double damagerEvent(EntityDamageByEntityEvent event, double damage){
 		Entity damager = event.getDamager();
 		Player pDamager = (Player) damager;
 		SuperNPlayer snDamager = SuperNManager.get(pDamager);
-		
+
 		ItemStack item = pDamager.getItemInHand();
-		
+
 		if(SNConfigHandler.vampireWeapons.contains(item.getType())){
 			if(SNConfigHandler.debugMode)
 				SupernaturalsPlugin.log(pDamager.getName() + " was not allowed to use "+item.getType().toString());
 			SuperNManager.sendMessage(snDamager, "Vampires cannot use this weapon!");
 			return 0;
 		}
-		
+
 		damage += damage * snDamager.scale(SNConfigHandler.vampireDamageFactor);
 		return damage;
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Interact					//
 	// -------------------------------------------- //
-	
+
 	@Override
 	public boolean playerInteract(PlayerInteractEvent event){
-		
+
 		Action action = event.getAction();
 		Player player = event.getPlayer();
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		Material itemMaterial = event.getMaterial();
-		
+
 		if(action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)){
 			if(player.getItemInHand()==null){
 				return false;
 			}
-			
-			
+
+
 			if(itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.jumpMaterial)){
 				SuperNManager.jump(player, SNConfigHandler.jumpDeltaSpeed, true);
 				event.setCancelled(true);
@@ -166,12 +166,12 @@ public class VampireManager extends ClassManager{
 				return true;
 			}
 		}
-			
-		
+
+
 		if(!(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK))){
 			return false;
 		}
-		
+
 		if(SNConfigHandler.foodMaterials.contains(itemMaterial)){
 			if(SNConfigHandler.debugMode)
 				SupernaturalsPlugin.log(snplayer.getName() + " attempted to eat " + itemMaterial.toString());
@@ -184,11 +184,11 @@ public class VampireManager extends ClassManager{
 		}
 		return false;
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Armor						//
 	// -------------------------------------------- //
-	
+
 	@Override
 	public void armorCheck(Player player){
 		PlayerInventory inv = player.getInventory();
@@ -196,7 +196,7 @@ public class VampireManager extends ClassManager{
 		ItemStack chest = inv.getChestplate();
 		ItemStack leggings = inv.getLeggings();
 		ItemStack boots = inv.getBoots();
-		
+
 		if(!(SNConfigHandler.vampireArmor.contains(helmet.getType()))){
 			inv.setHelmet(null);
 			dropItem(player, helmet);
@@ -218,26 +218,26 @@ public class VampireManager extends ClassManager{
 	// -------------------------------------------- //
 	// 					Power Altering				//
 	// -------------------------------------------- //
-	
+
 	public void gainPowerAdvanceTime(SuperNPlayer snplayer, int milliseconds){
 		double deltaSeconds = milliseconds / 1000D;
 		double deltaPower = deltaSeconds * SNConfigHandler.vampireTimePowerGained;
 		SuperNManager.alterPower(snplayer, deltaPower);
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Teleport					//
 	// -------------------------------------------- //
-	
+
 	public void setTeleport(Player player){
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		
+
 		SupernaturalsPlugin.instance.getDataHandler().addTeleport(snplayer);
 		SuperNManager.sendMessage(snplayer, "Teleport Location Saved!");
 		if(SNConfigHandler.debugMode)
 			SupernaturalsPlugin.log(player.getName()+" has saved a teleport location.");
 	}
-	
+
 	public boolean teleport(Player player){
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		ItemStack item = player.getItemInHand();
@@ -260,17 +260,17 @@ public class VampireManager extends ClassManager{
 			return false;
 		}
 	}
-	
+
 	// -------------------------------------------- //
 	// 				Altar Usage						//
 	// -------------------------------------------- //
-	
+
 	public void useAltarInfect(Player player, Block centerBlock) {
 
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
 		// The altar must be big enough
-		int count = GeometryUtil.countNearby(centerBlock, Material.getMaterial(SNConfigHandler.vampireAltarInfectMaterialSurround), 
+		int count = GeometryUtil.countNearby(centerBlock, Material.getMaterial(SNConfigHandler.vampireAltarInfectMaterialSurround),
 				SNConfigHandler.vampireAltarInfectMaterialRadius);
 		if (count == 0) {
 			return;
@@ -313,11 +313,11 @@ public class VampireManager extends ClassManager{
 		}
 	}
 
-	public void useAltarCure(Player player, Block centerBlock) {		
+	public void useAltarCure(Player player, Block centerBlock) {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
 		//Altar must be big enough
-		int count = GeometryUtil.countNearby(centerBlock, Material.getMaterial(SNConfigHandler.vampireAltarCureMaterialSurround), 
+		int count = GeometryUtil.countNearby(centerBlock, Material.getMaterial(SNConfigHandler.vampireAltarCureMaterialSurround),
 				SNConfigHandler.vampireAltarCureMaterialRadius);
 		if (count == 0) {
 			return;
@@ -359,40 +359,40 @@ public class VampireManager extends ClassManager{
 			SuperNManager.sendMessage(snplayer, SNConfigHandler.vampireAltarCureRecipe.getRecipeLine());
 		}
 	}
-	
+
 	// -------------------------------------------- //
 	// 					Combustion					//
 	// -------------------------------------------- //
-	
+
 	public boolean combustAdvanceTime(Player player, long milliseconds) {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		if (!this.standsInSunlight(player))
 			return false;
-		
+
 		if(!SNConfigHandler.vampireBurnInSunlight)
 			return false;
-		
+
 		// We assume the next tick will be in milliseconds.
-		int ticksTillNext = (int) (milliseconds / 1000D * 20D); // 20 minecraft ticks is a second.
+		int ticksTillNext = (int) ((milliseconds / 1000D) * 20D); // 20 minecraft ticks is a second.
 		ticksTillNext += 5; // just to be on the safe side.
-		
-		if (player.getFireTicks() <= 0 && SNConfigHandler.vampireBurnMessageEnabled){
+
+		if ((player.getFireTicks() <= 0) && SNConfigHandler.vampireBurnMessageEnabled){
 			SuperNManager.sendMessage(snplayer, "Vampires burn in sunlight! Take cover!");
 		}
-		
+
 		player.setFireTicks(ticksTillNext + SNConfigHandler.vampireCombustFireTicks);
 		return true;
 	}
-	
+
 	public boolean standsInSunlight(Player player){
 		// No need to set on fire if the water will put the fire out at once.
 		Material material = player.getLocation().getBlock().getType();
 		World playerWorld = player.getWorld();
-		
+
 		if(SupernaturalsPlugin.hasPermissions(player, permissions))
 			return false;
-		
-		if ((player.getWorld().getEnvironment().equals(Environment.NETHER)) 
+
+		if ((player.getWorld().getEnvironment().equals(Environment.NETHER))
 				|| SuperNManager.worldTimeIsNight(player) || isUnderRoof(player) || material.equals(Material.STATIONARY_WATER)
 				|| material.equals(Material.WATER) || playerWorld.hasStorm() || hasHelmet(player))
 		{
@@ -400,23 +400,23 @@ public class VampireManager extends ClassManager{
 		}
 		return true;
 	}
-	
+
 	public boolean hasHelmet(Player player){
 		if(player.getInventory().getHelmet().getType().toString().equalsIgnoreCase(SNConfigHandler.vampireHelmet))
 			return true;
 		return false;
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public boolean isUnderRoof(Player player) {
 		/*
 		We start checking opacity 2 blocks up.
 		As Max Y is 127 there CAN be a roof over the player if he is standing in block 125:
 		127 Solid Block
-		126 
+		126
 		125 Player
 		However if he is standing in 126 there is no chance.
-		*/
+		 */
 		boolean retVal = false;
 		Block blockCurrent = player.getLocation().getBlock();
 
@@ -427,20 +427,20 @@ public class VampireManager extends ClassManager{
 		else
 		{
 			blockCurrent = blockCurrent.getFace(BlockFace.UP, 1);
-				
+
 			double opacityAccumulator = 0;
 			Double opacity;
-		
-			while (blockCurrent.getY() + 1 <= 127) 
+
+			while ((blockCurrent.getY() + 1) <= 127)
 			{
 				blockCurrent = blockCurrent.getRelative(BlockFace.UP);
-			
+
 				opacity = SNConfigHandler.materialOpacity.get(blockCurrent.getType());
 				if (opacity == null) {
 					retVal = true; // Blocks not in that map have opacity 1;
 					break;
 				}
-			
+
 				opacityAccumulator += opacity;
 				if (opacityAccumulator >= 1.0D) {
 					retVal = true;

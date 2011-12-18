@@ -40,33 +40,33 @@ public class SNPlayerListener extends PlayerListener{
 	public static SupernaturalsPlugin plugin;
 	private String permissions = "supernatural.player.shrineuse";
 	private String worldPermission = "supernatural.world.disabled";
-	
+
 	public SNPlayerListener(SupernaturalsPlugin instance){
 		SNPlayerListener.plugin = instance;
 	}
-	
-//	@Override
-//	public void onPlayerToggleSneak(PlayerToggleSneakEvent event){
-//		Player player = event.getPlayer();
-//		SuperNPlayer snplayer = SupernaturalManager.get(player);
-//		if(snplayer.isHunter()){
-//			player.setSneaking(true);
-//			event.setCancelled(true);
-//		}
-//	}
-	
+
+	//	@Override
+	//	public void onPlayerToggleSneak(PlayerToggleSneakEvent event){
+	//		Player player = event.getPlayer();
+	//		SuperNPlayer snplayer = SupernaturalManager.get(player);
+	//		if(snplayer.isHunter()){
+	//			player.setSneaking(true);
+	//			event.setCancelled(true);
+	//		}
+	//	}
+
 	@Override
 	public void onPlayerInteract(PlayerInteractEvent event){
 		Action action = event.getAction();
 		Player player = event.getPlayer();
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		
+
 		if(!(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_AIR)) && event.isCancelled())
 			return;
-		
+
 		if(SupernaturalsPlugin.hasPermissions(player, worldPermission) && SNConfigHandler.multiworld)
 			return;
-		
+
 		Location blockLoc;
 		Block block = event.getClickedBlock();
 		if(action.equals(Action.RIGHT_CLICK_BLOCK) || action.equals(Action.LEFT_CLICK_BLOCK)){
@@ -77,13 +77,13 @@ public class SNPlayerListener extends PlayerListener{
 				event.setCancelled(true);
 				return;
 			}
-			
+
 			if(block.getType().equals(Material.IRON_DOOR_BLOCK)){
 				if(SNConfigHandler.debugMode)
 					SupernaturalsPlugin.log(snplayer.getName()+" activated an Iron Door.");
-				for(int x = blockLoc.getBlockX()-2; x < blockLoc.getBlockX()+3; x++){
-					for(int y = blockLoc.getBlockY()-2; y < blockLoc.getBlockY()+3; y++){
-						for(int z = blockLoc.getBlockZ()-2; z < blockLoc.getBlockZ()+3; z++){
+				for(int x = blockLoc.getBlockX()-2; x < (blockLoc.getBlockX()+3); x++){
+					for(int y = blockLoc.getBlockY()-2; y < (blockLoc.getBlockY()+3); y++){
+						for(int z = blockLoc.getBlockZ()-2; z < (blockLoc.getBlockZ()+3); z++){
 							Location newLoc = new Location(block.getWorld(), x, y, z);
 							Block newBlock = newLoc.getBlock();
 							if(newBlock.getType().equals(Material.SIGN) || newBlock.getType().equals(Material.WALL_SIGN)){
@@ -113,24 +113,24 @@ public class SNPlayerListener extends PlayerListener{
 				}
 			}
 		}
-		
+
 		boolean cancelled = false;
-		
+
 		cancelled = plugin.getClassManager(player).playerInteract(event);
-			
+
 		if(cancelled)
 			return;
-		
+
 		if(!(action.equals(Action.RIGHT_CLICK_BLOCK))){
 			return;
 		}
-		
+
 		Material blockMaterial = event.getClickedBlock().getType();
-		
+
 		if(!SupernaturalsPlugin.hasPermissions(player, permissions)){
 			return;
 		}
-		
+
 		if(blockMaterial == Material.getMaterial(SNConfigHandler.vampireAltarInfectMaterial)) {
 			if(SNConfigHandler.debugMode)
 				SupernaturalsPlugin.log(snplayer.getName() + " triggered a Vampire Infect Altar.");
@@ -145,23 +145,23 @@ public class SNPlayerListener extends PlayerListener{
 			plugin.getPriestManager().useAltar(player);
 		}
 	}
-	
+
 	@Override
 	public void onPlayerKick(PlayerKickEvent event) {
 		if(event.isCancelled()){
 			return;
 		}
-		
+
 		if(SupernaturalsPlugin.hasPermissions(event.getPlayer(), worldPermission) && SNConfigHandler.multiworld)
 			return;
-		
+
 		if ((event.getLeaveMessage().contains("Flying")) || (event.getReason().contains("Flying"))) {
 			SuperNPlayer snplayer = SuperNManager.get(event.getPlayer());
 			if(snplayer.isVampire()&& event.getPlayer().getItemInHand().getType().toString().equalsIgnoreCase(SNConfigHandler.jumpMaterial)){
 				event.setCancelled(true);
 				if(SNConfigHandler.debugMode)
 					SupernaturalsPlugin.log(event.getPlayer().getName() + " was not kicked for flying as a vampire.");
-			} 
+			}
 		}
 	}
 }

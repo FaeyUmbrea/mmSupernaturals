@@ -24,13 +24,13 @@ import me.matterz.supernaturals.SupernaturalsPlugin;
 import org.bukkit.entity.Player;
 
 public class SNCommandRestartTask extends SNCommandReload {
-	
+
 	public SNCommandRestartTask() {
 		permissions = "supernatural.admin.command.task";
 		helpNameAndParams = "";
 		helpDescription = "Restarts the task timer.";
 	}
-	
+
 	@Override
 	public void perform()
 	{

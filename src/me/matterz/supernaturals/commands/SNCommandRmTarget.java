@@ -38,7 +38,7 @@ public class SNCommandRmTarget extends SNCommand {
 		optionalParameters.add("playername");
 		permissions = "supernatural.admin.command.rmtarget";
 	}
-	
+
 	@Override
 	public void perform()
 	{
@@ -47,7 +47,7 @@ public class SNCommandRmTarget extends SNCommand {
 			this.sendMessage("You do not have permissions to use this command.");
 			return;
 		}
-		
+
 		if(parameters.isEmpty()){
 			SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
 			if(HunterManager.removeBounty(snplayer)){
@@ -60,12 +60,12 @@ public class SNCommandRmTarget extends SNCommand {
 		}else{
 			String playername = parameters.get(0);
 			SuperNPlayer snplayer = SuperNManager.get(playername);
-			
+
 			if (snplayer == null) {
 				this.sendMessage("Player not found.");
 				return;
 			}
-			
+
 			if(HunterManager.removeBounty(snplayer)){
 				this.sendMessage(ChatColor.WHITE+snplayer.getName()+ChatColor.RED+" was removed from the target list!");
 				HunterManager.addBounty();
