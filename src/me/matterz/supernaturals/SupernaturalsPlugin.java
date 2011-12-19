@@ -73,6 +73,9 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.Plugin;
 
+import ru.tehkode.permissions.PermissionManager;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
+
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
@@ -106,9 +109,12 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 	public List<SNCommand> commands = new ArrayList<SNCommand>();
 
+	public static Plugin permissionsPlugin;
+
 	private static File dataFolder;
 
 	private static PermissionHandler permissionHandler;
+	private static PermissionManager permissionExManager;
 
 	public SupernaturalsPlugin(){
 		SupernaturalsPlugin.instance = this;
@@ -330,26 +336,35 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		if (permissionHandler != null) {
 			return;
 		}
-
-		Plugin permissionsPlugin = this.getServer().getPluginManager().getPlugin("Permissions");
-
+		
+		if(this.getServer().getPluginManager().isPluginEnabled("Permissions") && !this.getServer().getPluginManager().isPluginEnabled("PermissionsEx")) {
+			SupernaturalsPlugin.permissionsPlugin = this.getServer().getPluginManager().getPlugin("Permissions");
+			SupernaturalsPlugin.permissionHandler = ((Permissions) permissionsPlugin).getHandler();
+		} else if(this.getServer().getPluginManager().isPluginEnabled("PermissionsBukkit")) {
+			SupernaturalsPlugin.permissionsPlugin = this.getServer().getPluginManager().getPlugin("PermissionsBukkit");
+		} else if(this.getServer().getPluginManager().isPluginEnabled("PermissionsEx")) {
+			SupernaturalsPlugin.permissionsPlugin = this.getServer().getPluginManager().getPlugin("PermissionsEx");
+			SupernaturalsPlugin.permissionExManager = PermissionsEx.getPermissionManager();
+		}
 		if (permissionsPlugin == null) {
-			log("Permission system not detected, defaulting to OP");
+			log("Permission system not detected, defaulting to SuperPerms");
 			return;
 		}
 
-		permissionHandler = ((Permissions) permissionsPlugin).getHandler();
-		log("Found and will use plugin "+((Permissions)permissionsPlugin).getDescription().getFullName());
+		log("Found and will use plugin "+ permissionsPlugin.getDescription().getFullName());
 	}
 
 	public static boolean hasPermissions(Player player, String permissions){
-		if(permissionHandler == null){
-			if(permissions.startsWith("supernatural.admin.")){
-				return player.isOp();
-			}
-			return true;
+		if(permissionHandler == null && permissionExManager == null){
+			return player.hasPermission(permissions);
 		}else{
-			return permissionHandler.has(player, permissions);
+			if(permissionsPlugin == instance.getServer().getPluginManager().getPlugin("Permissions")) {
+				return permissionHandler.has(player, permissions);
+			} else if(permissionsPlugin == instance.getServer().getPluginManager().getPlugin("PermissionsEx")) {
+				return permissionExManager.has(player, permissions);
+			} else {
+				return player.hasPermission(permissions);
+			}
 		}
 	}
 
