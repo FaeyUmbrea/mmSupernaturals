@@ -107,7 +107,7 @@ public class DemonManager extends ClassManager{
 			SuperNManager.sendMessage(snDamager, "Demons cannot use this weapon!");
 			damage=0;
 		}
-		if(damager instanceof Player) {
+		if(victim instanceof Player) {
 			double random = Math.random();
 			if(random < 0.35) {
 				pVictim.setFireTicks(SNConfigHandler.demonFireTicks);
@@ -194,7 +194,7 @@ public class DemonManager extends ClassManager{
 				if(victim == null) {
 					return false;
 				}
-				
+				convert(player, victim);
 			}
 		}
 		return false;
