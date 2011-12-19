@@ -117,6 +117,8 @@ public class SNConfigHandler {
 	public static int demonKillPowerPlayerGain;
 	public static int demonSnowballAmount;
 	public static int demonFireballDamage;
+	public static int demonFireTicks;
+	public static int demonConvertPower;
 	public static int hunterDeathPowerPenalty;
 	public static int hunterPowerArrowFire;
 	public static int hunterPowerArrowTriple;
@@ -265,6 +267,7 @@ public class SNConfigHandler {
 	public static void loadValues(Configuration config){
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if(!SNVersionHandler.readVersion().equals(plugin.getDescription().getVersion())) {
+			config.set("Demon.DamageFactor.FireTicks", 50);
 			SNVersionHandler.writeVersion();
 		}
 		if(!configFile.exists()) {
@@ -373,6 +376,7 @@ public class SNConfigHandler {
 			config.set("Demon.Power.Gain", 40);
 			config.set("Demon.Power.Loss", 4);
 			config.set("Demon.Power.Fireball", 2000);
+			config.set("Demon.Power.Convert", 2000);
 			config.set("Demon.Healing", 1);
 			config.set("Demon.Fireball.Material", "REDSTONE");
 			config.set("Demon.Fireball.Damage", 10);
@@ -380,6 +384,7 @@ public class SNConfigHandler {
 			config.set("Demon.Snare.Duration", 10000);
 			config.set("Demon.Snare.Material", "INK_SACK");
 			config.set("Demon.SnowballAmount", 30);
+			config.set("Demon.DamageFactor.FireTicks", 50);
 
 			config.set("WitchHunter.Power.StartingPower", 10000);
 			config.set("WitchHunter.Power.DeathPenalty", 500);
@@ -910,6 +915,8 @@ public class SNConfigHandler {
 		demonSnowballAmount = config.getInt("Demon.SnowballAmount", 30);
 		demonArmorString = config.getStringList("Demon.Armor");
 		demonWeaponsString = config.getStringList("Demon.Weapon.Restrictions");
+		demonFireTicks = config.getInt("Demon.DamageFactor.FireTicks", 50);
+		demonConvertPower = config.getInt("Demon.Power.Convert", 1000);
 
 		hunterPowerStart = config.getInt("WitchHunter.Power.StartingPower", 10000);
 		hunterDeathPowerPenalty = config.getInt("WitchHunter.Power.DeathPenalty", 500);

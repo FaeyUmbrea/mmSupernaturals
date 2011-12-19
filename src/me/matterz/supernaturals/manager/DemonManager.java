@@ -27,6 +27,7 @@ import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World.Environment;
@@ -95,6 +96,8 @@ public class DemonManager extends ClassManager{
 	public double damagerEvent(EntityDamageByEntityEvent event, double damage){
 		Entity damager = event.getDamager();
 		Player pDamager = (Player) damager;
+		Entity victim = event.getEntity();
+		Player pVictim = (Player) victim;
 		SuperNPlayer snDamager = SuperNManager.get(pDamager);
 		ItemStack item = pDamager.getItemInHand();
 
@@ -104,7 +107,13 @@ public class DemonManager extends ClassManager{
 			SuperNManager.sendMessage(snDamager, "Demons cannot use this weapon!");
 			damage=0;
 		}
-
+		if(damager instanceof Player) {
+			double random = Math.random();
+			if(random < 0.35) {
+				pVictim.setFireTicks(SNConfigHandler.demonFireTicks);
+			}
+			return damage;
+		}
 		return damage;
 	}
 
@@ -180,6 +189,12 @@ public class DemonManager extends ClassManager{
 				if(!event.isCancelled() && cancelled)
 					event.setCancelled(true);
 				return true;
+			} else if(itemMaterial.toString().equalsIgnoreCase("NETHERRACK")) {
+				Player victim = SupernaturalsPlugin.instance.getSuperManager().getTarget(player);
+				if(victim == null) {
+					return false;
+				}
+				
 			}
 		}
 		return false;
@@ -328,6 +343,23 @@ public class DemonManager extends ClassManager{
 			item.setAmount(player.getItemInHand().getAmount()-1);
 		}
 		return true;
+	}
+
+	public boolean convert(Player player, Player target) {
+		SuperNPlayer snplayer = SuperNManager.get(player);
+		SuperNPlayer snvictim = SuperNManager.get(target);
+		if(snplayer.getPower() < SNConfigHandler.demonConvertPower) {
+			SuperNManager.sendMessage(snplayer, "Not enough power to convert!");
+			return false;
+		}
+		if(target.getItemInHand().getType() == Material.NETHERRACK) {
+			SuperNManager.alterPower(snplayer, -SNConfigHandler.demonConvertPower, "Converted " + target.getName());
+			SuperNManager.convert(snvictim, "demon");
+			target.sendMessage(ChatColor.RED + "Heat builds up in your body...");
+			target.sendMessage(ChatColor.RED + "You have been converted to a demon by " + player.getName());
+			return true;
+		}
+		return false;
 	}
 
 	public boolean snare(Player player, Player target){
