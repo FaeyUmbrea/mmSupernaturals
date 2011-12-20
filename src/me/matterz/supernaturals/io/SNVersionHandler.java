@@ -40,36 +40,35 @@ public class SNVersionHandler {
 	}
 
 	public static String readVersion() {
-		byte[] buffer = new byte[(int) versionFile.length()];
+		byte[] buffer = new byte[6];
 		BufferedInputStream f = null;
 		try {
 			f = new BufferedInputStream(new FileInputStream(versionFile));
-			if(f != null) {
-				f.read(buffer);
-				f.close();
-			}
+			f.read(buffer);
+			
 		} catch (FileNotFoundException ex) {
 			ex.printStackTrace();
 		} catch (IOException ex) {
 			ex.printStackTrace();
+		} finally {
+			if (f != null) try { f.close(); } catch (IOException ignored) { }
 		}
 
 		return new String(buffer);
 	}
 
 	public static String readNewestVersion() {
-		byte[] buffer = new byte[(int) versionNewestFile.length()];
+		byte[] buffer = new byte[6];
 		BufferedInputStream f = null;
 		try {
 			f = new BufferedInputStream(new FileInputStream(versionNewestFile));
-			if(f != null) {
-				f.read(buffer);
-				f.close();
-			}
+			f.read(buffer);
 		} catch (FileNotFoundException ex) {
 			ex.printStackTrace();
 		} catch (IOException ex) {
 			ex.printStackTrace();
+		} finally {
+			if (f != null) try { f.close(); } catch (IOException ignored) { }
 		}
 
 		return new String(buffer);
@@ -94,6 +93,7 @@ public class SNVersionHandler {
 				in.close();
 			}
 			if (fout != null) {
+				fout.flush();
 				fout.close();
 			}
 		}
