@@ -97,7 +97,6 @@ public class DemonManager extends ClassManager{
 		Entity damager = event.getDamager();
 		Player pDamager = (Player) damager;
 		Entity victim = event.getEntity();
-		Player pVictim = (Player) victim;
 		SuperNPlayer snDamager = SuperNManager.get(pDamager);
 		ItemStack item = pDamager.getItemInHand();
 
@@ -108,6 +107,7 @@ public class DemonManager extends ClassManager{
 			damage=0;
 		}
 		if(victim instanceof Player) {
+			Player pVictim = (Player) victim;
 			double random = Math.random();
 			if(random < 0.35) {
 				pVictim.setFireTicks(SNConfigHandler.demonFireTicks);
