@@ -195,6 +195,8 @@ public class DemonManager extends ClassManager{
 					return false;
 				}
 				convert(player, victim);
+				event.setCancelled(true);
+				return true;
 			}
 		}
 		return false;
