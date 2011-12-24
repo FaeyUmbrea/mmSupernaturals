@@ -916,7 +916,7 @@ public class SNConfigHandler {
 		demonArmorString = config.getStringList("Demon.Armor");
 		demonWeaponsString = config.getStringList("Demon.Weapon.Restrictions");
 		demonFireTicks = config.getInt("Demon.DamageFactor.FireTicks", 50);
-		demonConvertPower = config.getInt("Demon.Power.Convert", 1000);
+		demonConvertPower = config.getInt("Demon.Power.Convert", 2000);
 
 		hunterPowerStart = config.getInt("WitchHunter.Power.StartingPower", 10000);
 		hunterDeathPowerPenalty = config.getInt("WitchHunter.Power.DeathPenalty", 500);

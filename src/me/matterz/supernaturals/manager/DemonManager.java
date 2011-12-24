@@ -189,13 +189,12 @@ public class DemonManager extends ClassManager{
 				if(!event.isCancelled() && cancelled)
 					event.setCancelled(true);
 				return true;
-			} else if(itemMaterial.toString().equalsIgnoreCase("NETHERRACK")) {
-				Player victim = SupernaturalsPlugin.instance.getSuperManager().getTarget(player);
-				if(victim == null) {
-					return false;
+			} else if(itemMaterial.equals(Material.NETHERRACK)) {
+				Player target = SupernaturalsPlugin.instance.getSuperManager().getTarget(player);
+				cancelled = convert(player, target);
+				if(!event.isCancelled() && cancelled) {
+					event.setCancelled(true);
 				}
-				convert(player, victim);
-				event.setCancelled(true);
 				return true;
 			}
 		}
@@ -354,11 +353,11 @@ public class DemonManager extends ClassManager{
 			SuperNManager.sendMessage(snplayer, "Not enough power to convert!");
 			return false;
 		}
-		if(target.getItemInHand().getType() == Material.NETHERRACK) {
+		if(target.getItemInHand().getType().equals(Material.NETHERRACK)) {
 			SuperNManager.alterPower(snplayer, -SNConfigHandler.demonConvertPower, "Converted " + target.getName());
 			SuperNManager.convert(snvictim, "demon");
-			target.sendMessage(ChatColor.RED + "Heat builds up in your body...");
-			target.sendMessage(ChatColor.RED + "You have been converted to a demon by " + player.getName());
+			SuperNManager.sendMessage(snvictim, ChatColor.RED + "Heat builds up in your body...");
+			SuperNManager.sendMessage(snvictim, ChatColor.RED + "You have been converted to a demon by " + player.getName());
 			return true;
 		}
 		return false;

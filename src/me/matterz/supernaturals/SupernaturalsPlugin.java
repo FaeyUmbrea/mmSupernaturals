@@ -345,7 +345,13 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 	public static boolean hasPermissions(Player player, String permissions){
 		if(permissionHandler == null){
-			return player.hasPermission(permissions);
+			if(permissions.startsWith("supernatural.admin.")) {
+				return player.isOp();
+			} else if(!permissions.startsWith("supernaturals.player.prevent")) {
+				return true;
+			} else {
+				return false;
+			}
 		}else{
 			return permissionHandler.has(player, permissions);
 		}
