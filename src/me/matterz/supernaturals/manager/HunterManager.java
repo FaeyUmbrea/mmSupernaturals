@@ -504,7 +504,7 @@ public class HunterManager extends HumanManager{
 				arrow.setFireTicks(SNConfigHandler.hunterFireArrowFireTicks);
 				Inventory inv = player.getInventory();
 				inv.removeItem(new ItemStack (Material.ARROW, 1));
-				player.updateInventory();
+				SupernaturalsPlugin.updateInventory(player);
 				return true;
 			}else{
 				SuperNManager.sendMessage(snplayer, "Not enough power to shoot Fire Arrows!");

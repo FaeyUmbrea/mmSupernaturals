@@ -61,13 +61,17 @@ import me.matterz.supernaturals.manager.SuperNManager;
 import me.matterz.supernaturals.manager.VampireManager;
 import me.matterz.supernaturals.manager.WereManager;
 import me.matterz.supernaturals.util.TextUtil;
+import net.minecraft.server.Packet103SetSlot;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -399,5 +403,27 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	public static void log(Level level, String msg) {
 		Logger.getLogger("Minecraft").log(level, "["+instance.getDescription().getFullName()+"] "+msg);
 	}
+	
+	// -------------------------------------------- //
+	//                 Inventory                    //
+	// -------------------------------------------- //
+
+	public static void updateInventory(Player p) {
+        CraftPlayer c = (CraftPlayer) p;
+        for (int i = 0;i < 36;i++) {
+            int nativeindex = i;
+            if (i < 9) nativeindex = i + 36;
+            ItemStack olditem =  c.getInventory().getItem(i);
+            net.minecraft.server.ItemStack item = null;
+            if (olditem != null && olditem.getType() != Material.AIR) {
+                item = new net.minecraft.server.ItemStack(0, 0, 0);
+                item.id = olditem.getTypeId();
+                item.count = olditem.getAmount();
+                item.b = olditem.getDurability();
+            }
+            Packet103SetSlot pack = new Packet103SetSlot(0, nativeindex, item);
+            c.getHandle().netServerHandler.sendPacket(pack);
+        }
+    }
 
 }

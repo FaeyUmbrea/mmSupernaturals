@@ -118,7 +118,6 @@ public class WereManager extends ClassManager{
 	// 					Interact					//
 	// -------------------------------------------- //
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean playerInteract(PlayerInteractEvent event){
 
@@ -180,7 +179,7 @@ public class WereManager extends ClassManager{
 						SupernaturalsPlugin.log(snplayer.getName() + " ate " + itemMaterial.toString() + " to gain " + SNConfigHandler.werePowerFood + " power!");
 					Inventory inv = player.getInventory();
 					inv.removeItem(new ItemStack (itemMaterial, 1));
-					player.updateInventory();
+					SupernaturalsPlugin.updateInventory(player);
 					return true;
 				}
 			}
