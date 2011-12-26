@@ -72,10 +72,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.Plugin;
+
+import ru.tehkode.permissions.PermissionManager;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
@@ -114,7 +118,10 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 	private static File dataFolder;
 
-	private static PermissionHandler permissionHandler;
+    public static boolean bukkitperms = false;
+
+	public static PermissionHandler permissionHandler;
+	public static PermissionManager permissionExManager;
 
 	public SupernaturalsPlugin(){
 		SupernaturalsPlugin.instance = this;
@@ -333,31 +340,67 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	// -------------------------------------------- //
 
 	private void setupPermissions() {
+	    PluginManager pm = this.getServer().getPluginManager();
 		if (permissionHandler != null) {
 			return;
 		}
-		permissionsPlugin = this.getServer().getPluginManager().getPlugin("Permissions");
-
-		if (permissionsPlugin == null) {
-			log("Permission system not detected, defaulting to SuperPerms");
-			return;
+		if(pm.isPluginEnabled("PermissionsEx")) {
+		    permissionsPlugin = pm.getPlugin("PermissionsEx");
+		    permissionExManager = PermissionsEx.getPermissionManager();
+		} else if(pm.isPluginEnabled("Permissions") && pm.isPluginEnabled("PermissionsEx")) {
+		    permissionsPlugin = pm.getPlugin("Permissions");
+		    permissionHandler = ((Permissions) permissionsPlugin).getHandler();
+		} else if(pm.isPluginEnabled("PermissionsBukkit")) {
+		    log("Found PermissionsBukkit!");
+		    bukkitperms = true;
+		} else if(pm.isPluginEnabled("bPermissions")) {
+		    log("Found bPermissions.");
+		    log(Level.WARNING, "If something goes wrong with bPermissions and this plugin, I will not help!");
+		    bukkitperms = true;
 		}
 
-		permissionHandler = ((Permissions) permissionsPlugin).getHandler();
-		log("Found and will use plugin "+ ((Permissions) permissionsPlugin).getDescription().getFullName());
+		if (permissionsPlugin == null && !bukkitperms) {
+			log("Permission system not detected, defaulting to SuperPerms");
+			bukkitperms = true;
+		}
+		if(bukkitperms) {
+		    pm.addPermission(new Permission("supernatural.command.help"));
+		    pm.addPermission(new Permission("supernatural.command.list"));
+		    pm.addPermission(new Permission("supernatural.command.power"));
+		    pm.addPermission(new Permission("supernatural.command.classes"));
+		    pm.addPermission(new Permission("supernatural.command.killlist"));
+		    pm.addPermission(new Permission("supernatural.player.shrineuse"));
+		    pm.addPermission(new Permission("supernatural.player.wolfbane"));
+		    pm.addPermission(new Permission("supernatural.player.preventwaterdamage"));
+		    pm.addPermission(new Permission("supernatural.player.preventsundamage"));
+		    pm.addPermission(new Permission("supernatural.player.witchhuntersign"));
+		    pm.addPermission(new Permission("supernatural.admin.infinitepower"));
+		    pm.addPermission(new Permission("supernatural.admin.partial.curse"));
+		    pm.addPermission(new Permission("supernatural.world.disabled"));
+		    pm.addPermission(new Permission("supernatural.admin.command.adminhelp"));
+		    pm.addPermission(new Permission("supernatural.admin.command.cure"));
+		    pm.addPermission(new Permission("supernatural.admin.command.curse"));
+		    pm.addPermission(new Permission("supernatural.admin.command.power"));
+		    pm.addPermission(new Permission("supernatural.admin.command.reset"));
+		    pm.addPermission(new Permission("supernatural.admin.command.reload"));
+		    pm.addPermission(new Permission("supernatural.admin.command.save"));
+		    pm.addPermission(new Permission("supernatural.admin.command.setchurch"));
+		    pm.addPermission(new Permission("supernatural.admin.command.setbanish"));
+		    return;
+		}
+
+		log("Found and will use plugin "+ permissionsPlugin.getDescription().getFullName());
 	}
 
 	public static boolean hasPermissions(Player player, String permissions){
-		if(permissionHandler == null){
-			if(permissions.startsWith("supernatural.admin.")) {
-				return player.isOp();
-			} else if(!permissions.startsWith("supernaturals.player.prevent")) {
-				return true;
-			} else {
-				return false;
-			}
+		if(bukkitperms){
+			return player.hasPermission(permissions);
 		}else{
-			return permissionHandler.has(player, permissions);
+		    if(permissionHandler != null) {
+		        return permissionHandler.has(player, permissions);
+		    } else {
+		        return permissionExManager.has(player, permissions);
+		    }
 		}
 	}
 
