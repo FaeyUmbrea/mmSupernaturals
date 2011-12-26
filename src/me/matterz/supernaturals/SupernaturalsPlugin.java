@@ -123,6 +123,8 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	public static PermissionHandler permissionHandler;
 	public static PermissionManager permissionExManager;
 
+	private PluginManager pm = this.getServer().getPluginManager();
+
 	public SupernaturalsPlugin(){
 		SupernaturalsPlugin.instance = this;
 	}
@@ -221,7 +223,6 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		commands.add(new SNCommandRmTarget());
 		commands.add(new SNCommandRestartTask());
 
-		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvent(Type.PLAYER_INTERACT, this.playerListener, Priority.Low, this);
 		pm.registerEvent(Type.PLAYER_KICK, this.playerListener, Priority.Low, this);
 
@@ -340,7 +341,6 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	// -------------------------------------------- //
 
 	private void setupPermissions() {
-	    PluginManager pm = this.getServer().getPluginManager();
 		if (permissionHandler != null) {
 			return;
 		}
