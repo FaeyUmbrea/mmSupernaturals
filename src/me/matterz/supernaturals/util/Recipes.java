@@ -27,6 +27,8 @@ import java.util.Map.Entry;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import me.matterz.supernaturals.SupernaturalsPlugin;
+
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -36,13 +38,12 @@ import org.bukkit.inventory.ItemStack;
 public class Recipes{
 	public Map<Material, Integer> materialQuantities = new HashMap<Material, Integer>();
 
-	@SuppressWarnings("deprecation")
 	public void removeFromPlayer(Player player){
 		Inventory inventory = player.getInventory();
 		for(Material material: this.materialQuantities.keySet()){
 			inventory.removeItem(new ItemStack(material.getId(), this.materialQuantities.get(material)));
 		}
-		player.updateInventory();
+		SupernaturalsPlugin.updateInventory(player);
 	}
 
 	public boolean playerHasEnough(Player player){
