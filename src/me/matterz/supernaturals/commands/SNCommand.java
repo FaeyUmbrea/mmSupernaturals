@@ -101,7 +101,7 @@ public class SNCommand {
 			return false;
 		}
 
-		if (parameters.size() > (requiredParameters.size() + optionalParameters.size())) {
+		if (parameters.size() > requiredParameters.size() + optionalParameters.size()) {
 			sendMessage("To many parameters.");
 			return false;
 		}

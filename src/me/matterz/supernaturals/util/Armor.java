@@ -20,24 +20,27 @@ public class Armor {
 		double baseArmorPoints = 0;
 		ItemStack inventory[] = player.getInventory().getArmorContents();
 		for(int i=0;i<inventory.length;i++) {
-			if(inventory[i] == null)
+			if(inventory[i] == null) {
 				continue;
+			}
 			Material m = inventory[i].getType();
-			if(m == null)
+			if(m == null) {
 				continue;
+			}
 			final short maxDurability = m.getMaxDurability();
-			if(maxDurability < 0)
+			if(maxDurability < 0) {
 				continue;
+			}
 			final short durability = inventory[i].getDurability();
 			baseDurability += maxDurability;
 			currentDurability += maxDurability - durability;
 			baseArmorPoints += armorPoints[i];
 		}
-		return (int)Math.round((2*baseArmorPoints*currentDurability)/baseDurability);
+		return (int)Math.round(2*baseArmorPoints*currentDurability/baseDurability);
 	}
 
 	public static int getReducedDamage(Player player, int damage) {
 		int armorPoints = getArmorPoints(player);
-		return (int)Math.round(damage - (armorPointReduction*armorPoints*damage));
+		return (int)Math.round(damage - armorPointReduction*armorPoints*damage);
 	}
 }

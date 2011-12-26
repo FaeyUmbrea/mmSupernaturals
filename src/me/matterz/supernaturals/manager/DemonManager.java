@@ -101,8 +101,9 @@ public class DemonManager extends ClassManager{
 		ItemStack item = pDamager.getItemInHand();
 
 		if(SNConfigHandler.demonWeapons.contains(item.getType())){
-			if(SNConfigHandler.debugMode)
+			if(SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log(pDamager.getName() + " was not allowed to use "+item.getType().toString());
+			}
 			SuperNManager.sendMessage(snDamager, "Demons cannot use this weapon!");
 			damage=0;
 		}
@@ -119,25 +120,29 @@ public class DemonManager extends ClassManager{
 
 	@Override
 	public void deathEvent(Player player){
-		if(SNConfigHandler.debugMode)
+		if(SNConfigHandler.debugMode) {
 			SupernaturalsPlugin.log("Player died.");
+		}
 
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		EntityDamageEvent e = player.getLastDamageCause();
 
 		SuperNManager.alterPower(snplayer, -SNConfigHandler.demonDeathPowerPenalty, "You died!");
 
-		if(e==null)
+		if(e==null) {
 			return;
-		if(e.getCause().equals(DamageCause.DROWNING) && (player.getWorld().getTemperature(player.getLocation().getBlockX(), player.getLocation().getBlockZ())<0.6)){
+		}
+		if(e.getCause().equals(DamageCause.DROWNING) && player.getWorld().getTemperature(player.getLocation().getBlockX(), player.getLocation().getBlockZ())<0.6){
 			if(snplayer.isDemon()){
-				if(SNConfigHandler.debugMode)
+				if(SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log("Demon drowned.  Checking inventory...");
+				}
 				if(player.getInventory().contains(Material.SNOW_BALL, SNConfigHandler.demonSnowballAmount)){
 					SuperNManager.sendMessage(snplayer, "Your icy death has cooled the infernal fires raging within your body.");
 					SuperNManager.cure(snplayer);
-					if(SNConfigHandler.debugMode)
+					if(SNConfigHandler.debugMode) {
 						SupernaturalsPlugin.log("Snowballs found!");
+					}
 				}
 			}
 		}
@@ -175,19 +180,23 @@ public class DemonManager extends ClassManager{
 			}
 
 			if(itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.demonMaterial)){
-				if(SNConfigHandler.debugMode)
+				if(SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log(player.getName()+" is casting FIREBALL with "+itemMaterial.toString());
+				}
 				cancelled = fireball(player);
-				if(!event.isCancelled() && cancelled)
+				if(!event.isCancelled() && cancelled) {
 					event.setCancelled(true);
+				}
 				return true;
 			}else if(itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.demonSnareMaterial)){
-				if(SNConfigHandler.debugMode)
+				if(SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log(player.getName()+" is casting SNARE with "+itemMaterial.toString());
+				}
 				Player target = SupernaturalsPlugin.instance.getSuperManager().getTarget(player);
 				cancelled = snare(player, target);
-				if(!event.isCancelled() && cancelled)
+				if(!event.isCancelled() && cancelled) {
 					event.setCancelled(true);
+				}
 				return true;
 			} else if(itemMaterial.equals(Material.NETHERRACK)) {
 				Player target = SupernaturalsPlugin.instance.getSuperManager().getTarget(player);
@@ -213,19 +222,19 @@ public class DemonManager extends ClassManager{
 		ItemStack leggings = inv.getLeggings();
 		ItemStack boots = inv.getBoots();
 
-		if(!(SNConfigHandler.demonArmor.contains(helmet.getType()))){
+		if(!SNConfigHandler.demonArmor.contains(helmet.getType())){
 			inv.setHelmet(null);
 			dropItem(player, helmet);
 		}
-		if(!(SNConfigHandler.demonArmor.contains(chest.getType()))){
+		if(!SNConfigHandler.demonArmor.contains(chest.getType())){
 			inv.setChestplate(null);
 			dropItem(player, chest);
 		}
-		if(!(SNConfigHandler.demonArmor.contains(leggings.getType()))){
+		if(!SNConfigHandler.demonArmor.contains(leggings.getType())){
 			inv.setLeggings(null);
 			dropItem(player, leggings);
 		}
-		if(!(SNConfigHandler.demonArmor.contains(boots.getType()))){
+		if(!SNConfigHandler.demonArmor.contains(boots.getType())){
 			inv.setBoots(null);
 			dropItem(player, boots);
 		}
@@ -237,24 +246,29 @@ public class DemonManager extends ClassManager{
 
 	public void checkInventory(Player player){
 		PlayerInventory inv = player.getInventory();
-		if(SNConfigHandler.debugMode)
+		if(SNConfigHandler.debugMode) {
 			SupernaturalsPlugin.log("Player teleported to Nether.  Checking inventory...");
+		}
 		ItemStack helmet = inv.getHelmet();
 		ItemStack chestplate = inv.getChestplate();
 		ItemStack leggings = inv.getLeggings();
 		ItemStack boots = inv.getBoots();
 		if(helmet.getType().equals(Material.LEATHER_HELMET)){
-			if(SNConfigHandler.debugMode)
+			if(SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log("Leather Helm");
+			}
 			if(chestplate.getType().equals(Material.LEATHER_CHESTPLATE)){
-				if(SNConfigHandler.debugMode)
+				if(SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log("Leather Chest");
+				}
 				if(leggings.getType().equals(Material.LEATHER_LEGGINGS)){
-					if(SNConfigHandler.debugMode)
+					if(SNConfigHandler.debugMode) {
 						SupernaturalsPlugin.log("Leather Legs");
+					}
 					if(boots.getType().equals(Material.LEATHER_BOOTS)){
-						if(SNConfigHandler.debugMode)
+						if(SNConfigHandler.debugMode) {
 							SupernaturalsPlugin.log("Leather Boots");
+						}
 						demonApps.add(player);
 						return;
 					}
@@ -295,8 +309,9 @@ public class DemonManager extends ClassManager{
 
 	public void powerAdvanceTime(Player player, int seconds){
 		if(!player.getWorld().getEnvironment().equals(Environment.NETHER)){
-			if(player.getLocation().getBlock().getType().equals(Material.FIRE) || player.getLocation().getBlock().getType().equals(Material.LAVA))
+			if(player.getLocation().getBlock().getType().equals(Material.FIRE) || player.getLocation().getBlock().getType().equals(Material.LAVA)) {
 				return;
+			}
 			SuperNPlayer snplayer = SuperNManager.get(player);
 			SuperNManager.alterPower(snplayer, -(SNConfigHandler.demonPowerLoss*seconds));
 		}
@@ -307,13 +322,15 @@ public class DemonManager extends ClassManager{
 	// -------------------------------------------- //
 
 	public void heal(Player player){
-		if(player.isDead() || (player.getHealth() == 20))
+		if(player.isDead() || player.getHealth() == 20) {
 			return;
+		}
 
 		int health = player.getHealth();
 		health += SNConfigHandler.demonHealing;
-		if(health>20)
+		if(health>20) {
 			health=20;
+		}
 		player.setHealth(health);
 	}
 
@@ -379,9 +396,9 @@ public class DemonManager extends ClassManager{
 
 		final Location loc = block.getLocation();
 
-		for(int x = loc.getBlockX()-1; x < (loc.getBlockX()+2); x++){
-			for(int y = loc.getBlockY()-1; y < (loc.getBlockY()+2); y++){
-				for(int z = loc.getBlockZ()-1; z < (loc.getBlockZ()+2); z++){
+		for(int x = loc.getBlockX()-1; x < loc.getBlockX()+2; x++){
+			for(int y = loc.getBlockY()-1; y < loc.getBlockY()+2; y++){
+				for(int z = loc.getBlockZ()-1; z < loc.getBlockZ()+2; z++){
 					Location newLoc = new Location(block.getWorld(), x, y, z);
 					Block newBlock = newLoc.getBlock();
 					if(newBlock.getTypeId()==0){
@@ -403,11 +420,12 @@ public class DemonManager extends ClassManager{
 				}
 				for(Block block : blocks){
 					webMap.remove(block);
-					if(SNConfigHandler.debugMode)
+					if(SNConfigHandler.debugMode) {
 						SupernaturalsPlugin.log("Removed web block.");
+					}
 				}
 			}
-		}, (SNConfigHandler.demonSnareDuration/50));
+		}, SNConfigHandler.demonSnareDuration/50);
 
 		ItemStack item = player.getItemInHand();
 		if(item.getAmount()==1){

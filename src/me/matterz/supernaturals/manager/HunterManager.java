@@ -74,8 +74,9 @@ public class HunterManager extends HumanManager{
 	public double victimEvent(EntityDamageEvent event, double damage){
 		if(event.getCause().equals(DamageCause.FALL)){
 			damage -= SNConfigHandler.hunterFallReduction;
-			if(damage < 0)
+			if(damage < 0) {
 				damage = 0;
+			}
 		}
 		return damage;
 	}
@@ -97,8 +98,9 @@ public class HunterManager extends HumanManager{
 			}else if(arrowType.equalsIgnoreCase("fire")){
 				victim.setFireTicks(SNConfigHandler.hunterFireArrowFireTicks);
 			}
-			if(SNConfigHandler.debugMode)
+			if(SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log("Arrow event with "+damage+" damage!");
+			}
 			return damage;
 		}else{
 			Player pDamager = (Player)event.getDamager();
@@ -107,13 +109,15 @@ public class HunterManager extends HumanManager{
 
 			//Check Weapons and Modify Damage
 			if(SNConfigHandler.hunterWeapons.contains(item.getType())){
-				if(SNConfigHandler.debugMode)
+				if(SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log(pDamager.getName() + " was not allowed to use "+item.getType().toString());
+				}
 				SuperNManager.sendMessage(snDamager, "WitchHunters cannot use this weapon!");
 				return 0;
 			}
-			if(SNConfigHandler.debugMode)
+			if(SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log("Bow Event with "+damage+" damage");
+			}
 			return damage;
 		}
 	}
@@ -128,8 +132,9 @@ public class HunterManager extends HumanManager{
 	@Override
 	public void killEvent(SuperNPlayer damager, SuperNPlayer victim){
 		if(victim==null){
-			if(SNConfigHandler.hunterKillPowerCreatureGain>0)
+			if(SNConfigHandler.hunterKillPowerCreatureGain>0) {
 				SuperNManager.alterPower(damager, SNConfigHandler.hunterKillPowerCreatureGain, "Creature death!");
+			}
 		}else{
 			if(victim.getPower() > SNConfigHandler.hunterKillPowerPlayerGain){
 				SuperNManager.alterPower(damager, SNConfigHandler.hunterKillPowerPlayerGain, "Player killed!");
@@ -196,19 +201,19 @@ public class HunterManager extends HumanManager{
 		ItemStack leggings = inv.getLeggings();
 		ItemStack boots = inv.getBoots();
 
-		if(!(SNConfigHandler.hunterArmor.contains(helmet.getType()))){
+		if(!SNConfigHandler.hunterArmor.contains(helmet.getType())){
 			inv.setHelmet(null);
 			dropItem(player, helmet);
 		}
-		if(!(SNConfigHandler.hunterArmor.contains(chest.getType()))){
+		if(!SNConfigHandler.hunterArmor.contains(chest.getType())){
 			inv.setChestplate(null);
 			dropItem(player, chest);
 		}
-		if(!(SNConfigHandler.hunterArmor.contains(leggings.getType()))){
+		if(!SNConfigHandler.hunterArmor.contains(leggings.getType())){
 			inv.setLeggings(null);
 			dropItem(player, leggings);
 		}
-		if(!(SNConfigHandler.hunterArmor.contains(boots.getType()))){
+		if(!SNConfigHandler.hunterArmor.contains(boots.getType())){
 			inv.setBoots(null);
 			dropItem(player, boots);
 		}
@@ -223,8 +228,9 @@ public class HunterManager extends HumanManager{
 	}
 
 	public static boolean checkBounty(SuperNPlayer snplayer){
-		if(bountyList.contains(snplayer))
+		if(bountyList.contains(snplayer)) {
 			return true;
+		}
 		return false;
 	}
 
@@ -250,21 +256,24 @@ public class HunterManager extends HumanManager{
 				bountyList.add(sntarget);
 				SupernaturalsPlugin.instance.getServer().broadcastMessage(ChatColor.WHITE+sntarget.getName()+ChatColor.RED+" has been added to the WitchHunter target list!");
 				bountyFound = true;
-				if(SNConfigHandler.debugMode)
+				if(SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log("Bounty created on "+sntarget.getName());
+				}
 				return;
 			}
 			count++;
-			if(count>50)
+			if(count>50) {
 				return;
+			}
 		}
 	}
 
 	public static void updateBounties(){
 		List<SuperNPlayer> snplayers = new ArrayList<SuperNPlayer>();
 
-		if(bountyList.isEmpty())
+		if(bountyList.isEmpty()) {
 			return;
+		}
 
 		for(SuperNPlayer snplayer : bountyList){
 			if(!snplayer.isSuper()){
@@ -296,12 +305,14 @@ public class HunterManager extends HumanManager{
 				bountyList.add(sntarget);
 				numberFound++;
 				SupernaturalsPlugin.instance.getServer().broadcastMessage(ChatColor.WHITE+sntarget.getName()+ChatColor.RED+" has been added to the WitchHunter target list!");
-				if(SNConfigHandler.debugMode)
+				if(SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log("Bounty created on "+sntarget.getName());
+				}
 			}
 			count++;
-			if(count>100)
+			if(count>100) {
 				return;
+			}
 		}
 	}
 
@@ -310,8 +321,9 @@ public class HunterManager extends HumanManager{
 	// -------------------------------------------- //
 
 	private void addDoorLocation(Location location){
-		if(!hallDoors.contains(location))
+		if(!hallDoors.contains(location)) {
 			hallDoors.add(location);
+		}
 	}
 
 	private void removeDoorLocation(Location location){
@@ -319,17 +331,20 @@ public class HunterManager extends HumanManager{
 	}
 
 	public boolean doorIsOpening(Location location){
-		if(hallDoors.contains(location))
+		if(hallDoors.contains(location)) {
 			return true;
+		}
 		return false;
 	}
 
 	public boolean doorEvent(Player player, Block block, Door door){
-		if(door.isOpen())
+		if(door.isOpen()) {
 			return true;
+		}
 
-		if(SNConfigHandler.debugMode)
+		if(SNConfigHandler.debugMode) {
 			SupernaturalsPlugin.log(player.getName()+" activated a WitchHunters' Hall.");
+		}
 
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		boolean open = false;
@@ -338,10 +353,11 @@ public class HunterManager extends HumanManager{
 		Location newLoc;
 		Block newBlock;
 
-		if(snplayer.isHuman())
+		if(snplayer.isHuman()) {
 			open = join(snplayer);
+		}
 
-		if(snplayer.isHunter() || (snplayer.isHuman() && open)){
+		if(snplayer.isHunter() || snplayer.isHuman() && open){
 			if(door.isTopHalf()){
 				newLoc = new Location(loc.getWorld(),loc.getBlockX(),loc.getBlockY()-1,loc.getBlockZ());
 				newBlock = newLoc.getBlock();
@@ -362,8 +378,9 @@ public class HunterManager extends HumanManager{
 					closeDoor(loc);
 				}
 			}, 20);
-			if(SNConfigHandler.debugMode)
+			if(SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log("WitchHunter door is set open.");
+			}
 			return true;
 		}
 		SuperNManager.sendMessage(snplayer, "WitchHunters Only!");
@@ -373,8 +390,9 @@ public class HunterManager extends HumanManager{
 	private void closeDoor(Location loc){
 		Block block = loc.getBlock();
 		Door door = (Door) block.getState().getData();
-		if(!door.isOpen())
+		if(!door.isOpen()) {
 			return;
+		}
 
 		Location newLoc;
 		Block newBlock;
@@ -405,8 +423,9 @@ public class HunterManager extends HumanManager{
 			public void run() {
 				SuperNManager.sendMessage(snplayer, "You have been invited to join the WitchHunter society!");
 				SuperNManager.sendMessage(snplayer, "If you wish to accept this invitation visit a WitchHunters' Hall");
-				if(!playerInvites.contains(snplayer))
+				if(!playerInvites.contains(snplayer)) {
 					playerInvites.add(snplayer);
+				}
 			}
 		}, 200);
 	}
@@ -435,8 +454,9 @@ public class HunterManager extends HumanManager{
 		for(int i = 0; i < SNConfigHandler.hunterArrowTypes.size(); i++){
 			if(SNConfigHandler.hunterArrowTypes.get(i).equalsIgnoreCase(currentType)){
 				int newI = i + 1;
-				if(newI >= SNConfigHandler.hunterArrowTypes.size())
+				if(newI >= SNConfigHandler.hunterArrowTypes.size()) {
 					newI = 0;
+				}
 				nextType = SNConfigHandler.hunterArrowTypes.get(newI);
 				break;
 			}
@@ -444,8 +464,9 @@ public class HunterManager extends HumanManager{
 
 		hunterMap.put(snplayer, nextType);
 		SuperNManager.sendMessage(snplayer, "Changed to arrow type: " +ChatColor.WHITE+ nextType);
-		if(SNConfigHandler.debugMode)
+		if(SNConfigHandler.debugMode) {
 			SupernaturalsPlugin.log(snplayer.getName()+" changed to arrow type: "+nextType);
+		}
 		return true;
 	}
 
@@ -474,8 +495,9 @@ public class HunterManager extends HumanManager{
 
 		final SuperNPlayer snplayer = SuperNManager.get(player);
 
-		if(!player.getInventory().contains(Material.ARROW))
+		if(!player.getInventory().contains(Material.ARROW)) {
 			return false;
+		}
 
 		if(!SupernaturalsPlugin.instance.getPvP(player)){
 			SuperNManager.sendMessage(snplayer, "You cannot use special arrows in non-PvP areas.");
@@ -493,8 +515,9 @@ public class HunterManager extends HumanManager{
 			arrowType = "normal";
 		}
 
-		if(SNConfigHandler.debugMode)
+		if(SNConfigHandler.debugMode) {
 			SupernaturalsPlugin.log(snplayer.getName()+" is firing "+arrowType+" arrows.");
+		}
 
 		if(arrowType.equalsIgnoreCase("fire")){
 			if(snplayer.getPower()>SNConfigHandler.hunterPowerArrowFire){
@@ -538,16 +561,18 @@ public class HunterManager extends HumanManager{
 				Arrow arrow = player.shootArrow();
 				arrowMap.put(arrow, arrowType);
 				drainedPlayers.add(player);
-				if(SNConfigHandler.debugMode)
+				if(SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log(snplayer.getName()+" is drained.");
+				}
 				SupernaturalsPlugin.instance.getServer().getScheduler().scheduleSyncDelayedTask(SupernaturalsPlugin.instance, new Runnable() {
 					public void run() {
 						drainedPlayers.remove(player);
-						if(player.isOnline())
+						if(player.isOnline()) {
 							SuperNManager.sendMessage(snplayer, "You can shoot again!");
+						}
 						SupernaturalsPlugin.log(snplayer.getName()+" is no longer drained.");
 					}
-				}, (SNConfigHandler.hunterCooldown/50));
+				}, SNConfigHandler.hunterCooldown/50);
 				Inventory inv = player.getInventory();
 				inv.removeItem(new ItemStack (Material.ARROW, 1));
 				player.updateInventory();
@@ -579,8 +604,9 @@ public class HunterManager extends HumanManager{
 	}
 
 	public void splitArrow(final Player player, final Arrow arrow){
-		if(SNConfigHandler.debugMode)
+		if(SNConfigHandler.debugMode) {
 			SupernaturalsPlugin.log(player.getName()+"'s triple arrow event.");
+		}
 		player.shootArrow();
 		String arrowType = arrowMap.get(arrow);
 		if(arrowType.equals("triple")){
@@ -600,7 +626,9 @@ public class HunterManager extends HumanManager{
 	}
 
 	public void startGrappling(Player player, Location targetLocation) {
-		if(isGrappling(player)) return;
+		if(isGrappling(player)) {
+			return;
+		}
 		ArrowUtil gh = new ArrowUtil(player, targetLocation);
 		grapplingPlayers.add(player);
 		SupernaturalsPlugin.instance.getServer().getScheduler().scheduleSyncDelayedTask(SupernaturalsPlugin.instance, gh);

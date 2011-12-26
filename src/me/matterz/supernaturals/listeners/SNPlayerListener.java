@@ -61,11 +61,13 @@ public class SNPlayerListener extends PlayerListener{
 		Player player = event.getPlayer();
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
-		if(!(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_AIR)) && event.isCancelled())
+		if(!(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_AIR)) && event.isCancelled()) {
 			return;
+		}
 
-		if(SupernaturalsPlugin.hasPermissions(player, worldPermission) && SNConfigHandler.multiworld)
+		if(SupernaturalsPlugin.hasPermissions(player, worldPermission) && SNConfigHandler.multiworld) {
 			return;
+		}
 
 		Location blockLoc;
 		Block block = event.getClickedBlock();
@@ -79,25 +81,29 @@ public class SNPlayerListener extends PlayerListener{
 			}
 
 			if(block.getType().equals(Material.IRON_DOOR_BLOCK)){
-				if(SNConfigHandler.debugMode)
+				if(SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log(snplayer.getName()+" activated an Iron Door.");
-				for(int x = blockLoc.getBlockX()-2; x < (blockLoc.getBlockX()+3); x++){
-					for(int y = blockLoc.getBlockY()-2; y < (blockLoc.getBlockY()+3); y++){
-						for(int z = blockLoc.getBlockZ()-2; z < (blockLoc.getBlockZ()+3); z++){
+				}
+				for(int x = blockLoc.getBlockX()-2; x < blockLoc.getBlockX()+3; x++){
+					for(int y = blockLoc.getBlockY()-2; y < blockLoc.getBlockY()+3; y++){
+						for(int z = blockLoc.getBlockZ()-2; z < blockLoc.getBlockZ()+3; z++){
 							Location newLoc = new Location(block.getWorld(), x, y, z);
 							Block newBlock = newLoc.getBlock();
 							if(newBlock.getType().equals(Material.SIGN) || newBlock.getType().equals(Material.WALL_SIGN)){
-								if(SNConfigHandler.debugMode)
+								if(SNConfigHandler.debugMode) {
 									SupernaturalsPlugin.log(snplayer.getName()+" found a sign.");
+								}
 								Sign sign = (Sign) newBlock.getState();
 								String[] text = sign.getLines();
 								for(int i = 0; i < text.length; i++){
-									if(SNConfigHandler.debugMode)
+									if(SNConfigHandler.debugMode) {
 										SupernaturalsPlugin.log("The sign says: "+text[i]);
+									}
 									if(text[i].contains(SNConfigHandler.hunterHallMessage)){
 										if(plugin.getHunterManager().doorIsOpening(blockLoc)){
-											if(SNConfigHandler.debugMode)
+											if(SNConfigHandler.debugMode) {
 												SupernaturalsPlugin.log("Cancelled door event.");
+											}
 											event.setCancelled(true);
 											return;
 										}
@@ -118,10 +124,11 @@ public class SNPlayerListener extends PlayerListener{
 
 		cancelled = plugin.getClassManager(player).playerInteract(event);
 
-		if(cancelled)
+		if(cancelled) {
 			return;
+		}
 
-		if(!(action.equals(Action.RIGHT_CLICK_BLOCK))){
+		if(!action.equals(Action.RIGHT_CLICK_BLOCK)){
 			return;
 		}
 
@@ -132,16 +139,19 @@ public class SNPlayerListener extends PlayerListener{
 		}
 
 		if(blockMaterial == Material.getMaterial(SNConfigHandler.vampireAltarInfectMaterial)) {
-			if(SNConfigHandler.debugMode)
+			if(SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log(snplayer.getName() + " triggered a Vampire Infect Altar.");
+			}
 			plugin.getVampireManager().useAltarInfect(player, event.getClickedBlock());
 		}else if(blockMaterial == Material.getMaterial(SNConfigHandler.vampireAltarCureMaterial)) {
-			if(SNConfigHandler.debugMode)
+			if(SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log(snplayer.getName() + " triggered a Vampire Cure Altar.");
+			}
 			plugin.getVampireManager().useAltarCure(player, event.getClickedBlock());
 		}else if(blockMaterial == Material.getMaterial(SNConfigHandler.priestAltarMaterial)){
-			if(SNConfigHandler.debugMode)
+			if(SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log(snplayer.getName() + " triggered a Priest Altar.");
+			}
 			plugin.getPriestManager().useAltar(player);
 		}
 	}
@@ -152,15 +162,17 @@ public class SNPlayerListener extends PlayerListener{
 			return;
 		}
 
-		if(SupernaturalsPlugin.hasPermissions(event.getPlayer(), worldPermission) && SNConfigHandler.multiworld)
+		if(SupernaturalsPlugin.hasPermissions(event.getPlayer(), worldPermission) && SNConfigHandler.multiworld) {
 			return;
+		}
 
-		if ((event.getLeaveMessage().contains("Flying")) || (event.getReason().contains("Flying"))) {
+		if (event.getLeaveMessage().contains("Flying") || event.getReason().contains("Flying")) {
 			SuperNPlayer snplayer = SuperNManager.get(event.getPlayer());
 			if(snplayer.isVampire()&& event.getPlayer().getItemInHand().getType().toString().equalsIgnoreCase(SNConfigHandler.jumpMaterial)){
 				event.setCancelled(true);
-				if(SNConfigHandler.debugMode)
+				if(SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log(event.getPlayer().getName() + " was not kicked for flying as a vampire.");
+				}
 			}
 		}
 	}

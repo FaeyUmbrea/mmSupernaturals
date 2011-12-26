@@ -116,20 +116,23 @@ public class SuperNPlayer implements Serializable{
 	public boolean isSuper(){
 		if(this.getType().equalsIgnoreCase("human")
 				|| this.getType().equalsIgnoreCase("priest")
-				|| this.getType().equalsIgnoreCase("witchhunter"))
+				|| this.getType().equalsIgnoreCase("witchhunter")) {
 			return false;
+		}
 		return true;
 	}
 
 	public boolean isHuman(){
-		if(this.getType().equalsIgnoreCase("human"))
+		if(this.getType().equalsIgnoreCase("human")) {
 			return true;
+		}
 		return false;
 	}
 
 	public boolean isVampire(){
-		if(this.getType().equalsIgnoreCase("vampire"))
+		if(this.getType().equalsIgnoreCase("vampire")) {
 			return true;
+		}
 		return false;
 	}
 
@@ -188,8 +191,9 @@ public class SuperNPlayer implements Serializable{
 
 	@Override
 	public boolean equals(Object obj){
-		if(obj instanceof SuperNPlayer)
+		if(obj instanceof SuperNPlayer) {
 			return this.playername.equals(((SuperNPlayer) obj).getName());
+		}
 		return false;
 	}
 

@@ -45,13 +45,15 @@ public class SNVersionHandler {
 		try {
 			f = new BufferedInputStream(new FileInputStream(versionFile));
 			f.read(buffer);
-			
+
 		} catch (FileNotFoundException ex) {
 			ex.printStackTrace();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} finally {
-			if (f != null) try { f.close(); } catch (IOException ignored) { }
+			if (f != null) {
+				try { f.close(); } catch (IOException ignored) { }
+			}
 		}
 
 		return new String(buffer);
@@ -68,7 +70,9 @@ public class SNVersionHandler {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} finally {
-			if (f != null) try { f.close(); } catch (IOException ignored) { }
+			if (f != null) {
+				try { f.close(); } catch (IOException ignored) { }
+			}
 		}
 
 		return new String(buffer);

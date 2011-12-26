@@ -26,13 +26,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.entity.CreatureType;
-import org.bukkit.configuration.Configuration;
-
 import me.matterz.supernaturals.SupernaturalsPlugin;
 import me.matterz.supernaturals.util.Recipes;
+
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.configuration.Configuration;
+import org.bukkit.entity.CreatureType;
 
 public class SNConfigHandler {
 
@@ -952,8 +952,9 @@ public class SNConfigHandler {
 
 		for(String creature : vampireTruceString){
 			CreatureType cType = CreatureType.valueOf(creature);
-			if(cType!=null)
+			if(cType!=null) {
 				vampireTruce.add(cType);
+			}
 		}
 
 		for(String material : priestMaterialsString){
@@ -962,8 +963,9 @@ public class SNConfigHandler {
 
 		for(String creature : ghoulTruceString){
 			CreatureType cType = CreatureType.valueOf(creature);
-			if(cType!=null)
+			if(cType!=null) {
 				ghoulTruce.add(cType);
+			}
 		}
 
 		for(String weapon : ghoulWeaponsString){

@@ -21,9 +21,9 @@ package me.matterz.supernaturals.commands;
 
 import java.util.ArrayList;
 
-import org.bukkit.entity.Player;
-
 import me.matterz.supernaturals.SupernaturalsPlugin;
+
+import org.bukkit.entity.Player;
 
 public class SNCommandReload extends SNCommand {
 	public String msgLoadSuccess = "Loaded %s.";

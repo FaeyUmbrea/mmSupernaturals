@@ -23,6 +23,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import me.matterz.supernaturals.SuperNPlayer;
+import me.matterz.supernaturals.SupernaturalsPlugin;
+import me.matterz.supernaturals.io.SNConfigHandler;
+
 import org.bukkit.Material;
 import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Entity;
@@ -36,10 +40,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-
-import me.matterz.supernaturals.SuperNPlayer;
-import me.matterz.supernaturals.SupernaturalsPlugin;
-import me.matterz.supernaturals.io.SNConfigHandler;
 
 public class WereManager extends ClassManager{
 
@@ -71,8 +71,9 @@ public class WereManager extends ClassManager{
 
 		if(SuperNManager.worldTimeIsNight(pDamager)){
 			if(SNConfigHandler.wereWeapons.contains(item.getType())){
-				if(SNConfigHandler.debugMode)
+				if(SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log(pDamager.getName() + " was not allowed to use "+item.getType().toString());
+				}
 				SuperNManager.sendMessage(snDamager, "Werewolves cannot use this weapon at night!");
 				damage=0;
 			}else{
@@ -84,8 +85,9 @@ public class WereManager extends ClassManager{
 
 	@Override
 	public void deathEvent(Player player){
-		if(SNConfigHandler.debugMode)
+		if(SNConfigHandler.debugMode) {
 			SupernaturalsPlugin.log("Player died.");
+		}
 
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
@@ -175,8 +177,9 @@ public class WereManager extends ClassManager{
 					return false;
 				}else{
 					SuperNManager.alterPower(snplayer, SNConfigHandler.werePowerFood, "Eating!");
-					if(SNConfigHandler.debugMode)
+					if(SNConfigHandler.debugMode) {
 						SupernaturalsPlugin.log(snplayer.getName() + " ate " + itemMaterial.toString() + " to gain " + SNConfigHandler.werePowerFood + " power!");
+					}
 					Inventory inv = player.getInventory();
 					inv.removeItem(new ItemStack (itemMaterial, 1));
 					SupernaturalsPlugin.updateInventory(player);
@@ -199,19 +202,19 @@ public class WereManager extends ClassManager{
 		ItemStack leggings = inv.getLeggings();
 		ItemStack boots = inv.getBoots();
 
-		if(!(SNConfigHandler.wereArmor.contains(helmet.getType()))){
+		if(!SNConfigHandler.wereArmor.contains(helmet.getType())){
 			inv.setHelmet(null);
 			dropItem(player, helmet);
 		}
-		if(!(SNConfigHandler.wereArmor.contains(chest.getType()))){
+		if(!SNConfigHandler.wereArmor.contains(chest.getType())){
 			inv.setChestplate(null);
 			dropItem(player, chest);
 		}
-		if(!(SNConfigHandler.wereArmor.contains(leggings.getType()))){
+		if(!SNConfigHandler.wereArmor.contains(leggings.getType())){
 			inv.setLeggings(null);
 			dropItem(player, leggings);
 		}
-		if(!(SNConfigHandler.wereArmor.contains(boots.getType()))){
+		if(!SNConfigHandler.wereArmor.contains(boots.getType())){
 			inv.setBoots(null);
 			dropItem(player, boots);
 		}
@@ -262,8 +265,9 @@ public class WereManager extends ClassManager{
 					wolf.setHealth(20);
 					wolvesMap.put(wolf, snplayer);
 					SuperNManager.alterPower(snplayer, -SNConfigHandler.werePowerSummonCost, "Summoning wolf!");
-					if(SNConfigHandler.debugMode)
+					if(SNConfigHandler.debugMode) {
 						SupernaturalsPlugin.log(snplayer.getName() + " summoned a wolf pet!");
+					}
 					if(item.getAmount()==1){
 						player.setItemInHand(null);
 					}else{

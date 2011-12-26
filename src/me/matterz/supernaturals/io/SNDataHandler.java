@@ -86,8 +86,9 @@ public class SNDataHandler implements Serializable{
 	}
 
 	public boolean checkPlayer(SuperNPlayer player){
-		if(teleportLocations.containsKey(player))
+		if(teleportLocations.containsKey(player)) {
 			return true;
+		}
 		return false;
 	}
 
@@ -102,8 +103,9 @@ public class SNDataHandler implements Serializable{
 	// -------------------------------------------- //
 
 	public boolean hasAngel(SuperNPlayer snplayer){
-		if(angels.containsValue(snplayer))
+		if(angels.containsValue(snplayer)) {
 			return true;
+		}
 		return false;
 	}
 
@@ -136,14 +138,16 @@ public class SNDataHandler implements Serializable{
 	}
 
 	public boolean playerHasApp(SuperNPlayer player){
-		if(hunterApps.containsKey(player))
+		if(hunterApps.containsKey(player)) {
 			return true;
+		}
 		return false;
 	}
 
 	public void removePlayerApp(SuperNPlayer player){
-		if(hunterApps.containsKey(player))
+		if(hunterApps.containsKey(player)) {
 			hunterApps.remove(player);
+		}
 	}
 
 }

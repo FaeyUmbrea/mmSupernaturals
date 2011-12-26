@@ -27,8 +27,11 @@ import org.bukkit.Material;
 
 public class TextUtil {
 	public static String repeat(String s, int times){
-		if (times <= 0) return "";
-		else return s + repeat(s, times-1);
+		if (times <= 0) {
+			return "";
+		} else {
+			return s + repeat(s, times-1);
+		}
 	}
 
 	public static ArrayList<String> split(String str){

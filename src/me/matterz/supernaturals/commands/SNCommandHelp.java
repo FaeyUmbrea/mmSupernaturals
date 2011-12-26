@@ -22,10 +22,10 @@ package me.matterz.supernaturals.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.matterz.supernaturals.SupernaturalsPlugin;
+
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import me.matterz.supernaturals.SupernaturalsPlugin;
 
 public class SNCommandHelp extends SNCommand{
 	private static List<String> helpMessages = new ArrayList<String>();

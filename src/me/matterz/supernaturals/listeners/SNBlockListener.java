@@ -50,8 +50,9 @@ public class SNBlockListener extends BlockListener{
 					event.setCancelled(true);
 					block.setType(Material.AIR);
 					plugin.getDemonManager().removeWeb(block);
-					if(SNConfigHandler.debugMode)
+					if(SNConfigHandler.debugMode) {
 						SupernaturalsPlugin.log("Removed web block through destruction.");
+					}
 					return;
 				}
 			}
@@ -62,8 +63,9 @@ public class SNBlockListener extends BlockListener{
 	public void onSignChange(SignChangeEvent event){
 		Player player = event.getPlayer();
 		String[] text = event.getLines();
-		if(SupernaturalsPlugin.hasPermissions(player, worldPermission) && SNConfigHandler.multiworld)
+		if(SupernaturalsPlugin.hasPermissions(player, worldPermission) && SNConfigHandler.multiworld) {
 			return;
+		}
 		for(int i =0; i < text.length; i++){
 			if(text[i].contains(SNConfigHandler.hunterHallMessage)){
 				if(!SupernaturalsPlugin.hasPermissions(player, permissions)){

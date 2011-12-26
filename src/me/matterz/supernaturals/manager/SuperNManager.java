@@ -25,6 +25,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 
+import me.matterz.supernaturals.SuperNPlayer;
+import me.matterz.supernaturals.SupernaturalsPlugin;
+import me.matterz.supernaturals.io.SNConfigHandler;
+import me.matterz.supernaturals.util.EntityUtil;
+import me.matterz.supernaturals.util.SNTaskTimer;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -34,12 +40,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.util.Vector;
-
-import me.matterz.supernaturals.SuperNPlayer;
-import me.matterz.supernaturals.SupernaturalsPlugin;
-import me.matterz.supernaturals.io.SNConfigHandler;
-import me.matterz.supernaturals.util.EntityUtil;
-import me.matterz.supernaturals.util.SNTaskTimer;
 
 public class SuperNManager {
 
@@ -64,8 +64,9 @@ public class SuperNManager {
 	}
 
 	public static void setSupernaturals(List<SuperNPlayer> supernaturals){
-		if(supernaturals!=null)
+		if(supernaturals!=null) {
 			SuperNManager.supernaturals = supernaturals;
+		}
 	}
 
 	public static SuperNPlayer get(String playername){
@@ -108,8 +109,9 @@ public class SuperNManager {
 	}
 
 	public static void convert(SuperNPlayer snplayer, String superType, int powerLevel) {
-		if(!SNConfigHandler.supernaturalTypes.contains(superType))
+		if(!SNConfigHandler.supernaturalTypes.contains(superType)) {
 			return;
+		}
 		String type = superType.toLowerCase();
 		snplayer.setOldType(snplayer.getType());
 		snplayer.setOldPower(snplayer.getPower());
@@ -128,8 +130,9 @@ public class SuperNManager {
 		//			SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()).setSneaking(true);
 		//		else
 		//			SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()).setSneaking(false);
-		if(snplayer.getOldType().equals("werewolf"))
+		if(snplayer.getOldType().equals("werewolf")) {
 			WereManager.removePlayer(snplayer);
+		}
 		SupernaturalsPlugin.instance.getGhoulManager().removeBond(snplayer);
 		SupernaturalsPlugin.instance.getDataHandler().removeAngel(snplayer);
 
@@ -155,8 +158,9 @@ public class SuperNManager {
 		//			SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()).setSneaking(true);
 		//		else
 		//			SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()).setSneaking(false);
-		if(snplayer.getOldType().equals("werewolf"))
+		if(snplayer.getOldType().equals("werewolf")) {
 			WereManager.removePlayer(snplayer);
+		}
 		SupernaturalsPlugin.instance.getGhoulManager().removeBond(snplayer);
 		SupernaturalsPlugin.instance.getDataHandler().removeAngel(snplayer);
 
@@ -183,8 +187,9 @@ public class SuperNManager {
 		//			SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()).setSneaking(true);
 		//		else
 		//			SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()).setSneaking(false);
-		if(snplayer.getOldType().equals("werewolf"))
+		if(snplayer.getOldType().equals("werewolf")) {
 			WereManager.removePlayer(snplayer);
+		}
 		SupernaturalsPlugin.instance.getGhoulManager().removeBond(snplayer);
 		SupernaturalsPlugin.instance.getDataHandler().removeAngel(snplayer);
 
@@ -200,16 +205,20 @@ public class SuperNManager {
 	// -------------------------------------------- //
 
 	public static void alterPower(SuperNPlayer snplayer, double delta){
-		if(SupernaturalsPlugin.hasPermissions(SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()), permissions))
-			if(delta<0)
+		if(SupernaturalsPlugin.hasPermissions(SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()), permissions)) {
+			if(delta<0) {
 				return;
-		snplayer.setPower((snplayer.getPower() + delta));
+			}
+		}
+		snplayer.setPower(snplayer.getPower() + delta);
 	}
 
 	public static void alterPower(SuperNPlayer snplayer, double delta, String reason){
-		if(SupernaturalsPlugin.hasPermissions(SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()), permissions))
-			if(delta<0)
+		if(SupernaturalsPlugin.hasPermissions(SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()), permissions)) {
+			if(delta<0) {
 				return;
+			}
+		}
 		alterPower(snplayer, delta);
 		SuperNManager.sendMessage(snplayer, "Power: "+ChatColor.WHITE+(int)snplayer.getPower()+ChatColor.RED+" ("+ChatColor.WHITE+(int)delta+ChatColor.RED+") "+reason);
 	}
@@ -222,22 +231,24 @@ public class SuperNManager {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
 		if(upOnly){
-			if((snplayer.getPower() - SNConfigHandler.jumpBloodCost) <= 0) {
+			if(snplayer.getPower() - SNConfigHandler.jumpBloodCost <= 0) {
 				SuperNManager.sendMessage(snplayer, "Not enough Power to jump.");
 				return false;
 			}else{
 				SuperNManager.alterPower(snplayer, -SNConfigHandler.jumpBloodCost, "SuperJump!");
-				if(SNConfigHandler.debugMode)
+				if(SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log(snplayer.getName() + " used jump!");
+				}
 			}
 		}else{
-			if((snplayer.getPower() - SNConfigHandler.dashBloodCost) <= 0) {
+			if(snplayer.getPower() - SNConfigHandler.dashBloodCost <= 0) {
 				SuperNManager.sendMessage(snplayer, "Not enough Power to dash.");
 				return false;
 			}else{
 				SuperNManager.alterPower(snplayer, -SNConfigHandler.dashBloodCost, "Dash!");
-				if(SNConfigHandler.debugMode)
+				if(SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log(snplayer.getName() + " used dash!");
+				}
 			}
 		}
 
@@ -290,19 +301,19 @@ public class SuperNManager {
 			if(snplayer.isVampire() && SNConfigHandler.vampireTruce.contains(EntityUtil.creatureTypeFromEntity(entity))){
 				Creature creature = (Creature)entity;
 				LivingEntity target = creature.getTarget();
-				if(((target != null) && creature.getTarget().equals(player))){
+				if(target != null && creature.getTarget().equals(player)){
 					creature.setTarget(null);
 				}
 			} else if(snplayer.isGhoul() && SNConfigHandler.ghoulTruce.contains(EntityUtil.creatureTypeFromEntity(entity))){
 				Creature creature = (Creature)entity;
 				LivingEntity target = creature.getTarget();
-				if(((target != null) && creature.getTarget().equals(player))){
+				if(target != null && creature.getTarget().equals(player)){
 					creature.setTarget(null);
 				}
-			} else if(snplayer.isWere() && SNConfigHandler.wolfTruce && (entity instanceof Wolf)){
+			} else if(snplayer.isWere() && SNConfigHandler.wolfTruce && entity instanceof Wolf){
 				Creature creature = (Creature)entity;
 				LivingEntity target = creature.getTarget();
-				if(((target != null) && creature.getTarget().equals(player))){
+				if(target != null && creature.getTarget().equals(player)){
 					creature.setTarget(null);
 				}
 			}
@@ -322,7 +333,7 @@ public class SuperNManager {
 	}
 
 	private void truceBreakTimeLeftAlter(SuperNPlayer snplayer, int delta){
-		if ((snplayer.getTruceTimer() + delta) < 0) {
+		if (snplayer.getTruceTimer() + delta < 0) {
 			truceRestore(snplayer);
 		} else {
 			snplayer.setTruceTimer(snplayer.getTruceTimer() + delta);
@@ -335,8 +346,9 @@ public class SuperNManager {
 	// -------------------------------------------- //
 
 	public void regenAdvanceTime(Player player, int milliseconds){
-		if(player.isDead())
+		if(player.isDead()) {
 			return;
+		}
 
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		int currentHealth = player.getHealth();
@@ -350,8 +362,9 @@ public class SuperNManager {
 
 		if(snplayer.isVampire()){
 			if(snplayer.getPower() <= SNConfigHandler.vampireHealthCost){
-				if(SNConfigHandler.debugMode)
+				if(SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log("Regen Event: Vampire player " + player.getName() + " not enough power!");
+				}
 				return;
 			}
 
@@ -359,19 +372,22 @@ public class SuperNManager {
 			SuperNManager.alterPower(snplayer, -SNConfigHandler.vampireHealthCost, "Healing!");
 
 		}else if(snplayer.isGhoul()){
-			if(player.getWorld().hasStorm() && !plugin.getGhoulManager().isUnderRoof(player))
+			if(player.getWorld().hasStorm() && !plugin.getGhoulManager().isUnderRoof(player)) {
 				return;
+			}
 			deltaHeal = deltaSeconds * SNConfigHandler.ghoulHealthGained;
 		}else{
-			if(!worldTimeIsNight(player))
+			if(!worldTimeIsNight(player)) {
 				return;
+			}
 			deltaHeal = deltaSeconds * SNConfigHandler.wereHealthGained;
 		}
 
 		int healthDelta = (int)deltaHeal;
 		int targetHealth = currentHealth + healthDelta;
-		if(targetHealth > 20)
+		if(targetHealth > 20) {
 			targetHealth = 20;
+		}
 		try{
 			player.setHealth(targetHealth);
 		}catch(IllegalArgumentException e){
@@ -411,8 +427,9 @@ public class SuperNManager {
 
 	public static void sendMessage(SuperNPlayer snplayer, String message) {
 		Player player = SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName());
-		if(!player.isOnline())
+		if(!player.isOnline()) {
 			return;
+		}
 		player.sendMessage(ChatColor.RED + message);
 	}
 
@@ -429,28 +446,31 @@ public class SuperNManager {
 		String updatedname;
 		ChatColor color;
 
-		if(snplayer.isPriest())
+		if(snplayer.isPriest()) {
 			color=ChatColor.GOLD;
-		else if(snplayer.isVampire())
+		} else if(snplayer.isVampire()) {
 			color=ChatColor.DARK_PURPLE;
-		else if(snplayer.isGhoul())
+		} else if(snplayer.isGhoul()) {
 			color=ChatColor.DARK_GRAY;
-		else if(snplayer.isWere())
+		} else if(snplayer.isWere()) {
 			color=ChatColor.BLUE;
-		else if(snplayer.isHunter())
+		} else if(snplayer.isHunter()) {
 			color=ChatColor.GREEN;
-		else if(snplayer.isDemon())
+		} else if(snplayer.isDemon()) {
 			color=ChatColor.RED;
-		else
+		} else {
 			color=ChatColor.WHITE;
+		}
 
 		if(displayname.contains("�."+name)){
 			updatedname = displayname.replaceFirst(" �."+name, " "+color+name);
-		} else
+		} else {
 			updatedname = displayname.replaceFirst(name, color+name);
+		}
 
-		if(SNConfigHandler.enableColors)
+		if(SNConfigHandler.enableColors) {
 			player.setDisplayName(updatedname);
+		}
 	}
 
 	// -------------------------------------------- //
@@ -460,16 +480,18 @@ public class SuperNManager {
 	public static boolean worldTimeIsNight(Player player) {
 		long time = player.getWorld().getTime() % 24000;
 
-		if ((time < 0) || (time > 12400))
+		if (time < 0 || time > 12400) {
 			return true;
+		}
 
 		return false;
 	}
 
 	public static void startTimer(){
 		timer = SupernaturalsPlugin.instance.getServer().getScheduler().scheduleSyncRepeatingTask(SupernaturalsPlugin.instance,new SNTaskTimer(SupernaturalsPlugin.instance),0,20);
-		if(timer == -1)
+		if(timer == -1) {
 			SupernaturalsPlugin.log(Level.WARNING,"Timer failed!");
+		}
 	}
 
 	public static void cancelTimer(){
@@ -479,8 +501,9 @@ public class SuperNManager {
 	public void advanceTime(SuperNPlayer snplayer) {
 		Player player = plugin.getServer().getPlayer(snplayer.getName());
 
-		if(SupernaturalsPlugin.hasPermissions(player, worldPermission) && SNConfigHandler.multiworld)
+		if(SupernaturalsPlugin.hasPermissions(player, worldPermission) && SNConfigHandler.multiworld) {
 			return;
+		}
 
 		taskCounter++;
 		if(taskCounter>= 30){
@@ -488,20 +511,20 @@ public class SuperNManager {
 		}
 
 		if(snplayer.isVampire()) {
-			if((taskCounter%3)==0){
+			if(taskCounter%3==0){
 				regenAdvanceTime(player, 3000);
 			}
-			if((taskCounter%3)==0){
+			if(taskCounter%3==0){
 				plugin.getVampireManager().combustAdvanceTime(player, 3000);
 				plugin.getVampireManager().gainPowerAdvanceTime(snplayer, 3000);
 			}
 		}else if(snplayer.isGhoul()){
-			if((taskCounter%10)==0){
+			if(taskCounter%10==0){
 				regenAdvanceTime(player, 10000);
 			}
 			plugin.getGhoulManager().waterAdvanceTime(player);
 		}else if(snplayer.isWere()){
-			if((taskCounter%5)==0){
+			if(taskCounter%5==0){
 				regenAdvanceTime(player, 5000);
 			}
 		}
@@ -509,13 +532,13 @@ public class SuperNManager {
 		plugin.getClassManager(player).armorCheck(player);
 
 		if(snplayer.isDemon()){
-			if((taskCounter%5)==0){
+			if(taskCounter%5==0){
 				plugin.getDemonManager().powerAdvanceTime(player, 5);
 			}
 		}
 
 		if(snplayer.isSuper()){
-			if((taskCounter%3)==0){
+			if(taskCounter%3==0){
 				truceBreakAdvanceTime(snplayer, 3000);
 			}
 		}

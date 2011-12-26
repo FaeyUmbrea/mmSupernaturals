@@ -19,9 +19,9 @@
 
 package me.matterz.supernaturals.commands;
 
-import org.bukkit.entity.Player;
-
 import me.matterz.supernaturals.SupernaturalsPlugin;
+
+import org.bukkit.entity.Player;
 
 public class SNCommandSave extends SNCommandReload {
 

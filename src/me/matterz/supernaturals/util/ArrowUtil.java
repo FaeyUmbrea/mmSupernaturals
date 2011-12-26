@@ -19,12 +19,12 @@
 
 package me.matterz.supernaturals.util;
 
+import me.matterz.supernaturals.SupernaturalsPlugin;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
-
-import me.matterz.supernaturals.SupernaturalsPlugin;
 
 public class ArrowUtil implements Runnable{
 
@@ -67,7 +67,7 @@ public class ArrowUtil implements Runnable{
 				return;
 			}
 
-			if((this.startTime+500+(grappleDistance*70)) < System.currentTimeMillis()) {
+			if(this.startTime+500+grappleDistance*70 < System.currentTimeMillis()) {
 				SupernaturalsPlugin.instance.getHunterManager().stopGrappling(player);
 				return;
 			}

@@ -50,8 +50,9 @@ public class SNPlayerHandler {
 		try {
 			List<SuperNPlayer> supernaturals = (List<SuperNPlayer>) yaml.load(new FileReader(file));
 
-			if (supernaturals == null)
+			if (supernaturals == null) {
 				return new ArrayList<SuperNPlayer>();
+			}
 
 			return supernaturals;
 		} catch (FileNotFoundException e) {

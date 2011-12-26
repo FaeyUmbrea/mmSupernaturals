@@ -55,8 +55,9 @@ public class HumanManager extends ClassManager{
 
 	@Override
 	public void deathEvent(Player player){
-		if(SNConfigHandler.debugMode)
+		if(SNConfigHandler.debugMode) {
 			SupernaturalsPlugin.log("Player died.");
+		}
 
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		LivingEntity lDamager = null;
@@ -64,8 +65,9 @@ public class HumanManager extends ClassManager{
 
 		SupernaturalsPlugin.instance.getDataHandler().removePlayerApp(snplayer);
 
-		if(e==null)
+		if(e==null) {
 			return;
+		}
 
 		if(e.getCause().equals(DamageCause.LAVA) || e.getCause().equals(DamageCause.FIRE) || e.getCause().equals(DamageCause.FIRE_TICK)){
 			if(player.getWorld().getEnvironment().equals(Environment.NETHER)){
@@ -93,7 +95,7 @@ public class HumanManager extends ClassManager{
 						SuperNManager.sendMessage(snplayer, "You have been transformed into a Ghoul!");
 					}
 				}else if(lDamager instanceof Wolf){
-					if(!(((Wolf)lDamager).isTamed()) && SuperNManager.worldTimeIsNight(player)){
+					if(!((Wolf)lDamager).isTamed() && SuperNManager.worldTimeIsNight(player)){
 						SuperNManager.convert(snplayer, "werewolf", SNConfigHandler.werePowerStart);
 						SuperNManager.sendMessage(snplayer, "You have mutated into a werewolf!");
 					}

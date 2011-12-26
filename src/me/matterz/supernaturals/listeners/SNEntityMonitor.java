@@ -59,8 +59,9 @@ public class SNEntityMonitor extends EntityListener {
 			Arrow arrow = (Arrow)event.getEntity();
 			if(plugin.getHunterManager().getArrowMap().containsKey(arrow)){
 				Player player = (Player)arrow.getShooter();
-				if(SupernaturalsPlugin.hasPermissions(player, worldPermission) && SNConfigHandler.multiworld)
+				if(SupernaturalsPlugin.hasPermissions(player, worldPermission) && SNConfigHandler.multiworld) {
 					return;
+				}
 				String arrowType = plugin.getHunterManager().getArrowMap().get(arrow);
 				if(arrowType.equalsIgnoreCase("grapple")){
 					plugin.getHunterManager().startGrappling(player, arrow.getLocation());
@@ -152,8 +153,9 @@ public class SNEntityMonitor extends EntityListener {
 
 		if(entity instanceof Creature){
 			if(pDamager!=null){
-				if(SupernaturalsPlugin.hasPermissions(pDamager, worldPermission) && SNConfigHandler.multiworld)
+				if(SupernaturalsPlugin.hasPermissions(pDamager, worldPermission) && SNConfigHandler.multiworld) {
 					return;
+				}
 				SuperNPlayer snDamager = SuperNManager.get(pDamager);
 				SupernaturalsPlugin.instance.getClassManager(pDamager).killEvent(snDamager, null);
 			}
@@ -165,11 +167,13 @@ public class SNEntityMonitor extends EntityListener {
 
 		Player pVictim = (Player) entity;
 
-		if(SupernaturalsPlugin.hasPermissions(pVictim, worldPermission) && SNConfigHandler.multiworld)
+		if(SupernaturalsPlugin.hasPermissions(pVictim, worldPermission) && SNConfigHandler.multiworld) {
 			return;
+		}
 
-		if(!pVictim.isOnline())
+		if(!pVictim.isOnline()) {
 			return;
+		}
 
 		SuperNPlayer snplayer = SuperNManager.get(pVictim);
 

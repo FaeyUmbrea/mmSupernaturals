@@ -60,7 +60,7 @@ public class GeometryUtil {
 		for(int y=yFrom; y<=yTo; y++){
 			for(int z=zFrom; z<=zTo; z++){
 				for(int x=xFrom; x<=xTo; x++) {
-					if( ! ball || (((x*x)+(y*y)+(z*z)) <= (radius*radius))) {
+					if( ! ball || x*x+y*y+z*z <= radius*radius) {
 						blocks.add(centerBlock.getRelative(x, -y, z));
 					}
 				}
@@ -74,7 +74,7 @@ public class GeometryUtil {
 		double X = location1.getX() - location2.getX();
 		double Y = location1.getY() - location2.getY();
 		double Z = location1.getZ() - location2.getZ();
-		return Math.sqrt((X*X)+(Y*Y)+(Z*Z));
+		return Math.sqrt(X*X+Y*Y+Z*Z);
 	}
 
 	public static int countNearby(Block centerBlock, Material material, double radius) {

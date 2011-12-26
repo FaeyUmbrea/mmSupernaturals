@@ -19,6 +19,8 @@
 
 package me.matterz.supernaturals;
 
+import static com.sk89q.worldguard.bukkit.BukkitUtil.toVector;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,17 +31,17 @@ import java.util.logging.Logger;
 import me.matterz.supernaturals.commands.SNCommand;
 import me.matterz.supernaturals.commands.SNCommandAdmin;
 import me.matterz.supernaturals.commands.SNCommandClasses;
-import me.matterz.supernaturals.commands.SNCommandKillList;
-import me.matterz.supernaturals.commands.SNCommandReload;
-import me.matterz.supernaturals.commands.SNCommandPower;
+import me.matterz.supernaturals.commands.SNCommandConvert;
 import me.matterz.supernaturals.commands.SNCommandCure;
 import me.matterz.supernaturals.commands.SNCommandHelp;
+import me.matterz.supernaturals.commands.SNCommandKillList;
 import me.matterz.supernaturals.commands.SNCommandList;
+import me.matterz.supernaturals.commands.SNCommandPower;
+import me.matterz.supernaturals.commands.SNCommandReload;
 import me.matterz.supernaturals.commands.SNCommandReset;
 import me.matterz.supernaturals.commands.SNCommandRestartTask;
 import me.matterz.supernaturals.commands.SNCommandRmTarget;
 import me.matterz.supernaturals.commands.SNCommandSave;
-import me.matterz.supernaturals.commands.SNCommandConvert;
 import me.matterz.supernaturals.commands.SNCommandSetBanish;
 import me.matterz.supernaturals.commands.SNCommandSetChurch;
 import me.matterz.supernaturals.io.SNConfigHandler;
@@ -73,23 +75,21 @@ import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.Plugin;
 
 import ru.tehkode.permissions.PermissionManager;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
-
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
 import com.sk89q.worldguard.protection.managers.RegionManager;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import static com.sk89q.worldguard.bukkit.BukkitUtil.*;
 
 public class SupernaturalsPlugin extends JavaPlugin {
 	public static SupernaturalsPlugin instance;
@@ -118,7 +118,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 	private static File dataFolder;
 
-    public static boolean bukkitperms = false;
+	public static boolean bukkitperms = false;
 
 	public static PermissionHandler permissionHandler;
 	public static PermissionManager permissionExManager;
@@ -171,20 +171,21 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 	public ClassManager getClassManager(Player player){
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		if(snplayer.getType().equalsIgnoreCase("demon"))
+		if(snplayer.getType().equalsIgnoreCase("demon")) {
 			return demonManager;
-		else if(snplayer.getType().equalsIgnoreCase("ghoul"))
+		} else if(snplayer.getType().equalsIgnoreCase("ghoul")) {
 			return ghoulManager;
-		else if(snplayer.getType().equalsIgnoreCase("witchhunter"))
+		} else if(snplayer.getType().equalsIgnoreCase("witchhunter")) {
 			return hunterManager;
-		else if(snplayer.getType().equalsIgnoreCase("priest"))
+		} else if(snplayer.getType().equalsIgnoreCase("priest")) {
 			return priestManager;
-		else if(snplayer.getType().equalsIgnoreCase("vampire"))
+		} else if(snplayer.getType().equalsIgnoreCase("vampire")) {
 			return vampManager;
-		else if(snplayer.getType().equalsIgnoreCase("werewolf"))
+		} else if(snplayer.getType().equalsIgnoreCase("werewolf")) {
 			return wereManager;
-		else
+		} else {
 			return humanManager;
+		}
 	}
 
 	// -------------------------------------------- //
@@ -252,8 +253,9 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 		loadData();
 		snData = SNDataHandler.read();
-		if(snData == null)
+		if(snData == null) {
 			snData = new SNDataHandler();
+		}
 
 		SuperNManager.startTimer();
 		HunterManager.createBounties();
@@ -270,9 +272,10 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		if(sender instanceof Player)
 		{
 			List<String> parameters = new ArrayList<String>(Arrays.asList(args));
-			if(SNConfigHandler.debugMode)
+			if(SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log(((Player) sender).getName() + " used command: " + commandLabel
 						+ " with args: " + TextUtil.implode(parameters, ", "));
+			}
 			this.handleCommand(sender, parameters);
 			return true;
 		}
@@ -321,8 +324,9 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	}
 
 	public static void reConfig(){
-		if(SNConfigHandler.debugMode)
+		if(SNConfigHandler.debugMode) {
 			SupernaturalsPlugin.log("Reloading config...");
+		}
 		SNConfigHandler.reloadConfig();
 	}
 
@@ -345,18 +349,18 @@ public class SupernaturalsPlugin extends JavaPlugin {
 			return;
 		}
 		if(pm.isPluginEnabled("PermissionsEx")) {
-		    permissionsPlugin = pm.getPlugin("PermissionsEx");
-		    permissionExManager = PermissionsEx.getPermissionManager();
+			permissionsPlugin = pm.getPlugin("PermissionsEx");
+			permissionExManager = PermissionsEx.getPermissionManager();
 		} else if(pm.isPluginEnabled("Permissions") && pm.isPluginEnabled("PermissionsEx")) {
-		    permissionsPlugin = pm.getPlugin("Permissions");
-		    permissionHandler = ((Permissions) permissionsPlugin).getHandler();
+			permissionsPlugin = pm.getPlugin("Permissions");
+			permissionHandler = ((Permissions) permissionsPlugin).getHandler();
 		} else if(pm.isPluginEnabled("PermissionsBukkit")) {
-		    log("Found PermissionsBukkit!");
-		    bukkitperms = true;
+			log("Found PermissionsBukkit!");
+			bukkitperms = true;
 		} else if(pm.isPluginEnabled("bPermissions")) {
-		    log("Found bPermissions.");
-		    log(Level.WARNING, "If something goes wrong with bPermissions and this plugin, I will not help!");
-		    bukkitperms = true;
+			log("Found bPermissions.");
+			log(Level.WARNING, "If something goes wrong with bPermissions and this plugin, I will not help!");
+			bukkitperms = true;
 		}
 
 		if (permissionsPlugin == null && !bukkitperms) {
@@ -364,29 +368,29 @@ public class SupernaturalsPlugin extends JavaPlugin {
 			bukkitperms = true;
 		}
 		if(bukkitperms) {
-		    pm.addPermission(new Permission("supernatural.command.help"));
-		    pm.addPermission(new Permission("supernatural.command.list"));
-		    pm.addPermission(new Permission("supernatural.command.power"));
-		    pm.addPermission(new Permission("supernatural.command.classes"));
-		    pm.addPermission(new Permission("supernatural.command.killlist"));
-		    pm.addPermission(new Permission("supernatural.player.shrineuse"));
-		    pm.addPermission(new Permission("supernatural.player.wolfbane"));
-		    pm.addPermission(new Permission("supernatural.player.preventwaterdamage"));
-		    pm.addPermission(new Permission("supernatural.player.preventsundamage"));
-		    pm.addPermission(new Permission("supernatural.player.witchhuntersign"));
-		    pm.addPermission(new Permission("supernatural.admin.infinitepower"));
-		    pm.addPermission(new Permission("supernatural.admin.partial.curse"));
-		    pm.addPermission(new Permission("supernatural.world.disabled"));
-		    pm.addPermission(new Permission("supernatural.admin.command.adminhelp"));
-		    pm.addPermission(new Permission("supernatural.admin.command.cure"));
-		    pm.addPermission(new Permission("supernatural.admin.command.curse"));
-		    pm.addPermission(new Permission("supernatural.admin.command.power"));
-		    pm.addPermission(new Permission("supernatural.admin.command.reset"));
-		    pm.addPermission(new Permission("supernatural.admin.command.reload"));
-		    pm.addPermission(new Permission("supernatural.admin.command.save"));
-		    pm.addPermission(new Permission("supernatural.admin.command.setchurch"));
-		    pm.addPermission(new Permission("supernatural.admin.command.setbanish"));
-		    return;
+			pm.addPermission(new Permission("supernatural.command.help"));
+			pm.addPermission(new Permission("supernatural.command.list"));
+			pm.addPermission(new Permission("supernatural.command.power"));
+			pm.addPermission(new Permission("supernatural.command.classes"));
+			pm.addPermission(new Permission("supernatural.command.killlist"));
+			pm.addPermission(new Permission("supernatural.player.shrineuse"));
+			pm.addPermission(new Permission("supernatural.player.wolfbane"));
+			pm.addPermission(new Permission("supernatural.player.preventwaterdamage"));
+			pm.addPermission(new Permission("supernatural.player.preventsundamage"));
+			pm.addPermission(new Permission("supernatural.player.witchhuntersign"));
+			pm.addPermission(new Permission("supernatural.admin.infinitepower"));
+			pm.addPermission(new Permission("supernatural.admin.partial.curse"));
+			pm.addPermission(new Permission("supernatural.world.disabled"));
+			pm.addPermission(new Permission("supernatural.admin.command.adminhelp"));
+			pm.addPermission(new Permission("supernatural.admin.command.cure"));
+			pm.addPermission(new Permission("supernatural.admin.command.curse"));
+			pm.addPermission(new Permission("supernatural.admin.command.power"));
+			pm.addPermission(new Permission("supernatural.admin.command.reset"));
+			pm.addPermission(new Permission("supernatural.admin.command.reload"));
+			pm.addPermission(new Permission("supernatural.admin.command.save"));
+			pm.addPermission(new Permission("supernatural.admin.command.setchurch"));
+			pm.addPermission(new Permission("supernatural.admin.command.setbanish"));
+			return;
 		}
 
 		log("Found and will use plugin "+ permissionsPlugin.getDescription().getFullName());
@@ -396,11 +400,11 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		if(bukkitperms){
 			return player.hasPermission(permissions);
 		}else{
-		    if(permissionHandler != null) {
-		        return permissionHandler.has(player, permissions);
-		    } else {
-		        return permissionExManager.has(player, permissions);
-		    }
+			if(permissionHandler != null) {
+				return permissionHandler.has(player, permissions);
+			} else {
+				return permissionExManager.has(player, permissions);
+			}
 		}
 	}
 
@@ -408,7 +412,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
 
 		// WorldGuard may not be loaded
-		if ((plugin == null) || !(plugin instanceof WorldGuardPlugin)) {
+		if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
 			return null; // Maybe you want throw an exception instead
 		}
 
@@ -417,8 +421,9 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 	public boolean getPvP(Player player){
 		WorldGuardPlugin worldGuard = SupernaturalsPlugin.instance.getWorldGuard();
-		if(worldGuard == null)
+		if(worldGuard == null) {
 			return true;
+		}
 		Vector pt = toVector(player.getLocation());
 		RegionManager regionManager = worldGuard.getRegionManager(player.getWorld());
 		ApplicableRegionSet set = regionManager.getApplicableRegions(pt);
@@ -427,8 +432,9 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 	public boolean getSpawn(Player player){
 		WorldGuardPlugin worldGuard = SupernaturalsPlugin.instance.getWorldGuard();
-		if(worldGuard == null)
+		if(worldGuard == null) {
 			return true;
+		}
 		Vector pt = toVector(player.getLocation());
 		RegionManager regionManager = worldGuard.getRegionManager(player.getWorld());
 		ApplicableRegionSet set = regionManager.getApplicableRegions(pt);
@@ -446,27 +452,29 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	public static void log(Level level, String msg) {
 		Logger.getLogger("Minecraft").log(level, "["+instance.getDescription().getFullName()+"] "+msg);
 	}
-	
+
 	// -------------------------------------------- //
 	//                 Inventory                    //
 	// -------------------------------------------- //
 
 	public static void updateInventory(Player p) {
-        CraftPlayer c = (CraftPlayer) p;
-        for (int i = 0;i < 36;i++) {
-            int nativeindex = i;
-            if (i < 9) nativeindex = i + 36;
-            ItemStack olditem =  c.getInventory().getItem(i);
-            net.minecraft.server.ItemStack item = null;
-            if (olditem != null && olditem.getType() != Material.AIR) {
-                item = new net.minecraft.server.ItemStack(0, 0, 0);
-                item.id = olditem.getTypeId();
-                item.count = olditem.getAmount();
-                item.b = olditem.getDurability();
-            }
-            Packet103SetSlot pack = new Packet103SetSlot(0, nativeindex, item);
-            c.getHandle().netServerHandler.sendPacket(pack);
-        }
-    }
+		CraftPlayer c = (CraftPlayer) p;
+		for (int i = 0;i < 36;i++) {
+			int nativeindex = i;
+			if (i < 9) {
+				nativeindex = i + 36;
+			}
+			ItemStack olditem =  c.getInventory().getItem(i);
+			net.minecraft.server.ItemStack item = null;
+			if (olditem != null && olditem.getType() != Material.AIR) {
+				item = new net.minecraft.server.ItemStack(0, 0, 0);
+				item.id = olditem.getTypeId();
+				item.count = olditem.getAmount();
+				item.b = olditem.getDurability();
+			}
+			Packet103SetSlot pack = new Packet103SetSlot(0, nativeindex, item);
+			c.getHandle().netServerHandler.sendPacket(pack);
+		}
+	}
 
 }
