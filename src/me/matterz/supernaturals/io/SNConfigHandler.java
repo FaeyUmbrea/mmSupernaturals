@@ -268,6 +268,7 @@ public class SNConfigHandler {
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if(!SNVersionHandler.readVersion().equals(plugin.getDescription().getVersion())) {
 			config.set("Demon.DamageFactor.FireTicks", 50);
+			config.set("Demon.Power.Convert", 2000);
 			SNVersionHandler.writeVersion();
 		}
 		if(!configFile.exists()) {
