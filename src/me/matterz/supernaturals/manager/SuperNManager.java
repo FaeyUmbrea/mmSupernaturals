@@ -45,7 +45,7 @@ public class SuperNManager {
 
 	private SupernaturalsPlugin plugin;
 	private String worldPermission = "supernatural.world.disabled";
-	private static String permissions = "supernatural.admin.infinitepower";
+	public static String infpowerpermissions = "supernatural.admin.infinitepower";
 
 	private static List<SuperNPlayer> supernaturals = new ArrayList<SuperNPlayer>();
 	private transient int taskCounter = 0;
@@ -205,7 +205,7 @@ public class SuperNManager {
 	// -------------------------------------------- //
 
 	public static void alterPower(SuperNPlayer snplayer, double delta){
-		if(SupernaturalsPlugin.hasPermissions(SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()), permissions)) {
+		if(SupernaturalsPlugin.hasPermissions(SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()), infpowerpermissions)) {
 			if(delta<0) {
 				return;
 			}
@@ -214,7 +214,7 @@ public class SuperNManager {
 	}
 
 	public static void alterPower(SuperNPlayer snplayer, double delta, String reason){
-		if(SupernaturalsPlugin.hasPermissions(SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()), permissions)) {
+		if(SupernaturalsPlugin.hasPermissions(SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()), infpowerpermissions)) {
 			if(delta<0) {
 				return;
 			}
