@@ -26,7 +26,9 @@ public class SNVersionHandler {
 			return false;
 		}
 	}
+
 	public static void writeVersion() {
+		versionFile.mkdir();
 		try {
 			versionFile.createNewFile();
 			BufferedWriter vout = new BufferedWriter(new FileWriter(versionFile));
