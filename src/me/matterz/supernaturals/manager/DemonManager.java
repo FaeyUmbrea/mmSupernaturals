@@ -200,9 +200,12 @@ public class DemonManager extends ClassManager{
 				return true;
 			} else if(itemMaterial.equals(Material.NETHERRACK)) {
 				Player target = SupernaturalsPlugin.instance.getSuperManager().getTarget(player);
+				if(target == null) {
+					return false;
+				}
 				cancelled = convert(player, target);
-				if(!event.isCancelled() && cancelled) {
-					event.setCancelled(true);
+				if(!event.isCancelled()) {
+					event.setCancelled(cancelled);
 				}
 				return true;
 			}
