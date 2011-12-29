@@ -267,12 +267,9 @@ public class SNConfigHandler {
 
 	public static void loadValues(Configuration config){
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
-		if(!SNVersionHandler.readVersion().equals(plugin.getDescription().getVersion())) {
-			config.set("UpdateMessage", "mmSupernaturals {VERSION} has been released!");
-			config.set("Demon.DamageFactor.FireTicks", 50);
-			config.set("Demon.Power.Convert", 2000);
-			SNVersionHandler.writeVersion();
-		}
+		config.set("UpdateMessage", "mmSupernaturals {VERSION} has been released!");
+		config.set("Demon.DamageFactor.FireTicks", 50);
+		config.set("Demon.Power.Convert", 2000);
 		if(!configFile.exists()) {
 			config.set("DebugMode", false);
 			config.set("UpdateMessage", "mmSupernaturals v{VERSION} has been released!");

@@ -47,7 +47,6 @@ import me.matterz.supernaturals.commands.SNCommandSetChurch;
 import me.matterz.supernaturals.io.SNConfigHandler;
 import me.matterz.supernaturals.io.SNDataHandler;
 import me.matterz.supernaturals.io.SNPlayerHandler;
-import me.matterz.supernaturals.io.SNVersionHandler;
 import me.matterz.supernaturals.listeners.SNBlockListener;
 import me.matterz.supernaturals.listeners.SNEntityListener;
 import me.matterz.supernaturals.listeners.SNEntityMonitor;
@@ -207,6 +206,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	@Override
 	public void onEnable() {
 
+		this.getDataFolder().mkdir();
 		this.pm = this.getServer().getPluginManager();
 
 		// Add the commands
@@ -247,10 +247,6 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		log(pdfFile.getName() + " version " + pdfFile.getVersion() + " enabled.");
 
 		dataFolder = getDataFolder();
-
-		if(!SNVersionHandler.fileExists()) {
-			SNVersionHandler.writeVersion();
-		}
 		SNConfigHandler.getConfiguration();
 
 		loadData();

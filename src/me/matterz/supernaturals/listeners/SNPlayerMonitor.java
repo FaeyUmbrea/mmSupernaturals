@@ -19,13 +19,9 @@
 
 package me.matterz.supernaturals.listeners;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
 import me.matterz.supernaturals.io.SNConfigHandler;
-import me.matterz.supernaturals.io.SNVersionHandler;
 import me.matterz.supernaturals.manager.SuperNManager;
 
 import org.bukkit.ChatColor;
@@ -97,18 +93,6 @@ public class SNPlayerMonitor extends PlayerListener {
 				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.RED+player.getName()));
 				plugin.getServer().broadcastMessage(ChatColor.RED + "Demon " + player.getName() + ChatColor.GOLD + " has joined the server.");
 			}
-		}
-		try {
-			SNVersionHandler.getNewestVersion();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String newest = SNVersionHandler.readNewestVersion();
-		String current = SNVersionHandler.readVersion();
-		if(!current.equalsIgnoreCase(newest)) {
-			player.sendMessage(ChatColor.GREEN + SNConfigHandler.updateMessage.replaceAll("{VERSION}", newest));
 		}
 	}
 }
