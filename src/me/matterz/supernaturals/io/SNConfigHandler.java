@@ -150,6 +150,7 @@ public class SNConfigHandler {
 	public static String demonMaterial;
 	public static String demonSnareMaterial;
 	public static String hunterHallMessage;
+	public static String updateMessage;
 	public static Location priestChurchLocation;
 	public static Location priestBanishLocation;
 	public static List<String> supernaturalTypes = new ArrayList<String>();
@@ -267,12 +268,14 @@ public class SNConfigHandler {
 	public static void loadValues(Configuration config){
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if(!SNVersionHandler.readVersion().equals(plugin.getDescription().getVersion())) {
+			config.set("UpdateMessage", "mmSupernaturals {VERSION} has been released!");
 			config.set("Demon.DamageFactor.FireTicks", 50);
 			config.set("Demon.Power.Convert", 2000);
 			SNVersionHandler.writeVersion();
 		}
 		if(!configFile.exists()) {
 			config.set("DebugMode", false);
+			config.set("UpdateMessage", "mmSupernaturals v{VERSION} has been released!");
 			config.set("MultiWorld", false);
 			config.set("EnableChatColors", true);
 			config.set("Supernatural.Truce.BreakTime", 120000);
@@ -777,6 +780,7 @@ public class SNConfigHandler {
 		}
 
 		debugMode = config.getBoolean("DebugMode", false);
+		updateMessage = config.getString("UpdateMessage");
 		multiworld = config.getBoolean("MultiWorld", false);
 		enableColors = config.getBoolean("EnableChatColors", true);
 		truceBreakTime = config.getInt("Supernatural.Truce.BreakTime", 120000);
@@ -1078,6 +1082,21 @@ public class SNConfigHandler {
 				SupernaturalsPlugin.log("Invalid priest donation reward!");
 			}
 			priestDonationMap.put(material,reward);
+		}
+
+		if(updateMessage == null || updateMessage == "") {
+			SupernaturalsPlugin.log("Update Message cannot be null!");
+			config.set("UpdateMessage", "mmSupernaturals v{VERSION} has been released!");
+		}
+
+		if(!updateMessage.contains("mmSupernaturals")) {
+			SupernaturalsPlugin.log("This is not a MOTD plugin, so don't use it as one!");
+			config.set("UpdateMessage", "mmSupernaturals v{VERSION} has been released!");
+		}
+
+		if(!updateMessage.contains("{VERSION}")) {
+			SupernaturalsPlugin.log("It would be easier if you knew what version you need.");
+			config.set("UpdateMessage", "mmSupernaturals v{VERSION} has been released!");
 		}
 
 		priestChurchLocation = new Location(plugin.getServer().getWorld(priestChurchWorld), priestChurchLocationX, priestChurchLocationY, priestChurchLocationZ);
