@@ -105,9 +105,10 @@ public class SNPlayerMonitor extends PlayerListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if(!SNVersionHandler.readNewestVersion().equals(SNVersionHandler.readNewestVersion())) {
-			player.sendMessage(ChatColor.GREEN + "mmSupernaturals " + ChatColor.YELLOW + "v" + SNVersionHandler.readNewestVersion() + ChatColor.GREEN + " has been released!");
-			player.sendMessage(ChatColor.GREEN + "Tell your server admin to check" + ChatColor.BLUE + " dev.bukkit.org/server-mods/mmsupernaturals/");
+		String newest = SNVersionHandler.readNewestVersion();
+		String current = SNVersionHandler.readVersion();
+		if(!current.equalsIgnoreCase(newest)) {
+			player.sendMessage(ChatColor.GREEN + SNConfigHandler.updateMessage.replaceAll("{VERSION}", newest));
 		}
 	}
 }
