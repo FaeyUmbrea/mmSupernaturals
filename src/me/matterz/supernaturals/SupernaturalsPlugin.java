@@ -123,7 +123,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	public static PermissionHandler permissionHandler;
 	public static PermissionManager permissionExManager;
 
-	private PluginManager pm = this.getServer().getPluginManager();
+	private PluginManager pm;
 
 	public SupernaturalsPlugin(){
 		SupernaturalsPlugin.instance = this;
@@ -206,6 +206,8 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+
+		this.pm = this.getServer().getPluginManager();
 
 		// Add the commands
 		commands.add(new SNCommandHelp());
