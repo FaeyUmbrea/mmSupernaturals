@@ -359,6 +359,9 @@ public class SupernaturalsPlugin extends JavaPlugin {
 			log("Found bPermissions.");
 			log(Level.WARNING, "If something goes wrong with bPermissions and this plugin, I will not help!");
 			bukkitperms = true;
+		} else if(pm.isPluginEnabled("GroupManager")) {
+			log("Found GroupManager");
+			bukkitperms = true;
 		}
 
 		if (permissionsPlugin == null && !bukkitperms) {
