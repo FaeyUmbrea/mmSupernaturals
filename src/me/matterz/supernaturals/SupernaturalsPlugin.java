@@ -362,6 +362,9 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		} else if(pm.isPluginEnabled("GroupManager")) {
 			log("Found GroupManager");
 			bukkitperms = true;
+		} else if(pm.isPluginEnabled("EssentialsGroupManager")) {
+			log("Found EssentialsGroupManager");
+			bukkitperms = true;
 		}
 
 		if (permissionsPlugin == null && !bukkitperms) {
