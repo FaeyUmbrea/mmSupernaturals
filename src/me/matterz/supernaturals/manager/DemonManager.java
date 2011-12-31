@@ -298,7 +298,7 @@ public class DemonManager extends ClassManager{
 	// -------------------------------------------- //
 
 	@Override
-	public void spellEvent(EntityDamageByEntityEvent event) {
+	public void spellEvent(EntityDamageByEntityEvent event, Player target) {
 		Player player = (Player) event.getDamager();
 		Material itemMaterial = player.getItemInHand().getType();
 		
@@ -320,13 +320,11 @@ public class DemonManager extends ClassManager{
 			if(SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log(player.getName()+" is casting SNARE with "+itemMaterial.toString());
 			}
-			Player target = SupernaturalsPlugin.instance.getSuperManager().getTarget(player);
 			cancelled = snare(player, target);
 			if(!event.isCancelled() && cancelled) {
 				event.setCancelled(true);
 			}
 		} else if(itemMaterial.equals(Material.NETHERRACK)) {
-			Player target = SupernaturalsPlugin.instance.getSuperManager().getTarget(player);
 			cancelled = convert(player, target);
 			if(!event.isCancelled()) {
 				event.setCancelled(cancelled);

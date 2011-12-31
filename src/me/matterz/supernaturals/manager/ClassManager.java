@@ -37,7 +37,7 @@ public abstract class ClassManager {
 		return damage;
 	}
 
-	public void spellEvent(EntityDamageByEntityEvent event) {
+	public void spellEvent(EntityDamageByEntityEvent event, Player target) {
 	}
 
 	public double victimEvent(EntityDamageEvent event, double damage){

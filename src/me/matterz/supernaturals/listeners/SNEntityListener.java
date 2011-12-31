@@ -90,7 +90,10 @@ public class SNEntityListener extends EntityListener{
 		//New spells event
 		if (event instanceof EntityDamageByEntityEvent) {
 			EntityDamageByEntityEvent edbeEvent = (EntityDamageByEntityEvent) event;
-			plugin.getClassManager((Player)event.getEntity()).spellEvent(edbeEvent);
+			if(edbeEvent.getDamager() instanceof Player && edbeEvent.getEntity() instanceof Player) {
+				Player attacker = (Player) edbeEvent.getEntity();
+				plugin.getClassManager((Player)event.getEntity()).spellEvent(edbeEvent, attacker);
+			}
 		}
 		//Player Damager Event
 		if(event instanceof EntityDamageByEntityEvent){

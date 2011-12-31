@@ -118,59 +118,8 @@ public class PriestManager extends HumanManager{
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		Material itemMaterial = event.getMaterial();
 
-		boolean cancelled = false;
-
 		if(action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)){
-			if(player.getItemInHand()==null){
-				return false;
-			}
-
-			if(SNConfigHandler.priestSpellMaterials.contains(itemMaterial)){
-				if(SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(snplayer.getName() + " is attempting to cast a spell...");
-				}
-				Player victim = SupernaturalsPlugin.instance.getSuperManager().getTarget(player);
-				if(victim == null) {
-					return false;
-				}
-				if(SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(victim.getName()+" is targetted by spell.");
-				}
-				if(itemMaterial.equals(SNConfigHandler.priestSpellMaterials.get(0))){
-					banish(player, victim);
-					cancelled = false;
-				}else if(itemMaterial.equals(SNConfigHandler.priestSpellMaterials.get(1))){
-					exorcise(player, victim);
-					cancelled = false;
-				}else if(itemMaterial.equals(SNConfigHandler.priestSpellMaterials.get(2))){
-					cancelled = cure(player, victim, itemMaterial);
-				}else if(itemMaterial.equals(SNConfigHandler.priestSpellMaterials.get(3))){
-					cancelled = heal(player, victim);
-				}else if(itemMaterial.equals(SNConfigHandler.priestSpellMaterials.get(4))){
-					drainPower(player, victim);
-					cancelled = false;
-				}
-				if(!event.isCancelled()) {
-					event.setCancelled(cancelled);
-				}
-				return true;
-			}else if(itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.priestSpellGuardianAngel)){
-				if(SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(snplayer.getName() + " is attempting to cast guardian angel...");
-				}
-				Player victim = SupernaturalsPlugin.instance.getSuperManager().getTarget(player);
-				if(victim == null) {
-					return false;
-				}
-				if(SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(victim.getName()+" is targetted by guardian angel.");
-				}
-				cancelled = guardianAngel(player, victim);
-				if(!event.isCancelled()) {
-					event.setCancelled(cancelled);
-				}
-				return true;
-			}else if(itemMaterial.equals(Material.BOWL)){
+			if(itemMaterial.equals(Material.BOWL)){
 				if(SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log(snplayer.getName() + " is attempting to donate remotely.");
 				}
@@ -323,7 +272,7 @@ public class PriestManager extends HumanManager{
 	// -------------------------------------------- //
 
 	@Override
-	public void spellEvent(EntityDamageByEntityEvent event) {
+	public void spellEvent(EntityDamageByEntityEvent event, Player target) {
 		Player player = (Player) event.getDamager();
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		Material itemMaterial = player.getItemInHand().getType();
@@ -338,25 +287,21 @@ public class PriestManager extends HumanManager{
 				if(SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log(snplayer.getName() + " is attempting to cast a spell...");
 				}
-				Player victim = SupernaturalsPlugin.instance.getSuperManager().getTarget(player);
-				if(victim == null) {
-					return;
-				}
 				if(SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(victim.getName()+" is targetted by spell.");
+					SupernaturalsPlugin.log(target.getName()+" is targetted by spell.");
 				}
 				if(itemMaterial.equals(SNConfigHandler.priestSpellMaterials.get(0))){
-					banish(player, victim);
+					banish(player, target);
 					cancelled = true;
 				}else if(itemMaterial.equals(SNConfigHandler.priestSpellMaterials.get(1))){
-					exorcise(player, victim);
+					exorcise(player, target);
 					cancelled = true;
 				}else if(itemMaterial.equals(SNConfigHandler.priestSpellMaterials.get(2))){
-					cancelled = cure(player, victim, itemMaterial);
+					cancelled = cure(player, target, itemMaterial);
 				}else if(itemMaterial.equals(SNConfigHandler.priestSpellMaterials.get(3))){
-					cancelled = heal(player, victim);
+					cancelled = heal(player, target);
 				}else if(itemMaterial.equals(SNConfigHandler.priestSpellMaterials.get(4))){
-					drainPower(player, victim);
+					drainPower(player, target);
 					cancelled = true;
 				}
 				if(!event.isCancelled()) {
@@ -367,14 +312,10 @@ public class PriestManager extends HumanManager{
 				if(SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log(snplayer.getName() + " is attempting to cast guardian angel...");
 				}
-				Player victim = SupernaturalsPlugin.instance.getSuperManager().getTarget(player);
-				if(victim == null) {
-					return;
-				}
 				if(SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(victim.getName()+" is targetted by guardian angel.");
+					SupernaturalsPlugin.log(target.getName()+" is targetted by guardian angel.");
 				}
-				cancelled = guardianAngel(player, victim);
+				cancelled = guardianAngel(player, target);
 				if(!event.isCancelled()) {
 					event.setCancelled(cancelled);
 				}

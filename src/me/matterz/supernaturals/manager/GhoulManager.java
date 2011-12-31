@@ -204,7 +204,7 @@ public class GhoulManager extends ClassManager{
 	// -------------------------------------------- //
 
 	@Override
-	public void spellEvent(EntityDamageByEntityEvent event) {
+	public void spellEvent(EntityDamageByEntityEvent event, Player target) {
 		Player player = (Player) event.getDamager();
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
@@ -222,8 +222,7 @@ public class GhoulManager extends ClassManager{
 			if(SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log(snplayer.getName() + " is attempting to bond...");
 			}
-			Player victim = SupernaturalsPlugin.instance.getSuperManager().getTarget(player);
-			boolean success = createBond(player, victim);
+			boolean success = createBond(player, target);
 			if(!success) {
 				return;
 			}
