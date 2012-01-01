@@ -43,13 +43,13 @@ import org.bukkit.util.Vector;
 
 public class SuperNManager {
 
-	private SupernaturalsPlugin plugin;
-	private String worldPermission = "supernatural.world.disabled";
+	public SupernaturalsPlugin plugin;
+	public String worldPermission = "supernatural.world.disabled";
 	public static String infpowerpermissions = "supernatural.admin.infinitepower";
 
-	private static List<SuperNPlayer> supernaturals = new ArrayList<SuperNPlayer>();
-	private transient int taskCounter = 0;
-	private static int timer;
+	public static List<SuperNPlayer> supernaturals = new ArrayList<SuperNPlayer>();
+	public transient int taskCounter = 0;
+	public static int timer;
 
 	public SuperNManager(SupernaturalsPlugin plugin){
 		this.plugin = plugin;

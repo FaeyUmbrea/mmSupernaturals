@@ -30,13 +30,13 @@ public class SuperNPlayer implements Serializable{
 	 */
 	private static final long serialVersionUID = -2693531379993789149L;
 
-	private String playername;
-	private String superType = "human";
-	private String oldSuperType = "human";
-	private double oldSuperPower = 0;
-	private double superPower = 0;
-	private boolean truce = true;
-	private int truceTimer = 0;
+	public String playername;
+	public String superType = "human";
+	public String oldSuperType = "human";
+	public double oldSuperPower = 0;
+	public double superPower = 0;
+	public boolean truce = true;
+	public int truceTimer = 0;
 
 	public SuperNPlayer(){}
 
