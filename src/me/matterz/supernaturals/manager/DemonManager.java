@@ -31,6 +31,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World.Environment;
+import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Fireball;
@@ -131,16 +132,21 @@ public class DemonManager extends ClassManager{
 		if(e==null) {
 			return;
 		}
-		if(e.getCause().equals(DamageCause.DROWNING) && player.getWorld().getTemperature(player.getLocation().getBlockX(), player.getLocation().getBlockZ())<0.6){
-			if(snplayer.isDemon()){
-				if(SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log("Demon drowned.  Checking inventory...");
-				}
-				if(player.getInventory().contains(Material.SNOW_BALL, SNConfigHandler.demonSnowballAmount)){
-					SuperNManager.sendMessage(snplayer, "Your icy death has cooled the infernal fires raging within your body.");
-					SuperNManager.cure(snplayer);
+		if(e.getCause().equals(DamageCause.DROWNING)){
+			int pLocX = player.getLocation().getBlockX();
+			int pLocY = player.getLocation().getBlockZ();
+			Biome pBiome = player.getWorld().getBiome(pLocX, pLocY);
+			if(snplayer.isDemon()) {
+				if(pBiome == Biome.FROZEN_OCEAN || pBiome == Biome.FROZEN_RIVER || pBiome == Biome.ICE_DESERT || pBiome == Biome.ICE_MOUNTAINS || pBiome == Biome.ICE_PLAINS) {
 					if(SNConfigHandler.debugMode) {
-						SupernaturalsPlugin.log("Snowballs found!");
+						SupernaturalsPlugin.log("Demon drowned.  Checking inventory...");
+					}
+					if(player.getInventory().contains(Material.SNOW_BALL, SNConfigHandler.demonSnowballAmount)){
+						SuperNManager.sendMessage(snplayer, "Your icy death has cooled the infernal fires raging within your body.");
+						SuperNManager.cure(snplayer);
+						if(SNConfigHandler.debugMode) {
+							SupernaturalsPlugin.log("Snowballs found!");
+						}
 					}
 				}
 			}
