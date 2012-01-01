@@ -52,6 +52,7 @@ import me.matterz.supernaturals.listeners.SNEntityListener;
 import me.matterz.supernaturals.listeners.SNEntityMonitor;
 import me.matterz.supernaturals.listeners.SNPlayerListener;
 import me.matterz.supernaturals.listeners.SNPlayerMonitor;
+import me.matterz.supernaturals.listeners.SNServerMonitor;
 import me.matterz.supernaturals.manager.ClassManager;
 import me.matterz.supernaturals.manager.DemonManager;
 import me.matterz.supernaturals.manager.GhoulManager;
@@ -110,6 +111,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	private GhoulManager ghoulManager = new GhoulManager();
 	private HunterManager hunterManager = new HunterManager();
 	private DemonManager demonManager = new DemonManager();
+	private SNServerMonitor serverMonitor = new SNServerMonitor(this);
 
 	public List<SNCommand> commands = new ArrayList<SNCommand>();
 
@@ -118,6 +120,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	private static File dataFolder;
 
 	public static boolean bukkitperms = false;
+	public static boolean foundPerms = false;
 
 	public static PermissionHandler permissionHandler;
 	public static PermissionManager permissionExManager;
@@ -243,6 +246,8 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		pm.registerEvent(Type.BLOCK_BREAK, this.blockListener, Priority.Low, this);
 		pm.registerEvent(Type.SIGN_CHANGE, this.blockListener, Priority.Low, this);
 
+		pm.registerEvent(Type.PLUGIN_ENABLE, serverMonitor, Priority.Monitor, this);
+
 		PluginDescriptionFile pdfFile = this.getDescription();
 		log(pdfFile.getName() + " version " + pdfFile.getVersion() + " enabled.");
 
@@ -349,26 +354,33 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		if(pm.isPluginEnabled("PermissionsEx")) {
 			permissionsPlugin = pm.getPlugin("PermissionsEx");
 			permissionExManager = PermissionsEx.getPermissionManager();
+			foundPerms = true;
 		} else if(pm.isPluginEnabled("Permissions") && pm.isPluginEnabled("PermissionsEx")) {
 			permissionsPlugin = pm.getPlugin("Permissions");
 			permissionHandler = ((Permissions) permissionsPlugin).getHandler();
+			foundPerms = true;
 		} else if(pm.isPluginEnabled("PermissionsBukkit")) {
 			log("Found PermissionsBukkit!");
 			bukkitperms = true;
+			foundPerms = true;
 		} else if(pm.isPluginEnabled("bPermissions")) {
 			log("Found bPermissions.");
 			log(Level.WARNING, "If something goes wrong with bPermissions and this plugin, I will not help!");
 			bukkitperms = true;
+			foundPerms = true;
 		} else if(pm.isPluginEnabled("GroupManager")) {
 			log("Found GroupManager");
+			foundPerms = true;
 			bukkitperms = true;
 		} else if(pm.isPluginEnabled("EssentialsGroupManager")) {
 			log("Found EssentialsGroupManager");
+			foundPerms = true;
 			bukkitperms = true;
 		}
 
-		if (permissionsPlugin == null && !bukkitperms) {
+		if (!foundPerms) {
 			log("Permission system not detected, defaulting to SuperPerms");
+			log("A permissions system may be detected later, just wait.");
 			bukkitperms = true;
 		}
 		if(bukkitperms) {
@@ -401,7 +413,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	}
 
 	public static boolean hasPermissions(Player player, String permissions){
-		if(bukkitperms){
+		if(bukkitperms && !foundPerms){
 			return player.hasPermission(permissions);
 		}else{
 			if(permissionHandler != null) {
