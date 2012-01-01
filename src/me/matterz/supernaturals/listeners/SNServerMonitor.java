@@ -26,10 +26,12 @@ public class SNServerMonitor extends ServerListener {
 		if(enabledPlugin.toString().startsWith("Permissions") && !enabledPlugin.toString().startsWith("PermissionsEx") && !enabledPlugin.toString().startsWith("PermissionsBukkit")) {
 			SupernaturalsPlugin.permissionsPlugin = enabledPlugin;
 			SupernaturalsPlugin.permissionHandler = ((Permissions) SupernaturalsPlugin.permissionsPlugin).getHandler();
+			SupernaturalsPlugin.log("Found and will use plugin "+ SupernaturalsPlugin.permissionsPlugin.getDescription().getFullName());
 			SupernaturalsPlugin.foundPerms = true;
 		} else if(enabledPlugin.toString().startsWith("PermissionsEx")) {
 			SupernaturalsPlugin.permissionsPlugin = enabledPlugin;
 			SupernaturalsPlugin.permissionExManager = PermissionsEx.getPermissionManager();
+			SupernaturalsPlugin.log("Found and will use plugin "+ SupernaturalsPlugin.permissionsPlugin.getDescription().getFullName());
 			SupernaturalsPlugin.foundPerms = true;
 		} else if(enabledPlugin.toString().startsWith("GroupManager")) {
 			SupernaturalsPlugin.log("Found GroupManager");
