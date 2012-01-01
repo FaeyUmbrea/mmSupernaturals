@@ -165,7 +165,6 @@ public class PriestManager extends HumanManager{
 	// 					Church						//
 	// -------------------------------------------- //
 
-	@SuppressWarnings("deprecation")
 	public void useAltar(Player player){
 		Location location = player.getLocation();
 		World world = location.getWorld();
@@ -200,7 +199,7 @@ public class PriestManager extends HumanManager{
 								for(Material mat: SNConfigHandler.priestDonationMap.keySet()){
 									inv.remove(mat);
 								}
-								player.updateInventory();
+								SupernaturalsPlugin.updateInventory(player);
 								SuperNManager.sendMessage(snplayer, "The Church accepts your gracious donations of Bread, Fish, Grilled Pork and Apples.");
 								SuperNManager.alterPower(snplayer, delta, "Donations!");
 							}
