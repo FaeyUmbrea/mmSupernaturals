@@ -21,8 +21,6 @@ package me.matterz.supernaturals;
 
 import java.io.Serializable;
 
-import me.matterz.supernaturals.manager.SuperNManager;
-
 public class SuperNPlayer implements Serializable{
 
 	/**
@@ -87,9 +85,6 @@ public class SuperNPlayer implements Serializable{
 	}
 
 	public double getPower(){
-		if(SupernaturalsPlugin.hasPermissions(SupernaturalsPlugin.instance.getServer().getPlayer(this.getName()), SuperNManager.infpowerpermissions)) {
-			return 9999;
-		}
 		return this.superPower;
 	}
 

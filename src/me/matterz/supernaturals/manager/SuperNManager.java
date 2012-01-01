@@ -44,8 +44,8 @@ import org.bukkit.util.Vector;
 public class SuperNManager {
 
 	public SupernaturalsPlugin plugin;
-	public String worldPermission = "supernatural.world.disabled";
-	public static String infpowerpermissions = "supernatural.admin.infinitepower";
+	public String worldPermission = "supernatural.world.enabled";
+	public static String infPowerPermissions = "supernatural.admin.infinitepower";
 
 	public static List<SuperNPlayer> supernaturals = new ArrayList<SuperNPlayer>();
 	public transient int taskCounter = 0;
@@ -205,7 +205,7 @@ public class SuperNManager {
 	// -------------------------------------------- //
 
 	public static void alterPower(SuperNPlayer snplayer, double delta){
-		if(SupernaturalsPlugin.hasPermissions(SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()), infpowerpermissions)) {
+		if(SupernaturalsPlugin.hasPermissions(SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()), infPowerPermissions)) {
 			if(delta<0) {
 				return;
 			}
@@ -214,7 +214,7 @@ public class SuperNManager {
 	}
 
 	public static void alterPower(SuperNPlayer snplayer, double delta, String reason){
-		if(SupernaturalsPlugin.hasPermissions(SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()), infpowerpermissions)) {
+		if(SupernaturalsPlugin.hasPermissions(SupernaturalsPlugin.instance.getServer().getPlayer(snplayer.getName()), infPowerPermissions)) {
 			if(delta<0) {
 				return;
 			}
@@ -501,7 +501,7 @@ public class SuperNManager {
 	public void advanceTime(SuperNPlayer snplayer) {
 		Player player = plugin.getServer().getPlayer(snplayer.getName());
 
-		if(SupernaturalsPlugin.hasPermissions(player, worldPermission) && SNConfigHandler.multiworld) {
+		if(!SupernaturalsPlugin.hasPermissions(player, worldPermission) && SNConfigHandler.multiworld) {
 			return;
 		}
 
