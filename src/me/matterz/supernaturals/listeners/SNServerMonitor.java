@@ -22,6 +22,9 @@ public class SNServerMonitor extends ServerListener {
 
 	@Override
 	public void onPluginEnable(PluginEnableEvent event) {
+		if(SupernaturalsPlugin.foundPerms) {
+			return;
+		}
 		Plugin enabledPlugin = event.getPlugin();
 		if(enabledPlugin.toString().startsWith("Permissions") && !enabledPlugin.toString().startsWith("PermissionsEx") && !enabledPlugin.toString().startsWith("PermissionsBukkit")) {
 			SupernaturalsPlugin.permissionsPlugin = enabledPlugin;
