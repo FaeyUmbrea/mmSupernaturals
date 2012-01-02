@@ -413,9 +413,12 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	}
 
 	public static boolean hasPermissions(Player player, String permissions){
-		if(bukkitperms && !foundPerms){
+		if(bukkitperms){
 			return player.hasPermission(permissions);
-		}else{
+		} else {
+			if(player.isOp() && !permissions.startsWith("supernatural.player.prevent")) {
+				return true;
+			}
 			if(permissionHandler != null) {
 				return permissionHandler.has(player, permissions);
 			} else {
