@@ -38,11 +38,13 @@ public class SNServerMonitor extends ServerListener {
 			SupernaturalsPlugin.foundPerms = true;
 		} else if(enabledPlugin.toString().startsWith("GroupManager")) {
 			SupernaturalsPlugin.log("Found GroupManager");
-			SupernaturalsPlugin.bukkitperms = true;
+			SupernaturalsPlugin.permissionsPlugin = enabledPlugin;
+			SupernaturalsPlugin.permissionHandler = ((Permissions) SupernaturalsPlugin.permissionsPlugin).getHandler();
 			SupernaturalsPlugin.foundPerms = true;
 		} else if(enabledPlugin.toString().startsWith("EssentialsGroupManager")) {
 			SupernaturalsPlugin.log("Found EssentialsGroupManager");
-			SupernaturalsPlugin.bukkitperms = true;
+			SupernaturalsPlugin.permissionsPlugin = enabledPlugin;
+			SupernaturalsPlugin.permissionHandler = ((Permissions) SupernaturalsPlugin.permissionsPlugin).getHandler();
 			SupernaturalsPlugin.foundPerms = true;
 		} else if(enabledPlugin.toString().startsWith("bPermissions")) {
 			SupernaturalsPlugin.log("Found bPermissions.");

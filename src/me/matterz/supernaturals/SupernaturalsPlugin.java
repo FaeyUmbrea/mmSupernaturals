@@ -47,6 +47,7 @@ import me.matterz.supernaturals.commands.SNCommandSetChurch;
 import me.matterz.supernaturals.io.SNConfigHandler;
 import me.matterz.supernaturals.io.SNDataHandler;
 import me.matterz.supernaturals.io.SNPlayerHandler;
+import me.matterz.supernaturals.io.SNVersionHandler;
 import me.matterz.supernaturals.listeners.SNBlockListener;
 import me.matterz.supernaturals.listeners.SNEntityListener;
 import me.matterz.supernaturals.listeners.SNEntityMonitor;
@@ -114,6 +115,8 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	private SNServerMonitor serverMonitor = new SNServerMonitor(this);
 
 	public List<SNCommand> commands = new ArrayList<SNCommand>();
+
+	public SNVersionHandler versionHandler = new SNVersionHandler();
 
 	public static Plugin permissionsPlugin;
 
@@ -251,6 +254,10 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		PluginDescriptionFile pdfFile = this.getDescription();
 		log(pdfFile.getName() + " version " + pdfFile.getVersion() + " enabled.");
 
+		if(!versionHandler.versionFile.exists()) {
+			versionHandler.writeVersion();
+		}
+
 		dataFolder = getDataFolder();
 		SNConfigHandler.getConfiguration();
 
@@ -355,7 +362,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 			permissionsPlugin = pm.getPlugin("PermissionsEx");
 			permissionExManager = PermissionsEx.getPermissionManager();
 			foundPerms = true;
-		} else if(pm.isPluginEnabled("Permissions") && pm.isPluginEnabled("PermissionsEx")) {
+		} else if(pm.isPluginEnabled("Permissions") && !pm.isPluginEnabled("PermissionsEx")) {
 			permissionsPlugin = pm.getPlugin("Permissions");
 			permissionHandler = ((Permissions) permissionsPlugin).getHandler();
 			foundPerms = true;
@@ -369,19 +376,20 @@ public class SupernaturalsPlugin extends JavaPlugin {
 			bukkitperms = true;
 			foundPerms = true;
 		} else if(pm.isPluginEnabled("GroupManager")) {
-			log("Found GroupManager");
+			log("Found GroupManager, enabling bridge");
+			permissionsPlugin = pm.getPlugin("GroupManager");
+			permissionHandler = ((Permissions) permissionsPlugin).getHandler();
 			foundPerms = true;
-			bukkitperms = true;
 		} else if(pm.isPluginEnabled("EssentialsGroupManager")) {
 			log("Found EssentialsGroupManager");
+			permissionsPlugin = pm.getPlugin("GroupManager");
+			permissionHandler = ((Permissions) permissionsPlugin).getHandler();
 			foundPerms = true;
-			bukkitperms = true;
 		}
 
 		if (!foundPerms) {
 			log("Permission system not detected, defaulting to SuperPerms");
 			log("A permissions system may be detected later, just wait.");
-			bukkitperms = true;
 		}
 		if(bukkitperms) {
 			pm.addPermission(new Permission("supernatural.command.help"));

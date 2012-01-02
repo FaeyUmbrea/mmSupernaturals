@@ -266,8 +266,11 @@ public class SNConfigHandler {
 
 	public static void loadValues(Configuration config){
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
-		config.set("Demon.DamageFactor.FireTicks", 50);
-		config.set("Demon.Power.Convert", 2000);
+		if(plugin.versionHandler.readVersion() != plugin.getDescription().getVersion()) {
+			config.set("Demon.DamageFactor.FireTicks", 50);
+			config.set("Demon.Power.Convert", 2000);
+			plugin.versionHandler.writeVersion();
+		}
 		if(!configFile.exists()) {
 			config.set("DebugMode", false);
 			config.set("MultiWorld", false);
