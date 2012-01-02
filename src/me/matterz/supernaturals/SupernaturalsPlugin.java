@@ -415,7 +415,9 @@ public class SupernaturalsPlugin extends JavaPlugin {
 			return;
 		}
 
-		log("Found and will use plugin "+ permissionsPlugin.getDescription().getFullName());
+		if(foundPerms) {
+			log("Found and will use plugin "+ permissionsPlugin.getDescription().getFullName());
+		}
 	}
 
 	public static boolean hasPermissions(Player player, String permissions){
