@@ -12,14 +12,10 @@ import me.matterz.supernaturals.SupernaturalsPlugin;
 
 public class SNVersionHandler {
 
-	public SupernaturalsPlugin plugin;
-    public File versionFile = new File(plugin.getDataFolder(), "VERSION");
+	public static SupernaturalsPlugin plugin = SupernaturalsPlugin.instance;
+    public static File versionFile = new File(plugin.getDataFolder(), "VERSION");
 
-    public SNVersionHandler(SupernaturalsPlugin instance) {
-    	this.plugin = instance;
-    }
-
-    public void writeVersion() {
+    public static void writeVersion() {
     	try {
     		versionFile.createNewFile();
     		BufferedWriter vout = new BufferedWriter(new FileWriter(versionFile));
@@ -32,7 +28,7 @@ public class SNVersionHandler {
     	}
     }
 
-    public String readVersion() {
+    public static String readVersion() {
     	byte[] buffer = new byte[(int) versionFile.length()];
     	BufferedInputStream f = null;
     	try {

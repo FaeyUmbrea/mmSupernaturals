@@ -266,10 +266,10 @@ public class SNConfigHandler {
 
 	public static void loadValues(Configuration config){
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
-		if(plugin.versionHandler.readVersion() != plugin.getDescription().getVersion()) {
+		if(SNVersionHandler.readVersion() != plugin.getDescription().getVersion()) {
 			config.set("Demon.DamageFactor.FireTicks", 50);
 			config.set("Demon.Power.Convert", 2000);
-			plugin.versionHandler.writeVersion();
+			SNVersionHandler.writeVersion();
 		}
 		if(!configFile.exists()) {
 			config.set("DebugMode", false);
