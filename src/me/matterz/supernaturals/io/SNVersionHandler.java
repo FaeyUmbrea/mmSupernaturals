@@ -12,10 +12,11 @@ import me.matterz.supernaturals.SupernaturalsPlugin;
 
 public class SNVersionHandler {
 
-	public SupernaturalsPlugin plugin = SupernaturalsPlugin.instance;
+	public SupernaturalsPlugin plugin;
     public File versionFile = new File(plugin.getDataFolder(), "VERSION");
 
-    public SNVersionHandler() {
+    public SNVersionHandler(SupernaturalsPlugin instance) {
+    	this.plugin = instance;
     }
 
     public void writeVersion() {

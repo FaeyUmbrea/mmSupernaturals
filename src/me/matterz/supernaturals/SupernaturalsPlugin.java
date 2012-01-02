@@ -116,7 +116,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 	public List<SNCommand> commands = new ArrayList<SNCommand>();
 
-	public SNVersionHandler versionHandler = new SNVersionHandler();
+	public SNVersionHandler versionHandler = new SNVersionHandler(this);
 
 	public static Plugin permissionsPlugin;
 
