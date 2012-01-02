@@ -40,7 +40,7 @@ import org.bukkit.event.entity.EntityTargetEvent;
 public class SNEntityListener extends EntityListener{
 
 	private SupernaturalsPlugin plugin;
-	private String worldPermission = "supernatural.world.disabled";
+	private String worldPermission = "supernatural.world.enabled";
 
 	public SNEntityListener(SupernaturalsPlugin instance){
 		this.plugin = instance;
@@ -54,7 +54,7 @@ public class SNEntityListener extends EntityListener{
 		if(event.getEntity() instanceof Fireball){
 			Fireball fireball = (Fireball) event.getEntity();
 			if(fireball.getShooter() instanceof Player){
-				if(SupernaturalsPlugin.hasPermissions((Player) fireball.getShooter(), worldPermission) && SNConfigHandler.multiworld) {
+				if(!SupernaturalsPlugin.hasPermissions((Player) fireball.getShooter(), worldPermission) && SNConfigHandler.multiworld) {
 					return;
 				}
 				for(Entity entity : fireball.getNearbyEntities(3, 3, 3)){
@@ -101,7 +101,7 @@ public class SNEntityListener extends EntityListener{
 			Entity damager = edbeEvent.getDamager();
 
 			if(damager instanceof Player){
-				if(SupernaturalsPlugin.hasPermissions((Player)damager, worldPermission) && SNConfigHandler.multiworld) {
+				if(!SupernaturalsPlugin.hasPermissions((Player)damager, worldPermission) && SNConfigHandler.multiworld) {
 					return;
 				}
 
@@ -112,7 +112,7 @@ public class SNEntityListener extends EntityListener{
 		//Player Victim Event
 		if(victim instanceof Player){
 			Player pVictim = (Player) victim;
-			if(SupernaturalsPlugin.hasPermissions(pVictim, worldPermission) && SNConfigHandler.multiworld) {
+			if(!SupernaturalsPlugin.hasPermissions(pVictim, worldPermission) && SNConfigHandler.multiworld) {
 				return;
 			}
 			damage = plugin.getClassManager(pVictim).victimEvent(event, damage);

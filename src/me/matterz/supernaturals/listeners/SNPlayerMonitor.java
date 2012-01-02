@@ -34,7 +34,7 @@ import org.bukkit.event.player.PlayerPortalEvent;
 public class SNPlayerMonitor extends PlayerListener {
 
 	private SupernaturalsPlugin plugin;
-	private String worldPermission = "supernatural.world.disabled";
+	private String worldPermission = "supernatural.world.enabled";
 
 	public SNPlayerMonitor(SupernaturalsPlugin instance){
 		this.plugin = instance;
@@ -50,7 +50,7 @@ public class SNPlayerMonitor extends PlayerListener {
 	@Override
 	public void onPlayerPortal(PlayerPortalEvent event){
 		Player player = event.getPlayer();
-		if(SupernaturalsPlugin.hasPermissions(event.getPlayer(), worldPermission) && SNConfigHandler.multiworld) {
+		if(!SupernaturalsPlugin.hasPermissions(event.getPlayer(), worldPermission) && SNConfigHandler.multiworld) {
 			return;
 		}
 		if(event.getTo().getWorld().getEnvironment().equals(Environment.NETHER)){
@@ -64,7 +64,7 @@ public class SNPlayerMonitor extends PlayerListener {
 	@Override
 	public void onPlayerJoin(PlayerJoinEvent event){
 		Player player = event.getPlayer();
-		if(SupernaturalsPlugin.hasPermissions(event.getPlayer(), worldPermission) && SNConfigHandler.multiworld) {
+		if(!SupernaturalsPlugin.hasPermissions(event.getPlayer(), worldPermission) && SNConfigHandler.multiworld) {
 			return;
 		}
 		SuperNPlayer snplayer = SuperNManager.get(player);

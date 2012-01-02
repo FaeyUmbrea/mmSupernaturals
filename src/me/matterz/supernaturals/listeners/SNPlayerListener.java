@@ -39,7 +39,7 @@ public class SNPlayerListener extends PlayerListener{
 
 	public static SupernaturalsPlugin plugin;
 	private String permissions = "supernatural.player.shrineuse";
-	private String worldPermission = "supernatural.world.disabled";
+	private String worldPermission = "supernatural.world.enabled";
 
 	public SNPlayerListener(SupernaturalsPlugin instance){
 		SNPlayerListener.plugin = instance;
@@ -65,7 +65,7 @@ public class SNPlayerListener extends PlayerListener{
 			return;
 		}
 
-		if(SupernaturalsPlugin.hasPermissions(player, worldPermission) && SNConfigHandler.multiworld) {
+		if(!SupernaturalsPlugin.hasPermissions(player, worldPermission) && SNConfigHandler.multiworld) {
 			return;
 		}
 
@@ -162,7 +162,7 @@ public class SNPlayerListener extends PlayerListener{
 			return;
 		}
 
-		if(SupernaturalsPlugin.hasPermissions(event.getPlayer(), worldPermission) && SNConfigHandler.multiworld) {
+		if(!SupernaturalsPlugin.hasPermissions(event.getPlayer(), worldPermission) && SNConfigHandler.multiworld) {
 			return;
 		}
 
