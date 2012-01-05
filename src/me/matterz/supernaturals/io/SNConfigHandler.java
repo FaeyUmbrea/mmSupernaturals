@@ -92,6 +92,8 @@ public class SNConfigHandler {
 	public static int vampireCombustFireTicks;
 	public static int vampireDrowningCost;
 	public static int vampireTeleportCost;
+	public static int vampireHungerRegainPlayer;
+	public static int vampireHungerRegainMob;
 	public static int priestPowerBanish;
 	public static int priestPowerHeal;
 	public static int priestPowerCure;
@@ -267,8 +269,8 @@ public class SNConfigHandler {
 	public static void loadValues(Configuration config){
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if(SNVersionHandler.readVersion() != plugin.getDescription().getVersion()) {
-			config.set("Demon.DamageFactor.FireTicks", 50);
-			config.set("Demon.Power.Convert", 2000);
+			config.set("Vampire.GainHunger.Player", 3);
+			config.set("Vampire.GainHunger.Mob", 2);
 			SNVersionHandler.writeVersion();
 		}
 		if(!configFile.exists()) {
@@ -302,6 +304,8 @@ public class SNConfigHandler {
 			config.set("Vampire.TeleportMarker.Material", "RED_ROSE");
 			config.set("Vampire.Spell.Material", "BOOK");
 			config.set("Vampire.Burn.HelmetProtection", "GOLD_HELMET");
+			config.set("Vampire.GainHunger.Player", 3);
+			config.set("Vampire.GainHunger.Mob", 2);
 
 			config.set("Vampire.Altar.Infect.Material","GOLD_BLOCK");
 			config.set("Vampire.Altar.Infect.Surrounding.Material","OBSIDIAN");
@@ -813,6 +817,8 @@ public class SNConfigHandler {
 		vampireHelmet = config.getString("Vampire.Burn.HelmetProtection", "GOLD_HELMET");
 		vampireWeaponsString = config.getStringList("Vampire.Weapon.Restrictions");
 		vampireArmorString = config.getStringList("Vampire.Armor");
+		vampireHungerRegainPlayer = config.getInt("Vampire.GainHunger.Player");
+		vampireHungerRegainMob = config.getInt("Vampire.GainHunger.Mob");
 
 		vampireAltarInfectMaterial = config.getString("Vampire.Altar.Infect.Material","GOLD_BLOCK");
 		vampireAltarInfectMaterialSurround = config.getString("Vampire.Altar.Infect.Surrounding.Material","OBSIDIAN");

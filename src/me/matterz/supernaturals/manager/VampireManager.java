@@ -47,6 +47,7 @@ public class VampireManager extends ClassManager{
 	}
 
 	private String permissions = "supernatural.player.preventsundamage";
+	public SupernaturalsPlugin plugin = SupernaturalsPlugin.instance;
 
 	// -------------------------------------------- //
 	// 					Damage Events				//
@@ -102,8 +103,14 @@ public class VampireManager extends ClassManager{
 	@Override
 	public void killEvent(SuperNPlayer damager, SuperNPlayer victim){
 		if(victim==null){
+			Player pDamager = plugin.getServer().getPlayer(damager.getName());
+			pDamager.setFoodLevel(pDamager.getFoodLevel() + SNConfigHandler.vampireHungerRegainMob);
 			SuperNManager.alterPower(damager, SNConfigHandler.vampireKillPowerCreatureGain, "Creature death!");
 		}else{
+			if(!victim.isSuper()) {
+				Player pDamager = plugin.getServer().getPlayer(damager.getName());
+				pDamager.setFoodLevel(pDamager.getFoodLevel() + SNConfigHandler.vampireHungerRegainPlayer);
+			}
 			double random = Math.random();
 			if(victim.getPower() > SNConfigHandler.vampireKillPowerPlayerGain){
 				SuperNManager.alterPower(damager, SNConfigHandler.vampireKillPowerPlayerGain, "Player killed!");
