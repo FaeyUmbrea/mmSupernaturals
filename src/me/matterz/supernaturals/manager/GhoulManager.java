@@ -33,6 +33,7 @@ import org.bukkit.entity.Boat;
 import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -135,6 +136,18 @@ public class GhoulManager extends ClassManager{
 
 	@Override
 	public boolean playerInteract(PlayerInteractEvent event){
+		Action action = event.getAction();
+		Player player = event.getPlayer();
+
+		Material itemMaterial = event.getMaterial();
+
+		if((SNConfigHandler.ghoulRightClickSummon && (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK))) || (!SNConfigHandler.ghoulRightClickSummon && (action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)))) {
+			if(itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.ghoulMaterial)) {
+				summon(player);
+				event.setCancelled(true);
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -214,11 +227,7 @@ public class GhoulManager extends ClassManager{
 			return;
 		}
 
-		if(itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.ghoulMaterial)){
-			summon(player);
-			event.setCancelled(true);
-			return;
-		}else if(itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.ghoulBondMaterial)){
+		if(itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.ghoulBondMaterial)){
 			if(SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log(snplayer.getName() + " is attempting to bond...");
 			}

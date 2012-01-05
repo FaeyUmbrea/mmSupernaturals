@@ -43,6 +43,7 @@ public class SNConfigHandler {
 	public static boolean debugMode;
 	public static boolean vampireKillSpreadCurse;
 	public static boolean ghoulKillSpreadCurse;
+	public static boolean ghoulRightClickSummon;
 	public static boolean wereKillSpreadCurse;
 	public static boolean vampireBurnInSunlight;
 	public static boolean vampireBurnMessageEnabled;
@@ -271,6 +272,7 @@ public class SNConfigHandler {
 		if(SNVersionHandler.readVersion() != plugin.getDescription().getVersion()) {
 			config.set("Vampire.GainHunger.Player", 3);
 			config.set("Vampire.GainHunger.Mob", 2);
+			config.set("Ghoul.RightClickSummon", false);
 			SNVersionHandler.writeVersion();
 		}
 		if(!configFile.exists()) {
@@ -355,6 +357,7 @@ public class SNConfigHandler {
 			config.set("Ghoul.UnholyBond.Material", "BONE");
 			config.set("Ghoul.Power.Summon", 1000);
 			config.set("Ghoul.Power.UnholyBond", 50);
+			config.set("Ghoul.RightClickSummon", false);
 
 			config.set("Were.DashDelta", 4);
 			config.set("Were.Power.Dash", 400);
@@ -883,6 +886,7 @@ public class SNConfigHandler {
 		ghoulPowerBond = config.getInt("Ghoul.Power.UnholyBond", 50);
 		ghoulWeaponImmunityString = config.getStringList("Ghoul.Immunity");
 		ghoulArmorString = config.getStringList("Ghoul.Armor");
+		ghoulRightClickSummon = config.getBoolean("Ghoul.RightClickSummon");
 
 		dashDeltaSpeed = config.getDouble("Were.DashDelta", 4);
 		dashBloodCost = config.getInt("Were.Power.Dash", 400);
