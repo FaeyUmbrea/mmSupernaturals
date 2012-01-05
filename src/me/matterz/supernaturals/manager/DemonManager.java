@@ -36,6 +36,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -172,6 +173,42 @@ public class DemonManager extends ClassManager{
 
 	@Override
 	public boolean playerInteract(PlayerInteractEvent event){
+
+		Action action = event.getAction();
+		Player player = event.getPlayer();
+
+		Material itemMaterial = player.getItemInHand().getType();
+		
+		boolean cancelled = false;
+
+		if(player.getItemInHand() == null){
+			return false;
+		}
+
+		if(!(action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK))) {
+			return false;
+		}
+
+		if(itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.demonMaterial)){
+			if(SNConfigHandler.debugMode) {
+				SupernaturalsPlugin.log(player.getName()+" is casting FIREBALL with "+itemMaterial.toString());
+			}
+			cancelled = fireball(player);
+			if(!event.isCancelled() && cancelled) {
+				event.setCancelled(true);
+			}
+			return true;
+		}else if(itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.demonSnareMaterial)){
+			if(SNConfigHandler.debugMode) {
+				SupernaturalsPlugin.log(player.getName()+" is casting SNARE with "+itemMaterial.toString());
+			}
+			Player target = SupernaturalsPlugin.instance.getSuperManager().getTarget(player);
+			cancelled = snare(player, target);
+			if(!event.isCancelled() && cancelled) {
+				event.setCancelled(true);
+			}
+			return true;
+		}
 		return false;
 	}
 
@@ -314,23 +351,7 @@ public class DemonManager extends ClassManager{
 			return;
 		}
 
-		if(itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.demonMaterial)){
-			if(SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(player.getName()+" is casting FIREBALL with "+itemMaterial.toString());
-			}
-			cancelled = fireball(player);
-			if(!event.isCancelled() && cancelled) {
-				event.setCancelled(true);
-			}
-		}else if(itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.demonSnareMaterial)){
-			if(SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(player.getName()+" is casting SNARE with "+itemMaterial.toString());
-			}
-			cancelled = snare(player, target);
-			if(!event.isCancelled() && cancelled) {
-				event.setCancelled(true);
-			}
-		} else if(itemMaterial.equals(Material.NETHERRACK)) {
+		if(itemMaterial.equals(Material.NETHERRACK)) {
 			cancelled = convert(player, target);
 			if(!event.isCancelled()) {
 				event.setCancelled(cancelled);
