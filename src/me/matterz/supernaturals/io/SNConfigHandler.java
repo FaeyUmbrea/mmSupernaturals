@@ -281,6 +281,15 @@ public class SNConfigHandler {
 				vampireTruceString.add("SPIDER");
 				config.set("Vampire.Truce.Creatures", vampireTruceString);
 			}
+			if(ghoulTruceString.size() == 0){
+				ghoulTruceString.add("CREEPER");
+				ghoulTruceString.add("SKELETON");
+				ghoulTruceString.add("ZOMBIE");
+				ghoulTruceString.add("PIG_ZOMBIE");
+				ghoulTruceString.add("GIANT");
+				ghoulTruceString.add("ENDERMAN");
+				config.set("Ghoul.Truce.Creatures", ghoulTruceString);
+			}
 			if(foodMaterialsString.size() == 0){
 				foodMaterialsString.add("APPLE");
 				foodMaterialsString.add("BREAD");
@@ -684,6 +693,7 @@ public class SNConfigHandler {
 				ghoulTruceString.add("ZOMBIE");
 				ghoulTruceString.add("PIG_ZOMBIE");
 				ghoulTruceString.add("GIANT");
+				ghoulTruceString.add("ENDERMAN");
 				config.set("Ghoul.Truce.Creatures", ghoulTruceString);
 			}
 
