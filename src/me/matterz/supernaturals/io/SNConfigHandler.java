@@ -287,6 +287,7 @@ public class SNConfigHandler {
 				foodMaterialsString.add("WATERMELON"); // WATERMELON VAMPIRES RRRAAAWWWRRR
 				config.set("Material.Food", foodMaterialsString);
 			}
+			saveConfig();
 			SNVersionHandler.writeVersion();
 		}
 		if(!configFile.exists()) {
@@ -799,8 +800,7 @@ public class SNConfigHandler {
 				config.set("WitchHunter.ArrowTypes", hunterArrowTypes);
 			}
 
-			plugin.saveConfig();
-
+			saveConfig();
 		}
 
 		debugMode = config.getBoolean("DebugMode", false);
