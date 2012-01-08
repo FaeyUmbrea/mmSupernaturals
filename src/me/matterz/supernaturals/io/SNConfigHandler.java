@@ -270,26 +270,6 @@ public class SNConfigHandler {
 	public static void loadValues(Configuration config){
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if(SNVersionHandler.readVersion() != plugin.getDescription().getVersion()) {
-			config.set("Vampire.GainHunger.Player", 3);
-			config.set("Vampire.GainHunger.Mob", 2);
-			config.set("Ghoul.RightClickSummon", false);
-			if(vampireTruceString.size() == 0){
-				vampireTruceString.add("CREEPER");
-				vampireTruceString.add("SKELETON");
-				vampireTruceString.add("ZOMBIE");
-				vampireTruceString.add("ENDERMAN");
-				vampireTruceString.add("SPIDER");
-				config.set("Vampire.Truce.Creatures", vampireTruceString);
-			}
-			if(ghoulTruceString.size() == 0){
-				ghoulTruceString.add("CREEPER");
-				ghoulTruceString.add("SKELETON");
-				ghoulTruceString.add("ZOMBIE");
-				ghoulTruceString.add("PIG_ZOMBIE");
-				ghoulTruceString.add("GIANT");
-				ghoulTruceString.add("ENDERMAN");
-				config.set("Ghoul.Truce.Creatures", ghoulTruceString);
-			}
 			if(foodMaterialsString.size() == 0){
 				foodMaterialsString.add("APPLE");
 				foodMaterialsString.add("BREAD");
@@ -304,6 +284,7 @@ public class SNConfigHandler {
 				foodMaterialsString.add("COOKED_STEAK");
 				foodMaterialsString.add("COOKED_CHICKEN");
 				foodMaterialsString.add("ROTTEN_FLESH");
+				foodMaterialsString.add("WATERMELON"); // WATERMELON VAMPIRES RRRAAAWWWRRR
 				config.set("Material.Food", foodMaterialsString);
 			}
 			SNVersionHandler.writeVersion();
