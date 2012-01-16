@@ -69,8 +69,10 @@ public class SNConfigHandler {
 	public static double wereDamageFactor;
 	public static double priestDamageFactorAttackSuper;
 	public static double priestDamageFactorAttackHuman;
+	public static double enderDamageReceivedFactor;
 	public static double priestDrainFactor;
 	public static double hunterPowerArrowDamage;
+	public static double enderDamageFactor;
 	public static int jumpBloodCost;
 	public static int dashBloodCost;
 	public static int truceBreakTime;
@@ -135,6 +137,10 @@ public class SNConfigHandler {
 	public static int hunterPowerStart;
 	public static int hunterMaxBounties;
 	public static int hunterBountyCompletion;
+	public static int enderProtectPower;
+	public static int enderDeathPowerPenalty;
+	public static int enderKillPower;
+	public static int enderPearlPower;
 	public static String vampireAltarInfectMaterial;
 	public static String vampireAltarCureMaterial;
 	public static String vampireAltarInfectMaterialSurround;
@@ -178,6 +184,7 @@ public class SNConfigHandler {
 	public static List<Material> priestArmor = new ArrayList<Material>();
 	public static List<Material> vampireArmor = new ArrayList<Material>();
 	public static List<Material> wereArmor = new ArrayList<Material>();
+	public static List<Material> enderWeapons = new ArrayList<Material>();
 
 	public static String priestChurchWorld;
 	public static int priestChurchLocationX;
@@ -195,6 +202,7 @@ public class SNConfigHandler {
 	private static List<String> vampireWeaponsString = new ArrayList<String>();
 	private static List<String> wereWeaponsString = new ArrayList<String>();
 	private static List<String> ghoulWeaponImmunityString = new ArrayList<String>();
+	private static List<String> enderWeaponsString = new ArrayList<String>();
 	private static List<String> woodMaterialsString = new ArrayList<String>();
 	private static List<String> vampireTruceString = new ArrayList<String>();
 	private static List<String> foodMaterialsString = new ArrayList<String>();
@@ -270,6 +278,31 @@ public class SNConfigHandler {
 	public static void loadValues(Configuration config){
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if(SNVersionHandler.readVersion() != plugin.getDescription().getVersion()) {
+			config.set("EnderBorn.DamageFactor.DefenseBonus", 0.5);
+			config.set("EnderBorn.DamageFactor.AttackBonus", 0.3);
+			config.set("EnderBorn.Power.Protect", 500);
+			config.set("EnderBorn.Power.DeathPenalty", 300);
+			config.set("EnderBorn.Power.Kill", 50);
+			config.set("EnderBorn.Power.EnderPearl", 100);
+			if(supernaturalTypes.size() == 0){
+				supernaturalTypes.add("human");
+				supernaturalTypes.add("vampire");
+				supernaturalTypes.add("werewolf");
+				supernaturalTypes.add("ghoul");
+				supernaturalTypes.add("priest");
+				supernaturalTypes.add("demon");
+				supernaturalTypes.add("witchhunter");
+				supernaturalTypes.add("enderborn");
+				config.set("Supernatural.Types", supernaturalTypes);
+			}
+			if(enderWeaponsString.size() == 0) {
+				enderWeaponsString.add("DIAMOND_SWORD");
+				enderWeaponsString.add("DIAMOND_PICKAXE");
+				enderWeaponsString.add("DIAMOND_AXE");
+				enderWeaponsString.add("DIAMOND_HOE");
+				enderWeaponsString.add("DIAMOND_SPADE");
+				config.set("EnderBorn.Weapon.Restrictions", enderWeaponsString);
+			}
 			if(foodMaterialsString.size() == 0){
 				foodMaterialsString.add("APPLE");
 				foodMaterialsString.add("BREAD");
@@ -425,6 +458,13 @@ public class SNConfigHandler {
 			config.set("WitchHunter.Hall.Message", "WitchHunter");
 			config.set("WitchHunter.Bounty.MaxNumber", 5);
 
+			config.set("EnderBorn.DamageFactor.AttackBonus", 0.3);
+			config.set("EnderBorn.DamageFactor.DefenseBonus", 0.5);
+			config.set("EnderBorn.Power.Protect", 500);
+			config.set("EnderBorn.Power.DeathPenalty", 300);
+			config.set("EnderBorn.Power.Kill", 50);
+			config.set("EnderBorn.Power.EnderPearl", 100);
+
 			if(supernaturalTypes.size() == 0){
 				supernaturalTypes.add("human");
 				supernaturalTypes.add("vampire");
@@ -433,6 +473,7 @@ public class SNConfigHandler {
 				supernaturalTypes.add("priest");
 				supernaturalTypes.add("demon");
 				supernaturalTypes.add("witchhunter");
+				supernaturalTypes.add("enderborn");
 				config.set("Supernatural.Types", supernaturalTypes);
 			}
 
@@ -462,6 +503,15 @@ public class SNConfigHandler {
 				foodMaterialsString.add("COOKED_CHICKEN");
 				foodMaterialsString.add("ROTTEN_FLESH");
 				config.set("Material.Food", foodMaterialsString);
+			}
+
+			if(enderWeaponsString.size() == 0) {
+				enderWeaponsString.add("DIAMOND_SWORD");
+				enderWeaponsString.add("DIAMOND_PICKAXE");
+				enderWeaponsString.add("DIAMOND_AXE");
+				enderWeaponsString.add("DIAMOND_HOE");
+				enderWeaponsString.add("DIAMOND_SPADE");
+				config.set("EnderBorn.Weapon.Restrictions", enderWeaponsString);
 			}
 
 			if(burnableBlocksString.size() == 0){
@@ -968,6 +1018,13 @@ public class SNConfigHandler {
 		hunterMaxBounties = config.getInt("WitchHunter.Bounty.MaxNumber", 5);
 		hunterWeaponsString = config.getStringList("WitchHunter.Weapon.Restrictions");
 
+		enderDamageFactor = config.getDouble("EnderBorn.DamageFactor.AttackBonus");
+		enderDamageReceivedFactor = config.getDouble("EnderBorn.DamageFactor.DefenseBonus");
+		enderProtectPower = config.getInt("EnderBorn.Power.Protect");
+		enderDeathPowerPenalty = config.getInt("EnderBorn.Power.DeathPenalty");
+		enderKillPower = config.getInt("EnderBorn.Power.Kill");
+		enderPearlPower = config.getInt("EnderBorn.Power.EnderPearl");
+
 		for(String wood : woodMaterialsString){
 			woodMaterials.add(Material.getMaterial(wood));
 		}
@@ -1028,6 +1085,10 @@ public class SNConfigHandler {
 
 		for(String armor : hunterArmorString){
 			hunterArmor.add(Material.getMaterial(armor));
+		}
+
+		for(String weapon : enderWeaponsString) {
+			enderWeapons.add(Material.getMaterial(weapon));
 		}
 
 		for(String armor : ghoulArmorString){

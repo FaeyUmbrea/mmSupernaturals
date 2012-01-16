@@ -33,6 +33,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerListener;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Door;
 
 public class SNPlayerListener extends PlayerListener{
@@ -61,6 +62,22 @@ public class SNPlayerListener extends PlayerListener{
 		Player player = event.getPlayer();
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
+		ItemStack item = player.getItemInHand();
+		Material itemMaterial = item.getType();
+
+		if(action.equals(Action.RIGHT_CLICK_BLOCK) && player.getTargetBlock(null, 20).getType() == Material.CLAY) {
+			if(itemMaterial.equals(Material.ENDER_PEARL)) {
+				SuperNManager.sendMessage(snplayer, "The clay changes... it moves...");
+				SuperNManager.sendMessage(snplayer, "It wraps around you, takes over you.");
+				SuperNManager.convert(snplayer, "enderborn");
+				if(item.getAmount() == 1) {
+					player.setItemInHand(null);
+				} else {
+					item.setAmount(item.getAmount()-1);
+				}
+				event.setCancelled(true);
+			}
+		}
 		if(!(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_AIR)) && event.isCancelled()) {
 			return;
 		}

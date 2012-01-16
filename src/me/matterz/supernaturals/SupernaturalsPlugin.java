@@ -56,6 +56,7 @@ import me.matterz.supernaturals.listeners.SNPlayerMonitor;
 import me.matterz.supernaturals.listeners.SNServerMonitor;
 import me.matterz.supernaturals.manager.ClassManager;
 import me.matterz.supernaturals.manager.DemonManager;
+import me.matterz.supernaturals.manager.EnderBornManager;
 import me.matterz.supernaturals.manager.GhoulManager;
 import me.matterz.supernaturals.manager.HumanManager;
 import me.matterz.supernaturals.manager.HunterManager;
@@ -103,6 +104,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	private final SNPlayerMonitor playerMonitor = new SNPlayerMonitor(this);
 	private final SNEntityMonitor entityMonitor = new SNEntityMonitor(this);
 	private final SNBlockListener blockListener = new SNBlockListener(this);
+	private final SNServerMonitor serverMonitor = new SNServerMonitor(this);
 
 	private SuperNManager superManager = new SuperNManager(this);
 	private HumanManager humanManager = new HumanManager();
@@ -112,7 +114,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	private GhoulManager ghoulManager = new GhoulManager();
 	private HunterManager hunterManager = new HunterManager();
 	private DemonManager demonManager = new DemonManager();
-	private SNServerMonitor serverMonitor = new SNServerMonitor(this);
+	private EnderBornManager enderManager = new EnderBornManager();
 
 	public List<SNCommand> commands = new ArrayList<SNCommand>();
 
@@ -186,6 +188,8 @@ public class SupernaturalsPlugin extends JavaPlugin {
 			return vampManager;
 		} else if(snplayer.getType().equalsIgnoreCase("werewolf")) {
 			return wereManager;
+		} else if(snplayer.getType().equalsIgnoreCase("enderborn")) {
+			return enderManager;
 		} else {
 			return humanManager;
 		}

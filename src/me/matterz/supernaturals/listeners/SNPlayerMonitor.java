@@ -92,6 +92,9 @@ public class SNPlayerMonitor extends PlayerListener {
 			} else if(snplayer.isDemon()){
 				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.RED+player.getName()));
 				plugin.getServer().broadcastMessage(ChatColor.RED + "Demon " + player.getName() + ChatColor.GOLD + " has joined the server.");
+			} else if(snplayer.isEnderBorn()) {
+				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.LIGHT_PURPLE+player.getName()));
+				plugin.getServer().broadcastMessage(ChatColor.LIGHT_PURPLE + "EnderBorn " + player.getName() + ChatColor.GOLD + " has joined the server.");
 			}
 		}
 	}
