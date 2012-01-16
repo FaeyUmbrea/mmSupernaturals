@@ -69,6 +69,10 @@ public class SNPlayerMonitor extends PlayerListener {
 		}
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
+		if(SupernaturalsPlugin.hasPermissions(player, "supernatural.admin.infinitepower")) {
+			snplayer.setPower(10000); //Making power really infinite.
+		}
+
 		if(SNConfigHandler.enableColors){
 			if(snplayer.isHuman()){
 				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.WHITE+player.getName()));
