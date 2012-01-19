@@ -25,6 +25,7 @@ import java.util.List;
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
 import me.matterz.supernaturals.manager.HunterManager;
+import me.matterz.supernaturals.manager.SuperNManager;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -44,9 +45,14 @@ public class SNCommandKillList extends SNCommand {
 	public void perform(){
 
 		Player senderPlayer = (Player) sender;
+		SuperNPlayer snSender = SuperNManager.get(senderPlayer);
 		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
 			this.sendMessage("You do not have permissions to use this command.");
 			return;
+		}
+
+		if(!snSender.isHunter()) {
+			this.sendMessage("You are not a WitchHunter!");
 		}
 
 		ArrayList<SuperNPlayer> bountyList = HunterManager.getBountyList();
