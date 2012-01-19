@@ -57,6 +57,7 @@ public class SNCommandList extends SNCommand {
 		List<String> priests = new ArrayList<String>();
 		List<String> hunters = new ArrayList<String>();
 		List<String> demons = new ArrayList<String>();
+		List<String> enderborns = new ArrayList<String>();
 
 		for (SuperNPlayer snplayer : SuperNManager.findAllOnline()) {
 			if (snplayer.isVampire()) {
@@ -71,6 +72,8 @@ public class SNCommandList extends SNCommand {
 				hunters.add(snplayer.getName());
 			}else if(snplayer.isDemon()){
 				demons.add(snplayer.getName());
+			}else if(snplayer.isEnderBorn()) {
+				enderborns.add(snplayer.getName());
 			}
 		}
 
