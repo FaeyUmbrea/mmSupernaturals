@@ -175,7 +175,7 @@ public class SNEntityListener extends EntityListener{
 			return;
 		}
 
-		if(SupernaturalsPlugin.hasPermissions((Player) event.getTarget(), worldPermission) && SNConfigHandler.multiworld) {
+		if(!SupernaturalsPlugin.hasPermissions((Player) event.getTarget(), worldPermission) && SNConfigHandler.multiworld) {
 			return;
 		}
 
