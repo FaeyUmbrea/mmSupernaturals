@@ -74,6 +74,34 @@ public class SNPlayerMonitor extends PlayerListener {
 		}
 
 		if(SNConfigHandler.enableColors){
+			if(SNConfigHandler.spanish) {
+				if(snplayer.isHuman()){
+					player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.WHITE+player.getName()));
+					plugin.getServer().broadcastMessage(ChatColor.WHITE + "El Humano " + player.getName() + ChatColor.GOLD + " ha entrado al juego.");
+				}else if(snplayer.isVampire()){
+					player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.DARK_PURPLE+player.getName()));
+					plugin.getServer().broadcastMessage(ChatColor.DARK_PURPLE + "El Vampiro " + player.getName() + ChatColor.GOLD + " ha entrado al juego.");
+				} else if(snplayer.isWere()){
+					player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.BLUE+player.getName()));
+					plugin.getServer().broadcastMessage(ChatColor.BLUE + "El Hombre Lobo " + player.getName() + ChatColor.GOLD + " ha entrado al juego.");
+				} else if(snplayer.isGhoul()){
+					player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.DARK_GRAY+player.getName()));
+					plugin.getServer().broadcastMessage(ChatColor.DARK_GRAY + "El Muerto Viviente " + player.getName() + ChatColor.GOLD + " ha entrado al juego.");
+				} else if(snplayer.isPriest()){
+					player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.GOLD+player.getName()));
+					plugin.getServer().broadcastMessage(ChatColor.GOLD + "El Sacerdote " + player.getName() + ChatColor.GOLD + " ha entrado al juego.");
+				} else if(snplayer.isHunter()){
+					//			player.setSneaking(true);
+					player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.GREEN+player.getName()));
+					plugin.getServer().broadcastMessage(ChatColor.GREEN + "El Cazador de Brujas " + player.getName() + ChatColor.GOLD + " ha entrado al juego.");
+				} else if(snplayer.isDemon()){
+					player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.RED+player.getName()));
+					plugin.getServer().broadcastMessage(ChatColor.RED + "El Demonio " + player.getName() + ChatColor.GOLD + " ha entrado al juego.");
+				}  else if(snplayer.isEnderBorn()) {
+					player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.LIGHT_PURPLE+player.getName()));
+					plugin.getServer().broadcastMessage(ChatColor.LIGHT_PURPLE + "El EnderBorn " + player.getName() + ChatColor.GOLD + " ha entrado al juego.");
+				}
+			}
 			if(snplayer.isHuman()){
 				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.WHITE+player.getName()));
 				plugin.getServer().broadcastMessage(ChatColor.WHITE + "Human " + player.getName() + ChatColor.GOLD + " has joined the server.");

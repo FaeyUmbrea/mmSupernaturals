@@ -50,6 +50,7 @@ public class SNConfigHandler {
 	public static boolean wolfTruce;
 	public static boolean enableColors;
 	public static boolean multiworld;
+	public static boolean spanish;
 	public static double spreadChance;
 	public static double vampireDamageFactor;
 	public static double ghoulDamageFactor;
@@ -278,6 +279,7 @@ public class SNConfigHandler {
 	public static void loadValues(Configuration config){
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if(SNVersionHandler.readVersion() != plugin.getDescription().getVersion()) {
+			config.set("Spanish", false);
 			config.set("EnderBorn.DamageFactor.DefenseBonus", 0.5);
 			config.set("EnderBorn.DamageFactor.AttackBonus", 0.3);
 			config.set("EnderBorn.Power.Protect", 500);
@@ -324,6 +326,7 @@ public class SNConfigHandler {
 			SNVersionHandler.writeVersion();
 		}
 		if(!configFile.exists()) {
+			config.set("Spanish", false);
 			config.set("DebugMode", false);
 			config.set("MultiWorld", false);
 			config.set("EnableChatColors", true);
