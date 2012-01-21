@@ -112,6 +112,8 @@ public class EnderBornManager extends ClassManager {
 				} else {
 					item.setAmount(item.getAmount() - 1);
 				}
+				event.setCancelled(true);
+				return true;
 			}
 		}
 		return false;
