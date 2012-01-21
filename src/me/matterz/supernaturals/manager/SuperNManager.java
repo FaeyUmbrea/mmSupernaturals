@@ -501,6 +501,10 @@ public class SuperNManager {
 	public void advanceTime(SuperNPlayer snplayer) {
 		Player player = plugin.getServer().getPlayer(snplayer.getName());
 
+		if(player == null) {
+			return;
+		}
+
 		if(!SupernaturalsPlugin.hasPermissions(player, worldPermission) && SNConfigHandler.multiworld) {
 			return;
 		}
