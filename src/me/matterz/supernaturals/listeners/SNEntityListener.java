@@ -91,8 +91,8 @@ public class SNEntityListener extends EntityListener{
 		if (event instanceof EntityDamageByEntityEvent) {
 			EntityDamageByEntityEvent edbeEvent = (EntityDamageByEntityEvent) event;
 			if(edbeEvent.getDamager() instanceof Player && edbeEvent.getEntity() instanceof Player) {
-				Player attacker = (Player) edbeEvent.getEntity();
-				plugin.getClassManager((Player)event.getEntity()).spellEvent(edbeEvent, attacker);
+				Player target = (Player) edbeEvent.getEntity();
+				plugin.getClassManager((Player) edbeEvent.getDamager()).spellEvent(edbeEvent, target);
 			}
 		}
 		//Player Damager Event
