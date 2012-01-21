@@ -86,6 +86,7 @@ public class SNCommandList extends SNCommand {
 		messages.add("Priests: "+ ChatColor.WHITE + TextUtil.implode(priests, ", "));
 		messages.add("WitchHunters: "+ ChatColor.WHITE + TextUtil.implode(hunters, ", "));
 		messages.add("Demons: "+ ChatColor.WHITE + TextUtil.implode(demons, ", "));
+		messages.add("EnderBorns:" + ChatColor.WHITE + TextUtil.implode(enderborns, ", "));
 
 		// Send them
 		this.sendMessage(messages);
