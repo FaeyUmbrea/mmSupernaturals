@@ -171,7 +171,28 @@ public class WereManager extends ClassManager{
 		}
 
 		if(action.equals(Action.RIGHT_CLICK_AIR)){
+			if(SuperNManager.worldTimeIsNight(player)) {
+				if(SNConfigHandler.foodMaterials.contains(itemMaterial)){
+					if(itemMaterial.equals(Material.BREAD)){
+						SuperNManager.sendMessage(snplayer, "Werewolves do not gain power from Bread.");
+						return false;
+					}else{
+						SuperNManager.alterPower(snplayer, SNConfigHandler.werePowerFood, "Eating!");
+						if(SNConfigHandler.debugMode) {
+							SupernaturalsPlugin.log(snplayer.getName() + " ate " + itemMaterial.toString() + " to gain " + SNConfigHandler.werePowerFood + " power!");
+						}
+						player.setFoodLevel(player.getFoodLevel() + 6); //Hardcoded value :D
+						Inventory inv = player.getInventory();
+						inv.removeItem(new ItemStack (itemMaterial, 1));
+						SupernaturalsPlugin.updateInventory(player);
+						return true;
+					}
+				}
+			}
 			if(SNConfigHandler.foodMaterials.contains(itemMaterial)){
+				if(player.getFoodLevel() == 20) {
+					return false;
+				}
 				if(itemMaterial.equals(Material.BREAD)){
 					SuperNManager.sendMessage(snplayer, "Werewolves do not gain power from Bread.");
 					return false;
@@ -180,6 +201,7 @@ public class WereManager extends ClassManager{
 					if(SNConfigHandler.debugMode) {
 						SupernaturalsPlugin.log(snplayer.getName() + " ate " + itemMaterial.toString() + " to gain " + SNConfigHandler.werePowerFood + " power!");
 					}
+					player.setFoodLevel(player.getFoodLevel() + 6); //Hardcoded value :D
 					Inventory inv = player.getInventory();
 					inv.removeItem(new ItemStack (itemMaterial, 1));
 					SupernaturalsPlugin.updateInventory(player);
