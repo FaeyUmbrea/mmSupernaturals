@@ -23,10 +23,18 @@ public class EnderBornManager extends ClassManager {
 	}
 
 	public void spellEvent(EntityDamageByEntityEvent event, Player target) {
-		ItemStack item = target.getItemInHand();
+		Player player = (Player) event.getDamager();
+		SuperNPlayer snplayer = SuperNManager.get(player);
+		ItemStack item = player.getItemInHand();
 		Material itemMaterial = item.getType();
-		if(itemMaterial.equals(Material.ENDER_PEARL)) {
-			
+		ItemStack targetItem = target.getItemInHand();
+		Material targetItemMaterial = targetItem.getType();
+		SuperNPlayer sntarget = SuperNManager.get(target);
+		if(itemMaterial.equals(Material.ENDER_PEARL) && targetItemMaterial.equals(Material.ENDER_PEARL)) {
+			SuperNManager.sendMessage(snplayer, "You have converted " + ChatColor.WHITE + target.getName() + ChatColor.RED + "!");
+			SuperNManager.sendMessage(sntarget, "An energy takes over your body...");
+			SuperNManager.convert(sntarget, "enderborn");
+			event.setCancelled(true);
 		}
 	}
 
