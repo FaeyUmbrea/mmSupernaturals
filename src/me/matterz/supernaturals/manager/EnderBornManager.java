@@ -104,7 +104,7 @@ public class EnderBornManager extends ClassManager {
 
 		ItemStack item = player.getItemInHand();
 		Material itemMaterial = item.getType();
-		if(action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)) {
+		if(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
 			if(itemMaterial.equals(Material.ENDER_PEARL)) {
 				SuperNManager.alterPower(snplayer, SNConfigHandler.enderPearlPower, "Taken from pearl.");
 				if(item.getAmount() == 1) {
