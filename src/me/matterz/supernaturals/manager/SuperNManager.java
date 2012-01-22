@@ -52,7 +52,7 @@ public class SuperNManager {
 	public static int timer;
 
 	public SuperNManager(SupernaturalsPlugin plugin){
-		this.plugin = plugin;
+		SuperNManager.plugin = plugin;
 	}
 
 	// -------------------------------------------- //
