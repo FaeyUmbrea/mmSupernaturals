@@ -43,7 +43,7 @@ import org.bukkit.util.Vector;
 
 public class SuperNManager {
 
-	public SupernaturalsPlugin plugin;
+	public static SupernaturalsPlugin plugin;
 	public String worldPermission = "supernatural.world.enabled";
 	public static String infPowerPermissions = "supernatural.admin.infinitepower";
 
@@ -117,7 +117,11 @@ public class SuperNManager {
 		snplayer.setOldPower(snplayer.getPower());
 
 		snplayer.setType(type);
-		snplayer.setPower(powerLevel);
+		if(SupernaturalsPlugin.hasPermissions(plugin.getServer().getPlayer(snplayer.getName()), infPowerPermissions)) {
+			snplayer.setPower(10000);
+		} else {
+			snplayer.setPower(powerLevel);
+		}
 
 		snplayer.setTruce(true);
 
