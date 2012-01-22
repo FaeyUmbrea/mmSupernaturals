@@ -155,7 +155,7 @@ public class DemonManager extends ClassManager{
 	}
 
 	@Override
-	public void killEvent(SuperNPlayer damager, SuperNPlayer victim){
+	public void killEvent(Player pDamager, SuperNPlayer damager, SuperNPlayer victim){
 		if(victim==null){
 			SuperNManager.alterPower(damager, SNConfigHandler.demonKillPowerCreatureGain, "Creature death!");
 		}else{

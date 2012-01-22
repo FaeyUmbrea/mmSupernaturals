@@ -130,7 +130,7 @@ public class HunterManager extends HumanManager{
 	}
 
 	@Override
-	public void killEvent(SuperNPlayer damager, SuperNPlayer victim){
+	public void killEvent(Player pDamager, SuperNPlayer damager, SuperNPlayer victim){
 		if(victim==null){
 			if(SNConfigHandler.hunterKillPowerCreatureGain>0) {
 				SuperNManager.alterPower(damager, SNConfigHandler.hunterKillPowerCreatureGain, "Creature death!");

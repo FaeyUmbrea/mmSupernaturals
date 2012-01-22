@@ -105,7 +105,7 @@ public class HumanManager extends ClassManager{
 	}
 
 	@Override
-	public void killEvent(SuperNPlayer damager, SuperNPlayer victim){
+	public void killEvent(Player pDamager, SuperNPlayer damager, SuperNPlayer victim){
 	}
 
 	// -------------------------------------------- //

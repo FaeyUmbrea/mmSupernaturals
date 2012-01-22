@@ -157,7 +157,7 @@ public class SNEntityMonitor extends EntityListener {
 					return;
 				}
 				SuperNPlayer snDamager = SuperNManager.get(pDamager);
-				SupernaturalsPlugin.instance.getClassManager(pDamager).killEvent(snDamager, null);
+				SupernaturalsPlugin.instance.getClassManager(pDamager).killEvent(pDamager, snDamager, null);
 			}
 		}
 
@@ -208,7 +208,7 @@ public class SNEntityMonitor extends EntityListener {
 					}
 					plugin.getDataHandler().addPlayerApp(snDamager, supersKilled);
 				}
-				SupernaturalsPlugin.instance.getClassManager(pDamager).killEvent(snDamager, snplayer);
+				SupernaturalsPlugin.instance.getClassManager(pDamager).killEvent(pDamager, snDamager, snplayer);
 			}else if(lDamager instanceof Wolf){
 				Wolf wolf = (Wolf) lDamager;
 				if(!wolf.isTamed()){
@@ -224,7 +224,7 @@ public class SNEntityMonitor extends EntityListener {
 					SupernaturalsPlugin.log("Player "+pDamager.getName()+" has killed "+snplayer.getName()+" with wolf.");
 				}
 				SuperNPlayer snDamager = SuperNManager.get(pDamager);
-				SupernaturalsPlugin.instance.getClassManager(pDamager).killEvent(snDamager, snplayer);
+				SupernaturalsPlugin.instance.getClassManager(pDamager).killEvent(pDamager, snDamager, snplayer);
 			}
 		}
 		SupernaturalsPlugin.instance.getClassManager(pVictim).deathEvent(pVictim);

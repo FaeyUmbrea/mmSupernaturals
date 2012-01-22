@@ -101,14 +101,12 @@ public class VampireManager extends ClassManager{
 	}
 
 	@Override
-	public void killEvent(SuperNPlayer damager, SuperNPlayer victim){
+	public void killEvent(Player pDamager, SuperNPlayer damager, SuperNPlayer victim){
 		if(victim==null){
-			Player pDamager = plugin.getServer().getPlayer(damager.getName());
 			pDamager.setFoodLevel(pDamager.getFoodLevel() + SNConfigHandler.vampireHungerRegainMob);
 			SuperNManager.alterPower(damager, SNConfigHandler.vampireKillPowerCreatureGain, "Creature death!");
 		}else{
 			if(!victim.isSuper()) {
-				Player pDamager = plugin.getServer().getPlayer(damager.getName());
 				pDamager.setFoodLevel(pDamager.getFoodLevel() + SNConfigHandler.vampireHungerRegainPlayer);
 			}
 			double random = Math.random();

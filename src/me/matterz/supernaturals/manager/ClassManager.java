@@ -47,7 +47,7 @@ public abstract class ClassManager {
 	public void deathEvent(Player player){
 	}
 
-	public void killEvent(SuperNPlayer damager, SuperNPlayer victim){
+	public void killEvent(Player pDamager, SuperNPlayer damager, SuperNPlayer victim){
 	}
 
 	public boolean playerInteract(PlayerInteractEvent event){

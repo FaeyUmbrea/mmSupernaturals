@@ -95,7 +95,7 @@ public class WereManager extends ClassManager{
 	}
 
 	@Override
-	public void killEvent(SuperNPlayer damager, SuperNPlayer victim){
+	public void killEvent(Player pDamager, SuperNPlayer damager, SuperNPlayer victim){
 		if(victim==null){
 			SuperNManager.alterPower(damager, SNConfigHandler.wereKillPowerCreatureGain, "Creature death!");
 		}else{

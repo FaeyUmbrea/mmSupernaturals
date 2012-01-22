@@ -103,7 +103,7 @@ public class PriestManager extends HumanManager{
 	}
 
 	@Override
-	public void killEvent(SuperNPlayer damager, SuperNPlayer victim){
+	public void killEvent(Player pDamager, SuperNPlayer damager, SuperNPlayer victim){
 	}
 
 	// -------------------------------------------- //
