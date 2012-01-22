@@ -279,32 +279,6 @@ public class SNConfigHandler {
 	public static void loadValues(Configuration config){
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if(SNVersionHandler.readVersion() != plugin.getDescription().getVersion() && configFile.exists()) {
-			config.set("Spanish", false);
-			config.set("EnderBorn.DamageFactor.DefenseBonus", 0.5);
-			config.set("EnderBorn.DamageFactor.AttackBonus", 0.3);
-			config.set("EnderBorn.Power.Protect", 500);
-			config.set("EnderBorn.Power.DeathPenalty", 300);
-			config.set("EnderBorn.Power.Kill", 50);
-			config.set("EnderBorn.Power.EnderPearl", 100);
-			if(supernaturalTypes.size() == 0){
-				supernaturalTypes.add("human");
-				supernaturalTypes.add("vampire");
-				supernaturalTypes.add("werewolf");
-				supernaturalTypes.add("ghoul");
-				supernaturalTypes.add("priest");
-				supernaturalTypes.add("demon");
-				supernaturalTypes.add("witchhunter");
-				supernaturalTypes.add("enderborn");
-				config.set("Supernatural.Types", supernaturalTypes);
-			}
-			if(enderWeaponsString.size() == 0) {
-				enderWeaponsString.add("DIAMOND_SWORD");
-				enderWeaponsString.add("DIAMOND_PICKAXE");
-				enderWeaponsString.add("DIAMOND_AXE");
-				enderWeaponsString.add("DIAMOND_HOE");
-				enderWeaponsString.add("DIAMOND_SPADE");
-				config.set("EnderBorn.Weapon.Restrictions", enderWeaponsString);
-			}
 			if(foodMaterialsString.size() == 0){
 				foodMaterialsString.add("APPLE");
 				foodMaterialsString.add("BREAD");
@@ -313,7 +287,6 @@ public class SNConfigHandler {
 				foodMaterialsString.add("GOLDEN_APPLE");
 				foodMaterialsString.add("MUSHROOM_SOUP");
 				foodMaterialsString.add("RAW_FISH");
-				foodMaterialsString.add("PORK");
 				foodMaterialsString.add("CAKE");
 				foodMaterialsString.add("COOKIE");
 				foodMaterialsString.add("COOKED_STEAK");
