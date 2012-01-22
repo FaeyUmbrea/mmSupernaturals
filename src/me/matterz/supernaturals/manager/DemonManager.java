@@ -138,7 +138,7 @@ public class DemonManager extends ClassManager{
 			int pLocY = player.getLocation().getBlockZ();
 			Biome pBiome = player.getWorld().getBiome(pLocX, pLocY);
 			if(snplayer.isDemon()) {
-				if(pBiome == Biome.FROZEN_OCEAN || pBiome == Biome.FROZEN_RIVER || pBiome == Biome.ICE_DESERT || pBiome == Biome.ICE_MOUNTAINS || pBiome == Biome.ICE_PLAINS) {
+				if(pBiome == Biome.TAIGA || pBiome == Biome.TUNDRA || pBiome == Biome.FROZEN_OCEAN || pBiome == Biome.FROZEN_RIVER || pBiome == Biome.ICE_DESERT || pBiome == Biome.ICE_MOUNTAINS || pBiome == Biome.ICE_PLAINS) {
 					if(SNConfigHandler.debugMode) {
 						SupernaturalsPlugin.log("Demon drowned.  Checking inventory...");
 					}
