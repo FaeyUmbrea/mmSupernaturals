@@ -1000,6 +1000,7 @@ public class SNConfigHandler {
 		enderDeathPowerPenalty = config.getInt("EnderBorn.Power.DeathPenalty");
 		enderKillPower = config.getInt("EnderBorn.Power.Kill");
 		enderPearlPower = config.getInt("EnderBorn.Power.EnderPearl");
+		enderWeaponsString = config.getStringList("EnderBorn.Weapon.Restrictions");
 
 		for(String wood : woodMaterialsString){
 			woodMaterials.add(Material.getMaterial(wood));

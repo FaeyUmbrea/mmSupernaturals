@@ -46,7 +46,7 @@ public class EnderBornManager extends ClassManager {
 		ItemStack item = pDamager.getItemInHand();
 		Material itemMaterial = item.getType();
 
-		if(SNConfigHandler.enderWeapons.contains(item.getType())) {
+		if(SNConfigHandler.enderWeapons.contains(itemMaterial)) {
 			SuperNManager.sendMessage(snDamager, ChatColor.RED + "EnderBorns cannot use " + itemMaterial.toString().replace('_', ' '));
 			return 0;
 		}
