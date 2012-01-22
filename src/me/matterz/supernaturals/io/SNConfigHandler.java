@@ -278,7 +278,7 @@ public class SNConfigHandler {
 
 	public static void loadValues(Configuration config){
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
-		if(SNVersionHandler.readVersion() != plugin.getDescription().getVersion()) {
+		if(SNVersionHandler.readVersion() != plugin.getDescription().getVersion() && configFile.exists()) {
 			config.set("Spanish", false);
 			config.set("EnderBorn.DamageFactor.DefenseBonus", 0.5);
 			config.set("EnderBorn.DamageFactor.AttackBonus", 0.3);
