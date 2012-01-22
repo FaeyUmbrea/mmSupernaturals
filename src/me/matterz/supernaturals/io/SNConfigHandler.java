@@ -289,7 +289,7 @@ public class SNConfigHandler {
 				foodMaterialsString.add("RAW_FISH");
 				foodMaterialsString.add("CAKE");
 				foodMaterialsString.add("COOKIE");
-				foodMaterialsString.add("COOKED_STEAK");
+				foodMaterialsString.add("COOKED_BEEF");
 				foodMaterialsString.add("COOKED_CHICKEN");
 				foodMaterialsString.add("ROTTEN_FLESH");
 				foodMaterialsString.add("WATERMELON"); // WATERMELON VAMPIRES RRRAAAWWWRRR
