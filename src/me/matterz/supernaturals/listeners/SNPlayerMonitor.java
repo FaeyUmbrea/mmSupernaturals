@@ -31,6 +31,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerPortalEvent;
 
+@SuppressWarnings("deprecation")
 public class SNPlayerMonitor extends PlayerListener {
 
 	private SupernaturalsPlugin plugin;

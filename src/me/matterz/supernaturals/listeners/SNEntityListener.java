@@ -37,6 +37,7 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityListener;
 import org.bukkit.event.entity.EntityTargetEvent;
 
+@SuppressWarnings("deprecation")
 public class SNEntityListener extends EntityListener{
 
 	private SupernaturalsPlugin plugin;

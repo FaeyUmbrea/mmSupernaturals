@@ -31,6 +31,7 @@ import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
+@SuppressWarnings("deprecation")
 public class SNBlockListener extends BlockListener{
 
 	private SupernaturalsPlugin plugin;

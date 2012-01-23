@@ -44,6 +44,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityListener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
+@SuppressWarnings("deprecation")
 public class SNEntityMonitor extends EntityListener {
 
 	private static SupernaturalsPlugin plugin;

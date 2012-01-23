@@ -93,6 +93,7 @@ import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 
+@SuppressWarnings("deprecation")
 public class SupernaturalsPlugin extends JavaPlugin {
 	public static SupernaturalsPlugin instance;
 

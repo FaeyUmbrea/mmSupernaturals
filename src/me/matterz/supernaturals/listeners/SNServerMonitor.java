@@ -12,6 +12,7 @@ import com.nijikokun.bukkit.Permissions.Permissions;
 
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
+@SuppressWarnings("deprecation")
 public class SNServerMonitor extends ServerListener {
 
 	public SupernaturalsPlugin plugin;

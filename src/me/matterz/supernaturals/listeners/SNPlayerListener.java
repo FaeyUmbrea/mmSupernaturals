@@ -36,6 +36,7 @@ import org.bukkit.event.player.PlayerListener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Door;
 
+@SuppressWarnings("deprecation")
 public class SNPlayerListener extends PlayerListener{
 
 	public static SupernaturalsPlugin plugin;
