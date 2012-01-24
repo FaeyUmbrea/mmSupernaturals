@@ -292,7 +292,7 @@ public class SNConfigHandler {
 				foodMaterialsString.add("COOKED_BEEF");
 				foodMaterialsString.add("COOKED_CHICKEN");
 				foodMaterialsString.add("ROTTEN_FLESH");
-				foodMaterialsString.add("WATERMELON"); // WATERMELON VAMPIRES RRRAAAWWWRRR
+				foodMaterialsString.add("MELON"); // WATERMELON VAMPIRES RRRAAAWWWRRR
 				config.set("Material.Food", foodMaterialsString);
 			}
 			saveConfig();
