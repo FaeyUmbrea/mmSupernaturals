@@ -20,6 +20,7 @@
 package me.matterz.supernaturals.commands;
 
 import me.matterz.supernaturals.SupernaturalsPlugin;
+import me.matterz.supernaturals.io.SNConfigHandler;
 
 import org.bukkit.entity.Player;
 
@@ -35,11 +36,20 @@ public class SNCommandSave extends SNCommandReload {
 	public void perform()
 	{
 		Player senderPlayer = (Player) sender;
-		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
-			this.sendMessage("You do not have permissions to use this command.");
-			return;
+		if(!SNConfigHandler.spanish) {
+			if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
+				this.sendMessage("You do not have permissions to use this command.");
+				return;
+			}
+			SupernaturalsPlugin.saveData();
+			this.sendMessage("All config/player data has been saved!");
+		} else {
+			if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
+				this.sendMessage("No tienes permiso para este comando.");
+				return;
+			}
+			SupernaturalsPlugin.saveData();
+			this.sendMessage("Los datos y configuraciones han sido guardados!");
 		}
-		SupernaturalsPlugin.saveData();
-		this.sendMessage("All config/player data has been saved!");
 	}
 }

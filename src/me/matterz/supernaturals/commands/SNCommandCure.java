@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
+import me.matterz.supernaturals.io.SNConfigHandler;
 import me.matterz.supernaturals.manager.SuperNManager;
 
 import org.bukkit.ChatColor;
@@ -44,7 +45,11 @@ public class SNCommandCure extends SNCommand {
 	{
 		Player senderPlayer = (Player) sender;
 		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
-			this.sendMessage("You do not have permissions to use this command.");
+			if(!SNConfigHandler.spanish) {
+				this.sendMessage("You do not have permissions to use this command.");
+			} else {
+				this.sendMessage("No tienes permiso para este comando.");
+			}
 			return;
 		}
 
@@ -55,7 +60,11 @@ public class SNCommandCure extends SNCommand {
 			String playername = parameters.get(0);
 			Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
 			if (player == null) {
-				this.sendMessage("Player not found.");
+				if(!SNConfigHandler.spanish) {
+					this.sendMessage("Player not found.");
+				} else {
+					this.sendMessage("Jugador no encontrado.");
+				}
 				return;
 			}
 			this.sendMessage(ChatColor.WHITE + player.getDisplayName() + ChatColor.RED + " was cured of any curse!");

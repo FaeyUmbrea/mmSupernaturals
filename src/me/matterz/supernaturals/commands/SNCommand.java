@@ -23,6 +23,8 @@ package me.matterz.supernaturals.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.matterz.supernaturals.io.SNConfigHandler;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -66,7 +68,11 @@ public class SNCommand {
 		this.parameters = parameters;
 
 		if (!validateCall()) {
-			sendMessage("Try /sn help");
+			if(!SNConfigHandler.spanish) {
+				sendMessage("Try /sn help");
+			} else {
+				sendMessage("Escribe /sn help");
+			}
 			return;
 		}
 
@@ -91,13 +97,21 @@ public class SNCommand {
 	public boolean validateCall() {
 
 		if ( this.senderMustBePlayer && ! (sender instanceof Player)) {
-			sendMessage("This command can only be used by ingame players.");
+			if(!SNConfigHandler.spanish) {
+				sendMessage("This command can only be used by ingame players.");
+			} else {
+				sendMessage("Solo puedes usar este comando si estas dentro del juego.");
+			}
 			return false;
 		}
 
 		if (parameters.size() < requiredParameters.size()) {
 			int missing = requiredParameters.size() - parameters.size();
-			sendMessage("Missing parameters. You must enter "+missing+" more.");
+			if(SNConfigHandler.spanish) {
+				sendMessage("Par�metros incorrectos. Debes ingresar "+missing+" more.");
+			} else {
+				sendMessage("Missing parameters. You must enter "+missing+" more.");
+			}
 			return false;
 		}
 

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
+import me.matterz.supernaturals.io.SNConfigHandler;
 import me.matterz.supernaturals.manager.HunterManager;
 import me.matterz.supernaturals.manager.SuperNManager;
 
@@ -43,6 +44,40 @@ public class SNCommandRmTarget extends SNCommand {
 	public void perform()
 	{
 		Player senderPlayer = (Player) sender;
+		if(SNConfigHandler.spanish) {
+		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
+			this.sendMessage("No tienes permiso para este comando.");
+			return;
+		}
+
+		if(parameters.isEmpty()){
+			SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
+			if(HunterManager.removeBounty(snplayer)){
+				this.sendMessage("Fuiste eliminado de la lista de objetivos!");
+				return;
+			}else{
+				this.sendMessage("No eres un objetivo activo.");
+				return;
+			}
+		}else{
+			String playername = parameters.get(0);
+			SuperNPlayer snplayer = SuperNManager.get(playername);
+
+			if (snplayer == null) {
+				this.sendMessage("Jugador no encontrado.");
+				return;
+			}
+
+			if(HunterManager.removeBounty(snplayer)){
+				this.sendMessage(ChatColor.WHITE+snplayer.getName()+ChatColor.RED+" ha sido removido de la lista de objetivos!");
+				HunterManager.addBounty();
+				return;
+			}else{
+				this.sendMessage(ChatColor.WHITE+snplayer.getName()+ChatColor.RED+" no es un objetivo activo.");
+				return;
+			}
+		}
+		} else {
 		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
 			this.sendMessage("You do not have permissions to use this command.");
 			return;
@@ -74,6 +109,7 @@ public class SNCommandRmTarget extends SNCommand {
 				this.sendMessage(ChatColor.WHITE+snplayer.getName()+ChatColor.RED+" is not an active target.");
 				return;
 			}
+		}
 		}
 	}
 }

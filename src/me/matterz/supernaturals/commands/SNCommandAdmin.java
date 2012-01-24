@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.matterz.supernaturals.SupernaturalsPlugin;
+import me.matterz.supernaturals.io.SNConfigHandler;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -60,7 +61,11 @@ public class SNCommandAdmin extends SNCommand{
 		if(SupernaturalsPlugin.hasPermissions(player, permissions)){
 			this.sendMessage(adminHelpMessages);
 		} else {
-			this.sendMessage("You do not have permissions to use this command.");
+			if(!SNConfigHandler.spanish) {
+				this.sendMessage("You do not have permissions to use this command.");
+			} else {
+				this.sendMessage("No tienes permiso para usar este comando.");
+			}
 		}
 	}
 }

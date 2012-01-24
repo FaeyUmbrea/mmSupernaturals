@@ -20,6 +20,7 @@
 package me.matterz.supernaturals.commands;
 
 import me.matterz.supernaturals.SupernaturalsPlugin;
+import me.matterz.supernaturals.io.SNConfigHandler;
 
 import org.bukkit.entity.Player;
 
@@ -36,7 +37,11 @@ public class SNCommandRestartTask extends SNCommandReload {
 	{
 		Player senderPlayer = (Player) sender;
 		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
-			this.sendMessage("You do not have permissions to use this command.");
+			if(!SNConfigHandler.spanish) {
+				this.sendMessage("You do not have permissions to use this command.");
+			} else {
+				this.sendMessage("No tienes permiso para este comando.");
+			}
 			return;
 		}
 		SupernaturalsPlugin.restartTask();

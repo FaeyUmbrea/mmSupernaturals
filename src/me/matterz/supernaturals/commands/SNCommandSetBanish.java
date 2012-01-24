@@ -43,6 +43,33 @@ public class SNCommandSetBanish extends SNCommand {
 	public void perform() {
 
 		Player senderPlayer = (Player) sender;
+		if(SNConfigHandler.spanish) {
+			if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
+				this.sendMessage("No tienes permiso para usar este comando.");
+				return;
+			}
+
+			double currentX = senderPlayer.getLocation().getX();
+			double currentY = senderPlayer.getLocation().getY();
+			double currentZ = senderPlayer.getLocation().getZ();
+
+			SNConfigHandler.priestBanishWorld = senderPlayer.getWorld().getName();
+			SNConfigHandler.priestBanishLocationX = (int) currentX;
+			SNConfigHandler.priestBanishLocationY = (int) currentY;
+			SNConfigHandler.priestBanishLocationZ = (int) currentZ;
+
+			SNConfigHandler.priestBanishLocation = senderPlayer.getLocation();
+
+			SNConfigHandler.getConfig().set("Priest.Banish.World", SNConfigHandler.priestBanishWorld);
+			SNConfigHandler.getConfig().set("Priest.Banish.Location.X", SNConfigHandler.priestBanishLocationX);
+			SNConfigHandler.getConfig().set("Priest.Banish.Location.Y", SNConfigHandler.priestBanishLocationY);
+			SNConfigHandler.getConfig().set("Priest.Banish.Location.Z", SNConfigHandler.priestBanishLocationZ);
+
+			SupernaturalsPlugin.saveData();
+
+			this.sendMessage("Lugar de teletransporte definido.");
+			return;
+		}
 		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
 			this.sendMessage("You do not have permissions to use this command.");
 			return;
