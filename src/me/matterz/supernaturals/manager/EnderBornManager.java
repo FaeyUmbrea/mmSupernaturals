@@ -1,5 +1,7 @@
 package me.matterz.supernaturals.manager;
 
+import java.util.HashMap;
+
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
 import me.matterz.supernaturals.io.SNConfigHandler;
@@ -17,9 +19,25 @@ import org.bukkit.inventory.ItemStack;
 public class EnderBornManager extends ClassManager {
 
 	public SupernaturalsPlugin plugin = SupernaturalsPlugin.instance;
+	public HashMap<SuperNPlayer, Boolean> teleMap = new HashMap<SuperNPlayer, Boolean>();
+	public HashMap<SuperNPlayer, Integer> deathTimesMap = new HashMap<SuperNPlayer, Integer>();
 
 	public EnderBornManager() {
 		super();
+	}
+
+	public boolean changeTele(SuperNPlayer snplayer) {
+		if(!teleMap.get(snplayer).equals(true)) {
+			teleMap.put(snplayer, true);
+			return true;
+		} else {
+			teleMap.put(snplayer, false);
+			return false;
+		}
+	}
+
+	public boolean willTele(SuperNPlayer snplayer) {
+		return teleMap.get(snplayer);
 	}
 
 	public void spellEvent(EntityDamageByEntityEvent event, Player target) {
@@ -79,9 +97,13 @@ public class EnderBornManager extends ClassManager {
 	public void deathEvent(Player player){
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNManager.alterPower(snplayer, -SNConfigHandler.enderDeathPowerPenalty, "You died!");
-		if(Math.random() == 0.40) {
+		if(deathTimesMap.get(snplayer).equals(5)) {
 			SuperNManager.sendMessage(snplayer, "You have been reborn as a human.");
 			SuperNManager.cure(snplayer);
+			deathTimesMap.put(snplayer, 0);
+		} else {
+			deathTimesMap.put(snplayer, (deathTimesMap.get(snplayer) + 1));
+			SuperNManager.sendMessage(snplayer, "You have " + (5 - deathTimesMap.get(snplayer)) + " deaths untill you are reborn as human.");
 		}
 	}
 
@@ -114,6 +136,11 @@ public class EnderBornManager extends ClassManager {
 				}
 				event.setCancelled(true);
 				return true;
+			}
+		}
+		if(action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)) {
+			if(itemMaterial.equals(Material.ENDER_PEARL)) {
+				SuperNManager.sendMessage(snplayer, "EnderPearl teleportation set to: " + changeTele(snplayer));
 			}
 		}
 		return false;
