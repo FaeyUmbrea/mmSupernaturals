@@ -26,23 +26,25 @@ import me.matterz.supernaturals.manager.SuperNManager;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
-@SuppressWarnings("deprecation")
-public class SNBlockListener extends BlockListener{
+public class SNBlockListener implements Listener{
 
 	private SupernaturalsPlugin plugin;
 	private String permissions = "supernatural.player.witchhuntersign";
 	private String worldPermission = "supernatural.world.enabled";
 
 	public SNBlockListener(SupernaturalsPlugin instance){
+		instance.getServer().getPluginManager().registerEvents(this, instance);
 		this.plugin = instance;
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOW)
 	public void onBlockBreak(BlockBreakEvent event){
 		Block eventBlock = event.getBlock();
 		if(eventBlock.getType().equals(Material.WEB)) {
@@ -60,7 +62,7 @@ public class SNBlockListener extends BlockListener{
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOW)
 	public void onSignChange(SignChangeEvent event){
 		Player player = event.getPlayer();
 		String[] text = event.getLines();

@@ -27,17 +27,19 @@ import me.matterz.supernaturals.manager.SuperNManager;
 import org.bukkit.ChatColor;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerPortalEvent;
 
-@SuppressWarnings("deprecation")
-public class SNPlayerMonitor extends PlayerListener {
+public class SNPlayerMonitor implements Listener {
 
 	private SupernaturalsPlugin plugin;
 	private String worldPermission = "supernatural.world.enabled";
 
 	public SNPlayerMonitor(SupernaturalsPlugin instance){
+		instance.getServer().getPluginManager().registerEvents(this, instance);
 		this.plugin = instance;
 	}
 
@@ -48,7 +50,7 @@ public class SNPlayerMonitor extends PlayerListener {
 	//		}
 	//	}
 
-	@Override
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerPortal(PlayerPortalEvent event){
 		Player player = event.getPlayer();
 		if(!SupernaturalsPlugin.hasPermissions(event.getPlayer(), worldPermission) && SNConfigHandler.multiworld) {
@@ -62,7 +64,7 @@ public class SNPlayerMonitor extends PlayerListener {
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerJoin(PlayerJoinEvent event){
 		Player player = event.getPlayer();
 		if(!SupernaturalsPlugin.hasPermissions(event.getPlayer(), worldPermission) && SNConfigHandler.multiworld) {

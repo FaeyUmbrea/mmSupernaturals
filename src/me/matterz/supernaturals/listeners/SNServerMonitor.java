@@ -4,24 +4,26 @@ import java.util.logging.Level;
 
 import me.matterz.supernaturals.SupernaturalsPlugin;
 
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.server.PluginEnableEvent;
-import org.bukkit.event.server.ServerListener;
 import org.bukkit.plugin.Plugin;
-
-import com.nijikokun.bukkit.Permissions.Permissions;
 
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
-@SuppressWarnings("deprecation")
-public class SNServerMonitor extends ServerListener {
+import com.nijikokun.bukkit.Permissions.Permissions;
+
+public class SNServerMonitor implements Listener {
 
 	public SupernaturalsPlugin plugin;
 
 	public SNServerMonitor(SupernaturalsPlugin instance) {
+		instance.getServer().getPluginManager().registerEvents(this, instance);
 		this.plugin = instance;
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPluginEnable(PluginEnableEvent event) {
 		if(SupernaturalsPlugin.foundPerms) {
 			return;

@@ -31,23 +31,25 @@ import org.bukkit.entity.Fireball;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.event.entity.EntityListener;
 import org.bukkit.event.entity.EntityTargetEvent;
 
-@SuppressWarnings("deprecation")
-public class SNEntityListener extends EntityListener{
+public class SNEntityListener implements Listener{
 
 	private SupernaturalsPlugin plugin;
 	private String worldPermission = "supernatural.world.enabled";
 
 	public SNEntityListener(SupernaturalsPlugin instance){
+		instance.getServer().getPluginManager().registerEvents(this, instance);
 		this.plugin = instance;
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onEntityExplode(EntityExplodeEvent event){
 		if(SNConfigHandler.debugMode) {
 			SupernaturalsPlugin.log("Entity Explode event with "+event.getEntity().getClass().getSimpleName());
@@ -79,7 +81,7 @@ public class SNEntityListener extends EntityListener{
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onEntityDamage(EntityDamageEvent event){
 		if(event.isCancelled()){
 			return;
@@ -163,7 +165,7 @@ public class SNEntityListener extends EntityListener{
 		event.setDamage((int)Math.round(damage));
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onEntityTarget(EntityTargetEvent event){
 		if(event.isCancelled()){
 			return;

@@ -38,23 +38,25 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.Event;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityListener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
-@SuppressWarnings("deprecation")
-public class SNEntityMonitor extends EntityListener {
+public class SNEntityMonitor implements Listener {
 
-	private static SupernaturalsPlugin plugin;
+	private SupernaturalsPlugin plugin;
 	private String worldPermission = "supernatural.world.enabled";
 
 	public SNEntityMonitor(SupernaturalsPlugin instance){
-		SNEntityMonitor.plugin = instance;
+		instance.getServer().getPluginManager().registerEvents(this, instance);
+		this.plugin = instance;
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onProjectileHit(ProjectileHitEvent event) {
 		if(event.getEntity() instanceof Arrow) {
 			Arrow arrow = (Arrow)event.getEntity();
@@ -78,7 +80,7 @@ public class SNEntityMonitor extends EntityListener {
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onEntityDamage(EntityDamageEvent event){
 		if(event.isCancelled()){
 			return;

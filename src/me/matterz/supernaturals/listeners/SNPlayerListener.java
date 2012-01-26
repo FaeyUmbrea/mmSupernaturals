@@ -29,22 +29,24 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerListener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Door;
 
-@SuppressWarnings("deprecation")
-public class SNPlayerListener extends PlayerListener{
+public class SNPlayerListener implements Listener{
 
-	public static SupernaturalsPlugin plugin;
+	public SupernaturalsPlugin plugin;
 	private String permissions = "supernatural.player.shrineuse";
 	private String worldPermission = "supernatural.world.enabled";
 
 	public SNPlayerListener(SupernaturalsPlugin instance){
-		SNPlayerListener.plugin = instance;
+		instance.getServer().getPluginManager().registerEvents(this, instance);
+		this.plugin = instance;
 	}
 
 	//	@Override
@@ -57,7 +59,7 @@ public class SNPlayerListener extends PlayerListener{
 	//		}
 	//	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOW)
 	public void onPlayerInteract(PlayerInteractEvent event){
 		Action action = event.getAction();
 		Player player = event.getPlayer();
@@ -174,7 +176,7 @@ public class SNPlayerListener extends PlayerListener{
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOW)
 	public void onPlayerKick(PlayerKickEvent event) {
 		if(event.isCancelled()){
 			return;

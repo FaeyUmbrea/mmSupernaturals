@@ -73,8 +73,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event.Priority;
-import org.bukkit.event.Event.Type;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.Plugin;
@@ -93,19 +91,24 @@ import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 
-@SuppressWarnings("deprecation")
 public class SupernaturalsPlugin extends JavaPlugin {
 	public static SupernaturalsPlugin instance;
 
 	private final SNConfigHandler snConfig = new SNConfigHandler(this);
 	private SNDataHandler snData = new SNDataHandler();
 
-	private final SNEntityListener entityListener = new SNEntityListener(this);
-	private final SNPlayerListener playerListener = new SNPlayerListener(this);
-	private final SNPlayerMonitor playerMonitor = new SNPlayerMonitor(this);
-	private final SNEntityMonitor entityMonitor = new SNEntityMonitor(this);
-	private final SNBlockListener blockListener = new SNBlockListener(this);
-	private final SNServerMonitor serverMonitor = new SNServerMonitor(this);
+	@SuppressWarnings("unused")
+	private SNEntityListener entityListener;
+	@SuppressWarnings("unused")
+	private SNPlayerListener playerListener;
+	@SuppressWarnings("unused")
+	private SNPlayerMonitor playerMonitor;
+	@SuppressWarnings("unused")
+	private SNEntityMonitor entityMonitor;
+	@SuppressWarnings("unused")
+	private SNBlockListener blockListener;
+	@SuppressWarnings("unused")
+	private SNServerMonitor serverMonitor;
 
 	private SuperNManager superManager = new SuperNManager(this);
 	private HumanManager humanManager = new HumanManager();
@@ -130,10 +133,6 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	public static PermissionManager permissionExManager;
 
 	private PluginManager pm;
-
-	public SupernaturalsPlugin(){
-		SupernaturalsPlugin.instance = this;
-	}
 
 	public SNDataHandler getDataHandler(){
 		return snData;
@@ -215,6 +214,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	@Override
 	public void onEnable() {
 
+		SupernaturalsPlugin.instance = this;
 		this.getDataFolder().mkdir();
 		this.pm = this.getServer().getPluginManager();
 
@@ -235,24 +235,12 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		commands.add(new SNCommandRmTarget());
 		commands.add(new SNCommandRestartTask());
 
-		pm.registerEvent(Type.PLAYER_INTERACT, this.playerListener, Priority.Low, this);
-		pm.registerEvent(Type.PLAYER_KICK, this.playerListener, Priority.Low, this);
-
-		pm.registerEvent(Type.PLAYER_JOIN, this.playerMonitor, Priority.Monitor, this);
-		pm.registerEvent(Type.PLAYER_PORTAL, this.playerMonitor, Priority.Monitor, this);
-
-		pm.registerEvent(Type.ENTITY_DAMAGE, this.entityListener, Priority.Normal, this);
-		pm.registerEvent(Type.ENTITY_TARGET, this.entityListener, Priority.Normal, this);
-		pm.registerEvent(Type.ENTITY_EXPLODE, this.entityListener, Priority.Normal, this);
-
-		pm.registerEvent(Type.ENTITY_DAMAGE, this.entityMonitor, Priority.Monitor, this);
-		pm.registerEvent(Type.ENTITY_DEATH, this.entityMonitor, Priority.Monitor, this);
-		pm.registerEvent(Type.PROJECTILE_HIT, this.entityMonitor, Priority.Monitor, this);
-
-		pm.registerEvent(Type.BLOCK_BREAK, this.blockListener, Priority.Low, this);
-		pm.registerEvent(Type.SIGN_CHANGE, this.blockListener, Priority.Low, this);
-
-		pm.registerEvent(Type.PLUGIN_ENABLE, serverMonitor, Priority.Monitor, this);
+		entityListener = new SNEntityListener(this);
+		playerListener = new SNPlayerListener(this);
+		playerMonitor = new SNPlayerMonitor(this);
+		entityMonitor = new SNEntityMonitor(this);
+		blockListener = new SNBlockListener(this);
+		serverMonitor = new SNServerMonitor(this);
 
 		PluginDescriptionFile pdfFile = this.getDescription();
 		log(pdfFile.getName() + " version " + pdfFile.getVersion() + " enabled.");
