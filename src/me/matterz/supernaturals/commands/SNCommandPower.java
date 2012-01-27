@@ -50,7 +50,7 @@ public class SNCommandPower extends SNCommand {
 		Player senderPlayer = (Player) sender;
 		String permissions2 = "supernatural.admin.command.power";
 
-		if (!SNConfigHandler.spanish) {
+		if (SNConfigHandler.spanish) {
 			if (parameters.isEmpty()) {
 				if (!SupernaturalsPlugin.hasPermissions(senderPlayer,
 						permissions)) {
