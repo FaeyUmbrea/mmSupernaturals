@@ -64,7 +64,7 @@ public class VampireManager extends ClassManager{
 				return 0;
 			}else{
 				SuperNManager.sendMessage(snVictim, "Not enough power to prevent water damage!");
-				return 0;
+				return damage;
 			}
 		}else if(event.getCause().equals(DamageCause.FALL)){
 			event.setCancelled(true);
