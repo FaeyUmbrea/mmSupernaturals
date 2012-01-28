@@ -51,6 +51,7 @@ public class SNConfigHandler {
 	public static boolean enableColors;
 	public static boolean multiworld;
 	public static boolean spanish;
+	public static boolean enableLoginMessage;
 	public static double spreadChance;
 	public static double vampireDamageFactor;
 	public static double ghoulDamageFactor;
@@ -295,6 +296,7 @@ public class SNConfigHandler {
 				foodMaterialsString.add("MELON"); // WATERMELON VAMPIRES RRRAAAWWWRRR
 				config.set("Material.Food", foodMaterialsString);
 			}
+			config.set("EnableLoginMessage", true);
 			saveConfig();
 			SNVersionHandler.writeVersion();
 		}
@@ -303,6 +305,7 @@ public class SNConfigHandler {
 			config.set("DebugMode", false);
 			config.set("MultiWorld", false);
 			config.set("EnableChatColors", true);
+			config.set("EnableLoginMessage", true);
 			config.set("Supernatural.Truce.BreakTime", 120000);
 			config.set("Supernatural.SpreadChance", 0.35);
 
@@ -835,6 +838,7 @@ public class SNConfigHandler {
 		truceBreakTime = config.getInt("Supernatural.Truce.BreakTime", 120000);
 		supernaturalTypes = config.getStringList("Supernatural.Types");
 		spreadChance = config.getDouble("Supernatural.SpreadChance", 0.35);
+		enableLoginMessage = config.getBoolean("EnableLoginMessage");
 
 		woodMaterialsString = config.getStringList("Material.Wooden");
 		foodMaterialsString = config.getStringList("Material.Food");
