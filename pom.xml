@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>me.matterz</groupId>
   <artifactId>mmSupernaturals</artifactId>
-  <version>1.3.3</version>
+  <version>1.3.4-SNAPSHOT</version>
   <name>mmSupernaturals</name>
   <description>A bukkit plugin based off of Matterz's Supernatural Players</description>
   <dependencies>
