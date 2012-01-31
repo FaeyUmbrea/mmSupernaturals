@@ -29,12 +29,7 @@ public class SNServerMonitor implements Listener {
 			return;
 		}
 		Plugin enabledPlugin = event.getPlugin();
-		if(enabledPlugin.toString().startsWith("Permissions") && !enabledPlugin.toString().startsWith("PermissionsEx") && !enabledPlugin.toString().startsWith("PermissionsBukkit")) {
-			SupernaturalsPlugin.permissionsPlugin = enabledPlugin;
-			SupernaturalsPlugin.permissionHandler = ((Permissions) SupernaturalsPlugin.permissionsPlugin).getHandler();
-			SupernaturalsPlugin.log("Found and will use plugin "+ SupernaturalsPlugin.permissionsPlugin.getDescription().getFullName());
-			SupernaturalsPlugin.foundPerms = true;
-		} else if(enabledPlugin.toString().startsWith("PermissionsEx")) {
+		if(enabledPlugin.toString().startsWith("PermissionsEx")) {
 			SupernaturalsPlugin.permissionsPlugin = enabledPlugin;
 			SupernaturalsPlugin.permissionExManager = PermissionsEx.getPermissionManager();
 			SupernaturalsPlugin.log("Found and will use plugin "+ SupernaturalsPlugin.permissionsPlugin.getDescription().getFullName());
@@ -57,6 +52,11 @@ public class SNServerMonitor implements Listener {
 		} else if(enabledPlugin.toString().startsWith("PermissionsBukkit")) {
 			SupernaturalsPlugin.log("Found PermissionsBukkit!");
 			SupernaturalsPlugin.bukkitperms = true;
+			SupernaturalsPlugin.foundPerms = true;
+		} else if(enabledPlugin.toString().startsWith("Permissions") && !enabledPlugin.toString().startsWith("PermissionsEx") && !enabledPlugin.toString().startsWith("PermissionsBukkit")) {
+			SupernaturalsPlugin.permissionsPlugin = enabledPlugin;
+			SupernaturalsPlugin.permissionHandler = ((Permissions) SupernaturalsPlugin.permissionsPlugin).getHandler();
+			SupernaturalsPlugin.log("Found and will use plugin "+ SupernaturalsPlugin.permissionsPlugin.getDescription().getFullName());
 			SupernaturalsPlugin.foundPerms = true;
 		}
 	}

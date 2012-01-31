@@ -353,7 +353,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 			permissionsPlugin = pm.getPlugin("PermissionsEx");
 			permissionExManager = PermissionsEx.getPermissionManager();
 			foundPerms = true;
-		} else if(pm.isPluginEnabled("Permissions") && !pm.isPluginEnabled("PermissionsEx")) {
+		} else if(pm.isPluginEnabled("Permissions") && !pm.isPluginEnabled("GroupManager") && !pm.isPluginEnabled("PermissionsEx")) {
 			permissionsPlugin = pm.getPlugin("Permissions");
 			permissionHandler = ((Permissions) permissionsPlugin).getHandler();
 			foundPerms = true;
@@ -368,7 +368,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 			foundPerms = true;
 		} else if(pm.isPluginEnabled("GroupManager")) {
 			log("Found GroupManager, enabling bridge");
-			permissionsPlugin = pm.getPlugin("GroupManager");
+			permissionsPlugin = pm.getPlugin("Permissions");
 			permissionHandler = ((Permissions) permissionsPlugin).getHandler();
 			foundPerms = true;
 		} else if(pm.isPluginEnabled("EssentialsGroupManager")) {
