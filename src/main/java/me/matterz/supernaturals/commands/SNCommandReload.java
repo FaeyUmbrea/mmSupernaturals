@@ -49,15 +49,15 @@ public class SNCommandReload extends SNCommand {
 			return;
 		}
 		if(parameters.isEmpty()){
-			this.sendMessage("Config file has been reloaded");
 			SupernaturalsPlugin.reConfig();
+			this.sendMessage("Config file has been reloaded");
 		}else{
 			if(parameters.get(0).equalsIgnoreCase("config")){
-				this.sendMessage("Config file has been reloaded");
 				SupernaturalsPlugin.reConfig();
+				this.sendMessage("Config file has been reloaded");
 			}else if(parameters.get(0).equalsIgnoreCase("data")){
-				this.sendMessage("Data file has been reloaded");
 				SupernaturalsPlugin.reloadData();
+				this.sendMessage("Data file has been reloaded");
 			}else{
 				this.sendMessage("Invalid option.");
 			}
