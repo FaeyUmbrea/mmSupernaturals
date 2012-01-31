@@ -76,7 +76,7 @@ public class SNPlayerMonitor implements Listener {
 			snplayer.setPower(10000); //Making power really infinite.
 		}
 
-		if(SNConfigHandler.enableColors && SNConfigHandler.enableLoginMessage){
+		if(SNConfigHandler.enableColors || SNConfigHandler.enableLoginMessage){
 			if(SNConfigHandler.spanish) {
 				if(snplayer.isHuman()){
 					player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.WHITE+player.getName()));
