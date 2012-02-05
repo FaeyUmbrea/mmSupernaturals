@@ -35,7 +35,7 @@ public class SNCommandClasses extends SNCommand{
 		super();
 		requiredParameters = new ArrayList<String>();
 		optionalParameters = new ArrayList<String>();
-		senderMustBePlayer = true;
+		senderMustBePlayer = false;
 		senderMustBeSupernatural = false;
 		permissions = "supernatural.command.classes";
 	}
@@ -54,6 +54,9 @@ public class SNCommandClasses extends SNCommand{
 	@Override
 	public void perform()
 	{
+		if(!(sender instanceof Player)) {
+			this.sendMessage(classMessages);
+		}
 		Player senderPlayer = (Player) sender;
 
 		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
