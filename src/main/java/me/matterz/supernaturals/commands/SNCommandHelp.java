@@ -35,7 +35,7 @@ public class SNCommandHelp extends SNCommand{
 		super();
 		requiredParameters = new ArrayList<String>();
 		optionalParameters = new ArrayList<String>();
-		senderMustBePlayer = true;
+		senderMustBePlayer = false;
 		senderMustBeSupernatural = false;
 		permissions = "supernatural.command.help";
 	}
@@ -51,6 +51,12 @@ public class SNCommandHelp extends SNCommand{
 	@Override
 	public void perform()
 	{
+		if(!(sender instanceof Player)) {
+			if(helpMessages.size()==5){
+				helpMessages.add("/sn admin "+ChatColor.WHITE+"- Show list of admin-only commands");
+			}
+			this.sendMessage(helpMessages);
+		}
 		String permissions2 = "supernatural.command.adminhelp";
 		Player senderPlayer = (Player) sender;
 

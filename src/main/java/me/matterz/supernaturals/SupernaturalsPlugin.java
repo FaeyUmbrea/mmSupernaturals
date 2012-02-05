@@ -294,9 +294,6 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		if (parameters.size() == 0) {
 			for (SNCommand vampcommand : this.commands) {
 				if (vampcommand.getName().equalsIgnoreCase("help")) {
-					if(!isPlayer) {
-						sender.sendMessage("This command is player-only");
-					}
 					vampcommand.execute(sender, parameters);
 					return;
 				}
