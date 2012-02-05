@@ -56,6 +56,7 @@ public class SNCommandReset extends SNCommand {
 				SuperNManager.alterPower(snplayer, -10000, "Admin");
 				this.sendMessage("Power reset for player: "+snplayer.getName());
 			}
+			return;
 		}
 
 		Player senderPlayer = (Player) sender;
