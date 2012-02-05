@@ -34,7 +34,7 @@ public class SNCommandConvert extends SNCommand {
 	public SNCommandConvert() {
 		requiredParameters = new ArrayList<String>();
 		optionalParameters = new ArrayList<String>();
-		senderMustBePlayer = false;
+		senderMustBePlayer = true;
 		optionalParameters.add("playername");
 		requiredParameters.add("supernaturalType");
 		permissions = "supernatural.admin.command.curse";

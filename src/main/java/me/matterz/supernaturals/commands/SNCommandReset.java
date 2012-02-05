@@ -32,7 +32,7 @@ public class SNCommandReset extends SNCommand {
 	public SNCommandReset() {
 		requiredParameters = new ArrayList<String>();
 		optionalParameters = new ArrayList<String>();
-		senderMustBePlayer = false;
+		senderMustBePlayer = true;
 		optionalParameters.add("playername");
 		permissions = "supernatural.admin.command.reset";
 		helpNameAndParams = "reset | reset [playername]";

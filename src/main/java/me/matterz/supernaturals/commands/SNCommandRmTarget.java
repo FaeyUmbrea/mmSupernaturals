@@ -35,7 +35,7 @@ public class SNCommandRmTarget extends SNCommand {
 		super();
 		requiredParameters = new ArrayList<String>();
 		optionalParameters = new ArrayList<String>();
-		senderMustBePlayer = false;
+		senderMustBePlayer = true;
 		optionalParameters.add("playername");
 		permissions = "supernatural.admin.command.rmtarget";
 	}

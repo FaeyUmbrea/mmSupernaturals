@@ -35,7 +35,7 @@ public class SNCommandAdmin extends SNCommand{
 		super();
 		requiredParameters = new ArrayList<String>();
 		optionalParameters = new ArrayList<String>();
-		senderMustBePlayer = false;
+		senderMustBePlayer = true;
 		senderMustBeSupernatural = false;
 		permissions = "supernatural.admin.command.adminhelp";
 	}

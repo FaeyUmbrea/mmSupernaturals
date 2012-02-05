@@ -27,6 +27,7 @@ import org.bukkit.entity.Player;
 public class SNCommandSave extends SNCommandReload {
 
 	public SNCommandSave() {
+		senderMustBePlayer = true;
 		permissions = "supernatural.admin.command.save";
 		helpNameAndParams = "";
 		helpDescription = "Save data from disk.";

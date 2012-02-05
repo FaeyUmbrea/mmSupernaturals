@@ -43,6 +43,23 @@ public class SNCommandReload extends SNCommand {
 
 	@Override
 	public void perform() {
+		if(!(sender instanceof Player)) {
+			if(parameters.isEmpty()){
+				SupernaturalsPlugin.reConfig();
+				this.sendMessage("Config file has been reloaded");
+			}else{
+				if(parameters.get(0).equalsIgnoreCase("config")){
+					SupernaturalsPlugin.reConfig();
+					this.sendMessage("Config file has been reloaded");
+				}else if(parameters.get(0).equalsIgnoreCase("data")){
+					SupernaturalsPlugin.reloadData();
+					this.sendMessage("Data file has been reloaded");
+				}else{
+					this.sendMessage("Invalid option.");
+				}
+			}
+			return;
+		}
 		Player senderPlayer = (Player) sender;
 		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
 			this.sendMessage("You do not have permissions to use this command.");

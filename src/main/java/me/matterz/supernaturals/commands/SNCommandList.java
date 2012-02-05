@@ -37,7 +37,7 @@ public class SNCommandList extends SNCommand {
 	public SNCommandList() {
 		requiredParameters = new ArrayList<String>();
 		optionalParameters = new ArrayList<String>();
-		senderMustBePlayer = false;
+		senderMustBePlayer = true;
 		permissions = "supernatural.command.list";
 		helpNameAndParams = "list";
 		helpDescription = "List supernaturals on the server.";

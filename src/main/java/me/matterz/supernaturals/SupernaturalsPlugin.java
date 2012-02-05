@@ -277,16 +277,26 @@ public class SupernaturalsPlugin extends JavaPlugin {
 				SupernaturalsPlugin.log(((Player) sender).getName() + " used command: " + commandLabel
 						+ " with args: " + TextUtil.implode(parameters, ", "));
 			}
-			this.handleCommand(sender, parameters);
+			this.handleCommand(sender, parameters, true);
+			return true;
+		} else {
+			List<String> parameters = new ArrayList<String>(Arrays.asList(args));
+			if(SNConfigHandler.debugMode) {
+				SupernaturalsPlugin.log(((Player) sender).getName() + " used command: " + commandLabel
+						+ " with args: " + TextUtil.implode(parameters, ", "));
+			}
+			this.handleCommand(sender, parameters, false);
 			return true;
 		}
-		return false;
 	}
 
-	public void handleCommand(CommandSender sender, List<String> parameters) {
+	public void handleCommand(CommandSender sender, List<String> parameters, boolean isPlayer) {
 		if (parameters.size() == 0) {
 			for (SNCommand vampcommand : this.commands) {
 				if (vampcommand.getName().equalsIgnoreCase("help")) {
+					if(!isPlayer) {
+						sender.sendMessage("This command is player-only");
+					}
 					vampcommand.execute(sender, parameters);
 					return;
 				}
@@ -300,6 +310,9 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 		for (SNCommand vampcommand : this.commands) {
 			if (command.equals(vampcommand.getName())) {
+				if(!isPlayer && vampcommand.senderMustBePlayer) {
+					sender.sendMessage("This command, sn " + command + ", is player-only");
+				}
 				vampcommand.execute(sender, parameters);
 				return;
 			}

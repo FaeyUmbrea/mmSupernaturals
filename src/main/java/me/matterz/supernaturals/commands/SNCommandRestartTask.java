@@ -27,6 +27,7 @@ import org.bukkit.entity.Player;
 public class SNCommandRestartTask extends SNCommandReload {
 
 	public SNCommandRestartTask() {
+		senderMustBePlayer = true;
 		permissions = "supernatural.admin.command.task";
 		helpNameAndParams = "";
 		helpDescription = "Restarts the task timer.";

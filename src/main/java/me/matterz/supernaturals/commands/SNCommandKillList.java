@@ -36,7 +36,7 @@ public class SNCommandKillList extends SNCommand {
 	public SNCommandKillList() {
 		requiredParameters = new ArrayList<String>();
 		optionalParameters = new ArrayList<String>();
-		senderMustBePlayer = false;
+		senderMustBePlayer = true;
 		permissions = "supernatural.command.killlist";
 		helpNameAndParams = "convert [playername] [supernaturalType]";
 		helpDescription = "Instantly turn a player into a supernatural.";
