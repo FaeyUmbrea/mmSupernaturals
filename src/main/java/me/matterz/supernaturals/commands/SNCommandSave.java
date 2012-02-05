@@ -27,7 +27,7 @@ import org.bukkit.entity.Player;
 public class SNCommandSave extends SNCommandReload {
 
 	public SNCommandSave() {
-		senderMustBePlayer = true;
+		senderMustBePlayer = false;
 		permissions = "supernatural.admin.command.save";
 		helpNameAndParams = "";
 		helpDescription = "Save data from disk.";
@@ -36,6 +36,10 @@ public class SNCommandSave extends SNCommandReload {
 	@Override
 	public void perform()
 	{
+		if(!(sender instanceof Player)) {
+			SupernaturalsPlugin.saveData();
+			this.sendMessage("All config/player data has been saved!");
+		}
 		Player senderPlayer = (Player) sender;
 		if(!SNConfigHandler.spanish) {
 			if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
