@@ -47,6 +47,64 @@ public class SNCommandConvert extends SNCommand {
 	@Override
 	public void perform(){
 
+		if(!(sender instanceof Player)) {
+			if(parameters.size()==1){
+				this.sendMessage("Missing player!");
+			}else{
+				String playername = parameters.get(0);
+				String superType = parameters.get(1).toLowerCase();
+				Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
+
+				if (player == null){
+					if(!SNConfigHandler.spanish) {
+						this.sendMessage("Player not found!");
+					} else {
+						this.sendMessage("Jugador no encontrado!");
+					}
+					return;
+				}
+
+				if(!SNConfigHandler.supernaturalTypes.contains(superType)){
+					if(!SNConfigHandler.spanish) {
+						this.sendMessage("Supernatural Type invalid!");
+					} else {
+						this.sendMessage("Ser M�stico invalido!");
+					}
+					return;
+				}
+
+				SuperNPlayer snplayer = SuperNManager.get(player);
+
+				if(!SNConfigHandler.spanish) {
+					if(snplayer.getType().equalsIgnoreCase(superType)){
+						this.sendMessage(ChatColor.WHITE + player.getName() + ChatColor.RED + " is already a "
+								+ ChatColor.WHITE + superType +ChatColor.RED + " !");
+					}else if(snplayer.getOldType().equalsIgnoreCase(superType)){
+						this.sendMessage(ChatColor.WHITE + player.getName() + ChatColor.RED + " was turned BACK into a "
+								+ ChatColor.WHITE + superType +ChatColor.RED + " !");
+						SuperNManager.revert(snplayer);
+					}else{
+						this.sendMessage(ChatColor.WHITE + player.getName() + ChatColor.RED + " was turned into a "
+								+ ChatColor.WHITE + superType +ChatColor.RED + " !");
+						SuperNManager.convert(snplayer, superType);
+					}
+				} else {
+					if(snplayer.getType().equalsIgnoreCase(superType)){
+						this.sendMessage(ChatColor.WHITE + sender.getName() + ChatColor.RED + " ya es un "
+								+ ChatColor.WHITE + superType +ChatColor.RED + " !");
+					}else if(snplayer.getOldType().equalsIgnoreCase(superType)){
+						this.sendMessage(ChatColor.WHITE + sender.getName() + ChatColor.RED + " se convirtio de nuevo en "
+								+ ChatColor.WHITE + superType +ChatColor.RED + " !");
+						SuperNManager.revert(snplayer);
+					}else{
+						this.sendMessage(ChatColor.WHITE + sender.getName() + ChatColor.RED + " se convirtio en un "
+								+ ChatColor.WHITE + superType +ChatColor.RED + " !");
+						SuperNManager.convert(snplayer, superType);
+					}
+				}
+			}
+		}
+
 		Player senderPlayer = (Player) sender;
 		if(parameters.size()==1){
 			if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permission2)){
