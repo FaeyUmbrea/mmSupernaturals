@@ -37,7 +37,7 @@ public class SNCommandList extends SNCommand {
 	public SNCommandList() {
 		requiredParameters = new ArrayList<String>();
 		optionalParameters = new ArrayList<String>();
-		senderMustBePlayer = true;
+		senderMustBePlayer = false;
 		permissions = "supernatural.command.list";
 		helpNameAndParams = "list";
 		helpDescription = "List supernaturals on the server.";
@@ -46,6 +46,48 @@ public class SNCommandList extends SNCommand {
 	@Override
 	public void perform()
 	{
+		if(!(sender instanceof Player)) {
+			List<String> vampires = new ArrayList<String>();
+			List<String> werewolves = new ArrayList<String>();
+			List<String> ghouls = new ArrayList<String>();
+			List<String> priests = new ArrayList<String>();
+			List<String> hunters = new ArrayList<String>();
+			List<String> demons = new ArrayList<String>();
+			List<String> enderborns = new ArrayList<String>();
+
+			for (SuperNPlayer snplayer : SuperNManager.findAllOnline()) {
+				if (snplayer.isVampire()) {
+					vampires.add(snplayer.getName());
+				}else if(snplayer.isPriest()){
+					priests.add(snplayer.getName());
+				}else if(snplayer.isWere()){
+					werewolves.add(snplayer.getName());
+				}else if(snplayer.isGhoul()){
+					ghouls.add(snplayer.getName());
+				}else if(snplayer.isHunter()){
+					hunters.add(snplayer.getName());
+				}else if(snplayer.isDemon()){
+					demons.add(snplayer.getName());
+				}else if(snplayer.isEnderBorn()) {
+					enderborns.add(snplayer.getName());
+				}
+			}
+
+			// Create Messages
+			List<String> messages = new ArrayList<String>();
+			messages.add("*** "+ChatColor.WHITE +"Online Supernatural Players "+ChatColor.RED +"***");
+			messages.add("Vampires: "+ ChatColor.WHITE + TextUtil.implode(vampires, ", "));
+			messages.add("Werewolves: "+ ChatColor.WHITE + TextUtil.implode(werewolves, ", "));
+			messages.add("Ghouls: "+ ChatColor.WHITE + TextUtil.implode(ghouls, ", "));
+			messages.add("Priests: "+ ChatColor.WHITE + TextUtil.implode(priests, ", "));
+			messages.add("WitchHunters: "+ ChatColor.WHITE + TextUtil.implode(hunters, ", "));
+			messages.add("Demons: "+ ChatColor.WHITE + TextUtil.implode(demons, ", "));
+			messages.add("EnderBorns: " + ChatColor.WHITE + TextUtil.implode(enderborns, ", "));
+
+			// Send them
+			this.sendMessage(messages);
+			return;
+		}
 		Player senderPlayer = (Player) sender;
 		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
 			if(!SNConfigHandler.spanish) {

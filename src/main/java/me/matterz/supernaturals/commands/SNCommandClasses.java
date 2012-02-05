@@ -56,6 +56,7 @@ public class SNCommandClasses extends SNCommand{
 	{
 		if(!(sender instanceof Player)) {
 			this.sendMessage(classMessages);
+			return;
 		}
 		Player senderPlayer = (Player) sender;
 

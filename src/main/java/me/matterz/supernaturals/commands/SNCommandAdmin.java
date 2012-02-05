@@ -59,6 +59,7 @@ public class SNCommandAdmin extends SNCommand{
 	{
 		if(!(sender instanceof Player)) {
 			this.sendMessage(adminHelpMessages);
+			return;
 		}
 		Player player = (Player) sender;
 		if(SupernaturalsPlugin.hasPermissions(player, permissions)){

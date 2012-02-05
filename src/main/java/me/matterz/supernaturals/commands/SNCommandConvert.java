@@ -103,6 +103,7 @@ public class SNCommandConvert extends SNCommand {
 					}
 				}
 			}
+			return;
 		}
 
 		Player senderPlayer = (Player) sender;

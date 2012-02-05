@@ -62,6 +62,7 @@ public class SNCommandCure extends SNCommand {
 				SuperNPlayer snplayer = SuperNManager.get(player);
 				SuperNManager.cure(snplayer);
 			}
+			return;
 		}
 		Player senderPlayer = (Player) sender;
 		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){

@@ -56,6 +56,7 @@ public class SNCommandHelp extends SNCommand{
 				helpMessages.add("/sn admin "+ChatColor.WHITE+"- Show list of admin-only commands");
 			}
 			this.sendMessage(helpMessages);
+			return;
 		}
 		String permissions2 = "supernatural.command.adminhelp";
 		Player senderPlayer = (Player) sender;
