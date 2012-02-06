@@ -839,6 +839,7 @@ public class SNConfigHandler {
 		supernaturalTypes = config.getStringList("Supernatural.Types");
 		spreadChance = config.getDouble("Supernatural.SpreadChance", 0.35);
 		enableLoginMessage = config.getBoolean("EnableLoginMessage");
+		spanish = config.getBoolean("Spanish");
 
 		woodMaterialsString = config.getStringList("Material.Wooden");
 		foodMaterialsString = config.getStringList("Material.Food");
