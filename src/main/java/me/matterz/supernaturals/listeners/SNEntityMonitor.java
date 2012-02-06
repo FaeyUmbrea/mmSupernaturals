@@ -123,6 +123,7 @@ public class SNEntityMonitor implements Listener {
 		}
 	}
 
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onEntityDeath(EntityDeathEvent event){
 		Entity entity = event.getEntity();
 
