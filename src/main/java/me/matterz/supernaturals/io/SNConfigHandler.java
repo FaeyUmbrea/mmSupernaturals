@@ -52,6 +52,7 @@ public class SNConfigHandler {
 	public static boolean multiworld;
 	public static boolean spanish;
 	public static boolean enableLoginMessage;
+	public static boolean enableJoinCommand;
 	public static double spreadChance;
 	public static double vampireDamageFactor;
 	public static double ghoulDamageFactor;
@@ -280,23 +281,7 @@ public class SNConfigHandler {
 	public static void loadValues(Configuration config){
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if(SNVersionHandler.readVersion() != plugin.getDescription().getVersion() && configFile.exists()) {
-			if(foodMaterialsString.size() == 0){
-				foodMaterialsString.add("APPLE");
-				foodMaterialsString.add("BREAD");
-				foodMaterialsString.add("COOKED_FISH");
-				foodMaterialsString.add("GRILLED_PORK");
-				foodMaterialsString.add("GOLDEN_APPLE");
-				foodMaterialsString.add("MUSHROOM_SOUP");
-				foodMaterialsString.add("RAW_FISH");
-				foodMaterialsString.add("CAKE");
-				foodMaterialsString.add("COOKIE");
-				foodMaterialsString.add("COOKED_BEEF");
-				foodMaterialsString.add("COOKED_CHICKEN");
-				foodMaterialsString.add("ROTTEN_FLESH");
-				foodMaterialsString.add("MELON"); // WATERMELON VAMPIRES RRRAAAWWWRRR
-				config.set("Material.Food", foodMaterialsString);
-			}
-			config.set("EnableLoginMessage", true);
+			config.set("EnableJoinCommand", true);
 			saveConfig();
 			SNVersionHandler.writeVersion();
 		}
@@ -306,6 +291,7 @@ public class SNConfigHandler {
 			config.set("MultiWorld", false);
 			config.set("EnableChatColors", true);
 			config.set("EnableLoginMessage", true);
+			config.set("EnableJoinCommand", true);
 			config.set("Supernatural.Truce.BreakTime", 120000);
 			config.set("Supernatural.SpreadChance", 0.35);
 
@@ -840,6 +826,7 @@ public class SNConfigHandler {
 		spreadChance = config.getDouble("Supernatural.SpreadChance", 0.35);
 		enableLoginMessage = config.getBoolean("EnableLoginMessage");
 		spanish = config.getBoolean("Spanish");
+		enableJoinCommand = config.getBoolean("EnableJoinCommand");
 
 		woodMaterialsString = config.getStringList("Material.Wooden");
 		foodMaterialsString = config.getStringList("Material.Food");

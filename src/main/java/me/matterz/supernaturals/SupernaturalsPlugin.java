@@ -34,6 +34,7 @@ import me.matterz.supernaturals.commands.SNCommandClasses;
 import me.matterz.supernaturals.commands.SNCommandConvert;
 import me.matterz.supernaturals.commands.SNCommandCure;
 import me.matterz.supernaturals.commands.SNCommandHelp;
+import me.matterz.supernaturals.commands.SNCommandJoin;
 import me.matterz.supernaturals.commands.SNCommandKillList;
 import me.matterz.supernaturals.commands.SNCommandList;
 import me.matterz.supernaturals.commands.SNCommandPower;
@@ -48,6 +49,7 @@ import me.matterz.supernaturals.io.SNConfigHandler;
 import me.matterz.supernaturals.io.SNDataHandler;
 import me.matterz.supernaturals.io.SNPlayerHandler;
 import me.matterz.supernaturals.io.SNVersionHandler;
+import me.matterz.supernaturals.io.SNWhitelistHandler;
 import me.matterz.supernaturals.listeners.SNBlockListener;
 import me.matterz.supernaturals.listeners.SNEntityListener;
 import me.matterz.supernaturals.listeners.SNEntityMonitor;
@@ -96,6 +98,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 	private final SNConfigHandler snConfig = new SNConfigHandler(this);
 	private SNDataHandler snData = new SNDataHandler();
+	private SNWhitelistHandler snWhitelist = new SNWhitelistHandler(this);
 
 	@SuppressWarnings("unused")
 	private SNEntityListener entityListener;
@@ -148,6 +151,10 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 	public SNConfigHandler getConfigManager(){
 		return snConfig;
+	}
+
+	public SNWhitelistHandler getWhitelistHandler() {
+		return snWhitelist;
 	}
 
 	public VampireManager getVampireManager(){
@@ -234,6 +241,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		commands.add(new SNCommandKillList());
 		commands.add(new SNCommandRmTarget());
 		commands.add(new SNCommandRestartTask());
+		commands.add(new SNCommandJoin());
 
 		entityListener = new SNEntityListener(this);
 		playerListener = new SNPlayerListener(this);
@@ -254,6 +262,9 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 		loadData();
 		snData = SNDataHandler.read();
+
+		SNWhitelistHandler.reloadWhitelist();
+
 		if(snData == null) {
 			snData = new SNDataHandler();
 		}
