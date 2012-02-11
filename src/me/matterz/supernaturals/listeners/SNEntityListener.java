@@ -37,6 +37,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 
 public class SNEntityListener implements Listener{
@@ -47,6 +48,19 @@ public class SNEntityListener implements Listener{
 	public SNEntityListener(SupernaturalsPlugin instance){
 		instance.getServer().getPluginManager().registerEvents(this, instance);
 		this.plugin = instance;
+	}
+
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void onEntityShootBowzBroLol(EntityShootBowEvent event) {
+		if(event.isCancelled()) { // We don't want to make any of our plugin-friends mad :D
+			return;
+		}
+		if(!(event.getEntity() instanceof Player)) {
+			return;
+		}
+		Player shooter = (Player) event.getEntity();
+		boolean cancel = plugin.getClassManager(shooter).shootArrow(shooter, event);
+		event.setCancelled(cancel);
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)

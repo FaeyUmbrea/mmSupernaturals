@@ -38,13 +38,12 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
-import org.bukkit.event.Event;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.material.Door;
@@ -79,6 +78,15 @@ public class HunterManager extends HumanManager{
 			}
 		}
 		return damage;
+	}
+
+	@Override
+	public boolean shootArrow(Player shooter, EntityShootBowEvent event) {
+		boolean cancelled = shoot(shooter);
+		if(cancelled){
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -169,21 +177,6 @@ public class HunterManager extends HumanManager{
 			if(player.getItemInHand().getType().equals(Material.BOW)){
 				changeArrowType(snplayer);
 				return true;
-			}
-		}
-
-		if(!(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK))){
-			return false;
-		}
-
-		if(player.getItemInHand().getType().equals(Material.BOW)){
-			if(player.getInventory().contains(Material.ARROW)){
-				boolean cancelled = shoot(player);
-				if(cancelled){
-					event.setUseInteractedBlock(Event.Result.DENY);
-					event.setCancelled(true);
-					return true;
-				}
 			}
 		}
 		return false;
@@ -490,7 +483,6 @@ public class HunterManager extends HumanManager{
 	// 					Attacks						//
 	// -------------------------------------------- //
 
-	@SuppressWarnings("deprecation")
 	public boolean shoot(final Player player){
 
 		final SuperNPlayer snplayer = SuperNManager.get(player);
@@ -500,7 +492,14 @@ public class HunterManager extends HumanManager{
 		}
 
 		if(!SupernaturalsPlugin.instance.getPvP(player)){
-			SuperNManager.sendMessage(snplayer, "You cannot use special arrows in non-PvP areas.");
+			String arrowType = hunterMap.get(snplayer);
+			if(arrowType == null) {
+				hunterMap.put(snplayer, "normal");
+				return false;
+			}
+			if(!arrowType.equalsIgnoreCase("normal")) {
+				SuperNManager.sendMessage(snplayer, "You cannot use special arrows in non-PvP areas.");
+			}
 			return false;
 		}
 
@@ -525,9 +524,6 @@ public class HunterManager extends HumanManager{
 				Arrow arrow = player.shootArrow();
 				arrowMap.put(arrow, arrowType);
 				arrow.setFireTicks(SNConfigHandler.hunterFireArrowFireTicks);
-				Inventory inv = player.getInventory();
-				inv.removeItem(new ItemStack (Material.ARROW, 1));
-				SupernaturalsPlugin.updateInventory(player);
 				return true;
 			}else{
 				SuperNManager.sendMessage(snplayer, "Not enough power to shoot Fire Arrows!");
@@ -545,9 +541,6 @@ public class HunterManager extends HumanManager{
 						splitArrow(player, arrow);
 					}
 				}, 4);
-				Inventory inv = player.getInventory();
-				inv.removeItem(new ItemStack (Material.ARROW, 3));
-				player.updateInventory();
 				return true;
 			}else{
 				SuperNManager.sendMessage(snplayer, "Not enough power to shoot Triple Arrows!");
@@ -573,9 +566,6 @@ public class HunterManager extends HumanManager{
 						SupernaturalsPlugin.log(snplayer.getName()+" is no longer drained.");
 					}
 				}, SNConfigHandler.hunterCooldown/50);
-				Inventory inv = player.getInventory();
-				inv.removeItem(new ItemStack (Material.ARROW, 1));
-				player.updateInventory();
 				return true;
 			}else{
 				SuperNManager.sendMessage(snplayer, "Not enough power to shoot Power Arrows!");
@@ -588,9 +578,6 @@ public class HunterManager extends HumanManager{
 				SuperNManager.alterPower(snplayer, -SNConfigHandler.hunterPowerArrowGrapple, "Grapple Arrow!");
 				Arrow arrow = player.shootArrow();
 				arrowMap.put(arrow, arrowType);
-				Inventory inv = player.getInventory();
-				inv.removeItem(new ItemStack (Material.ARROW, 1));
-				player.updateInventory();
 				return true;
 			}else{
 				SuperNManager.sendMessage(snplayer, "Not enough power to shoot Grapple Arrow!");
