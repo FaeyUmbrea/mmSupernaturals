@@ -30,6 +30,7 @@ import org.bukkit.entity.Player;
 
 public class SNCommandHelp extends SNCommand{
 	private static List<String> helpMessages = new ArrayList<String>();
+	private static List<String> helpMessagesSpanish = new ArrayList<String>();
 
 	public SNCommandHelp(){
 		super();
@@ -41,6 +42,11 @@ public class SNCommandHelp extends SNCommand{
 	}
 
 	static{
+		helpMessagesSpanish.add("*** "+ChatColor.WHITE+"Supernatural Help "+ChatColor.RED+"***");
+		helpMessagesSpanish.add("/sn Power "+ChatColor.WHITE+"- Indica tus Poderes actuales.");
+		helpMessagesSpanish.add("/sn List "+ChatColor.WHITE+"- Lista de Seres Místicos conectados.");
+		helpMessagesSpanish.add("/sn Classes "+ChatColor.WHITE+"- Lista de Seres Místicos disponibles.");
+		helpMessagesSpanish.add("/sn KillList "+ChatColor.WHITE+"- Lista de objetivos para Cazadores de Brujas.");
 		helpMessages.add("*** "+ChatColor.WHITE+"Supernatural Help "+ChatColor.RED+"***");
 		helpMessages.add("/sn Power "+ChatColor.WHITE+"- Show current power level.");
 		helpMessages.add("/sn List "+ChatColor.WHITE+"- List supernaturals on the server.");
@@ -75,6 +81,10 @@ public class SNCommandHelp extends SNCommand{
 			}
 			return;
 		}
-		this.sendMessage(helpMessages);
+		if(!SNConfigHandler.spanish) {
+			this.sendMessage(helpMessages);
+		} else {
+			this.sendMessage(helpMessagesSpanish);
+		}
 	}
 }
