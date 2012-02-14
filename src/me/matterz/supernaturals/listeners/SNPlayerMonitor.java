@@ -113,6 +113,7 @@ public class SNPlayerMonitor implements Listener {
 					player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.LIGHT_PURPLE+player.getName()));
 					plugin.getServer().broadcastMessage(ChatColor.LIGHT_PURPLE + "El EnderBorn " + player.getName() + ChatColor.GOLD + " ha entrado al juego.");
 				}
+				return;
 			}
 			if(snplayer.isHuman()){
 				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.WHITE+player.getName()));
