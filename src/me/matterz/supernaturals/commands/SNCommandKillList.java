@@ -43,33 +43,56 @@ public class SNCommandKillList extends SNCommand {
 	}
 
 	@Override
-	public void perform(){
+	public void perform() {
 
-		Player senderPlayer = (Player) sender;
-		SuperNPlayer snSender = SuperNManager.get(senderPlayer);
-		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
-			if(!SNConfigHandler.spanish) {
-				this.sendMessage("You do not have permissions to use this command.");
-			} else {
-				this.sendMessage("No tienes permiso para este comando.");
+		if (!SNConfigHandler.spanish) {
+			Player senderPlayer = (Player) sender;
+			SuperNPlayer snSender = SuperNManager.get(senderPlayer);
+			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
+				if (!SNConfigHandler.spanish) {
+					this.sendMessage("You do not have permissions to use this command.");
+				} else {
+					this.sendMessage("No tienes permiso para este comando.");
+				}
+				return;
 			}
-			return;
+
+			if (!snSender.isHunter()) {
+				this.sendMessage("You are not a WitchHunter!");
+			}
+
+			ArrayList<SuperNPlayer> bountyList = HunterManager.getBountyList();
+
+			// Create Messages
+			List<String> messages = new ArrayList<String>();
+			messages.add("*** " + ChatColor.WHITE
+					+ "Current WitchHunter Targets " + ChatColor.RED + "***");
+			for (SuperNPlayer snplayer : bountyList) {
+				messages.add(ChatColor.WHITE + snplayer.getName());
+			}
+
+			// Send them
+			this.sendMessage(messages);
+		} else {
+			Player senderPlayer = (Player) sender;
+			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
+				this.sendMessage("No tienes permiso para este comando.");
+				return;
+			}
+
+			ArrayList<SuperNPlayer> bountyList = HunterManager.getBountyList();
+
+			// Create Messages
+			List<String> messages = new ArrayList<String>();
+			messages.add("*** " + ChatColor.WHITE
+					+ "Objetivos para Cazadores de Brujas: " + ChatColor.RED
+					+ "***");
+			for (SuperNPlayer snplayer : bountyList) {
+				messages.add(ChatColor.WHITE + snplayer.getName());
+			}
+
+			// Send them
+			this.sendMessage(messages);
 		}
-
-		if(!snSender.isHunter()) {
-			this.sendMessage("You are not a WitchHunter!");
-		}
-
-		ArrayList<SuperNPlayer> bountyList = HunterManager.getBountyList();
-
-		// Create Messages
-		List<String> messages = new ArrayList<String>();
-		messages.add("*** "+ChatColor.WHITE +"Current WitchHunter Targets "+ChatColor.RED +"***");
-		for(SuperNPlayer snplayer : bountyList){
-			messages.add(ChatColor.WHITE+snplayer.getName());
-		}
-
-		// Send them
-		this.sendMessage(messages);
 	}
 }

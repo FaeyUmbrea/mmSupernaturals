@@ -30,6 +30,7 @@ import org.bukkit.entity.Player;
 
 public class SNCommandClasses extends SNCommand{
 	private static List<String> classMessages = new ArrayList<String>();
+	private static List<String> spanishClassMessages = new ArrayList<String>();
 
 	public SNCommandClasses(){
 		super();
@@ -49,6 +50,16 @@ public class SNCommandClasses extends SNCommand{
 		classMessages.add("Werewolf: "+ChatColor.WHITE+"- Gain significant powers at night.");
 		classMessages.add("WitchHunter: "+ChatColor.WHITE+"- Expert at bows and stealth.");
 		classMessages.add("Demon: "+ChatColor.WHITE+"- Possesses an unholy union with fire.");
+		classMessages.add("EnderBorn: " + ChatColor.WHITE + "A possessed human with strange powers.");
+		spanishClassMessages.add("*** "+ChatColor.WHITE+"Clases de Seres Místicos "+ChatColor.RED+"***");
+		spanishClassMessages.add("Humano: "+ChatColor.WHITE+"- De carne y hueso, solo sirven para destruir el mundo.");
+		spanishClassMessages.add("Sacerdote: "+ChatColor.WHITE+"- Humano bendecido por el mismisimo Dios.");
+		spanishClassMessages.add("Vampiro: "+ChatColor.WHITE+"- Criatura sin alma, dan miedo!");
+		spanishClassMessages.add("Muerto Viviente: "+ChatColor.WHITE+"- Feo, aterrador y sin cerebro.");
+		spanishClassMessages.add("Hombre Lobo: "+ChatColor.WHITE+"- Peludo y muy funcional durante la noche.");
+		spanishClassMessages.add("Cazador de Brujas: "+ChatColor.WHITE+"- Experto con arcos y sigiloso.");
+		spanishClassMessages.add("Demonio: "+ChatColor.WHITE+"- Tiene una extraña union con el infierno.");
+		spanishClassMessages.add("EnderBorn: " + ChatColor.WHITE + "- Un ser humano poseído por poderes extraños.");
 	}
 
 	@Override
@@ -69,7 +80,11 @@ public class SNCommandClasses extends SNCommand{
 			return;
 		}
 
-		this.sendMessage(classMessages);
+		if(!SNConfigHandler.spanish) {
+			this.sendMessage(classMessages);
+		} else {
+			this.sendMessage(spanishClassMessages);
+		}
 	}
 
 }
