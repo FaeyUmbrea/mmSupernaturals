@@ -29,7 +29,7 @@ public class EnderBornManager extends ClassManager {
 	public boolean changeTele(SuperNPlayer snplayer) {
 		if(!teleMap.containsKey(snplayer)) {
 			teleMap.put(snplayer, true);
-			return false;
+			return true;
 		}
 		if(!teleMap.get(snplayer)) {
 			teleMap.put(snplayer, true);
