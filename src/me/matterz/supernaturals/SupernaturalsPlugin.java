@@ -67,15 +67,11 @@ import me.matterz.supernaturals.manager.SuperNManager;
 import me.matterz.supernaturals.manager.VampireManager;
 import me.matterz.supernaturals.manager.WereManager;
 import me.matterz.supernaturals.util.TextUtil;
-import net.minecraft.server.Packet103SetSlot;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
