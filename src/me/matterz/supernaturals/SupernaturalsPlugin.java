@@ -451,35 +451,4 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		Logger.getLogger("Minecraft").log(level, "["+instance.getDescription().getFullName()+"] "+msg);
 	}
 
-	// -------------------------------------------- //
-	//                 Inventory                    //
-	// -------------------------------------------- //
-
-	/** 
-	 * Updates a player's inventory to the latest changes in code
-	 * 
-	 * @param p The player to update
-	 * @deprecated CraftBukkit will be 'updating' their updateInventory method
-	 */
-	@Deprecated
-	public static void updateInventory(Player p) {
-		CraftPlayer c = (CraftPlayer) p;
-		for (int i = 0;i < 36;i++) {
-			int nativeindex = i;
-			if (i < 9) {
-				nativeindex = i + 36;
-			}
-			ItemStack olditem =  c.getInventory().getItem(i);
-			net.minecraft.server.ItemStack item = null;
-			if (olditem != null && olditem.getType() != Material.AIR) {
-				item = new net.minecraft.server.ItemStack(0, 0, 0);
-				item.id = olditem.getTypeId();
-				item.count = olditem.getAmount();
-				item.b = olditem.getDurability();
-			}
-			Packet103SetSlot pack = new Packet103SetSlot(0, nativeindex, item);
-			c.getHandle().netServerHandler.sendPacket(pack);
-		}
-	}
-
 }
