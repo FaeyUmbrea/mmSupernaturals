@@ -43,7 +43,7 @@ public class Recipes{
 		for(Material material: this.materialQuantities.keySet()){
 			inventory.removeItem(new ItemStack(material.getId(), this.materialQuantities.get(material)));
 		}
-		SupernaturalsPlugin.updateInventory(player);
+		player.updateInventory();
 	}
 
 	public boolean playerHasEnough(Player player){

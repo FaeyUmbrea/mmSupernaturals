@@ -184,7 +184,7 @@ public class WereManager extends ClassManager{
 						player.setFoodLevel(player.getFoodLevel() + 6); //Hardcoded value :D
 						Inventory inv = player.getInventory();
 						inv.removeItem(new ItemStack (itemMaterial, 1));
-						SupernaturalsPlugin.updateInventory(player);
+						player.updateInventory();
 						return true;
 					}
 				}
@@ -204,7 +204,7 @@ public class WereManager extends ClassManager{
 					player.setFoodLevel(player.getFoodLevel() + 6); //Hardcoded value :D
 					Inventory inv = player.getInventory();
 					inv.removeItem(new ItemStack (itemMaterial, 1));
-					SupernaturalsPlugin.updateInventory(player);
+					player.updateInventory();
 					return true;
 				}
 			}

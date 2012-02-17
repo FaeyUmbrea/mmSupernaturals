@@ -455,6 +455,13 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	//                 Inventory                    //
 	// -------------------------------------------- //
 
+	/** 
+	 * Updates a player's inventory to the latest changes in code
+	 * 
+	 * @param p The player to update
+	 * @deprecated CraftBukkit will be 'updating' their updateInventory method
+	 */
+	@Deprecated
 	public static void updateInventory(Player p) {
 		CraftPlayer c = (CraftPlayer) p;
 		for (int i = 0;i < 36;i++) {
