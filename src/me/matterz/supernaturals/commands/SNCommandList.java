@@ -91,7 +91,7 @@ public class SNCommandList extends SNCommand {
 			messagesSpanish.add("Sacerdotes: "+ ChatColor.WHITE + TextUtil.implode(priests, ", "));
 			messagesSpanish.add("Cazadores de Brujas: "+ ChatColor.WHITE + TextUtil.implode(hunters, ", "));
 			messagesSpanish.add("Demonios: "+ ChatColor.WHITE + TextUtil.implode(demons, ", "));
-			messagesSpanish.add("EnderBorns: " + ChatColor.WHITE + TextUtil.implode(messagesSpanish, ", "));
+			messagesSpanish.add("EnderBorns: " + ChatColor.WHITE + TextUtil.implode(enderborns, ", "));
 
 			// Send them
 			if(!SNConfigHandler.spanish) {
