@@ -21,7 +21,7 @@ package me.matterz.supernaturals;
 
 import java.io.Serializable;
 
-public class SuperNPlayer implements Serializable{
+public class SuperNPlayer implements Serializable {
 
 	/**
 	 * Auto-Generated serialVersionUID
@@ -36,188 +36,190 @@ public class SuperNPlayer implements Serializable{
 	public boolean truce = true;
 	public int truceTimer = 0;
 
-	public SuperNPlayer(){}
+	public SuperNPlayer() {
+	}
 
-	public SuperNPlayer(String playername){
-		this.playername=playername;
-		this.superType = "human";
-		this.oldSuperType = "human";
-		this.oldSuperPower = 0;
-		this.superPower = 0;
-		this.truce = true;
-		this.truceTimer = 0;
+	public SuperNPlayer(String playername) {
+		this.playername = playername;
+		superType = "human";
+		oldSuperType = "human";
+		oldSuperPower = 0;
+		superPower = 0;
+		truce = true;
+		truceTimer = 0;
 	}
 
 	// -------------------------------------------- //
-	// 					Parameters					//
+	// Parameters //
 	// -------------------------------------------- //
 
-	public String getName(){
-		return this.playername;
+	public String getName() {
+		return playername;
 	}
 
-	public void setName(String name){
-		this.playername=name;
+	public void setName(String name) {
+		playername = name;
 	}
 
-	public String getType(){
-		return this.superType;
+	public String getType() {
+		return superType;
 	}
 
-	public void setType(String type){
-		this.superType=type;
+	public void setType(String type) {
+		superType = type;
 	}
 
-	public String getOldType(){
-		return this.oldSuperType;
+	public String getOldType() {
+		return oldSuperType;
 	}
 
-	public void setOldType(String type){
-		this.oldSuperType=type;
+	public void setOldType(String type) {
+		oldSuperType = type;
 	}
 
-	public double getOldPower(){
-		return this.oldSuperPower;
+	public double getOldPower() {
+		return oldSuperPower;
 	}
 
-	public void setOldPower(double amount){
-		this.oldSuperPower=amount;
+	public void setOldPower(double amount) {
+		oldSuperPower = amount;
 	}
 
-	public double getPower(){
-		return this.superPower;
+	public double getPower() {
+		return superPower;
 	}
 
-	public void setPower(double amount){
-		this.superPower = this.limitDouble(amount);
+	public void setPower(double amount) {
+		superPower = this.limitDouble(amount);
 	}
 
-	public boolean getTruce(){
-		return this.truce;
+	public boolean getTruce() {
+		return truce;
 	}
 
-	public void setTruce(boolean truce){
+	public void setTruce(boolean truce) {
 		this.truce = truce;
-		this.truceTimer = 0;
+		truceTimer = 0;
 	}
 
-	public int getTruceTimer(){
-		return this.truceTimer;
+	public int getTruceTimer() {
+		return truceTimer;
 	}
 
-	public void setTruceTimer(int timer){
-		this.truceTimer=timer;
+	public void setTruceTimer(int timer) {
+		truceTimer = timer;
 	}
 
 	// -------------------------------------------- //
-	// 					Booleans					//
+	// Booleans //
 	// -------------------------------------------- //
 
-	public boolean isSuper(){
-		if(this.getType().equalsIgnoreCase("human")
-				|| this.getType().equalsIgnoreCase("priest")
-				|| this.getType().equalsIgnoreCase("witchhunter")) {
+	public boolean isSuper() {
+		if (getType().equalsIgnoreCase("human")
+				|| getType().equalsIgnoreCase("priest")
+				|| getType().equalsIgnoreCase("witchhunter")) {
 			return false;
 		}
 		return true;
 	}
 
-	public boolean isHuman(){
-		if(this.getType().equalsIgnoreCase("human")) {
+	public boolean isHuman() {
+		if (getType().equalsIgnoreCase("human")) {
 			return true;
 		}
 		return false;
 	}
 
-	public boolean isVampire(){
-		if(this.getType().equalsIgnoreCase("vampire")) {
+	public boolean isVampire() {
+		if (getType().equalsIgnoreCase("vampire")) {
 			return true;
 		}
 		return false;
 	}
 
-	public boolean isPriest(){
-		if(this.getType().equalsIgnoreCase("priest")){
+	public boolean isPriest() {
+		if (getType().equalsIgnoreCase("priest")) {
 			return true;
 		}
 		return false;
 	}
 
-	public boolean isWere(){
-		if(this.getType().equalsIgnoreCase("werewolf")){
+	public boolean isWere() {
+		if (getType().equalsIgnoreCase("werewolf")) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean isEnderBorn() {
-		if(this.getType().equalsIgnoreCase("enderborn")) {
+		if (getType().equalsIgnoreCase("enderborn")) {
 			return true;
 		}
 		return false;
 	}
 
-	public boolean isGhoul(){
-		if(this.getType().equalsIgnoreCase("ghoul")){
+	public boolean isGhoul() {
+		if (getType().equalsIgnoreCase("ghoul")) {
 			return true;
 		}
 		return false;
 	}
 
-	public boolean isHunter(){
-		if(this.getType().equalsIgnoreCase("witchhunter")){
+	public boolean isHunter() {
+		if (getType().equalsIgnoreCase("witchhunter")) {
 			return true;
 		}
 		return false;
 	}
 
-	public boolean isDemon(){
-		if(this.getType().equalsIgnoreCase("demon")){
+	public boolean isDemon() {
+		if (getType().equalsIgnoreCase("demon")) {
 			return true;
 		}
 		return false;
 	}
 
-	public double scale(double input){
-		double powerPercentage = input*(this.getPower()/10000);
+	public double scale(double input) {
+		double powerPercentage = input * (getPower() / 10000);
 		return powerPercentage;
 	}
 
-	public boolean isOnline(){
+	public boolean isOnline() {
 		return SupernaturalsPlugin.instance.getServer().getPlayer(playername) != null;
 	}
 
-	public boolean isDead(){
-		return SupernaturalsPlugin.instance.getServer().getPlayer(playername).isDead();
+	public boolean isDead() {
+		return SupernaturalsPlugin.instance.getServer().getPlayer(playername)
+				.isDead();
 	}
 
 	@Override
-	public int hashCode(){
+	public int hashCode() {
 		return playername.hashCode();
 	}
 
 	@Override
-	public boolean equals(Object obj){
-		if(obj instanceof SuperNPlayer) {
-			return this.playername.equals(((SuperNPlayer) obj).getName());
+	public boolean equals(Object obj) {
+		if (obj instanceof SuperNPlayer) {
+			return playername.equals(((SuperNPlayer) obj).getName());
 		}
 		return false;
 	}
 
 	// -------------------------------------------- //
-	// 			Limiting value of double			//
+	// Limiting value of double //
 	// -------------------------------------------- //
-	public double limitDouble(double d, double min, double max){
-		if (d < min){
+	public double limitDouble(double d, double min, double max) {
+		if (d < min) {
 			return min;
 		}
-		if (d > max){
+		if (d > max) {
 			return max;
 		}
 		return d;
 	}
 
-	public double limitDouble(double d){
+	public double limitDouble(double d) {
 		return this.limitDouble(d, 0, 10000);
 	}
 }

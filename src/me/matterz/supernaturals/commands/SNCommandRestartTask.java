@@ -34,11 +34,10 @@ public class SNCommandRestartTask extends SNCommandReload {
 	}
 
 	@Override
-	public void perform()
-	{
+	public void perform() {
 		Player senderPlayer = (Player) sender;
-		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
-			if(!SNConfigHandler.spanish) {
+		if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
+			if (!SNConfigHandler.spanish) {
 				this.sendMessage("You do not have permissions to use this command.");
 			} else {
 				this.sendMessage("No tienes permiso para este comando.");

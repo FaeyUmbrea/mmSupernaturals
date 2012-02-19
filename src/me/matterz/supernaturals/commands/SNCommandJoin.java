@@ -17,12 +17,13 @@ public class SNCommandJoin extends SNCommand {
 
 	@Override
 	public void perform() {
-		if(!SNConfigHandler.enableJoinCommand) {
+		if (!SNConfigHandler.enableJoinCommand) {
 			this.sendMessage("This is not enabled, you are automatically in the mmSupernaturals fun!");
 			return;
 		}
 		Player senderPlayer = (Player) sender;
-		if(SNWhitelistHandler.playersInWhitelist.contains(senderPlayer.getName())) {
+		if (SNWhitelistHandler.playersInWhitelist.contains(senderPlayer
+				.getName())) {
 			this.sendMessage("You are already whitelisted!");
 			return;
 		}

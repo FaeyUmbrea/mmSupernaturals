@@ -42,8 +42,8 @@ public class SNCommandSetChurch extends SNCommand {
 	public void perform() {
 
 		Player senderPlayer = (Player) sender;
-		if(SNConfigHandler.spanish) {
-			if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
+		if (SNConfigHandler.spanish) {
+			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
 				this.sendMessage("No tienes permiso para usar este comando.");
 				return;
 			}
@@ -52,23 +52,28 @@ public class SNCommandSetChurch extends SNCommand {
 			double currentY = senderPlayer.getLocation().getY();
 			double currentZ = senderPlayer.getLocation().getZ();
 
-			SNConfigHandler.priestChurchWorld = senderPlayer.getWorld().getName();
+			SNConfigHandler.priestChurchWorld = senderPlayer.getWorld()
+					.getName();
 			SNConfigHandler.priestChurchLocationX = (int) currentX;
 			SNConfigHandler.priestChurchLocationY = (int) currentY;
 			SNConfigHandler.priestChurchLocationZ = (int) currentZ;
 			SNConfigHandler.priestChurchLocation = senderPlayer.getLocation();
 
-			SNConfigHandler.getConfig().set("Priest.Church.World", SNConfigHandler.priestChurchWorld);
-			SNConfigHandler.getConfig().set("Priest.Church.Location.X", SNConfigHandler.priestChurchLocationX);
-			SNConfigHandler.getConfig().set("Priest.Church.Location.Y", SNConfigHandler.priestChurchLocationY);
-			SNConfigHandler.getConfig().set("Priest.Church.Location.Z", SNConfigHandler.priestChurchLocationZ);
+			SNConfigHandler.getConfig().set("Priest.Church.World",
+					SNConfigHandler.priestChurchWorld);
+			SNConfigHandler.getConfig().set("Priest.Church.Location.X",
+					SNConfigHandler.priestChurchLocationX);
+			SNConfigHandler.getConfig().set("Priest.Church.Location.Y",
+					SNConfigHandler.priestChurchLocationY);
+			SNConfigHandler.getConfig().set("Priest.Church.Location.Z",
+					SNConfigHandler.priestChurchLocationZ);
 
 			SupernaturalsPlugin.saveData();
 
 			this.sendMessage("La localizaci�n de la Iglesia ha sido definida.");
 			return;
 		}
-		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
+		if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
 			this.sendMessage("You do not have permissions to use this command.");
 			return;
 		}
@@ -83,10 +88,14 @@ public class SNCommandSetChurch extends SNCommand {
 		SNConfigHandler.priestChurchLocationZ = (int) currentZ;
 		SNConfigHandler.priestChurchLocation = senderPlayer.getLocation();
 
-		SNConfigHandler.getConfig().set("Priest.Church.World", SNConfigHandler.priestChurchWorld);
-		SNConfigHandler.getConfig().set("Priest.Church.Location.X", SNConfigHandler.priestChurchLocationX);
-		SNConfigHandler.getConfig().set("Priest.Church.Location.Y", SNConfigHandler.priestChurchLocationY);
-		SNConfigHandler.getConfig().set("Priest.Church.Location.Z", SNConfigHandler.priestChurchLocationZ);
+		SNConfigHandler.getConfig().set("Priest.Church.World",
+				SNConfigHandler.priestChurchWorld);
+		SNConfigHandler.getConfig().set("Priest.Church.Location.X",
+				SNConfigHandler.priestChurchLocationX);
+		SNConfigHandler.getConfig().set("Priest.Church.Location.Y",
+				SNConfigHandler.priestChurchLocationY);
+		SNConfigHandler.getConfig().set("Priest.Church.Location.Z",
+				SNConfigHandler.priestChurchLocationZ);
 
 		SupernaturalsPlugin.saveData();
 

@@ -33,28 +33,29 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class SNBlockListener implements Listener{
+public class SNBlockListener implements Listener {
 
 	private SupernaturalsPlugin plugin;
 	private String permissions = "supernatural.player.witchhuntersign";
 	private String worldPermission = "supernatural.world.enabled";
 
-	public SNBlockListener(SupernaturalsPlugin instance){
+	public SNBlockListener(SupernaturalsPlugin instance) {
 		instance.getServer().getPluginManager().registerEvents(this, instance);
-		this.plugin = instance;
+		plugin = instance;
 	}
 
 	@EventHandler(priority = EventPriority.LOW)
-	public void onBlockBreak(BlockBreakEvent event){
+	public void onBlockBreak(BlockBreakEvent event) {
 		Block eventBlock = event.getBlock();
-		if(eventBlock.getType().equals(Material.WEB)) {
-			for(Block block : plugin.getDemonManager().getWebs().keySet()){
-				if(block.equals(eventBlock)){
+		if (eventBlock.getType().equals(Material.WEB)) {
+			for (Block block : plugin.getDemonManager().getWebs().keySet()) {
+				if (block.equals(eventBlock)) {
 					event.setCancelled(true);
 					block.setType(Material.AIR);
 					plugin.getDemonManager().removeWeb(block);
-					if(SNConfigHandler.debugMode) {
-						SupernaturalsPlugin.log("Removed web block through destruction.");
+					if (SNConfigHandler.debugMode) {
+						SupernaturalsPlugin
+								.log("Removed web block through destruction.");
 					}
 					return;
 				}
@@ -63,19 +64,23 @@ public class SNBlockListener implements Listener{
 	}
 
 	@EventHandler(priority = EventPriority.LOW)
-	public void onSignChange(SignChangeEvent event){
+	public void onSignChange(SignChangeEvent event) {
 		Player player = event.getPlayer();
 		String[] text = event.getLines();
-		if(!SupernaturalsPlugin.hasPermissions(player, worldPermission) && SNConfigHandler.multiworld) {
+		if (!SupernaturalsPlugin.hasPermissions(player, worldPermission)
+				&& SNConfigHandler.multiworld) {
 			return;
 		}
-		for(int i =0; i < text.length; i++){
-			if(text[i].contains(SNConfigHandler.hunterHallMessage)){
-				if(!SupernaturalsPlugin.hasPermissions(player, permissions)){
-					SuperNManager.sendMessage(SuperNManager.get(player), "You do not have permission to create WitchHunter signs");
+		for (int i = 0; i < text.length; i++) {
+			if (text[i].contains(SNConfigHandler.hunterHallMessage)) {
+				if (!SupernaturalsPlugin.hasPermissions(player, permissions)) {
+					SuperNManager
+							.sendMessage(SuperNManager.get(player),
+									"You do not have permission to create WitchHunter signs");
 					event.setCancelled(true);
 					event.getBlock().setTypeId(0);
-					player.getWorld().dropItem(player.getLocation(), new ItemStack(Material.SIGN,1));
+					player.getWorld().dropItem(player.getLocation(),
+							new ItemStack(Material.SIGN, 1));
 				}
 				return;
 			}

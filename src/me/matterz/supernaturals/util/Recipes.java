@@ -32,54 +32,59 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-
-public class Recipes{
+public class Recipes {
 	public Map<Material, Integer> materialQuantities = new HashMap<Material, Integer>();
 
-	public void removeFromPlayer(Player player){
+	public void removeFromPlayer(Player player) {
 		Inventory inventory = player.getInventory();
-		for(Material material: this.materialQuantities.keySet()){
-			inventory.removeItem(new ItemStack(material.getId(), this.materialQuantities.get(material)));
+		for (Material material : materialQuantities.keySet()) {
+			inventory.removeItem(new ItemStack(material.getId(),
+					materialQuantities.get(material)));
 		}
 		player.updateInventory();
 	}
 
-	public boolean playerHasEnough(Player player){
+	public boolean playerHasEnough(Player player) {
 		Inventory inventory = player.getInventory();
-		for(Material material: this.materialQuantities.keySet()){
-			if(getMaterialCountFromInventory(material, inventory) < this.materialQuantities.get(material)){
+		for (Material material : materialQuantities.keySet()) {
+			if (getMaterialCountFromInventory(material, inventory) < materialQuantities
+					.get(material)) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-	public static int getMaterialCountFromInventory(Material material, Inventory inventory){
+	public static int getMaterialCountFromInventory(Material material,
+			Inventory inventory) {
 		int count = 0;
-		for(ItemStack stack : inventory.all(material).values()){
+		for (ItemStack stack : inventory.all(material).values()) {
 			count += stack.getAmount();
 		}
 		return count;
 	}
 
-	public String getRecipeLine(){
+	public String getRecipeLine() {
 		ArrayList<String> lines = new ArrayList<String>();
-		for (Entry<Material, Integer> item : entriesSortedByValues(this.materialQuantities)) {
-			lines.add(""+item.getValue()+" "+TextUtil.getMaterialName(item.getKey()));
+		for (Entry<Material, Integer> item : entriesSortedByValues(materialQuantities)) {
+			lines.add("" + item.getValue() + " "
+					+ TextUtil.getMaterialName(item.getKey()));
 		}
 		return TextUtil.implode(lines, ", ");
 	}
 
-	//http://stackoverflow.com/questions/2864840/treemap-sort-by-value
-	public static <K,V extends Comparable<? super V>> SortedSet<Map.Entry<K,V>> entriesSortedByValues(Map<K,V> map) {
-		SortedSet<Map.Entry<K,V>> sortedEntries = new TreeSet<Map.Entry<K,V>>(
-				new Comparator<Map.Entry<K,V>>() {
-					@Override public int compare(Map.Entry<K,V> e1, Map.Entry<K,V> e2) {
+	// http://stackoverflow.com/questions/2864840/treemap-sort-by-value
+	public static <K, V extends Comparable<? super V>> SortedSet<Map.Entry<K, V>> entriesSortedByValues(
+			Map<K, V> map) {
+		SortedSet<Map.Entry<K, V>> sortedEntries = new TreeSet<Map.Entry<K, V>>(
+				new Comparator<Map.Entry<K, V>>() {
+					@Override
+					public int compare(Map.Entry<K, V> e1, Map.Entry<K, V> e2) {
 						int res = e1.getValue().compareTo(e2.getValue());
-						return res != 0 ? res : 1; // Special fix to preserve items with equal values
+						return res != 0 ? res : 1; // Special fix to preserve
+													// items with equal values
 					}
-				}
-				);
+				});
 		sortedEntries.addAll(map.entrySet());
 		return sortedEntries;
 	}

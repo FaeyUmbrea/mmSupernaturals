@@ -31,7 +31,6 @@ import me.matterz.supernaturals.util.TextUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-
 public class SNCommandList extends SNCommand {
 
 	public SNCommandList() {
@@ -44,9 +43,8 @@ public class SNCommandList extends SNCommand {
 	}
 
 	@Override
-	public void perform()
-	{
-		if(!(sender instanceof Player)) {
+	public void perform() {
+		if (!(sender instanceof Player)) {
 			List<String> vampires = new ArrayList<String>();
 			List<String> werewolves = new ArrayList<String>();
 			List<String> ghouls = new ArrayList<String>();
@@ -58,17 +56,17 @@ public class SNCommandList extends SNCommand {
 			for (SuperNPlayer snplayer : SuperNManager.findAllOnline()) {
 				if (snplayer.isVampire()) {
 					vampires.add(snplayer.getName());
-				}else if(snplayer.isPriest()){
+				} else if (snplayer.isPriest()) {
 					priests.add(snplayer.getName());
-				}else if(snplayer.isWere()){
+				} else if (snplayer.isWere()) {
 					werewolves.add(snplayer.getName());
-				}else if(snplayer.isGhoul()){
+				} else if (snplayer.isGhoul()) {
 					ghouls.add(snplayer.getName());
-				}else if(snplayer.isHunter()){
+				} else if (snplayer.isHunter()) {
 					hunters.add(snplayer.getName());
-				}else if(snplayer.isDemon()){
+				} else if (snplayer.isDemon()) {
 					demons.add(snplayer.getName());
-				}else if(snplayer.isEnderBorn()) {
+				} else if (snplayer.isEnderBorn()) {
 					enderborns.add(snplayer.getName());
 				}
 			}
@@ -76,25 +74,41 @@ public class SNCommandList extends SNCommand {
 			// Create Messages
 			List<String> messages = new ArrayList<String>();
 			List<String> messagesSpanish = new ArrayList<String>();
-			messages.add("*** "+ChatColor.WHITE +"Online Supernatural Players "+ChatColor.RED +"***");
-			messages.add("Vampires: "+ ChatColor.WHITE + TextUtil.implode(vampires, ", "));
-			messages.add("Werewolves: "+ ChatColor.WHITE + TextUtil.implode(werewolves, ", "));
-			messages.add("Ghouls: "+ ChatColor.WHITE + TextUtil.implode(ghouls, ", "));
-			messages.add("Priests: "+ ChatColor.WHITE + TextUtil.implode(priests, ", "));
-			messages.add("WitchHunters: "+ ChatColor.WHITE + TextUtil.implode(hunters, ", "));
-			messages.add("Demons: "+ ChatColor.WHITE + TextUtil.implode(demons, ", "));
-			messages.add("EnderBorns: " + ChatColor.WHITE + TextUtil.implode(enderborns, ", "));
-			messagesSpanish.add("*** "+ChatColor.WHITE +"Seres Místicos conectados: "+ChatColor.RED +"***");
-			messagesSpanish.add("Vampiros: "+ ChatColor.WHITE + TextUtil.implode(vampires, ", "));
-			messagesSpanish.add("Hombres Lobos: "+ ChatColor.WHITE + TextUtil.implode(werewolves, ", "));
-			messagesSpanish.add("Muertos Vivientes: "+ ChatColor.WHITE + TextUtil.implode(ghouls, ", "));
-			messagesSpanish.add("Sacerdotes: "+ ChatColor.WHITE + TextUtil.implode(priests, ", "));
-			messagesSpanish.add("Cazadores de Brujas: "+ ChatColor.WHITE + TextUtil.implode(hunters, ", "));
-			messagesSpanish.add("Demonios: "+ ChatColor.WHITE + TextUtil.implode(demons, ", "));
-			messagesSpanish.add("EnderBorns: " + ChatColor.WHITE + TextUtil.implode(enderborns, ", "));
+			messages.add("*** " + ChatColor.WHITE
+					+ "Online Supernatural Players " + ChatColor.RED + "***");
+			messages.add("Vampires: " + ChatColor.WHITE
+					+ TextUtil.implode(vampires, ", "));
+			messages.add("Werewolves: " + ChatColor.WHITE
+					+ TextUtil.implode(werewolves, ", "));
+			messages.add("Ghouls: " + ChatColor.WHITE
+					+ TextUtil.implode(ghouls, ", "));
+			messages.add("Priests: " + ChatColor.WHITE
+					+ TextUtil.implode(priests, ", "));
+			messages.add("WitchHunters: " + ChatColor.WHITE
+					+ TextUtil.implode(hunters, ", "));
+			messages.add("Demons: " + ChatColor.WHITE
+					+ TextUtil.implode(demons, ", "));
+			messages.add("EnderBorns: " + ChatColor.WHITE
+					+ TextUtil.implode(enderborns, ", "));
+			messagesSpanish.add("*** " + ChatColor.WHITE
+					+ "Seres Místicos conectados: " + ChatColor.RED + "***");
+			messagesSpanish.add("Vampiros: " + ChatColor.WHITE
+					+ TextUtil.implode(vampires, ", "));
+			messagesSpanish.add("Hombres Lobos: " + ChatColor.WHITE
+					+ TextUtil.implode(werewolves, ", "));
+			messagesSpanish.add("Muertos Vivientes: " + ChatColor.WHITE
+					+ TextUtil.implode(ghouls, ", "));
+			messagesSpanish.add("Sacerdotes: " + ChatColor.WHITE
+					+ TextUtil.implode(priests, ", "));
+			messagesSpanish.add("Cazadores de Brujas: " + ChatColor.WHITE
+					+ TextUtil.implode(hunters, ", "));
+			messagesSpanish.add("Demonios: " + ChatColor.WHITE
+					+ TextUtil.implode(demons, ", "));
+			messagesSpanish.add("EnderBorns: " + ChatColor.WHITE
+					+ TextUtil.implode(enderborns, ", "));
 
 			// Send them
-			if(!SNConfigHandler.spanish) {
+			if (!SNConfigHandler.spanish) {
 				this.sendMessage(messages);
 			} else {
 				this.sendMessage(messagesSpanish);
@@ -102,8 +116,8 @@ public class SNCommandList extends SNCommand {
 			return;
 		}
 		Player senderPlayer = (Player) sender;
-		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
-			if(!SNConfigHandler.spanish) {
+		if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
+			if (!SNConfigHandler.spanish) {
 				this.sendMessage("You do not have permissions to use this command.");
 			} else {
 				this.sendMessage("No tienes permiso para este comando.");
@@ -122,17 +136,17 @@ public class SNCommandList extends SNCommand {
 		for (SuperNPlayer snplayer : SuperNManager.findAllOnline()) {
 			if (snplayer.isVampire()) {
 				vampires.add(snplayer.getName());
-			}else if(snplayer.isPriest()){
+			} else if (snplayer.isPriest()) {
 				priests.add(snplayer.getName());
-			}else if(snplayer.isWere()){
+			} else if (snplayer.isWere()) {
 				werewolves.add(snplayer.getName());
-			}else if(snplayer.isGhoul()){
+			} else if (snplayer.isGhoul()) {
 				ghouls.add(snplayer.getName());
-			}else if(snplayer.isHunter()){
+			} else if (snplayer.isHunter()) {
 				hunters.add(snplayer.getName());
-			}else if(snplayer.isDemon()){
+			} else if (snplayer.isDemon()) {
 				demons.add(snplayer.getName());
-			}else if(snplayer.isEnderBorn()) {
+			} else if (snplayer.isEnderBorn()) {
 				enderborns.add(snplayer.getName());
 			}
 		}
@@ -140,25 +154,41 @@ public class SNCommandList extends SNCommand {
 		// Create Messages
 		List<String> messages = new ArrayList<String>();
 		List<String> messagesSpanish = new ArrayList<String>();
-		messages.add("*** "+ChatColor.WHITE +"Online Supernatural Players "+ChatColor.RED +"***");
-		messages.add("Vampires: "+ ChatColor.WHITE + TextUtil.implode(vampires, ", "));
-		messages.add("Werewolves: "+ ChatColor.WHITE + TextUtil.implode(werewolves, ", "));
-		messages.add("Ghouls: "+ ChatColor.WHITE + TextUtil.implode(ghouls, ", "));
-		messages.add("Priests: "+ ChatColor.WHITE + TextUtil.implode(priests, ", "));
-		messages.add("WitchHunters: "+ ChatColor.WHITE + TextUtil.implode(hunters, ", "));
-		messages.add("Demons: "+ ChatColor.WHITE + TextUtil.implode(demons, ", "));
-		messages.add("EnderBorns: " + ChatColor.WHITE + TextUtil.implode(enderborns, ", "));
-		messagesSpanish.add("*** "+ChatColor.WHITE +"Seres Místicos conectados: "+ChatColor.RED +"***");
-		messagesSpanish.add("Vampiros: "+ ChatColor.WHITE + TextUtil.implode(vampires, ", "));
-		messagesSpanish.add("Hombres Lobos: "+ ChatColor.WHITE + TextUtil.implode(werewolves, ", "));
-		messagesSpanish.add("Muertos Vivientes: "+ ChatColor.WHITE + TextUtil.implode(ghouls, ", "));
-		messagesSpanish.add("Sacerdotes: "+ ChatColor.WHITE + TextUtil.implode(priests, ", "));
-		messagesSpanish.add("Cazadores de Brujas: "+ ChatColor.WHITE + TextUtil.implode(hunters, ", "));
-		messagesSpanish.add("Demonios: "+ ChatColor.WHITE + TextUtil.implode(demons, ", "));
-		messagesSpanish.add("EnderBorns: " + ChatColor.WHITE + TextUtil.implode(enderborns, ", "));
+		messages.add("*** " + ChatColor.WHITE + "Online Supernatural Players "
+				+ ChatColor.RED + "***");
+		messages.add("Vampires: " + ChatColor.WHITE
+				+ TextUtil.implode(vampires, ", "));
+		messages.add("Werewolves: " + ChatColor.WHITE
+				+ TextUtil.implode(werewolves, ", "));
+		messages.add("Ghouls: " + ChatColor.WHITE
+				+ TextUtil.implode(ghouls, ", "));
+		messages.add("Priests: " + ChatColor.WHITE
+				+ TextUtil.implode(priests, ", "));
+		messages.add("WitchHunters: " + ChatColor.WHITE
+				+ TextUtil.implode(hunters, ", "));
+		messages.add("Demons: " + ChatColor.WHITE
+				+ TextUtil.implode(demons, ", "));
+		messages.add("EnderBorns: " + ChatColor.WHITE
+				+ TextUtil.implode(enderborns, ", "));
+		messagesSpanish.add("*** " + ChatColor.WHITE
+				+ "Seres Místicos conectados: " + ChatColor.RED + "***");
+		messagesSpanish.add("Vampiros: " + ChatColor.WHITE
+				+ TextUtil.implode(vampires, ", "));
+		messagesSpanish.add("Hombres Lobos: " + ChatColor.WHITE
+				+ TextUtil.implode(werewolves, ", "));
+		messagesSpanish.add("Muertos Vivientes: " + ChatColor.WHITE
+				+ TextUtil.implode(ghouls, ", "));
+		messagesSpanish.add("Sacerdotes: " + ChatColor.WHITE
+				+ TextUtil.implode(priests, ", "));
+		messagesSpanish.add("Cazadores de Brujas: " + ChatColor.WHITE
+				+ TextUtil.implode(hunters, ", "));
+		messagesSpanish.add("Demonios: " + ChatColor.WHITE
+				+ TextUtil.implode(demons, ", "));
+		messagesSpanish.add("EnderBorns: " + ChatColor.WHITE
+				+ TextUtil.implode(enderborns, ", "));
 
 		// Send them
-		if(!SNConfigHandler.spanish) {
+		if (!SNConfigHandler.spanish) {
 			this.sendMessage(messages);
 		} else {
 			this.sendMessage(messagesSpanish);

@@ -19,7 +19,6 @@
 
 package me.matterz.supernaturals.commands;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +27,6 @@ import me.matterz.supernaturals.io.SNConfigHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
 
 public class SNCommand {
 	public List<String> requiredParameters;
@@ -54,7 +52,7 @@ public class SNCommand {
 	public String getName() {
 		String name = this.getClass().getName().toLowerCase();
 		if (name.lastIndexOf('.') > 0) {
-			name = name.substring(name.lastIndexOf('.')+1);
+			name = name.substring(name.lastIndexOf('.') + 1);
 		}
 		return name.substring(9);
 	}
@@ -68,7 +66,7 @@ public class SNCommand {
 		this.parameters = parameters;
 
 		if (!validateCall()) {
-			if(!SNConfigHandler.spanish) {
+			if (!SNConfigHandler.spanish) {
 				sendMessage("Try /sn help");
 			} else {
 				sendMessage("Escribe /sn help");
@@ -84,11 +82,11 @@ public class SNCommand {
 	}
 
 	public void sendMessage(String message) {
-		sender.sendMessage(ChatColor.RED+message);
+		sender.sendMessage(ChatColor.RED + message);
 	}
 
 	public void sendMessage(List<String> messages) {
-		for(String message : messages) {
+		for (String message : messages) {
 			this.sendMessage(message);
 		}
 	}
@@ -96,8 +94,8 @@ public class SNCommand {
 	// Test if the number of params is correct.
 	public boolean validateCall() {
 
-		if ( this.senderMustBePlayer && ! (sender instanceof Player)) {
-			if(!SNConfigHandler.spanish) {
+		if (senderMustBePlayer && !(sender instanceof Player)) {
+			if (!SNConfigHandler.spanish) {
 				sendMessage("This command can only be used by ingame players.");
 			} else {
 				sendMessage("Solo puedes usar este comando si estas dentro del juego.");
@@ -107,15 +105,18 @@ public class SNCommand {
 
 		if (parameters.size() < requiredParameters.size()) {
 			int missing = requiredParameters.size() - parameters.size();
-			if(SNConfigHandler.spanish) {
-				sendMessage("Par�metros incorrectos. Debes ingresar "+missing+" more.");
+			if (SNConfigHandler.spanish) {
+				sendMessage("Par�metros incorrectos. Debes ingresar "
+						+ missing + " more.");
 			} else {
-				sendMessage("Missing parameters. You must enter "+missing+" more.");
+				sendMessage("Missing parameters. You must enter " + missing
+						+ " more.");
 			}
 			return false;
 		}
 
-		if (parameters.size() > requiredParameters.size() + optionalParameters.size()) {
+		if (parameters.size() > requiredParameters.size()
+				+ optionalParameters.size()) {
 			sendMessage("To many parameters.");
 			return false;
 		}

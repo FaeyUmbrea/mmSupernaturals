@@ -33,29 +33,30 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
-public class HumanManager extends ClassManager{
 
-	public HumanManager(){
+public class HumanManager extends ClassManager {
+
+	public HumanManager() {
 		super();
 	}
 
 	// -------------------------------------------- //
-	// 					Damage Events				//
+	// Damage Events //
 	// -------------------------------------------- //
 
 	@Override
-	public double victimEvent(EntityDamageEvent event, double damage){
+	public double victimEvent(EntityDamageEvent event, double damage) {
 		return damage;
 	}
 
 	@Override
-	public double damagerEvent(EntityDamageByEntityEvent event, double damage){
+	public double damagerEvent(EntityDamageByEntityEvent event, double damage) {
 		return damage;
 	}
 
 	@Override
-	public void deathEvent(Player player){
-		if(SNConfigHandler.debugMode) {
+	public void deathEvent(Player player) {
+		if (SNConfigHandler.debugMode) {
 			SupernaturalsPlugin.log("Player died.");
 		}
 
@@ -65,39 +66,52 @@ public class HumanManager extends ClassManager{
 
 		SupernaturalsPlugin.instance.getDataHandler().removePlayerApp(snplayer);
 
-		if(e==null) {
+		if (e == null) {
 			return;
 		}
 
-		if(e.getCause().equals(DamageCause.LAVA) || e.getCause().equals(DamageCause.FIRE) || e.getCause().equals(DamageCause.FIRE_TICK)){
-			if(player.getWorld().getEnvironment().equals(Environment.NETHER)){
-				if(SupernaturalsPlugin.instance.getDemonManager().checkPlayerApp(player)){
-					SuperNManager.sendMessage(snplayer, "Hellfire races through your veins!");
-					SuperNManager.convert(snplayer, "demon", SNConfigHandler.demonPowerStart);
+		if (e.getCause().equals(DamageCause.LAVA)
+				|| e.getCause().equals(DamageCause.FIRE)
+				|| e.getCause().equals(DamageCause.FIRE_TICK)) {
+			if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
+				if (SupernaturalsPlugin.instance.getDemonManager()
+						.checkPlayerApp(player)) {
+					SuperNManager.sendMessage(snplayer,
+							"Hellfire races through your veins!");
+					SuperNManager.convert(snplayer, "demon",
+							SNConfigHandler.demonPowerStart);
 				}
 			}
 		}
 
-		if(e instanceof EntityDamageByEntityEvent){
-			if(((EntityDamageByEntityEvent) e).getDamager() instanceof LivingEntity) {
-				lDamager = (LivingEntity)((EntityDamageByEntityEvent) e).getDamager();
-			} else if(((EntityDamageByEntityEvent) e).getDamager() instanceof Projectile) {
-				lDamager = ((Projectile)((EntityDamageByEntityEvent) e).getDamager()).getShooter();
+		if (e instanceof EntityDamageByEntityEvent) {
+			if (((EntityDamageByEntityEvent) e).getDamager() instanceof LivingEntity) {
+				lDamager = (LivingEntity) ((EntityDamageByEntityEvent) e)
+						.getDamager();
+			} else if (((EntityDamageByEntityEvent) e).getDamager() instanceof Projectile) {
+				lDamager = ((Projectile) ((EntityDamageByEntityEvent) e)
+						.getDamager()).getShooter();
 			}
 		}
 
-		if(lDamager!=null){
+		if (lDamager != null) {
 			double random = Math.random();
-			if(random<SNConfigHandler.spreadChance){
-				if(player.getWorld().getEnvironment().equals(Environment.NETHER)){
-					if(lDamager instanceof PigZombie){
-						SuperNManager.convert(snplayer, "ghoul", SNConfigHandler.ghoulPowerStart);
-						SuperNManager.sendMessage(snplayer, "You have been transformed into a Ghoul!");
+			if (random < SNConfigHandler.spreadChance) {
+				if (player.getWorld().getEnvironment()
+						.equals(Environment.NETHER)) {
+					if (lDamager instanceof PigZombie) {
+						SuperNManager.convert(snplayer, "ghoul",
+								SNConfigHandler.ghoulPowerStart);
+						SuperNManager.sendMessage(snplayer,
+								"You have been transformed into a Ghoul!");
 					}
-				}else if(lDamager instanceof Wolf){
-					if(!((Wolf)lDamager).isTamed() && SuperNManager.worldTimeIsNight(player)){
-						SuperNManager.convert(snplayer, "werewolf", SNConfigHandler.werePowerStart);
-						SuperNManager.sendMessage(snplayer, "You have mutated into a werewolf!");
+				} else if (lDamager instanceof Wolf) {
+					if (!((Wolf) lDamager).isTamed()
+							&& SuperNManager.worldTimeIsNight(player)) {
+						SuperNManager.convert(snplayer, "werewolf",
+								SNConfigHandler.werePowerStart);
+						SuperNManager.sendMessage(snplayer,
+								"You have mutated into a werewolf!");
 					}
 				}
 			}
@@ -105,24 +119,25 @@ public class HumanManager extends ClassManager{
 	}
 
 	@Override
-	public void killEvent(Player pDamager, SuperNPlayer damager, SuperNPlayer victim){
+	public void killEvent(Player pDamager, SuperNPlayer damager,
+			SuperNPlayer victim) {
 	}
 
 	// -------------------------------------------- //
-	// 					Interact					//
+	// Interact //
 	// -------------------------------------------- //
 
 	@Override
-	public boolean playerInteract(PlayerInteractEvent event){
+	public boolean playerInteract(PlayerInteractEvent event) {
 		return false;
 	}
 
 	// -------------------------------------------- //
-	// 					Armor						//
+	// Armor //
 	// -------------------------------------------- //
 
 	@Override
-	public void armorCheck(Player player){
+	public void armorCheck(Player player) {
 	}
 
 }

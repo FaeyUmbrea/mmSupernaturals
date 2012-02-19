@@ -40,54 +40,60 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 
-public class SNEntityListener implements Listener{
+public class SNEntityListener implements Listener {
 
 	private SupernaturalsPlugin plugin;
 	private String worldPermission = "supernatural.world.enabled";
 
-	public SNEntityListener(SupernaturalsPlugin instance){
+	public SNEntityListener(SupernaturalsPlugin instance) {
 		instance.getServer().getPluginManager().registerEvents(this, instance);
-		this.plugin = instance;
+		plugin = instance;
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onEntityShootBowzBroLol(EntityShootBowEvent event) {
-		if(event.isCancelled()) { // We don't want to make any of our plugin-friends mad :D
+		if (event.isCancelled()) { // We don't want to make any of our
+									// plugin-friends mad :D
 			return;
 		}
-		if(!(event.getEntity() instanceof Player)) {
+		if (!(event.getEntity() instanceof Player)) {
 			return;
 		}
 		Player shooter = (Player) event.getEntity();
-		boolean cancel = plugin.getClassManager(shooter).shootArrow(shooter, event);
+		boolean cancel = plugin.getClassManager(shooter).shootArrow(shooter,
+				event);
 		event.setCancelled(cancel);
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
-	public void onEntityExplode(EntityExplodeEvent event){
-		if(SNConfigHandler.debugMode) {
-			SupernaturalsPlugin.log("Entity Explode event with "+event.getEntity().getClass().getSimpleName());
+	public void onEntityExplode(EntityExplodeEvent event) {
+		if (SNConfigHandler.debugMode) {
+			SupernaturalsPlugin.log("Entity Explode event with "
+					+ event.getEntity().getClass().getSimpleName());
 		}
-		if(event.getEntity() instanceof Fireball){
+		if (event.getEntity() instanceof Fireball) {
 			Fireball fireball = (Fireball) event.getEntity();
-			if(fireball.getShooter() instanceof Player){
-				if(!SupernaturalsPlugin.hasPermissions((Player) fireball.getShooter(), worldPermission) && SNConfigHandler.multiworld) {
+			if (fireball.getShooter() instanceof Player) {
+				if (!SupernaturalsPlugin.hasPermissions(
+						(Player) fireball.getShooter(), worldPermission)
+						&& SNConfigHandler.multiworld) {
 					return;
 				}
-				for(Entity entity : fireball.getNearbyEntities(3, 3, 3)){
-					if(entity instanceof LivingEntity){
+				for (Entity entity : fireball.getNearbyEntities(3, 3, 3)) {
+					if (entity instanceof LivingEntity) {
 						LivingEntity lEntity = (LivingEntity) entity;
-						if(entity instanceof Player){
+						if (entity instanceof Player) {
 							Player player = (Player) entity;
 							SuperNPlayer snplayer = SuperNManager.get(player);
-							if(snplayer.isDemon()) {
+							if (snplayer.isDemon()) {
 								continue;
 							}
-							if(!SupernaturalsPlugin.instance.getPvP(player)) {
+							if (!SupernaturalsPlugin.instance.getPvP(player)) {
 								continue;
 							}
 						}
-						lEntity.damage(SNConfigHandler.demonFireballDamage, fireball.getShooter());
+						lEntity.damage(SNConfigHandler.demonFireballDamage,
+								fireball.getShooter());
 						lEntity.setFireTicks(200);
 					}
 				}
@@ -96,76 +102,89 @@ public class SNEntityListener implements Listener{
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
-	public void onEntityDamage(EntityDamageEvent event){
-		if(event.isCancelled()){
+	public void onEntityDamage(EntityDamageEvent event) {
+		if (event.isCancelled()) {
 			return;
 		}
 
 		Entity victim = event.getEntity();
 		double damage = event.getDamage();
 
-		//New spells event
+		// New spells event
 		if (event instanceof EntityDamageByEntityEvent) {
 			EntityDamageByEntityEvent edbeEvent = (EntityDamageByEntityEvent) event;
-			if(edbeEvent.getDamager() instanceof Player && victim instanceof Player) {
+			if (edbeEvent.getDamager() instanceof Player
+					&& victim instanceof Player) {
 				Player pVictim = (Player) victim;
-				plugin.getClassManager((Player) edbeEvent.getDamager()).spellEvent(edbeEvent, pVictim);
+				plugin.getClassManager((Player) edbeEvent.getDamager())
+						.spellEvent(edbeEvent, pVictim);
 			}
 		}
-		//Player Damager Event
-		if(event instanceof EntityDamageByEntityEvent){
+		// Player Damager Event
+		if (event instanceof EntityDamageByEntityEvent) {
 			EntityDamageByEntityEvent edbeEvent = (EntityDamageByEntityEvent) event;
 			Entity damager = edbeEvent.getDamager();
 
-			if(damager instanceof Player){
-				if(!SupernaturalsPlugin.hasPermissions((Player)damager, worldPermission) && SNConfigHandler.multiworld) {
+			if (damager instanceof Player) {
+				if (!SupernaturalsPlugin.hasPermissions((Player) damager,
+						worldPermission) && SNConfigHandler.multiworld) {
 					return;
 				}
 
-				damage = plugin.getClassManager((Player)damager).damagerEvent(edbeEvent, damage);
+				damage = plugin.getClassManager((Player) damager).damagerEvent(
+						edbeEvent, damage);
 			}
 		}
 
-		//Player Victim Event
-		if(victim instanceof Player){
+		// Player Victim Event
+		if (victim instanceof Player) {
 			Player pVictim = (Player) victim;
-			if(!SupernaturalsPlugin.hasPermissions(pVictim, worldPermission) && SNConfigHandler.multiworld) {
+			if (!SupernaturalsPlugin.hasPermissions(pVictim, worldPermission)
+					&& SNConfigHandler.multiworld) {
 				return;
 			}
 			damage = plugin.getClassManager(pVictim).victimEvent(event, damage);
 
 			SuperNPlayer snvictim = SuperNManager.get(pVictim);
 
-			if(plugin.getGhoulManager().checkBond(pVictim)) {
-				double damageAfterArmor = Armor.getReducedDamage(pVictim, (int)Math.round(damage));
-				if(damageAfterArmor > 1) {
-					if(SNConfigHandler.debugMode) {
-						SupernaturalsPlugin.log(snvictim.getName()+" has an unholy bond active.");
+			if (plugin.getGhoulManager().checkBond(pVictim)) {
+				double damageAfterArmor = Armor.getReducedDamage(pVictim,
+						(int) Math.round(damage));
+				if (damageAfterArmor > 1) {
+					if (SNConfigHandler.debugMode) {
+						SupernaturalsPlugin.log(snvictim.getName()
+								+ " has an unholy bond active.");
 					}
 					damage /= 2;
 					damageAfterArmor /= 2;
-					SuperNPlayer ghoul = plugin.getGhoulManager().getGhoul(snvictim);
-					Player gPlayer = plugin.getServer().getPlayer(ghoul.getName());
+					SuperNPlayer ghoul = plugin.getGhoulManager().getGhoul(
+							snvictim);
+					Player gPlayer = plugin.getServer().getPlayer(
+							ghoul.getName());
 					double ghoulDamage = damageAfterArmor;
-					ghoulDamage -= ghoulDamage * ghoul.scale(1-SNConfigHandler.ghoulDamageReceivedFactor);
-					int health = (int)(gPlayer.getHealth()-ghoulDamage);
-					if(health < 0) {
+					ghoulDamage -= ghoulDamage
+							* ghoul.scale(1 - SNConfigHandler.ghoulDamageReceivedFactor);
+					int health = (int) (gPlayer.getHealth() - ghoulDamage);
+					if (health < 0) {
 						health = 0;
 					}
 					gPlayer.setHealth(health);
-					SuperNManager.alterPower(ghoul, -SNConfigHandler.ghoulPowerBond, "Unholy Bond!");
+					SuperNManager.alterPower(ghoul,
+							-SNConfigHandler.ghoulPowerBond, "Unholy Bond!");
 				}
 			}
 
-
-			if(plugin.getDataHandler().hasAngel(snvictim)){
-				if(SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(snvictim.getName()+" has a guardian angel angel.");
+			if (plugin.getDataHandler().hasAngel(snvictim)) {
+				if (SNConfigHandler.debugMode) {
+					SupernaturalsPlugin.log(snvictim.getName()
+							+ " has a guardian angel angel.");
 				}
-				double damageAfterArmor = Armor.getReducedDamage(pVictim, (int)Math.round(damage));
-				if(pVictim.getHealth() - damageAfterArmor <= 0){
-					if(SNConfigHandler.debugMode) {
-						SupernaturalsPlugin.log(snvictim.getName()+" has used their guardian angel.");
+				double damageAfterArmor = Armor.getReducedDamage(pVictim,
+						(int) Math.round(damage));
+				if (pVictim.getHealth() - damageAfterArmor <= 0) {
+					if (SNConfigHandler.debugMode) {
+						SupernaturalsPlugin.log(snvictim.getName()
+								+ " has used their guardian angel.");
 					}
 					SuperNManager.sendMessage(snvictim, "Guardian Angel used!");
 					plugin.getDataHandler().removeAngel(snvictim);
@@ -176,41 +195,47 @@ public class SNEntityListener implements Listener{
 				}
 			}
 		}
-		event.setDamage((int)Math.round(damage));
+		event.setDamage((int) Math.round(damage));
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
-	public void onEntityTarget(EntityTargetEvent event){
-		if(event.isCancelled()){
+	public void onEntityTarget(EntityTargetEvent event) {
+		if (event.isCancelled()) {
 			return;
 		}
-		if(!(event.getTarget() instanceof Player)){
-			return;
-		}
-
-		if(event.getEntity()==null){
+		if (!(event.getTarget() instanceof Player)) {
 			return;
 		}
 
-		if(!SupernaturalsPlugin.hasPermissions((Player) event.getTarget(), worldPermission) && SNConfigHandler.multiworld) {
+		if (event.getEntity() == null) {
 			return;
 		}
 
-		SuperNPlayer snplayer = SuperNManager.get((Player)event.getTarget());
-
-		if(!snplayer.getTruce()) {
+		if (!SupernaturalsPlugin.hasPermissions((Player) event.getTarget(),
+				worldPermission) && SNConfigHandler.multiworld) {
 			return;
 		}
 
-		if(EntityUtil.creatureTypeFromEntity(event.getEntity())==null){
+		SuperNPlayer snplayer = SuperNManager.get((Player) event.getTarget());
+
+		if (!snplayer.getTruce()) {
 			return;
 		}
 
-		if(snplayer.isVampire() && SNConfigHandler.vampireTruce.contains(EntityUtil.creatureTypeFromEntity(event.getEntity()))){
+		if (EntityUtil.creatureTypeFromEntity(event.getEntity()) == null) {
+			return;
+		}
+
+		if (snplayer.isVampire()
+				&& SNConfigHandler.vampireTruce.contains(EntityUtil
+						.creatureTypeFromEntity(event.getEntity()))) {
 			event.setCancelled(true);
-		} else if(snplayer.isGhoul() && SNConfigHandler.ghoulTruce.contains(EntityUtil.creatureTypeFromEntity(event.getEntity()))){
+		} else if (snplayer.isGhoul()
+				&& SNConfigHandler.ghoulTruce.contains(EntityUtil
+						.creatureTypeFromEntity(event.getEntity()))) {
 			event.setCancelled(true);
-		} else if(snplayer.isWere() && SNConfigHandler.wolfTruce && event.getEntity() instanceof Wolf){
+		} else if (snplayer.isWere() && SNConfigHandler.wolfTruce
+				&& event.getEntity() instanceof Wolf) {
 			event.setCancelled(true);
 		}
 	}

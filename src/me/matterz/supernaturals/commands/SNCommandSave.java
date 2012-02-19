@@ -34,22 +34,21 @@ public class SNCommandSave extends SNCommandReload {
 	}
 
 	@Override
-	public void perform()
-	{
-		if(!(sender instanceof Player)) {
+	public void perform() {
+		if (!(sender instanceof Player)) {
 			SupernaturalsPlugin.saveData();
 			this.sendMessage("All config/player data has been saved!");
 		}
 		Player senderPlayer = (Player) sender;
-		if(!SNConfigHandler.spanish) {
-			if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
+		if (!SNConfigHandler.spanish) {
+			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
 				this.sendMessage("You do not have permissions to use this command.");
 				return;
 			}
 			SupernaturalsPlugin.saveData();
 			this.sendMessage("All config/player data has been saved!");
 		} else {
-			if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
+			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
 				this.sendMessage("No tienes permiso para este comando.");
 				return;
 			}

@@ -28,11 +28,11 @@ import me.matterz.supernaturals.io.SNConfigHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class SNCommandClasses extends SNCommand{
+public class SNCommandClasses extends SNCommand {
 	private static List<String> classMessages = new ArrayList<String>();
 	private static List<String> spanishClassMessages = new ArrayList<String>();
 
-	public SNCommandClasses(){
+	public SNCommandClasses() {
 		super();
 		requiredParameters = new ArrayList<String>();
 		optionalParameters = new ArrayList<String>();
@@ -41,38 +41,55 @@ public class SNCommandClasses extends SNCommand{
 		permissions = "supernatural.command.classes";
 	}
 
-	static{
-		classMessages.add("*** "+ChatColor.WHITE+"Supernatural Classes "+ChatColor.RED+"***");
-		classMessages.add("Human: "+ChatColor.WHITE+"- Your standard run of the mill person.");
-		classMessages.add("Priest: "+ChatColor.WHITE+"- A person with significant power over the unholy.");
-		classMessages.add("Vampire: "+ChatColor.WHITE+"- No they don't sparkle!");
-		classMessages.add("Ghoul: "+ChatColor.WHITE+"- Slow and very durable.");
-		classMessages.add("Werewolf: "+ChatColor.WHITE+"- Gain significant powers at night.");
-		classMessages.add("WitchHunter: "+ChatColor.WHITE+"- Expert at bows and stealth.");
-		classMessages.add("Demon: "+ChatColor.WHITE+"- Possesses an unholy union with fire.");
-		classMessages.add("EnderBorn: " + ChatColor.WHITE + "A possessed human with strange powers.");
-		spanishClassMessages.add("*** "+ChatColor.WHITE+"Clases de Seres Místicos "+ChatColor.RED+"***");
-		spanishClassMessages.add("Humano: "+ChatColor.WHITE+"- De carne y hueso, solo sirven para destruir el mundo.");
-		spanishClassMessages.add("Sacerdote: "+ChatColor.WHITE+"- Humano bendecido por el mismisimo Dios.");
-		spanishClassMessages.add("Vampiro: "+ChatColor.WHITE+"- Criatura sin alma, dan miedo!");
-		spanishClassMessages.add("Muerto Viviente: "+ChatColor.WHITE+"- Feo, aterrador y sin cerebro.");
-		spanishClassMessages.add("Hombre Lobo: "+ChatColor.WHITE+"- Peludo y muy funcional durante la noche.");
-		spanishClassMessages.add("Cazador de Brujas: "+ChatColor.WHITE+"- Experto con arcos y sigiloso.");
-		spanishClassMessages.add("Demonio: "+ChatColor.WHITE+"- Tiene una extraña union con el infierno.");
-		spanishClassMessages.add("EnderBorn: " + ChatColor.WHITE + "- Un ser humano poseído por poderes extraños.");
+	static {
+		classMessages.add("*** " + ChatColor.WHITE + "Supernatural Classes "
+				+ ChatColor.RED + "***");
+		classMessages.add("Human: " + ChatColor.WHITE
+				+ "- Your standard run of the mill person.");
+		classMessages.add("Priest: " + ChatColor.WHITE
+				+ "- A person with significant power over the unholy.");
+		classMessages.add("Vampire: " + ChatColor.WHITE
+				+ "- No they don't sparkle!");
+		classMessages.add("Ghoul: " + ChatColor.WHITE
+				+ "- Slow and very durable.");
+		classMessages.add("Werewolf: " + ChatColor.WHITE
+				+ "- Gain significant powers at night.");
+		classMessages.add("WitchHunter: " + ChatColor.WHITE
+				+ "- Expert at bows and stealth.");
+		classMessages.add("Demon: " + ChatColor.WHITE
+				+ "- Possesses an unholy union with fire.");
+		classMessages.add("EnderBorn: " + ChatColor.WHITE
+				+ "A possessed human with strange powers.");
+		spanishClassMessages.add("*** " + ChatColor.WHITE
+				+ "Clases de Seres Místicos " + ChatColor.RED + "***");
+		spanishClassMessages.add("Humano: " + ChatColor.WHITE
+				+ "- De carne y hueso, solo sirven para destruir el mundo.");
+		spanishClassMessages.add("Sacerdote: " + ChatColor.WHITE
+				+ "- Humano bendecido por el mismisimo Dios.");
+		spanishClassMessages.add("Vampiro: " + ChatColor.WHITE
+				+ "- Criatura sin alma, dan miedo!");
+		spanishClassMessages.add("Muerto Viviente: " + ChatColor.WHITE
+				+ "- Feo, aterrador y sin cerebro.");
+		spanishClassMessages.add("Hombre Lobo: " + ChatColor.WHITE
+				+ "- Peludo y muy funcional durante la noche.");
+		spanishClassMessages.add("Cazador de Brujas: " + ChatColor.WHITE
+				+ "- Experto con arcos y sigiloso.");
+		spanishClassMessages.add("Demonio: " + ChatColor.WHITE
+				+ "- Tiene una extraña union con el infierno.");
+		spanishClassMessages.add("EnderBorn: " + ChatColor.WHITE
+				+ "- Un ser humano poseído por poderes extraños.");
 	}
 
 	@Override
-	public void perform()
-	{
-		if(!(sender instanceof Player)) {
+	public void perform() {
+		if (!(sender instanceof Player)) {
 			this.sendMessage(classMessages);
 			return;
 		}
 		Player senderPlayer = (Player) sender;
 
-		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
-			if(!SNConfigHandler.spanish) {
+		if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
+			if (!SNConfigHandler.spanish) {
 				this.sendMessage("You do not have permissions to use this command.");
 			} else {
 				this.sendMessage("No tienes permiso para este comando.");
@@ -80,7 +97,7 @@ public class SNCommandClasses extends SNCommand{
 			return;
 		}
 
-		if(!SNConfigHandler.spanish) {
+		if (!SNConfigHandler.spanish) {
 			this.sendMessage(classMessages);
 		} else {
 			this.sendMessage(spanishClassMessages);

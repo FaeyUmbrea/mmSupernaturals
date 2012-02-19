@@ -28,10 +28,10 @@ import me.matterz.supernaturals.io.SNConfigHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class SNCommandAdmin extends SNCommand{
+public class SNCommandAdmin extends SNCommand {
 	private static List<String> adminHelpMessages = new ArrayList<String>();
 
-	public SNCommandAdmin(){
+	public SNCommandAdmin() {
 		super();
 		requiredParameters = new ArrayList<String>();
 		optionalParameters = new ArrayList<String>();
@@ -40,32 +40,43 @@ public class SNCommandAdmin extends SNCommand{
 		permissions = "supernatural.admin.command.adminhelp";
 	}
 
-	static{
-		adminHelpMessages.add("*** "+ChatColor.WHITE+"Supernatural Admin Help"+ChatColor.RED+" ***");
-		adminHelpMessages.add("/sn cure <PlayerName> "+ChatColor.WHITE+"- Cure self or player.");
-		adminHelpMessages.add("/sn convert <PlayerName> [SupernaturalType] "+ChatColor.WHITE+"- Turn self or player into any supernatural.");
-		adminHelpMessages.add("/sn reset <PlayerName>"+ChatColor.WHITE+"- Reset self or player's power.");
-		adminHelpMessages.add("/sn power <PlayerName> [Power] "+ChatColor.WHITE+"- Give power to self or player.");
-		adminHelpMessages.add("/sn rmtarget <PlayerName> "+ChatColor.WHITE+"- Removes player from current WitchHunter kill list.");
-		adminHelpMessages.add("/sn save "+ChatColor.WHITE+"- Save data to disk.");
-		adminHelpMessages.add("/sn reload "+ChatColor.WHITE+"- Reload data from disk.");
-		adminHelpMessages.add("/sn restartTask "+ChatColor.WHITE+"- Restarts the Task Timer.");
-		adminHelpMessages.add("/sn setchurch "+ChatColor.WHITE+"- Sets your current location as the priests' church.");
-		adminHelpMessages.add("/sn setbanish "+ChatColor.WHITE+"- Sets your current location as the priests' banish spot.");
+	static {
+		adminHelpMessages.add("*** " + ChatColor.WHITE
+				+ "Supernatural Admin Help" + ChatColor.RED + " ***");
+		adminHelpMessages.add("/sn cure <PlayerName> " + ChatColor.WHITE
+				+ "- Cure self or player.");
+		adminHelpMessages.add("/sn convert <PlayerName> [SupernaturalType] "
+				+ ChatColor.WHITE
+				+ "- Turn self or player into any supernatural.");
+		adminHelpMessages.add("/sn reset <PlayerName>" + ChatColor.WHITE
+				+ "- Reset self or player's power.");
+		adminHelpMessages.add("/sn power <PlayerName> [Power] "
+				+ ChatColor.WHITE + "- Give power to self or player.");
+		adminHelpMessages.add("/sn rmtarget <PlayerName> " + ChatColor.WHITE
+				+ "- Removes player from current WitchHunter kill list.");
+		adminHelpMessages.add("/sn save " + ChatColor.WHITE
+				+ "- Save data to disk.");
+		adminHelpMessages.add("/sn reload " + ChatColor.WHITE
+				+ "- Reload data from disk.");
+		adminHelpMessages.add("/sn restartTask " + ChatColor.WHITE
+				+ "- Restarts the Task Timer.");
+		adminHelpMessages.add("/sn setchurch " + ChatColor.WHITE
+				+ "- Sets your current location as the priests' church.");
+		adminHelpMessages.add("/sn setbanish " + ChatColor.WHITE
+				+ "- Sets your current location as the priests' banish spot.");
 	}
 
 	@Override
-	public void perform()
-	{
-		if(!(sender instanceof Player)) {
+	public void perform() {
+		if (!(sender instanceof Player)) {
 			this.sendMessage(adminHelpMessages);
 			return;
 		}
 		Player player = (Player) sender;
-		if(SupernaturalsPlugin.hasPermissions(player, permissions)){
+		if (SupernaturalsPlugin.hasPermissions(player, permissions)) {
 			this.sendMessage(adminHelpMessages);
 		} else {
-			if(!SNConfigHandler.spanish) {
+			if (!SNConfigHandler.spanish) {
 				this.sendMessage("You do not have permissions to use this command.");
 			} else {
 				this.sendMessage("No tienes permiso para usar este comando.");

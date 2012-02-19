@@ -40,44 +40,47 @@ public class SNCommandReset extends SNCommand {
 	}
 
 	@Override
-	public void perform(){
-		if(!(sender instanceof Player)) {
-			if(parameters.isEmpty()){
+	public void perform() {
+		if (!(sender instanceof Player)) {
+			if (parameters.isEmpty()) {
 				this.sendMessage("Missing player!");
-			}else{
+			} else {
 				String playername = parameters.get(0);
-				Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
+				Player player = SupernaturalsPlugin.instance.getServer()
+						.getPlayer(playername);
 
-				if (player == null){
+				if (player == null) {
 					this.sendMessage("Player not found!");
 					return;
 				}
 				SuperNPlayer snplayer = SuperNManager.get(player);
 				SuperNManager.alterPower(snplayer, -10000, "Admin");
-				this.sendMessage("Power reset for player: "+snplayer.getName());
+				this.sendMessage("Power reset for player: "
+						+ snplayer.getName());
 			}
 			return;
 		}
 
 		Player senderPlayer = (Player) sender;
-		if(!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)){
+		if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
 			this.sendMessage("You do not have permissions to use this command.");
 			return;
 		}
-		if(parameters.isEmpty()){
+		if (parameters.isEmpty()) {
 			SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
 			SuperNManager.alterPower(snplayer, -10000, "Admin");
-		}else{
+		} else {
 			String playername = parameters.get(0);
-			Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
+			Player player = SupernaturalsPlugin.instance.getServer().getPlayer(
+					playername);
 
-			if (player == null){
+			if (player == null) {
 				this.sendMessage("Player not found!");
 				return;
 			}
 			SuperNPlayer snplayer = SuperNManager.get(player);
 			SuperNManager.alterPower(snplayer, -10000, "Admin");
-			this.sendMessage("Power reset for player: "+snplayer.getName());
+			this.sendMessage("Power reset for player: " + snplayer.getName());
 		}
 	}
 }

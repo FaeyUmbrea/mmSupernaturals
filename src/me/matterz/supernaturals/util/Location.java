@@ -6,7 +6,7 @@ import me.matterz.supernaturals.SupernaturalsPlugin;
 
 import org.bukkit.World;
 
-public class Location implements Serializable{
+public class Location implements Serializable {
 
 	/**
 	 * Auto-Generated serialVersionUID
@@ -18,26 +18,26 @@ public class Location implements Serializable{
 	private double z;
 	private String world;
 
-	public Location(org.bukkit.Location location){
-		this.x = location.getX();
-		this.y = location.getY();
-		this.z = location.getZ();
-		this.world = location.getWorld().getName();
+	public Location(org.bukkit.Location location) {
+		x = location.getX();
+		y = location.getY();
+		z = location.getZ();
+		world = location.getWorld().getName();
 	}
 
-	public double getX(){
+	public double getX() {
 		return x;
 	}
 
-	public double getY(){
+	public double getY() {
 		return y;
 	}
 
-	public double getZ(){
+	public double getZ() {
 		return z;
 	}
 
-	public World getWorld(){
+	public World getWorld() {
 		return SupernaturalsPlugin.instance.getServer().getWorld(world);
 	}
 }

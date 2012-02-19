@@ -15,39 +15,43 @@ import org.bukkit.entity.Player;
 
 public class SNWhitelistHandler {
 
-	public static FileConfiguration whitelistYaml = null; //Using bukkit's system for easy access :D
+	public static FileConfiguration whitelistYaml = null; // Using bukkit's
+															// system for easy
+															// access :D
 	public static File whitelistYamlFile = null;
 	public static SupernaturalsPlugin plugin;
 	public static List<String> playersInWhitelist = new ArrayList<String>();
 
-	public SNWhitelistHandler(SupernaturalsPlugin instance){
+	public SNWhitelistHandler(SupernaturalsPlugin instance) {
 		SNWhitelistHandler.plugin = instance;
 	}
 
 	public static void reloadWhitelist() {
-		if(whitelistYamlFile == null) {
-			whitelistYamlFile = new File(plugin.getDataFolder(), "whitelistYaml.yml");
+		if (whitelistYamlFile == null) {
+			whitelistYamlFile = new File(plugin.getDataFolder(),
+					"whitelistYaml.yml");
 		}
 		whitelistYaml = YamlConfiguration.loadConfiguration(whitelistYamlFile);
 		playersInWhitelist = getPlayersInWhitelistYAML();
 	}
 
 	public static FileConfiguration getWhitelist() {
-	    if (whitelistYaml == null) {
-	        reloadWhitelist();
-	    }
-	    return whitelistYaml;
+		if (whitelistYaml == null) {
+			reloadWhitelist();
+		}
+		return whitelistYaml;
 	}
 
 	public static void saveWhitelist() {
-	    if (whitelistYaml == null || whitelistYamlFile == null) {
-	    	return;
-	    }
-	    try {
-	        whitelistYaml.save(whitelistYamlFile);
-	    } catch (IOException ex) {
-	    	Logger.getLogger("Minecraft").log(Level.SEVERE, "Could not save config to " + whitelistYamlFile, ex);
-	    }
+		if (whitelistYaml == null || whitelistYamlFile == null) {
+			return;
+		}
+		try {
+			whitelistYaml.save(whitelistYamlFile);
+		} catch (IOException ex) {
+			Logger.getLogger("Minecraft").log(Level.SEVERE,
+					"Could not save config to " + whitelistYamlFile, ex);
+		}
 	}
 
 	public static void addPlayer(String playerName) {
@@ -56,10 +60,11 @@ public class SNWhitelistHandler {
 	}
 
 	public static boolean isWhitelisted(Player player) {
-		if(!SNConfigHandler.enableJoinCommand) {
+		if (!SNConfigHandler.enableJoinCommand) {
 			return true;
 		}
-		return SNWhitelistHandler.getPlayersInWhitelistYAML().contains(player.getName());
+		return SNWhitelistHandler.getPlayersInWhitelistYAML().contains(
+				player.getName());
 	}
 
 	public static List<String> getPlayersInWhitelistYAML() {

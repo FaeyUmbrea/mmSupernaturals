@@ -122,19 +122,19 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 	private PluginManager pm;
 
-	public SNDataHandler getDataHandler(){
+	public SNDataHandler getDataHandler() {
 		return snData;
 	}
 
 	// -------------------------------------------- //
-	// 					Managers					//
+	// Managers //
 	// -------------------------------------------- //
 
-	public SuperNManager getSuperManager(){
+	public SuperNManager getSuperManager() {
 		return superManager;
 	}
 
-	public SNConfigHandler getConfigManager(){
+	public SNConfigHandler getConfigManager() {
 		return snConfig;
 	}
 
@@ -142,45 +142,45 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		return snWhitelist;
 	}
 
-	public VampireManager getVampireManager(){
+	public VampireManager getVampireManager() {
 		return vampManager;
 	}
 
-	public PriestManager getPriestManager(){
+	public PriestManager getPriestManager() {
 		return priestManager;
 	}
 
-	public WereManager getWereManager(){
+	public WereManager getWereManager() {
 		return wereManager;
 	}
 
-	public GhoulManager getGhoulManager(){
+	public GhoulManager getGhoulManager() {
 		return ghoulManager;
 	}
 
-	public HunterManager getHunterManager(){
+	public HunterManager getHunterManager() {
 		return hunterManager;
 	}
 
-	public DemonManager getDemonManager(){
+	public DemonManager getDemonManager() {
 		return demonManager;
 	}
 
-	public ClassManager getClassManager(Player player){
+	public ClassManager getClassManager(Player player) {
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		if(snplayer.getType().equalsIgnoreCase("demon")) {
+		if (snplayer.getType().equalsIgnoreCase("demon")) {
 			return demonManager;
-		} else if(snplayer.getType().equalsIgnoreCase("ghoul")) {
+		} else if (snplayer.getType().equalsIgnoreCase("ghoul")) {
 			return ghoulManager;
-		} else if(snplayer.getType().equalsIgnoreCase("witchhunter")) {
+		} else if (snplayer.getType().equalsIgnoreCase("witchhunter")) {
 			return hunterManager;
-		} else if(snplayer.getType().equalsIgnoreCase("priest")) {
+		} else if (snplayer.getType().equalsIgnoreCase("priest")) {
 			return priestManager;
-		} else if(snplayer.getType().equalsIgnoreCase("vampire")) {
+		} else if (snplayer.getType().equalsIgnoreCase("vampire")) {
 			return vampManager;
-		} else if(snplayer.getType().equalsIgnoreCase("werewolf")) {
+		} else if (snplayer.getType().equalsIgnoreCase("werewolf")) {
 			return wereManager;
-		} else if(snplayer.getType().equalsIgnoreCase("enderborn")) {
+		} else if (snplayer.getType().equalsIgnoreCase("enderborn")) {
 			return enderManager;
 		} else {
 			return humanManager;
@@ -188,7 +188,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	}
 
 	// -------------------------------------------- //
-	// 			Plugin Enable/Disable				//
+	// Plugin Enable/Disable //
 	// -------------------------------------------- //
 
 	@Override
@@ -198,8 +198,9 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 		saveData();
 		demonManager.removeAllWebs();
-		PluginDescriptionFile pdfFile = this.getDescription();
-		log(pdfFile.getName() + " version " + pdfFile.getVersion() + " disabled.");
+		PluginDescriptionFile pdfFile = getDescription();
+		log(pdfFile.getName() + " version " + pdfFile.getVersion()
+				+ " disabled.");
 
 	}
 
@@ -207,8 +208,8 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	public void onEnable() {
 
 		SupernaturalsPlugin.instance = this;
-		this.getDataFolder().mkdir();
-		this.pm = this.getServer().getPluginManager();
+		getDataFolder().mkdir();
+		pm = getServer().getPluginManager();
 
 		// Add the commands
 		commands.add(new SNCommandHelp());
@@ -235,10 +236,11 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		blockListener = new SNBlockListener(this);
 		serverMonitor = new SNServerMonitor(this);
 
-		PluginDescriptionFile pdfFile = this.getDescription();
-		log(pdfFile.getName() + " version " + pdfFile.getVersion() + " enabled.");
+		PluginDescriptionFile pdfFile = getDescription();
+		log(pdfFile.getName() + " version " + pdfFile.getVersion()
+				+ " enabled.");
 
-		if(!SNVersionHandler.versionFile.exists()) {
+		if (!SNVersionHandler.versionFile.exists()) {
 			SNVersionHandler.writeVersion();
 		}
 
@@ -250,7 +252,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 		SNWhitelistHandler.reloadWhitelist();
 
-		if(snData == null) {
+		if (snData == null) {
 			snData = new SNDataHandler();
 		}
 
@@ -260,112 +262,117 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	}
 
 	// -------------------------------------------- //
-	// 				Chat Commands					//
+	// Chat Commands //
 	// -------------------------------------------- //
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args)
-	{
-		if(sender instanceof Player)
-		{
+	public boolean onCommand(CommandSender sender, Command cmd,
+			String commandLabel, String[] args) {
+		if (sender instanceof Player) {
 			List<String> parameters = new ArrayList<String>(Arrays.asList(args));
-			if(SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(((Player) sender).getName() + " used command: " + commandLabel
-						+ " with args: " + TextUtil.implode(parameters, ", "));
+			if (SNConfigHandler.debugMode) {
+				SupernaturalsPlugin.log(((Player) sender).getName()
+						+ " used command: " + commandLabel + " with args: "
+						+ TextUtil.implode(parameters, ", "));
 			}
-			this.handleCommand(sender, parameters, true);
+			handleCommand(sender, parameters, true);
 			return true;
 		} else {
 			List<String> parameters = new ArrayList<String>(Arrays.asList(args));
-			if(SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(((Player) sender).getName() + " used command: " + commandLabel
-						+ " with args: " + TextUtil.implode(parameters, ", "));
+			if (SNConfigHandler.debugMode) {
+				SupernaturalsPlugin.log(((Player) sender).getName()
+						+ " used command: " + commandLabel + " with args: "
+						+ TextUtil.implode(parameters, ", "));
 			}
-			this.handleCommand(sender, parameters, false);
+			handleCommand(sender, parameters, false);
 			return true;
 		}
 	}
 
-	public void handleCommand(CommandSender sender, List<String> parameters, boolean isPlayer) {
+	public void handleCommand(CommandSender sender, List<String> parameters,
+			boolean isPlayer) {
 		if (parameters.size() == 0) {
-			for (SNCommand vampcommand : this.commands) {
+			for (SNCommand vampcommand : commands) {
 				if (vampcommand.getName().equalsIgnoreCase("help")) {
 					vampcommand.execute(sender, parameters);
 					return;
 				}
 			}
-			sender.sendMessage(ChatColor.RED+"Unknown command. Try /sn help");
+			sender.sendMessage(ChatColor.RED + "Unknown command. Try /sn help");
 			return;
 		}
 
 		String command = parameters.get(0).toLowerCase();
 		parameters.remove(0);
 
-		for (SNCommand vampcommand : this.commands) {
+		for (SNCommand vampcommand : commands) {
 			if (command.equals(vampcommand.getName())) {
-				if(!isPlayer && vampcommand.senderMustBePlayer) {
-					sender.sendMessage("This command, sn " + command + ", is player-only");
+				if (!isPlayer && vampcommand.senderMustBePlayer) {
+					sender.sendMessage("This command, sn " + command
+							+ ", is player-only");
 				}
 				vampcommand.execute(sender, parameters);
 				return;
 			}
 		}
 
-		sender.sendMessage(ChatColor.RED+"Unknown command \""+command+"\". Try /sn help");
+		sender.sendMessage(ChatColor.RED + "Unknown command \"" + command
+				+ "\". Try /sn help");
 	}
 
 	// -------------------------------------------- //
-	// 				Data Management					//
+	// Data Management //
 	// -------------------------------------------- //
 
-	public static void saveData(){
+	public static void saveData() {
 		File file = new File(dataFolder, "data.yml");
 		SNPlayerHandler.save(SuperNManager.getSupernaturals(), file);
 
 		SNConfigHandler.saveConfig();
 	}
 
-	public static void loadData(){
+	public static void loadData() {
 		File file = new File(dataFolder, "data.yml");
 		SuperNManager.setSupernaturals(SNPlayerHandler.load(file));
 	}
 
-	public static void reConfig(){
-		if(SNConfigHandler.debugMode) {
+	public static void reConfig() {
+		if (SNConfigHandler.debugMode) {
 			SupernaturalsPlugin.log("Reloading config...");
 		}
 		SNConfigHandler.reloadConfig();
 	}
 
-	public static void reloadData(){
+	public static void reloadData() {
 		File file = new File(dataFolder, "data.yml");
 		SuperNManager.setSupernaturals(SNPlayerHandler.load(file));
 	}
 
-	public static void restartTask(){
+	public static void restartTask() {
 		SuperNManager.cancelTimer();
 		SuperNManager.startTimer();
 	}
 
 	// -------------------------------------------- //
-	// 				Permissions						//
+	// Permissions //
 	// -------------------------------------------- //
 
 	private void setupPermissions() {
-		if(pm.isPluginEnabled("PermissionsEx")) {
+		if (pm.isPluginEnabled("PermissionsEx")) {
 			log("Found PermissionsEx!");
 			foundPerms = true;
-		} else if(pm.isPluginEnabled("PermissionsBukkit")) {
+		} else if (pm.isPluginEnabled("PermissionsBukkit")) {
 			log("Found PermissionsBukkit!");
 			foundPerms = true;
-		} else if(pm.isPluginEnabled("bPermissions")) {
+		} else if (pm.isPluginEnabled("bPermissions")) {
 			log("Found bPermissions.");
-			log(Level.WARNING, "If something goes wrong with bPermissions and this plugin, I will not help!");
+			log(Level.WARNING,
+					"If something goes wrong with bPermissions and this plugin, I will not help!");
 			foundPerms = true;
-		} else if(pm.isPluginEnabled("GroupManager")) {
+		} else if (pm.isPluginEnabled("GroupManager")) {
 			log("Found GroupManager");
 			foundPerms = true;
-		} else if(pm.isPluginEnabled("EssentialsGroupManager")) {
+		} else if (pm.isPluginEnabled("EssentialsGroupManager")) {
 			log("Found EssentialsGroupManager");
 			foundPerms = true;
 		}
@@ -381,7 +388,8 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		pm.addPermission(new Permission("supernatural.command.killlist"));
 		pm.addPermission(new Permission("supernatural.player.shrineuse"));
 		pm.addPermission(new Permission("supernatural.player.wolfbane"));
-		pm.addPermission(new Permission("supernatural.player.preventwaterdamage"));
+		pm.addPermission(new Permission(
+				"supernatural.player.preventwaterdamage"));
 		pm.addPermission(new Permission("supernatural.player.preventsundamage"));
 		pm.addPermission(new Permission("supernatural.player.witchhuntersign"));
 		pm.addPermission(new Permission("supernatural.admin.infinitepower"));
@@ -398,7 +406,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		pm.addPermission(new Permission("supernatural.admin.command.setbanish"));
 	}
 
-	public static boolean hasPermissions(Player player, String permissions){
+	public static boolean hasPermissions(Player player, String permissions) {
 		return player.hasPermission(permissions);
 	}
 
@@ -413,30 +421,34 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		return (WorldGuardPlugin) plugin;
 	}
 
-	public boolean getPvP(Player player){
-		WorldGuardPlugin worldGuard = SupernaturalsPlugin.instance.getWorldGuard();
-		if(worldGuard == null) {
+	public boolean getPvP(Player player) {
+		WorldGuardPlugin worldGuard = SupernaturalsPlugin.instance
+				.getWorldGuard();
+		if (worldGuard == null) {
 			return true;
 		}
 		Vector pt = toVector(player.getLocation());
-		RegionManager regionManager = worldGuard.getRegionManager(player.getWorld());
+		RegionManager regionManager = worldGuard.getRegionManager(player
+				.getWorld());
 		ApplicableRegionSet set = regionManager.getApplicableRegions(pt);
 		return set.allows(DefaultFlag.PVP);
 	}
 
-	public boolean getSpawn(Player player){
-		WorldGuardPlugin worldGuard = SupernaturalsPlugin.instance.getWorldGuard();
-		if(worldGuard == null) {
+	public boolean getSpawn(Player player) {
+		WorldGuardPlugin worldGuard = SupernaturalsPlugin.instance
+				.getWorldGuard();
+		if (worldGuard == null) {
 			return true;
 		}
 		Vector pt = toVector(player.getLocation());
-		RegionManager regionManager = worldGuard.getRegionManager(player.getWorld());
+		RegionManager regionManager = worldGuard.getRegionManager(player
+				.getWorld());
 		ApplicableRegionSet set = regionManager.getApplicableRegions(pt);
 		return set.allows(DefaultFlag.MOB_SPAWNING);
 	}
 
 	// -------------------------------------------- //
-	// 					Logging						//
+	// Logging //
 	// -------------------------------------------- //
 
 	public static void log(String msg) {
@@ -444,7 +456,8 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	}
 
 	public static void log(Level level, String msg) {
-		Logger.getLogger("Minecraft").log(level, "["+instance.getDescription().getFullName()+"] "+msg);
+		Logger.getLogger("Minecraft").log(level,
+				"[" + instance.getDescription().getFullName() + "] " + msg);
 	}
 
 }

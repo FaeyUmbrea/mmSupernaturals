@@ -38,7 +38,7 @@ public class SNConfigHandler {
 
 	public static SupernaturalsPlugin plugin;
 
-	//Config variables
+	// Config variables
 	public static Configuration config;
 	public static boolean debugMode;
 	public static boolean vampireKillSpreadCurse;
@@ -229,7 +229,7 @@ public class SNConfigHandler {
 	private static List<String> vampireArmorString = new ArrayList<String>();
 	private static List<String> wereArmorString = new ArrayList<String>();
 
-	public static Map<Material,Double> materialOpacity = new HashMap<Material,Double>();
+	public static Map<Material, Double> materialOpacity = new HashMap<Material, Double>();
 	public static HashSet<Byte> transparent = new HashSet<Byte>();
 
 	public static Recipes vampireAltarInfectRecipe = new Recipes();
@@ -237,7 +237,7 @@ public class SNConfigHandler {
 	public static Recipes priestAltarRecipe = new Recipes();
 	public static Recipes wereWolfbaneRecipe = new Recipes();
 
-	static{
+	static {
 		materialOpacity.put(Material.AIR, 0D);
 		materialOpacity.put(Material.SAPLING, 0.3D);
 		materialOpacity.put(Material.LEAVES, 0.3D);
@@ -264,28 +264,29 @@ public class SNConfigHandler {
 		materialOpacity.put(Material.DIODE_BLOCK_OFF, 0D);
 		materialOpacity.put(Material.DIODE_BLOCK_ON, 0D);
 
-		transparent.add((byte)Material.WATER.getId());
-		transparent.add((byte)Material.STATIONARY_WATER.getId());
-		transparent.add((byte)Material.AIR.getId());
+		transparent.add((byte) Material.WATER.getId());
+		transparent.add((byte) Material.STATIONARY_WATER.getId());
+		transparent.add((byte) Material.AIR.getId());
 	}
 
-	public SNConfigHandler(SupernaturalsPlugin instance){
+	public SNConfigHandler(SupernaturalsPlugin instance) {
 		SNConfigHandler.plugin = instance;
 	}
 
-	public static void getConfiguration(){
+	public static void getConfiguration() {
 		config = plugin.getConfig();
 		loadValues(config);
 	}
 
-	public static void loadValues(Configuration config){
+	public static void loadValues(Configuration config) {
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
-		if(SNVersionHandler.readVersion() != plugin.getDescription().getVersion() && configFile.exists()) {
+		if (SNVersionHandler.readVersion() != plugin.getDescription()
+				.getVersion() && configFile.exists()) {
 			config.set("EnableJoinCommand", false);
 			saveConfig();
 			SNVersionHandler.writeVersion();
 		}
-		if(!configFile.exists()) {
+		if (!configFile.exists()) {
 			config.set("Spanish", false);
 			config.set("DebugMode", false);
 			config.set("MultiWorld", false);
@@ -298,7 +299,7 @@ public class SNConfigHandler {
 			config.set("Vampire.Materials.Jump", "RED_ROSE");
 
 			config.set("Vampire.Power.Start", 10000);
-			config.set("Vampire.Kill.SpreadCurse",true);
+			config.set("Vampire.Kill.SpreadCurse", true);
 			config.set("Vampire.Time.PowerGained", 15);
 			config.set("Vampire.Power.Kill.CreatureGain", 100);
 			config.set("Vampire.Power.Kill.PlayerGain", 500);
@@ -313,7 +314,7 @@ public class SNConfigHandler {
 			config.set("Vampire.JumpDelta", 1.2);
 			config.set("Vampire.Power.JumpCost", 1000);
 			config.set("Vampire.Time.HealthGained", 0.5);
-			config.set("Vampire.Power.HealingCost",60);
+			config.set("Vampire.Power.HealingCost", 60);
 			config.set("Vampire.Power.DrowningCost", 90);
 			config.set("Vampire.Power.TeleportCost", 9000);
 			config.set("Vampire.TeleportMarker.Material", "RED_ROSE");
@@ -322,15 +323,15 @@ public class SNConfigHandler {
 			config.set("Vampire.GainHunger.Player", 3);
 			config.set("Vampire.GainHunger.Mob", 2);
 
-			config.set("Vampire.Altar.Infect.Material","GOLD_BLOCK");
-			config.set("Vampire.Altar.Infect.Surrounding.Material","OBSIDIAN");
-			config.set("Vampire.Altar.Infect.Surrounding.Radius",7D);
-			config.set("Vampire.Altar.Infect.Surrounding.Count",20);
+			config.set("Vampire.Altar.Infect.Material", "GOLD_BLOCK");
+			config.set("Vampire.Altar.Infect.Surrounding.Material", "OBSIDIAN");
+			config.set("Vampire.Altar.Infect.Surrounding.Radius", 7D);
+			config.set("Vampire.Altar.Infect.Surrounding.Count", 20);
 
-			config.set("Vampire.Altar.Cure.Material","LAPIS_BLOCK");
-			config.set("Vampire.Altar.Cure.Surrounding.Material","GLOWSTONE");
+			config.set("Vampire.Altar.Cure.Material", "LAPIS_BLOCK");
+			config.set("Vampire.Altar.Cure.Surrounding.Material", "GLOWSTONE");
 			config.set("Vampire.Altar.Cure.Surrounding.Radius", 7D);
-			config.set("Vampire.Altar.Cure.Surrounding.Count",20);
+			config.set("Vampire.Altar.Cure.Surrounding.Count", 20);
 
 			config.set("Priest.Church.World", "world");
 			config.set("Priest.Church.Location.X", 0);
@@ -354,7 +355,7 @@ public class SNConfigHandler {
 			config.set("Priest.Power.GuardianAngel", 5000);
 			config.set("Priest.Spell.DrainFactor", 0.15);
 			config.set("Priest.DamageFactor.FireTicks", 50);
-			config.set("Priest.Church.AltarMaterial","DIAMOND_BLOCK");
+			config.set("Priest.Church.AltarMaterial", "DIAMOND_BLOCK");
 			config.set("Priest.Spell.Material.GuardianAngel", "WOOL");
 
 			config.set("Ghoul.Power.Start", 5000);
@@ -430,7 +431,7 @@ public class SNConfigHandler {
 			config.set("EnderBorn.Power.Kill", 50);
 			config.set("EnderBorn.Power.EnderPearl", 100);
 
-			if(supernaturalTypes.size() == 0){
+			if (supernaturalTypes.size() == 0) {
 				supernaturalTypes.add("human");
 				supernaturalTypes.add("vampire");
 				supernaturalTypes.add("werewolf");
@@ -442,7 +443,7 @@ public class SNConfigHandler {
 				config.set("Supernatural.Types", supernaturalTypes);
 			}
 
-			if(woodMaterialsString.size() == 0){
+			if (woodMaterialsString.size() == 0) {
 				woodMaterialsString.add("STICK");
 				woodMaterialsString.add("WOOD_AXE");
 				woodMaterialsString.add("WOOD_HOE");
@@ -453,7 +454,7 @@ public class SNConfigHandler {
 				config.set("Material.Wooden", woodMaterialsString);
 			}
 
-			if(foodMaterialsString.size() == 0){
+			if (foodMaterialsString.size() == 0) {
 				foodMaterialsString.add("APPLE");
 				foodMaterialsString.add("BREAD");
 				foodMaterialsString.add("COOKED_FISH");
@@ -470,7 +471,7 @@ public class SNConfigHandler {
 				config.set("Material.Food", foodMaterialsString);
 			}
 
-			if(enderWeaponsString.size() == 0) {
+			if (enderWeaponsString.size() == 0) {
 				enderWeaponsString.add("DIAMOND_SWORD");
 				enderWeaponsString.add("DIAMOND_PICKAXE");
 				enderWeaponsString.add("DIAMOND_AXE");
@@ -479,7 +480,7 @@ public class SNConfigHandler {
 				config.set("EnderBorn.Weapon.Restrictions", enderWeaponsString);
 			}
 
-			if(burnableBlocksString.size() == 0){
+			if (burnableBlocksString.size() == 0) {
 				burnableBlocksString.add("GRASS");
 				burnableBlocksString.add("LEAVES");
 				burnableBlocksString.add("AIR");
@@ -489,7 +490,7 @@ public class SNConfigHandler {
 				config.set("BurnableBlocks", burnableBlocksString);
 			}
 
-			if(vampireTruceString.size() == 0){
+			if (vampireTruceString.size() == 0) {
 				vampireTruceString.add("CREEPER");
 				vampireTruceString.add("SKELETON");
 				vampireTruceString.add("ZOMBIE");
@@ -498,82 +499,90 @@ public class SNConfigHandler {
 				config.set("Vampire.Truce.Creatures", vampireTruceString);
 			}
 
-			if(vampireAltarInfectMaterialsString.size() == 0){
+			if (vampireAltarInfectMaterialsString.size() == 0) {
 				vampireAltarInfectMaterialsString.add("MUSHROOM_SOUP");
 				vampireAltarInfectMaterialsString.add("BONE");
 				vampireAltarInfectMaterialsString.add("SULPHUR");
 				vampireAltarInfectMaterialsString.add("REDSTONE");
-				config.set("Vampire.Altar.Infect.Recipe.Materials", vampireAltarInfectMaterialsString);
+				config.set("Vampire.Altar.Infect.Recipe.Materials",
+						vampireAltarInfectMaterialsString);
 			}
 
-			if(vampireAltarInfectQuantities.size() == 0){
+			if (vampireAltarInfectQuantities.size() == 0) {
 				vampireAltarInfectQuantities.add(1);
 				vampireAltarInfectQuantities.add(10);
 				vampireAltarInfectQuantities.add(10);
 				vampireAltarInfectQuantities.add(10);
-				config.set("Vampire.Altar.Infect.Recipe.Quantities",vampireAltarInfectQuantities);
+				config.set("Vampire.Altar.Infect.Recipe.Quantities",
+						vampireAltarInfectQuantities);
 			}
 
-			if(vampireAltarCureMaterialsString.size() == 0){
+			if (vampireAltarCureMaterialsString.size() == 0) {
 				vampireAltarCureMaterialsString.add("WATER_BUCKET");
 				vampireAltarCureMaterialsString.add("MILK_BUCKET");
 				vampireAltarCureMaterialsString.add("SUGAR");
 				vampireAltarCureMaterialsString.add("WHEAT");
-				config.set("Vampire.Altar.Cure.Recipe.Materials", vampireAltarCureMaterialsString);
+				config.set("Vampire.Altar.Cure.Recipe.Materials",
+						vampireAltarCureMaterialsString);
 			}
 
-			if(vampireAltarCureQuantities.size() == 0){
+			if (vampireAltarCureQuantities.size() == 0) {
 				vampireAltarCureQuantities.add(1);
 				vampireAltarCureQuantities.add(1);
 				vampireAltarCureQuantities.add(20);
 				vampireAltarCureQuantities.add(20);
-				config.set("Vampire.Altar.Cure.Recipe.Quantities",vampireAltarCureQuantities);
+				config.set("Vampire.Altar.Cure.Recipe.Quantities",
+						vampireAltarCureQuantities);
 			}
 
-			if(priestAltarMaterialsString.size() == 0){
+			if (priestAltarMaterialsString.size() == 0) {
 				priestAltarMaterialsString.add("GOLD_INGOT");
 				priestAltarMaterialsString.add("GLOWSTONE_DUST");
 				priestAltarMaterialsString.add("REDSTONE");
 				priestAltarMaterialsString.add("BREAD");
-				config.set("Priest.Church.Recipe.Materials", priestAltarMaterialsString);
+				config.set("Priest.Church.Recipe.Materials",
+						priestAltarMaterialsString);
 			}
 
-			if(priestAltarQuantities.size() == 0){
+			if (priestAltarQuantities.size() == 0) {
 				priestAltarQuantities.add(4);
 				priestAltarQuantities.add(4);
 				priestAltarQuantities.add(8);
 				priestAltarQuantities.add(30);
-				config.set("Priest.Church.Recipe.Quantities", priestAltarQuantities);
+				config.set("Priest.Church.Recipe.Quantities",
+						priestAltarQuantities);
 			}
 
-			if(priestMaterialsString.size() == 0){
-				priestMaterialsString.add("FEATHER"); 	//Banish
-				priestMaterialsString.add("SUGAR");		//Exorcise
-				priestMaterialsString.add("FLINT");		//Cure
-				priestMaterialsString.add("PAPER");		//Heal
-				priestMaterialsString.add("BOOK");		//Drain Power
+			if (priestMaterialsString.size() == 0) {
+				priestMaterialsString.add("FEATHER"); // Banish
+				priestMaterialsString.add("SUGAR"); // Exorcise
+				priestMaterialsString.add("FLINT"); // Cure
+				priestMaterialsString.add("PAPER"); // Heal
+				priestMaterialsString.add("BOOK"); // Drain Power
 				config.set("Priest.Spell.Material", priestMaterialsString);
 			}
 
-			if(priestDonationMaterialsString.size() == 0){
+			if (priestDonationMaterialsString.size() == 0) {
 				priestDonationMaterialsString.add("APPLE");
 				priestDonationMaterialsString.add("RAW_FISH");
 				priestDonationMaterialsString.add("COOKED_FISH");
 				priestDonationMaterialsString.add("GRILLED_PORK");
 				priestDonationMaterialsString.add("BREAD");
-				config.set("Priest.Church.Donation.Materials", priestDonationMaterialsString);
+				config.set("Priest.Church.Donation.Materials",
+						priestDonationMaterialsString);
 			}
 
-			if(priestDonationRewards.size() == 0){
+			if (priestDonationRewards.size() == 0) {
 				priestDonationRewards.add(9000);
 				priestDonationRewards.add(510);
 				priestDonationRewards.add(500);
 				priestDonationRewards.add(210);
 				priestDonationRewards.add(80);
-				config.set("Priest.Church.Donation.Rewards", priestDonationRewards);
+				config.set("Priest.Church.Donation.Rewards",
+						priestDonationRewards);
 			}
 
-			if(ghoulWeaponsString.size() == 0){
+			if (ghoulWeaponsString.size() == 0) {
 				ghoulWeaponsString.add("BOW");
 				ghoulWeaponsString.add("STICK");
 				ghoulWeaponsString.add("WOOD_SWORD");
@@ -604,12 +613,12 @@ public class SNConfigHandler {
 				config.set("Ghoul.Weapon.Restrictions", ghoulWeaponsString);
 			}
 
-			if(demonWeaponsString.size() == 0){
+			if (demonWeaponsString.size() == 0) {
 				demonWeaponsString.add("none");
 				config.set("Demon.Weapon.Restrictions", demonWeaponsString);
 			}
 
-			if(hunterWeaponsString.size() == 0){
+			if (hunterWeaponsString.size() == 0) {
 				hunterWeaponsString.add("WOOD_SWORD");
 				hunterWeaponsString.add("WOOD_PICKAXE");
 				hunterWeaponsString.add("WOOD_SPADE");
@@ -635,20 +644,21 @@ public class SNConfigHandler {
 				hunterWeaponsString.add("DIAMOND_SPADE");
 				hunterWeaponsString.add("DIAMOND_AXE");
 				hunterWeaponsString.add("DIAMOND_HOE");
-				config.set("WitchHunter.Weapon.Restrictions", hunterWeaponsString);
+				config.set("WitchHunter.Weapon.Restrictions",
+						hunterWeaponsString);
 			}
 
-			if(priestWeaponsString.size() == 0){
+			if (priestWeaponsString.size() == 0) {
 				priestWeaponsString.add("none");
 				config.set("Priest.Weapon.Restrictions", priestWeaponsString);
 			}
 
-			if(vampireWeaponsString.size() == 0){
+			if (vampireWeaponsString.size() == 0) {
 				vampireWeaponsString.add("none");
 				config.set("Vampire.Weapon.Restrictions", vampireWeaponsString);
 			}
 
-			if(wereWeaponsString.size() == 0){
+			if (wereWeaponsString.size() == 0) {
 				wereWeaponsString.add("BOW");
 				wereWeaponsString.add("STICK");
 				wereWeaponsString.add("WOOD_SWORD");
@@ -679,12 +689,12 @@ public class SNConfigHandler {
 				config.set("Were.Weapon.Restrictions", wereWeaponsString);
 			}
 
-			if(ghoulWeaponImmunityString.size() == 0){
+			if (ghoulWeaponImmunityString.size() == 0) {
 				ghoulWeaponImmunityString.add("DIAMOND_SWORD");
 				config.set("Ghoul.Immunity", ghoulWeaponImmunityString);
 			}
 
-			if(ghoulTruceString.size() == 0){
+			if (ghoulTruceString.size() == 0) {
 				ghoulTruceString.add("CREEPER");
 				ghoulTruceString.add("SKELETON");
 				ghoulTruceString.add("ZOMBIE");
@@ -694,16 +704,17 @@ public class SNConfigHandler {
 				config.set("Ghoul.Truce.Creatures", ghoulTruceString);
 			}
 
-			if(wereWolfbaneMaterialsString.size() == 0){
+			if (wereWolfbaneMaterialsString.size() == 0) {
 				wereWolfbaneMaterialsString.add("YELLOW_FLOWER");
 				wereWolfbaneMaterialsString.add("RED_ROSE");
 				wereWolfbaneMaterialsString.add("RED_MUSHROOM");
 				wereWolfbaneMaterialsString.add("BROWN_MUSHROOM");
 				wereWolfbaneMaterialsString.add("BOWL");
-				config.set("Were.Wolfbane.Materials", wereWolfbaneMaterialsString);
+				config.set("Were.Wolfbane.Materials",
+						wereWolfbaneMaterialsString);
 			}
 
-			if(wereWolfbaneQuantities.size() == 0){
+			if (wereWolfbaneQuantities.size() == 0) {
 				wereWolfbaneQuantities.add(10);
 				wereWolfbaneQuantities.add(10);
 				wereWolfbaneQuantities.add(10);
@@ -712,7 +723,7 @@ public class SNConfigHandler {
 				config.set("Were.Wolfbane.Quantities", wereWolfbaneQuantities);
 			}
 
-			if(hunterArmorString.size() == 0){
+			if (hunterArmorString.size() == 0) {
 				hunterArmorString.add("AIR");
 				hunterArmorString.add("LEATHER_HELMET");
 				hunterArmorString.add("LEATHER_CHESTPLATE");
@@ -721,7 +732,7 @@ public class SNConfigHandler {
 				config.set("WitchHunter.Armor", hunterArmorString);
 			}
 
-			if(ghoulArmorString.size() == 0){
+			if (ghoulArmorString.size() == 0) {
 				ghoulArmorString.add("AIR");
 				ghoulArmorString.add("LEATHER_HELMET");
 				ghoulArmorString.add("LEATHER_CHESTPLATE");
@@ -746,17 +757,17 @@ public class SNConfigHandler {
 				config.set("Ghoul.Armor", ghoulArmorString);
 			}
 
-			if(demonArmorString.size() == 0){
+			if (demonArmorString.size() == 0) {
 				demonArmorString.add("AIR");
 				config.set("Demon.Armor", demonArmorString);
 			}
 
-			if(priestArmorString.size() == 0){
+			if (priestArmorString.size() == 0) {
 				priestArmorString.add("AIR");
 				config.set("Priest.Armor", priestArmorString);
 			}
 
-			if(vampireArmorString.size() == 0){
+			if (vampireArmorString.size() == 0) {
 				vampireArmorString.add("AIR");
 				vampireArmorString.add("LEATHER_HELMET");
 				vampireArmorString.add("LEATHER_CHESTPLATE");
@@ -781,7 +792,7 @@ public class SNConfigHandler {
 				config.set("Vampire.Armor", vampireArmorString);
 			}
 
-			if(wereArmorString.size() == 0){
+			if (wereArmorString.size() == 0) {
 				wereArmorString.add("AIR");
 				wereArmorString.add("LEATHER_HELMET");
 				wereArmorString.add("LEATHER_CHESTPLATE");
@@ -806,7 +817,7 @@ public class SNConfigHandler {
 				config.set("Were.Armor", wereArmorString);
 			}
 
-			if(hunterArrowTypes.size() == 0){
+			if (hunterArrowTypes.size() == 0) {
 				hunterArrowTypes.add("fire");
 				hunterArrowTypes.add("triple");
 				hunterArrowTypes.add("power");
@@ -834,46 +845,71 @@ public class SNConfigHandler {
 		jumpMaterial = config.getString("Vampire.Materials.Jump", "RED_ROSE");
 
 		vampirePowerStart = config.getInt("Vampire.Power.Start", 10000);
-		vampireKillSpreadCurse = config.getBoolean("Vampire.Kill.SpreadCurse",true);
-		vampireTimePowerGained = config.getDouble("Vampire.Time.PowerGained", 15);
-		vampireKillPowerCreatureGain = config.getInt("Vampire.Power.Kill.CreatureGain", 100);
-		vampireKillPowerPlayerGain = config.getInt("Vampire.Power.Kill.PlayerGain", 500);
-		vampireDeathPowerPenalty = config.getInt("Vampire.Power.DeathPenalty", 10000);
-		vampireDamageFactor = config.getDouble("Vampire.DamageFactor.AttackBonus", 0.3);
-		vampireDamageReceivedFactor = config.getDouble("Vampire.DamageFactor.DefenseBonus", 0.8);
+		vampireKillSpreadCurse = config.getBoolean("Vampire.Kill.SpreadCurse",
+				true);
+		vampireTimePowerGained = config.getDouble("Vampire.Time.PowerGained",
+				15);
+		vampireKillPowerCreatureGain = config.getInt(
+				"Vampire.Power.Kill.CreatureGain", 100);
+		vampireKillPowerPlayerGain = config.getInt(
+				"Vampire.Power.Kill.PlayerGain", 500);
+		vampireDeathPowerPenalty = config.getInt("Vampire.Power.DeathPenalty",
+				10000);
+		vampireDamageFactor = config.getDouble(
+				"Vampire.DamageFactor.AttackBonus", 0.3);
+		vampireDamageReceivedFactor = config.getDouble(
+				"Vampire.DamageFactor.DefenseBonus", 0.8);
 		woodFactor = config.getDouble("Vampire.DamageFactor.Wood", 1.5);
-		vampireBurnInSunlight = config.getBoolean("Vampire.Burn.InSunlight", true);
-		vampireBurnMessageEnabled = config.getBoolean("Vampire.Burn.MessageEnabled", true);
+		vampireBurnInSunlight = config.getBoolean("Vampire.Burn.InSunlight",
+				true);
+		vampireBurnMessageEnabled = config.getBoolean(
+				"Vampire.Burn.MessageEnabled", true);
 		vampireCombustFireTicks = config.getInt("Vampire.Burn.FireTicks", 3);
 
 		jumpDeltaSpeed = config.getDouble("Vampire.JumpDelta", 1.2);
 		jumpBloodCost = config.getInt("Vampire.Power.JumpCost", 1000);
-		vampireTimeHealthGained = config.getDouble("Vampire.Time.HealthGained", 0.5);
-		vampireHealthCost = config.getDouble("Vampire.Power.HealingCost",60);
+		vampireTimeHealthGained = config.getDouble("Vampire.Time.HealthGained",
+				0.5);
+		vampireHealthCost = config.getDouble("Vampire.Power.HealingCost", 60);
 		vampireDrowningCost = config.getInt("Vampire.Power.DrowningCost", 90);
 		vampireTeleportCost = config.getInt("Vampire.Power.TeleportCost", 9000);
-		vampireTeleportMaterial = config.getString("Vampire.TeleportMarker.Material", "RED_ROSE");
+		vampireTeleportMaterial = config.getString(
+				"Vampire.TeleportMarker.Material", "RED_ROSE");
 		vampireTruceString = config.getStringList("Vampire.Truce.Creatures");
 		vampireMaterial = config.getString("Vampire.Spell.Material", "BOOK");
-		vampireHelmet = config.getString("Vampire.Burn.HelmetProtection", "GOLD_HELMET");
-		vampireWeaponsString = config.getStringList("Vampire.Weapon.Restrictions");
+		vampireHelmet = config.getString("Vampire.Burn.HelmetProtection",
+				"GOLD_HELMET");
+		vampireWeaponsString = config
+				.getStringList("Vampire.Weapon.Restrictions");
 		vampireArmorString = config.getStringList("Vampire.Armor");
 		vampireHungerRegainPlayer = config.getInt("Vampire.GainHunger.Player");
 		vampireHungerRegainMob = config.getInt("Vampire.GainHunger.Mob");
 
-		vampireAltarInfectMaterial = config.getString("Vampire.Altar.Infect.Material","GOLD_BLOCK");
-		vampireAltarInfectMaterialSurround = config.getString("Vampire.Altar.Infect.Surrounding.Material","OBSIDIAN");
-		vampireAltarInfectMaterialRadius = config.getDouble("Vampire.Altar.Infect.Surrounding.Radius",7D);
-		vampireAltarInfectMaterialSurroundCount = config.getInt("Vampire.Altar.Infect.Surrounding.Count",20);
-		vampireAltarInfectMaterialsString = config.getStringList("Vampire.Altar.Infect.Recipe.Materials");
-		vampireAltarInfectQuantities = config.getIntegerList("Vampire.Altar.Infect.Recipe.Quantities");
+		vampireAltarInfectMaterial = config.getString(
+				"Vampire.Altar.Infect.Material", "GOLD_BLOCK");
+		vampireAltarInfectMaterialSurround = config.getString(
+				"Vampire.Altar.Infect.Surrounding.Material", "OBSIDIAN");
+		vampireAltarInfectMaterialRadius = config.getDouble(
+				"Vampire.Altar.Infect.Surrounding.Radius", 7D);
+		vampireAltarInfectMaterialSurroundCount = config.getInt(
+				"Vampire.Altar.Infect.Surrounding.Count", 20);
+		vampireAltarInfectMaterialsString = config
+				.getStringList("Vampire.Altar.Infect.Recipe.Materials");
+		vampireAltarInfectQuantities = config
+				.getIntegerList("Vampire.Altar.Infect.Recipe.Quantities");
 
-		vampireAltarCureMaterial = config.getString("Vampire.Altar.Cure.Material","LAPIS_BLOCK");
-		vampireAltarCureMaterialSurround = config.getString("Vampire.Altar.Cure.Surrounding.Material","GLOWSTONE");
-		vampireAltarCureMaterialRadius = config.getDouble("Vampire.Altar.Cure.Surrounding.Radius", 7D);
-		vampireAltarCureMaterialSurroundCount = config.getInt("Vampire.Altar.Cure.Surrounding.Count",20);
-		vampireAltarCureMaterialsString = config.getStringList("Vampire.Altar.Cure.Recipe.Materials");
-		vampireAltarCureQuantities = config.getIntegerList("Vampire.Altar.Cure.Recipe.Quantities");
+		vampireAltarCureMaterial = config.getString(
+				"Vampire.Altar.Cure.Material", "LAPIS_BLOCK");
+		vampireAltarCureMaterialSurround = config.getString(
+				"Vampire.Altar.Cure.Surrounding.Material", "GLOWSTONE");
+		vampireAltarCureMaterialRadius = config.getDouble(
+				"Vampire.Altar.Cure.Surrounding.Radius", 7D);
+		vampireAltarCureMaterialSurroundCount = config.getInt(
+				"Vampire.Altar.Cure.Surrounding.Count", 20);
+		vampireAltarCureMaterialsString = config
+				.getStringList("Vampire.Altar.Cure.Recipe.Materials");
+		vampireAltarCureQuantities = config
+				.getIntegerList("Vampire.Altar.Cure.Recipe.Quantities");
 
 		priestChurchWorld = config.getString("Priest.Church.World", "world");
 		priestChurchLocationX = config.getInt("Priest.Church.Location.X", 0);
@@ -885,41 +921,59 @@ public class SNConfigHandler {
 		priestBanishLocationZ = config.getInt("Priest.Banish.Location.Z", 0);
 
 		priestPowerStart = config.getInt("Priest.Power.StartingAmount", 10000);
-		priestDeathPowerPenalty = config.getInt("Priest.Power.DeathPenalty", 2000);
-		priestDamageFactorAttackSuper = config.getDouble("Priest.DamageFactor.AttackBonusSuper", 1.0);
-		priestDamageFactorAttackHuman = config.getDouble("Priest.DamageFactor.AttackBonusHuman", 0);
+		priestDeathPowerPenalty = config.getInt("Priest.Power.DeathPenalty",
+				2000);
+		priestDamageFactorAttackSuper = config.getDouble(
+				"Priest.DamageFactor.AttackBonusSuper", 1.0);
+		priestDamageFactorAttackHuman = config.getDouble(
+				"Priest.DamageFactor.AttackBonusHuman", 0);
 		priestPowerBanish = config.getInt("Priest.Power.Banish", 4000);
 		priestPowerHeal = config.getInt("Priest.Power.HealOther", 1000);
 		priestHealAmount = config.getInt("Priest.Spell.HealAmount", 10);
 		priestPowerExorcise = config.getInt("Priest.Power.Exorcise", 9000);
 		priestPowerCure = config.getInt("Priest.Power.Cure", 1000);
 		priestPowerDrain = config.getInt("Priest.Power.Drain", 1000);
-		priestPowerGuardianAngel = config.getInt("Priest.Power.GuardianAngel", 5000);
+		priestPowerGuardianAngel = config.getInt("Priest.Power.GuardianAngel",
+				5000);
 		priestDrainFactor = config.getDouble("Priest.Spell.DrainFactor", 0.15);
 		priestFireTicks = config.getInt("Priest.DamageFactor.FireTicks", 50);
-		priestAltarMaterial = config.getString("Priest.Church.AltarMaterial","DIAMOND_BLOCK");
+		priestAltarMaterial = config.getString("Priest.Church.AltarMaterial",
+				"DIAMOND_BLOCK");
 		priestMaterialsString = config.getStringList("Priest.Spell.Material");
-		priestSpellGuardianAngel = config.getString("Priest.Spell.Material.GuardianAngel", "WOOL");
-		priestAltarMaterialsString = config.getStringList("Priest.Church.Recipe.Materials");
-		priestAltarQuantities = config.getIntegerList("Priest.Church.Recipe.Quantities");
-		priestDonationMaterialsString = config.getStringList("Priest.Church.Donation.Materials");
-		priestDonationRewards = config.getIntegerList("Priest.Church.Donation.Rewards");
+		priestSpellGuardianAngel = config.getString(
+				"Priest.Spell.Material.GuardianAngel", "WOOL");
+		priestAltarMaterialsString = config
+				.getStringList("Priest.Church.Recipe.Materials");
+		priestAltarQuantities = config
+				.getIntegerList("Priest.Church.Recipe.Quantities");
+		priestDonationMaterialsString = config
+				.getStringList("Priest.Church.Donation.Materials");
+		priestDonationRewards = config
+				.getIntegerList("Priest.Church.Donation.Rewards");
 		priestArmorString = config.getStringList("Priest.Armor");
-		priestWeaponsString = config.getStringList("Priest.Weapon.Restrictions");
+		priestWeaponsString = config
+				.getStringList("Priest.Weapon.Restrictions");
 
 		ghoulPowerStart = config.getInt("Ghoul.Power.Start", 5000);
-		ghoulKillSpreadCurse = config.getBoolean("Ghoul.Kill.SpreadCurse", true);
-		ghoulKillPowerCreatureGain = config.getInt("Ghoul.Power.Kill.CreatureGain", 200);
-		ghoulKillPowerPlayerGain = config.getInt("Ghoul.Power.Kill.PlayerGain", 1000);
-		ghoulDeathPowerPenalty = config.getInt("Ghoul.Power.DeathPenalty", 2000);
-		ghoulDamageReceivedFactor = config.getDouble("Ghoul.DamageFactor.DefenseBonus", 0.65);
+		ghoulKillSpreadCurse = config
+				.getBoolean("Ghoul.Kill.SpreadCurse", true);
+		ghoulKillPowerCreatureGain = config.getInt(
+				"Ghoul.Power.Kill.CreatureGain", 200);
+		ghoulKillPowerPlayerGain = config.getInt("Ghoul.Power.Kill.PlayerGain",
+				1000);
+		ghoulDeathPowerPenalty = config
+				.getInt("Ghoul.Power.DeathPenalty", 2000);
+		ghoulDamageReceivedFactor = config.getDouble(
+				"Ghoul.DamageFactor.DefenseBonus", 0.65);
 		ghoulWeaponsString = config.getStringList("Ghoul.Weapon.Restrictions");
 		ghoulTruceString = config.getStringList("Ghoul.Truce.Creatures");
-		ghoulDamageFactor = config.getDouble("Ghoul.DamageFactor.AttackBonus", 2);
+		ghoulDamageFactor = config.getDouble("Ghoul.DamageFactor.AttackBonus",
+				2);
 		ghoulDamageWater = config.getInt("Ghoul.WaterDamage", 4);
 		ghoulHealthGained = config.getDouble("Ghoul.Time.HealthGained", 0.1);
 		ghoulMaterial = config.getString("Ghoul.Summon.Material", "PORK");
-		ghoulBondMaterial = config.getString("Ghoul.UnholyBond.Material", "BONE");
+		ghoulBondMaterial = config.getString("Ghoul.UnholyBond.Material",
+				"BONE");
 		ghoulPowerSummonCost = config.getInt("Ghoul.Power.Summon", 1000);
 		ghoulPowerBond = config.getInt("Ghoul.Power.UnholyBond", 50);
 		ghoulWeaponImmunityString = config.getStringList("Ghoul.Immunity");
@@ -931,8 +985,10 @@ public class SNConfigHandler {
 
 		werePowerStart = config.getInt("Were.Power.Start", 5000);
 		wereKillSpreadCurse = config.getBoolean("Were.Kill.SpreadCurse", true);
-		wereKillPowerCreatureGain = config.getInt("Were.Power.Kill.CreatureGain", 20);
-		wereKillPowerPlayerGain = config.getInt("Were.Power.Kill.PlayerGain", 100);
+		wereKillPowerCreatureGain = config.getInt(
+				"Were.Power.Kill.CreatureGain", 20);
+		wereKillPowerPlayerGain = config.getInt("Were.Power.Kill.PlayerGain",
+				100);
 		werePowerFood = config.getInt("Were.Power.Food", 100);
 		wereDeathPowerPenalty = config.getInt("Were.Power.DeathPenalty", 2000);
 		wereDamageFall = config.getDouble("Were.DamageFactor.Fall", 0.5);
@@ -943,14 +999,18 @@ public class SNConfigHandler {
 		wolfTruce = config.getBoolean("Were.WolfTruce", true);
 		dashMaterial = config.getString("Were.Material.Dash", "FEATHER");
 		wolfbaneMaterial = config.getString("Were.Wolfbane.Trigger", "BOWL");
-		wereWolfbaneMaterialsString = config.getStringList("Were.Wolfbane.Materials");
-		wereWolfbaneQuantities = config.getIntegerList("Were.Wolfbane.Quantities");
+		wereWolfbaneMaterialsString = config
+				.getStringList("Were.Wolfbane.Materials");
+		wereWolfbaneQuantities = config
+				.getIntegerList("Were.Wolfbane.Quantities");
 		wereArmorString = config.getStringList("Were.Armor");
 		wereWeaponsString = config.getStringList("Were.Weapon.Restrictions");
 
 		demonPowerStart = config.getInt("Demon.Power.Start", 10000);
-		demonDeathPowerPenalty = config.getInt("Demon.Power.DeathPenalty", 10000);
-		demonKillPowerCreatureGain = config.getInt("Demon.Power.CreatureKill", 20);
+		demonDeathPowerPenalty = config.getInt("Demon.Power.DeathPenalty",
+				10000);
+		demonKillPowerCreatureGain = config.getInt("Demon.Power.CreatureKill",
+				20);
 		demonKillPowerPlayerGain = config.getInt("Demon.Power.PlayerKill", 100);
 		demonPowerGain = config.getInt("Demon.Power.Gain", 40);
 		demonPowerLoss = config.getInt("Demon.Power.Loss", 4);
@@ -960,203 +1020,232 @@ public class SNConfigHandler {
 		demonFireballDamage = config.getInt("Demon.Fireball.Damage", 10);
 		demonPowerSnare = config.getInt("Demon.Power.Snare", 1000);
 		demonSnareDuration = config.getInt("Demon.Snare.Duration", 10000);
-		demonSnareMaterial = config.getString("Demon.Snare.Material", "INK_SACK");
+		demonSnareMaterial = config.getString("Demon.Snare.Material",
+				"INK_SACK");
 		demonSnowballAmount = config.getInt("Demon.SnowballAmount", 30);
 		demonArmorString = config.getStringList("Demon.Armor");
 		demonWeaponsString = config.getStringList("Demon.Weapon.Restrictions");
 		demonFireTicks = config.getInt("Demon.DamageFactor.FireTicks", 50);
 		demonConvertPower = config.getInt("Demon.Power.Convert", 2000);
 
-		hunterPowerStart = config.getInt("WitchHunter.Power.StartingPower", 10000);
-		hunterDeathPowerPenalty = config.getInt("WitchHunter.Power.DeathPenalty", 500);
-		hunterKillPowerPlayerGain = config.getInt("WitchHunter.Power.PlayerKill", 2000);
-		hunterKillPowerCreatureGain = config.getInt("WitchHunter.Power.CreatureKill", 0);
-		hunterBountyCompletion = config.getInt("WitchHunter.Bounty.CompletionBonus", 8000);
-		hunterPowerArrowFire = config.getInt("WitchHunter.Power.ArrowFire", 100);
-		hunterPowerArrowTriple = config.getInt("WitchHunter.Power.ArrowTriple", 100);
-		hunterPowerArrowGrapple = config.getInt("WitchHunter.Power.ArrowGrapple", 500);
-		hunterPowerArrowPower = config.getInt("WitchHunter.Power.ArrowPower", 1000);
-		hunterPowerArrowDamage = config.getDouble("WitchHunter.ArrowPower.DamageFactor", 2.0);
-		hunterCooldown = config.getInt("WitchHunter.PowerArrow.Cooldown", 15000);
+		hunterPowerStart = config.getInt("WitchHunter.Power.StartingPower",
+				10000);
+		hunterDeathPowerPenalty = config.getInt(
+				"WitchHunter.Power.DeathPenalty", 500);
+		hunterKillPowerPlayerGain = config.getInt(
+				"WitchHunter.Power.PlayerKill", 2000);
+		hunterKillPowerCreatureGain = config.getInt(
+				"WitchHunter.Power.CreatureKill", 0);
+		hunterBountyCompletion = config.getInt(
+				"WitchHunter.Bounty.CompletionBonus", 8000);
+		hunterPowerArrowFire = config
+				.getInt("WitchHunter.Power.ArrowFire", 100);
+		hunterPowerArrowTriple = config.getInt("WitchHunter.Power.ArrowTriple",
+				100);
+		hunterPowerArrowGrapple = config.getInt(
+				"WitchHunter.Power.ArrowGrapple", 500);
+		hunterPowerArrowPower = config.getInt("WitchHunter.Power.ArrowPower",
+				1000);
+		hunterPowerArrowDamage = config.getDouble(
+				"WitchHunter.ArrowPower.DamageFactor", 2.0);
+		hunterCooldown = config
+				.getInt("WitchHunter.PowerArrow.Cooldown", 15000);
 		hunterArmorString = config.getStringList("WitchHunter.Armor");
 		hunterFallReduction = config.getInt("WitchHunter.FallReduction", 3);
-		hunterFireArrowFireTicks = config.getInt("WitchHunter.FireArrow.FireTicks", 100);
+		hunterFireArrowFireTicks = config.getInt(
+				"WitchHunter.FireArrow.FireTicks", 100);
 		hunterArrowTypes = config.getStringList("WitchHunter.ArrowTypes");
-		hunterHallMessage = config.getString("WitchHunter.Hall.Message", "WitchHunter");
+		hunterHallMessage = config.getString("WitchHunter.Hall.Message",
+				"WitchHunter");
 		hunterMaxBounties = config.getInt("WitchHunter.Bounty.MaxNumber", 5);
-		hunterWeaponsString = config.getStringList("WitchHunter.Weapon.Restrictions");
+		hunterWeaponsString = config
+				.getStringList("WitchHunter.Weapon.Restrictions");
 
-		enderDamageFactor = config.getDouble("EnderBorn.DamageFactor.AttackBonus");
-		enderDamageReceivedFactor = config.getDouble("EnderBorn.DamageFactor.DefenseBonus");
+		enderDamageFactor = config
+				.getDouble("EnderBorn.DamageFactor.AttackBonus");
+		enderDamageReceivedFactor = config
+				.getDouble("EnderBorn.DamageFactor.DefenseBonus");
 		enderProtectPower = config.getInt("EnderBorn.Power.Protect");
 		enderDeathPowerPenalty = config.getInt("EnderBorn.Power.DeathPenalty");
 		enderKillPower = config.getInt("EnderBorn.Power.Kill");
 		enderPearlPower = config.getInt("EnderBorn.Power.EnderPearl");
-		enderWeaponsString = config.getStringList("EnderBorn.Weapon.Restrictions");
+		enderWeaponsString = config
+				.getStringList("EnderBorn.Weapon.Restrictions");
 
-		for(String wood : woodMaterialsString){
+		for (String wood : woodMaterialsString) {
 			woodMaterials.add(Material.getMaterial(wood));
 		}
 
-		for(String food : foodMaterialsString){
+		for (String food : foodMaterialsString) {
 			foodMaterials.add(Material.getMaterial(food));
 		}
 
-		for(String block : burnableBlocksString){
+		for (String block : burnableBlocksString) {
 			burnableBlocks.add(Material.getMaterial(block));
 		}
 
-		for(String creature : vampireTruceString){
+		for (String creature : vampireTruceString) {
 			CreatureType cType = CreatureType.valueOf(creature);
-			if(cType!=null) {
+			if (cType != null) {
 				vampireTruce.add(cType);
 			}
 		}
 
-		for(String material : priestMaterialsString){
+		for (String material : priestMaterialsString) {
 			priestSpellMaterials.add(Material.getMaterial(material));
 		}
 
-		for(String creature : ghoulTruceString){
+		for (String creature : ghoulTruceString) {
 			CreatureType cType = CreatureType.valueOf(creature);
-			if(cType!=null) {
+			if (cType != null) {
 				ghoulTruce.add(cType);
 			}
 		}
 
-		for(String weapon : ghoulWeaponsString){
+		for (String weapon : ghoulWeaponsString) {
 			ghoulWeapons.add(Material.getMaterial(weapon));
 		}
 
-		for(String weapon : demonWeaponsString){
+		for (String weapon : demonWeaponsString) {
 			demonWeapons.add(Material.getMaterial(weapon));
 		}
 
-		for(String weapon : hunterWeaponsString){
+		for (String weapon : hunterWeaponsString) {
 			hunterWeapons.add(Material.getMaterial(weapon));
 		}
 
-		for(String weapon : priestWeaponsString){
+		for (String weapon : priestWeaponsString) {
 			priestWeapons.add(Material.getMaterial(weapon));
 		}
 
-		for(String weapon : vampireWeaponsString){
+		for (String weapon : vampireWeaponsString) {
 			vampireWeapons.add(Material.getMaterial(weapon));
 		}
 
-		for(String weapon : wereWeaponsString){
+		for (String weapon : wereWeaponsString) {
 			wereWeapons.add(Material.getMaterial(weapon));
 		}
 
-		for(String weapon : ghoulWeaponImmunityString){
+		for (String weapon : ghoulWeaponImmunityString) {
 			ghoulWeaponImmunity.add(Material.getMaterial(weapon));
 		}
 
-		for(String armor : hunterArmorString){
+		for (String armor : hunterArmorString) {
 			hunterArmor.add(Material.getMaterial(armor));
 		}
 
-		for(String weapon : enderWeaponsString) {
+		for (String weapon : enderWeaponsString) {
 			enderWeapons.add(Material.getMaterial(weapon));
 		}
 
-		for(String armor : ghoulArmorString){
+		for (String armor : ghoulArmorString) {
 			ghoulArmor.add(Material.getMaterial(armor));
 		}
 
-		for(String armor : demonArmorString){
+		for (String armor : demonArmorString) {
 			demonArmor.add(Material.getMaterial(armor));
 		}
 
-		for(String armor : priestArmorString){
+		for (String armor : priestArmorString) {
 			priestArmor.add(Material.getMaterial(armor));
 		}
 
-		for(String armor : vampireArmorString){
+		for (String armor : vampireArmorString) {
 			vampireArmor.add(Material.getMaterial(armor));
 		}
 
-		for(String armor : wereArmorString){
+		for (String armor : wereArmorString) {
 			wereArmor.add(Material.getMaterial(armor));
 		}
 
-		for(int i=0; i<vampireAltarInfectMaterialsString.size();i++){
-			Material material = Material.getMaterial(vampireAltarInfectMaterialsString.get(i));
-			int quantity=1;
-			try{
+		for (int i = 0; i < vampireAltarInfectMaterialsString.size(); i++) {
+			Material material = Material
+					.getMaterial(vampireAltarInfectMaterialsString.get(i));
+			int quantity = 1;
+			try {
 				quantity = vampireAltarInfectQuantities.get(i);
-			}catch(Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
-				SupernaturalsPlugin.log("Invalid Vampire Infect Altar Quantities!");
+				SupernaturalsPlugin
+						.log("Invalid Vampire Infect Altar Quantities!");
 			}
-			vampireAltarInfectRecipe.materialQuantities.put(material,quantity);
+			vampireAltarInfectRecipe.materialQuantities.put(material, quantity);
 		}
 
-		for(int i=0; i<vampireAltarCureMaterialsString.size();i++){
-			Material material = Material.getMaterial(vampireAltarCureMaterialsString.get(i));
-			int quantity=1;
-			try{
+		for (int i = 0; i < vampireAltarCureMaterialsString.size(); i++) {
+			Material material = Material
+					.getMaterial(vampireAltarCureMaterialsString.get(i));
+			int quantity = 1;
+			try {
 				quantity = vampireAltarCureQuantities.get(i);
-			}catch(Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
-				SupernaturalsPlugin.log("Invalid Vampire Cure Altar Quantities!");
+				SupernaturalsPlugin
+						.log("Invalid Vampire Cure Altar Quantities!");
 			}
-			vampireAltarCureRecipe.materialQuantities.put(material,quantity);
+			vampireAltarCureRecipe.materialQuantities.put(material, quantity);
 		}
 
-		for(int i=0; i<priestAltarMaterialsString.size();i++){
-			Material material = Material.getMaterial(priestAltarMaterialsString.get(i));
-			int quantity=1;
-			try{
+		for (int i = 0; i < priestAltarMaterialsString.size(); i++) {
+			Material material = Material.getMaterial(priestAltarMaterialsString
+					.get(i));
+			int quantity = 1;
+			try {
 				quantity = priestAltarQuantities.get(i);
-			}catch(Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 				SupernaturalsPlugin.log("Invalid Priest Altar Quantities!");
 			}
-			priestAltarRecipe.materialQuantities.put(material,quantity);
+			priestAltarRecipe.materialQuantities.put(material, quantity);
 		}
 
-		for(int i=0; i<wereWolfbaneMaterialsString.size();i++){
-			Material material = Material.getMaterial(wereWolfbaneMaterialsString.get(i));
+		for (int i = 0; i < wereWolfbaneMaterialsString.size(); i++) {
+			Material material = Material
+					.getMaterial(wereWolfbaneMaterialsString.get(i));
 			int quantity = 1;
-			try{
+			try {
 				quantity = wereWolfbaneQuantities.get(i);
-			}catch(Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 				SupernaturalsPlugin.log("Invalid Wolfbane Quantities!");
 			}
-			wereWolfbaneRecipe.materialQuantities.put(material,quantity);
+			wereWolfbaneRecipe.materialQuantities.put(material, quantity);
 		}
 
-		for(int i=0; i<priestDonationMaterialsString.size(); i++){
-			Material material = Material.getMaterial(priestDonationMaterialsString.get(i));
+		for (int i = 0; i < priestDonationMaterialsString.size(); i++) {
+			Material material = Material
+					.getMaterial(priestDonationMaterialsString.get(i));
 			int reward = 1;
-			try{
+			try {
 				reward = priestDonationRewards.get(i);
-			}catch(Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 				SupernaturalsPlugin.log("Invalid priest donation reward!");
 			}
-			priestDonationMap.put(material,reward);
+			priestDonationMap.put(material, reward);
 		}
 
-		priestChurchLocation = new Location(plugin.getServer().getWorld(priestChurchWorld), priestChurchLocationX, priestChurchLocationY, priestChurchLocationZ);
-		priestBanishLocation = new Location(plugin.getServer().getWorld(priestBanishWorld), priestBanishLocationX, priestBanishLocationY, priestBanishLocationZ);
+		priestChurchLocation = new Location(plugin.getServer().getWorld(
+				priestChurchWorld), priestChurchLocationX,
+				priestChurchLocationY, priestChurchLocationZ);
+		priestBanishLocation = new Location(plugin.getServer().getWorld(
+				priestBanishWorld), priestBanishLocationX,
+				priestBanishLocationY, priestBanishLocationZ);
 	}
 
-	public static void saveConfig(){
+	public static void saveConfig() {
 		plugin.saveConfig();
 	}
 
-	public static void reloadConfig(){
-		if(SNConfigHandler.debugMode){
+	public static void reloadConfig() {
+		if (SNConfigHandler.debugMode) {
 			SupernaturalsPlugin.log("Reloaded configuration file");
 		}
 		plugin.reloadConfig();
 		loadValues(config);
 	}
 
-	public static Configuration getConfig(){
+	public static Configuration getConfig() {
 		return config;
 	}
 
