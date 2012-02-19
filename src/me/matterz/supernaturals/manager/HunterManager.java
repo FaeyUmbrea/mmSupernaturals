@@ -123,8 +123,7 @@ public class HunterManager extends HumanManager {
 							+ " was not allowed to use "
 							+ item.getType().toString());
 				}
-				SuperNManager.sendMessage(snDamager,
-						"WitchHunters cannot use this weapon!");
+				SuperNManager.sendMessage(snDamager, "WitchHunters cannot use this weapon!");
 				return 0;
 			}
 			if (SNConfigHandler.debugMode) {
@@ -138,35 +137,25 @@ public class HunterManager extends HumanManager {
 	public void deathEvent(Player player) {
 		super.deathEvent(player);
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		SuperNManager.alterPower(snplayer,
-				-SNConfigHandler.hunterDeathPowerPenalty, "You died!");
+		SuperNManager.alterPower(snplayer, -SNConfigHandler.hunterDeathPowerPenalty, "You died!");
 	}
 
 	@Override
-	public void killEvent(Player pDamager, SuperNPlayer damager,
-			SuperNPlayer victim) {
+	public void killEvent(Player pDamager, SuperNPlayer damager, SuperNPlayer victim) {
 		if (victim == null) {
 			if (SNConfigHandler.hunterKillPowerCreatureGain > 0) {
-				SuperNManager.alterPower(damager,
-						SNConfigHandler.hunterKillPowerCreatureGain,
-						"Creature death!");
+				SuperNManager.alterPower(damager, SNConfigHandler.hunterKillPowerCreatureGain, "Creature death!");
 			}
 		} else {
 			if (victim.getPower() > SNConfigHandler.hunterKillPowerPlayerGain) {
-				SuperNManager.alterPower(damager,
-						SNConfigHandler.hunterKillPowerPlayerGain,
-						"Player killed!");
+				SuperNManager.alterPower(damager, SNConfigHandler.hunterKillPowerPlayerGain, "Player killed!");
 				if (HunterManager.checkBounty(victim)) {
-					SuperNManager.alterPower(damager,
-							SNConfigHandler.hunterBountyCompletion,
-							"Bounty Fulfilled!");
+					SuperNManager.alterPower(damager, SNConfigHandler.hunterBountyCompletion, "Bounty Fulfilled!");
 					HunterManager.removeBounty(victim);
 					HunterManager.addBounty();
 				}
 			} else {
-				SuperNManager
-						.sendMessage(damager,
-								"You cannot gain power from a player with no power themselves.");
+				SuperNManager.sendMessage(damager, "You cannot gain power from a player with no power themselves.");
 			}
 		}
 	}
@@ -261,13 +250,10 @@ public class HunterManager extends HumanManager {
 
 			if (!bountyList.contains(sntarget) && sntarget.isSuper()) {
 				bountyList.add(sntarget);
-				SupernaturalsPlugin.instance
-						.getServer()
-						.broadcastMessage(
-								ChatColor.WHITE
-										+ sntarget.getName()
-										+ ChatColor.RED
-										+ " has been added to the WitchHunter target list!");
+				SupernaturalsPlugin.instance.getServer().broadcastMessage(ChatColor.WHITE
+						+ sntarget.getName()
+						+ ChatColor.RED
+						+ " has been added to the WitchHunter target list!");
 				bountyFound = true;
 				if (SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log("Bounty created on "
@@ -304,8 +290,7 @@ public class HunterManager extends HumanManager {
 	public static void createBounties() {
 		List<SuperNPlayer> targets = SuperNManager.getSupernaturals();
 		if (targets.size() == 0) {
-			SupernaturalsPlugin.log(Level.WARNING,
-					"No targets found for WitchHunters!");
+			SupernaturalsPlugin.log(Level.WARNING, "No targets found for WitchHunters!");
 			return;
 		}
 
@@ -319,13 +304,10 @@ public class HunterManager extends HumanManager {
 			if (!bountyList.contains(sntarget) && sntarget.isSuper()) {
 				bountyList.add(sntarget);
 				numberFound++;
-				SupernaturalsPlugin.instance
-						.getServer()
-						.broadcastMessage(
-								ChatColor.WHITE
-										+ sntarget.getName()
-										+ ChatColor.RED
-										+ " has been added to the WitchHunter target list!");
+				SupernaturalsPlugin.instance.getServer().broadcastMessage(ChatColor.WHITE
+						+ sntarget.getName()
+						+ ChatColor.RED
+						+ " has been added to the WitchHunter target list!");
 				if (SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log("Bounty created on "
 							+ sntarget.getName());
@@ -382,34 +364,26 @@ public class HunterManager extends HumanManager {
 
 		if (snplayer.isHunter() || snplayer.isHuman() && open) {
 			if (door.isTopHalf()) {
-				newLoc = new Location(loc.getWorld(), loc.getBlockX(),
-						loc.getBlockY() - 1, loc.getBlockZ());
+				newLoc = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY() - 1, loc.getBlockZ());
 				newBlock = newLoc.getBlock();
 				block.setTypeIdAndData(71, (byte) (block.getData() + 4), false);
-				newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() + 4),
-						false);
+				newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() + 4), false);
 			} else {
-				newLoc = new Location(loc.getWorld(), loc.getBlockX(),
-						loc.getBlockY() + 1, loc.getBlockZ());
+				newLoc = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY() + 1, loc.getBlockZ());
 				newBlock = newLoc.getBlock();
 				block.setTypeIdAndData(71, (byte) (block.getData() + 4), false);
-				newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() + 4),
-						false);
+				newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() + 4), false);
 			}
 
 			addDoorLocation(loc);
 			addDoorLocation(newLoc);
 
-			SupernaturalsPlugin.instance
-					.getServer()
-					.getScheduler()
-					.scheduleSyncDelayedTask(SupernaturalsPlugin.instance,
-							new Runnable() {
-								@Override
-								public void run() {
-									closeDoor(loc);
-								}
-							}, 20);
+			SupernaturalsPlugin.instance.getServer().getScheduler().scheduleSyncDelayedTask(SupernaturalsPlugin.instance, new Runnable() {
+				@Override
+				public void run() {
+					closeDoor(loc);
+				}
+			}, 20);
 			if (SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log("WitchHunter door is set open.");
 			}
@@ -430,19 +404,15 @@ public class HunterManager extends HumanManager {
 		Block newBlock;
 
 		if (door.isTopHalf()) {
-			newLoc = new Location(loc.getWorld(), loc.getBlockX(),
-					loc.getBlockY() - 1, loc.getBlockZ());
+			newLoc = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY() - 1, loc.getBlockZ());
 			newBlock = newLoc.getBlock();
 			block.setTypeIdAndData(71, (byte) (block.getData() - 4), false);
-			newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() - 4),
-					false);
+			newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() - 4), false);
 		} else {
-			newLoc = new Location(loc.getWorld(), loc.getBlockX(),
-					loc.getBlockY() + 1, loc.getBlockZ());
+			newLoc = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY() + 1, loc.getBlockZ());
 			newBlock = newLoc.getBlock();
 			block.setTypeIdAndData(71, (byte) (block.getData() - 4), false);
-			newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() - 4),
-					false);
+			newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() - 4), false);
 		}
 
 		removeDoorLocation(loc);
@@ -454,32 +424,22 @@ public class HunterManager extends HumanManager {
 	// -------------------------------------------- //
 
 	public void invite(final SuperNPlayer snplayer) {
-		SupernaturalsPlugin.instance
-				.getServer()
-				.getScheduler()
-				.scheduleSyncDelayedTask(SupernaturalsPlugin.instance,
-						new Runnable() {
-							@Override
-							public void run() {
-								SuperNManager
-										.sendMessage(snplayer,
-												"You have been invited to join the WitchHunter society!");
-								SuperNManager
-										.sendMessage(snplayer,
-												"If you wish to accept this invitation visit a WitchHunters' Hall");
-								if (!playerInvites.contains(snplayer)) {
-									playerInvites.add(snplayer);
-								}
-							}
-						}, 200);
+		SupernaturalsPlugin.instance.getServer().getScheduler().scheduleSyncDelayedTask(SupernaturalsPlugin.instance, new Runnable() {
+			@Override
+			public void run() {
+				SuperNManager.sendMessage(snplayer, "You have been invited to join the WitchHunter society!");
+				SuperNManager.sendMessage(snplayer, "If you wish to accept this invitation visit a WitchHunters' Hall");
+				if (!playerInvites.contains(snplayer)) {
+					playerInvites.add(snplayer);
+				}
+			}
+		}, 200);
 	}
 
 	public boolean join(SuperNPlayer snplayer) {
 		if (playerInvites.contains(snplayer)) {
-			SuperNManager.sendMessage(snplayer,
-					"Welcome to the WitchHunter society!");
-			SuperNManager.convert(snplayer, "witchhunter",
-					SNConfigHandler.hunterPowerStart);
+			SuperNManager.sendMessage(snplayer, "Welcome to the WitchHunter society!");
+			SuperNManager.convert(snplayer, "witchhunter", SNConfigHandler.hunterPowerStart);
 			return true;
 		}
 		return false;
@@ -498,8 +458,7 @@ public class HunterManager extends HumanManager {
 		String nextType = "normal";
 
 		for (int i = 0; i < SNConfigHandler.hunterArrowTypes.size(); i++) {
-			if (SNConfigHandler.hunterArrowTypes.get(i).equalsIgnoreCase(
-					currentType)) {
+			if (SNConfigHandler.hunterArrowTypes.get(i).equalsIgnoreCase(currentType)) {
 				int newI = i + 1;
 				if (newI >= SNConfigHandler.hunterArrowTypes.size()) {
 					newI = 0;
@@ -528,16 +487,12 @@ public class HunterManager extends HumanManager {
 	}
 
 	public void removeArrow(final Arrow arrow) {
-		SupernaturalsPlugin.instance
-				.getServer()
-				.getScheduler()
-				.scheduleSyncDelayedTask(SupernaturalsPlugin.instance,
-						new Runnable() {
-							@Override
-							public void run() {
-								arrowMap.remove(arrow);
-							}
-						}, 20);
+		SupernaturalsPlugin.instance.getServer().getScheduler().scheduleSyncDelayedTask(SupernaturalsPlugin.instance, new Runnable() {
+			@Override
+			public void run() {
+				arrowMap.remove(arrow);
+			}
+		}, 20);
 	}
 
 	// -------------------------------------------- //
@@ -559,17 +514,14 @@ public class HunterManager extends HumanManager {
 				return false;
 			}
 			if (!arrowType.equalsIgnoreCase("normal")) {
-				SuperNManager.sendMessage(snplayer,
-						"You cannot use special arrows in non-PvP areas.");
+				SuperNManager.sendMessage(snplayer, "You cannot use special arrows in non-PvP areas.");
 			}
 			return false;
 		}
 
 		if (drainedPlayers.contains(player)) {
-			player.getWorld().dropItem(player.getLocation(),
-					new ItemStack(Material.ARROW, 1));
-			SuperNManager.sendMessage(snplayer,
-					"You are still recovering from Power Shot.");
+			player.getWorld().dropItem(player.getLocation(), new ItemStack(Material.ARROW, 1));
+			SuperNManager.sendMessage(snplayer, "You are still recovering from Power Shot.");
 			return true;
 		}
 
@@ -585,96 +537,71 @@ public class HunterManager extends HumanManager {
 
 		if (arrowType.equalsIgnoreCase("fire")) {
 			if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowFire) {
-				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.hunterPowerArrowFire, "Fire Arrow!");
+				SuperNManager.alterPower(snplayer, -SNConfigHandler.hunterPowerArrowFire, "Fire Arrow!");
 				Arrow arrow = player.shootArrow();
 				arrowMap.put(arrow, arrowType);
 				arrow.setFireTicks(SNConfigHandler.hunterFireArrowFireTicks);
 				return true;
 			} else {
-				SuperNManager.sendMessage(snplayer,
-						"Not enough power to shoot Fire Arrows!");
-				SuperNManager.sendMessage(snplayer,
-						"Switching to normal arrows.");
+				SuperNManager.sendMessage(snplayer, "Not enough power to shoot Fire Arrows!");
+				SuperNManager.sendMessage(snplayer, "Switching to normal arrows.");
 				hunterMap.put(snplayer, "normal");
 				return false;
 			}
 		} else if (arrowType.equalsIgnoreCase("triple")) {
 			if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowTriple) {
-				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.hunterPowerArrowTriple,
-						"Triple Arrow!");
+				SuperNManager.alterPower(snplayer, -SNConfigHandler.hunterPowerArrowTriple, "Triple Arrow!");
 				final Arrow arrow = player.shootArrow();
 				arrowMap.put(arrow, arrowType);
-				SupernaturalsPlugin.instance
-						.getServer()
-						.getScheduler()
-						.scheduleSyncDelayedTask(SupernaturalsPlugin.instance,
-								new Runnable() {
-									@Override
-									public void run() {
-										splitArrow(player, arrow);
-									}
-								}, 4);
+				SupernaturalsPlugin.instance.getServer().getScheduler().scheduleSyncDelayedTask(SupernaturalsPlugin.instance, new Runnable() {
+					@Override
+					public void run() {
+						splitArrow(player, arrow);
+					}
+				}, 4);
 				return true;
 			} else {
-				SuperNManager.sendMessage(snplayer,
-						"Not enough power to shoot Triple Arrows!");
-				SuperNManager.sendMessage(snplayer,
-						"Switching to normal arrows.");
+				SuperNManager.sendMessage(snplayer, "Not enough power to shoot Triple Arrows!");
+				SuperNManager.sendMessage(snplayer, "Switching to normal arrows.");
 				hunterMap.put(snplayer, "normal");
 				return false;
 			}
 		} else if (arrowType.equalsIgnoreCase("power")) {
 			if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowPower) {
-				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.hunterPowerArrowPower, "Power Arrow!");
+				SuperNManager.alterPower(snplayer, -SNConfigHandler.hunterPowerArrowPower, "Power Arrow!");
 				Arrow arrow = player.shootArrow();
 				arrowMap.put(arrow, arrowType);
 				drainedPlayers.add(player);
 				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin
-							.log(snplayer.getName() + " is drained.");
+					SupernaturalsPlugin.log(snplayer.getName() + " is drained.");
 				}
-				SupernaturalsPlugin.instance
-						.getServer()
-						.getScheduler()
-						.scheduleSyncDelayedTask(SupernaturalsPlugin.instance,
-								new Runnable() {
-									@Override
-									public void run() {
-										drainedPlayers.remove(player);
-										if (player.isOnline()) {
-											SuperNManager.sendMessage(snplayer,
-													"You can shoot again!");
-										}
-										SupernaturalsPlugin.log(snplayer
-												.getName()
-												+ " is no longer drained.");
-									}
-								}, SNConfigHandler.hunterCooldown / 50);
+				SupernaturalsPlugin.instance.getServer().getScheduler().scheduleSyncDelayedTask(SupernaturalsPlugin.instance, new Runnable() {
+					@Override
+					public void run() {
+						drainedPlayers.remove(player);
+						if (player.isOnline()) {
+							SuperNManager.sendMessage(snplayer, "You can shoot again!");
+						}
+						SupernaturalsPlugin.log(snplayer.getName()
+								+ " is no longer drained.");
+					}
+				}, SNConfigHandler.hunterCooldown / 50);
 				return true;
 			} else {
-				SuperNManager.sendMessage(snplayer,
-						"Not enough power to shoot Power Arrows!");
-				SuperNManager.sendMessage(snplayer,
-						"Switching to normal arrows.");
+				SuperNManager.sendMessage(snplayer, "Not enough power to shoot Power Arrows!");
+				SuperNManager.sendMessage(snplayer, "Switching to normal arrows.");
 				hunterMap.put(snplayer, "normal");
 				return false;
 			}
 		} else if (arrowType.equalsIgnoreCase("grapple")) {
 			if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowGrapple) {
-				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.hunterPowerArrowGrapple,
-						"Grapple Arrow!");
+				SuperNManager.alterPower(snplayer, -SNConfigHandler.hunterPowerArrowGrapple, "Grapple Arrow!");
 				Arrow arrow = player.shootArrow();
 				arrowMap.put(arrow, arrowType);
 				return true;
 			} else {
-				SuperNManager.sendMessage(snplayer,
-						"Not enough power to shoot Grapple Arrow!");
-				SuperNManager.sendMessage(snplayer,
-						"Switching to normal arrows.");
+				SuperNManager.sendMessage(snplayer, "Not enough power to shoot Grapple Arrow!");
+				SuperNManager.sendMessage(snplayer, "Switching to normal arrows.");
 				hunterMap.put(snplayer, "normal");
 				return false;
 			}
@@ -685,23 +612,18 @@ public class HunterManager extends HumanManager {
 
 	public void splitArrow(final Player player, final Arrow arrow) {
 		if (SNConfigHandler.debugMode) {
-			SupernaturalsPlugin
-					.log(player.getName() + "'s triple arrow event.");
+			SupernaturalsPlugin.log(player.getName() + "'s triple arrow event.");
 		}
 		player.shootArrow();
 		String arrowType = arrowMap.get(arrow);
 		if (arrowType.equals("triple")) {
 			arrowMap.put(arrow, "double");
-			SupernaturalsPlugin.instance
-					.getServer()
-					.getScheduler()
-					.scheduleSyncDelayedTask(SupernaturalsPlugin.instance,
-							new Runnable() {
-								@Override
-								public void run() {
-									splitArrow(player, arrow);
-								}
-							}, 4);
+			SupernaturalsPlugin.instance.getServer().getScheduler().scheduleSyncDelayedTask(SupernaturalsPlugin.instance, new Runnable() {
+				@Override
+				public void run() {
+					splitArrow(player, arrow);
+				}
+			}, 4);
 		} else {
 			arrowMap.remove(arrow);
 		}
@@ -717,24 +639,19 @@ public class HunterManager extends HumanManager {
 		}
 		ArrowUtil gh = new ArrowUtil(player, targetLocation);
 		grapplingPlayers.add(player);
-		SupernaturalsPlugin.instance.getServer().getScheduler()
-				.scheduleSyncDelayedTask(SupernaturalsPlugin.instance, gh);
+		SupernaturalsPlugin.instance.getServer().getScheduler().scheduleSyncDelayedTask(SupernaturalsPlugin.instance, gh);
 	}
 
 	public void stopGrappling(final Player player) {
 		if (isGrappling(player)) {
 			Vector v = new Vector(0, 0, 0);
 			player.setVelocity(v);
-			SupernaturalsPlugin.instance
-					.getServer()
-					.getScheduler()
-					.scheduleSyncDelayedTask(SupernaturalsPlugin.instance,
-							new Runnable() {
-								@Override
-								public void run() {
-									grapplingPlayers.remove(player);
-								}
-							}, 20 * 2);
+			SupernaturalsPlugin.instance.getServer().getScheduler().scheduleSyncDelayedTask(SupernaturalsPlugin.instance, new Runnable() {
+				@Override
+				public void run() {
+					grapplingPlayers.remove(player);
+				}
+			}, 20 * 2);
 		}
 	}
 }

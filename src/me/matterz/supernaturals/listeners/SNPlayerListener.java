@@ -71,10 +71,8 @@ public class SNPlayerListener implements Listener {
 		if (action.equals(Action.RIGHT_CLICK_BLOCK)
 				&& player.getTargetBlock(null, 20).getType() == Material.CLAY) {
 			if (itemMaterial.equals(Material.ENDER_PEARL)) {
-				SuperNManager.sendMessage(snplayer,
-						"The clay changes... it moves...");
-				SuperNManager.sendMessage(snplayer,
-						"It wraps around you, takes over you.");
+				SuperNManager.sendMessage(snplayer, "The clay changes... it moves...");
+				SuperNManager.sendMessage(snplayer, "It wraps around you, takes over you.");
 				SuperNManager.convert(snplayer, "enderborn");
 				if (item.getAmount() == 1) {
 					player.setItemInHand(null);
@@ -84,8 +82,8 @@ public class SNPlayerListener implements Listener {
 				event.setCancelled(true);
 			}
 		}
-		if (!(action.equals(Action.RIGHT_CLICK_AIR) || action
-				.equals(Action.LEFT_CLICK_AIR)) && event.isCancelled()) {
+		if (!(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_AIR))
+				&& event.isCancelled()) {
 			return;
 		}
 
@@ -112,16 +110,12 @@ public class SNPlayerListener implements Listener {
 							+ " activated an Iron Door.");
 				}
 				for (int x = blockLoc.getBlockX() - 2; x < blockLoc.getBlockX() + 3; x++) {
-					for (int y = blockLoc.getBlockY() - 2; y < blockLoc
-							.getBlockY() + 3; y++) {
-						for (int z = blockLoc.getBlockZ() - 2; z < blockLoc
-								.getBlockZ() + 3; z++) {
-							Location newLoc = new Location(block.getWorld(), x,
-									y, z);
+					for (int y = blockLoc.getBlockY() - 2; y < blockLoc.getBlockY() + 3; y++) {
+						for (int z = blockLoc.getBlockZ() - 2; z < blockLoc.getBlockZ() + 3; z++) {
+							Location newLoc = new Location(block.getWorld(), x, y, z);
 							Block newBlock = newLoc.getBlock();
 							if (newBlock.getType().equals(Material.SIGN)
-									|| newBlock.getType().equals(
-											Material.WALL_SIGN)) {
+									|| newBlock.getType().equals(Material.WALL_SIGN)) {
 								if (SNConfigHandler.debugMode) {
 									SupernaturalsPlugin.log(snplayer.getName()
 											+ " found a sign.");
@@ -130,26 +124,19 @@ public class SNPlayerListener implements Listener {
 								String[] text = sign.getLines();
 								for (int i = 0; i < text.length; i++) {
 									if (SNConfigHandler.debugMode) {
-										SupernaturalsPlugin
-												.log("The sign says: "
-														+ text[i]);
+										SupernaturalsPlugin.log("The sign says: "
+												+ text[i]);
 									}
-									if (text[i]
-											.contains(SNConfigHandler.hunterHallMessage)) {
-										if (plugin.getHunterManager()
-												.doorIsOpening(blockLoc)) {
+									if (text[i].contains(SNConfigHandler.hunterHallMessage)) {
+										if (plugin.getHunterManager().doorIsOpening(blockLoc)) {
 											if (SNConfigHandler.debugMode) {
-												SupernaturalsPlugin
-														.log("Cancelled door event.");
+												SupernaturalsPlugin.log("Cancelled door event.");
 											}
 											event.setCancelled(true);
 											return;
 										}
-										Door door = (Door) block.getState()
-												.getData();
-										boolean open = plugin
-												.getHunterManager().doorEvent(
-														player, block, door);
+										Door door = (Door) block.getState().getData();
+										boolean open = plugin.getHunterManager().doorEvent(player, block, door);
 										event.setCancelled(open);
 										return;
 									}
@@ -179,24 +166,19 @@ public class SNPlayerListener implements Listener {
 			return;
 		}
 
-		if (blockMaterial == Material
-				.getMaterial(SNConfigHandler.vampireAltarInfectMaterial)) {
+		if (blockMaterial == Material.getMaterial(SNConfigHandler.vampireAltarInfectMaterial)) {
 			if (SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log(snplayer.getName()
 						+ " triggered a Vampire Infect Altar.");
 			}
-			plugin.getVampireManager().useAltarInfect(player,
-					event.getClickedBlock());
-		} else if (blockMaterial == Material
-				.getMaterial(SNConfigHandler.vampireAltarCureMaterial)) {
+			plugin.getVampireManager().useAltarInfect(player, event.getClickedBlock());
+		} else if (blockMaterial == Material.getMaterial(SNConfigHandler.vampireAltarCureMaterial)) {
 			if (SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log(snplayer.getName()
 						+ " triggered a Vampire Cure Altar.");
 			}
-			plugin.getVampireManager().useAltarCure(player,
-					event.getClickedBlock());
-		} else if (blockMaterial == Material
-				.getMaterial(SNConfigHandler.priestAltarMaterial)) {
+			plugin.getVampireManager().useAltarCure(player, event.getClickedBlock());
+		} else if (blockMaterial == Material.getMaterial(SNConfigHandler.priestAltarMaterial)) {
 			if (SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log(snplayer.getName()
 						+ " triggered a Priest Altar.");
@@ -211,8 +193,8 @@ public class SNPlayerListener implements Listener {
 			return;
 		}
 
-		if (!SupernaturalsPlugin.hasPermissions(event.getPlayer(),
-				worldPermission) && SNConfigHandler.multiworld) {
+		if (!SupernaturalsPlugin.hasPermissions(event.getPlayer(), worldPermission)
+				&& SNConfigHandler.multiworld) {
 			return;
 		}
 
@@ -220,8 +202,7 @@ public class SNPlayerListener implements Listener {
 				|| event.getReason().contains("Flying")) {
 			SuperNPlayer snplayer = SuperNManager.get(event.getPlayer());
 			if (snplayer.isVampire()
-					&& event.getPlayer().getItemInHand().getType().toString()
-							.equalsIgnoreCase(SNConfigHandler.jumpMaterial)) {
+					&& event.getPlayer().getItemInHand().getType().toString().equalsIgnoreCase(SNConfigHandler.jumpMaterial)) {
 				event.setCancelled(true);
 				if (SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log(event.getPlayer().getName()

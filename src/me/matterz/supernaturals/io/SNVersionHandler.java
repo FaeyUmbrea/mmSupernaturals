@@ -18,8 +18,7 @@ public class SNVersionHandler {
 	public static void writeVersion() {
 		try {
 			versionFile.createNewFile();
-			BufferedWriter vout = new BufferedWriter(
-					new FileWriter(versionFile));
+			BufferedWriter vout = new BufferedWriter(new FileWriter(versionFile));
 			vout.write(plugin.getDescription().getVersion());
 			vout.close();
 		} catch (IOException ex) {

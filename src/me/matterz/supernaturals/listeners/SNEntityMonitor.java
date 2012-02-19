@@ -62,22 +62,17 @@ public class SNEntityMonitor implements Listener {
 			Arrow arrow = (Arrow) event.getEntity();
 			if (plugin.getHunterManager().getArrowMap().containsKey(arrow)) {
 				Player player = (Player) arrow.getShooter();
-				if (!SupernaturalsPlugin
-						.hasPermissions(player, worldPermission)
+				if (!SupernaturalsPlugin.hasPermissions(player, worldPermission)
 						&& SNConfigHandler.multiworld) {
 					return;
 				}
-				String arrowType = plugin.getHunterManager().getArrowMap()
-						.get(arrow);
+				String arrowType = plugin.getHunterManager().getArrowMap().get(arrow);
 				if (arrowType.equalsIgnoreCase("grapple")) {
-					plugin.getHunterManager().startGrappling(player,
-							arrow.getLocation());
+					plugin.getHunterManager().startGrappling(player, arrow.getLocation());
 				} else if (arrowType.equalsIgnoreCase("fire")) {
 					arrow.getLocation();
-					Block block = arrow.getWorld().getBlockAt(
-							arrow.getLocation());
-					if (SNConfigHandler.burnableBlocks
-							.contains(block.getType())) {
+					Block block = arrow.getWorld().getBlockAt(arrow.getLocation());
+					if (SNConfigHandler.burnableBlocks.contains(block.getType())) {
 						block.setType(Material.FIRE);
 					}
 				}
@@ -121,12 +116,10 @@ public class SNEntityMonitor implements Listener {
 
 				// Break vampire truce
 				if (snDamager.isVampire()
-						&& SNConfigHandler.vampireTruce.contains(EntityUtil
-								.creatureTypeFromEntity(cVictim))) {
+						&& SNConfigHandler.vampireTruce.contains(EntityUtil.creatureTypeFromEntity(cVictim))) {
 					plugin.getSuperManager().truceBreak(snDamager);
 				} else if (snDamager.isGhoul()
-						&& SNConfigHandler.ghoulTruce.contains(EntityUtil
-								.creatureTypeFromEntity(cVictim))) {
+						&& SNConfigHandler.ghoulTruce.contains(EntityUtil.creatureTypeFromEntity(cVictim))) {
 					plugin.getSuperManager().truceBreak(snDamager);
 				}
 			}
@@ -142,11 +135,9 @@ public class SNEntityMonitor implements Listener {
 		Event e = entity.getLastDamageCause();
 		if (e instanceof EntityDamageByEntityEvent) {
 			if (((EntityDamageByEntityEvent) e).getDamager() instanceof LivingEntity) {
-				lDamager = (LivingEntity) ((EntityDamageByEntityEvent) e)
-						.getDamager();
+				lDamager = (LivingEntity) ((EntityDamageByEntityEvent) e).getDamager();
 			} else if (((EntityDamageByEntityEvent) e).getDamager() instanceof Projectile) {
-				lDamager = ((Projectile) ((EntityDamageByEntityEvent) e)
-						.getDamager()).getShooter();
+				lDamager = ((Projectile) ((EntityDamageByEntityEvent) e).getDamager()).getShooter();
 			}
 		}
 
@@ -169,13 +160,12 @@ public class SNEntityMonitor implements Listener {
 
 		if (entity instanceof Creature) {
 			if (pDamager != null) {
-				if (!SupernaturalsPlugin.hasPermissions(pDamager,
-						worldPermission) && SNConfigHandler.multiworld) {
+				if (!SupernaturalsPlugin.hasPermissions(pDamager, worldPermission)
+						&& SNConfigHandler.multiworld) {
 					return;
 				}
 				SuperNPlayer snDamager = SuperNManager.get(pDamager);
-				SupernaturalsPlugin.instance.getClassManager(pDamager)
-						.killEvent(pDamager, snDamager, null);
+				SupernaturalsPlugin.instance.getClassManager(pDamager).killEvent(pDamager, snDamager, null);
 			}
 		}
 
@@ -206,11 +196,8 @@ public class SNEntityMonitor implements Listener {
 				}
 				if (snplayer.isHunter()) {
 					if (snDamager.equals(snplayer)) {
-						SuperNManager.sendMessage(snplayer,
-								"You have killed yourself!");
-						SuperNManager
-								.sendMessage(snplayer,
-										"This action, voluntary or not, has rescinded your status as a WitchHunter.");
+						SuperNManager.sendMessage(snplayer, "You have killed yourself!");
+						SuperNManager.sendMessage(snplayer, "This action, voluntary or not, has rescinded your status as a WitchHunter.");
 						SuperNManager.cure(snplayer);
 						if (SNConfigHandler.debugMode) {
 							SupernaturalsPlugin.log("Player "
@@ -220,8 +207,7 @@ public class SNEntityMonitor implements Listener {
 				} else if (snDamager.isHuman()) {
 					ArrayList<String> supersKilled = new ArrayList<String>();
 					if (plugin.getDataHandler().playerHasApp(snDamager)) {
-						supersKilled = plugin.getDataHandler().getPlayerApp(
-								snDamager);
+						supersKilled = plugin.getDataHandler().getPlayerApp(snDamager);
 						if (!supersKilled.contains(snplayer.getType())) {
 							supersKilled.add(snplayer.getType());
 							if (supersKilled.size() >= 3) {
@@ -231,21 +217,17 @@ public class SNEntityMonitor implements Listener {
 					} else {
 						supersKilled.add(snplayer.getType());
 					}
-					plugin.getDataHandler().addPlayerApp(snDamager,
-							supersKilled);
+					plugin.getDataHandler().addPlayerApp(snDamager, supersKilled);
 				}
-				SupernaturalsPlugin.instance.getClassManager(pDamager)
-						.killEvent(pDamager, snDamager, snplayer);
+				SupernaturalsPlugin.instance.getClassManager(pDamager).killEvent(pDamager, snDamager, snplayer);
 			} else if (lDamager instanceof Wolf) {
 				Wolf wolf = (Wolf) lDamager;
 				if (!wolf.isTamed()) {
-					SupernaturalsPlugin.instance.getClassManager(pVictim)
-							.deathEvent(pVictim);
+					SupernaturalsPlugin.instance.getClassManager(pVictim).deathEvent(pVictim);
 					return;
 				}
 				if (!(wolf.getOwner() instanceof Player)) {
-					SupernaturalsPlugin.instance.getClassManager(pVictim)
-							.deathEvent(pVictim);
+					SupernaturalsPlugin.instance.getClassManager(pVictim).deathEvent(pVictim);
 					return;
 				}
 				pDamager = (Player) wolf.getOwner();
@@ -255,11 +237,9 @@ public class SNEntityMonitor implements Listener {
 							+ " with wolf.");
 				}
 				SuperNPlayer snDamager = SuperNManager.get(pDamager);
-				SupernaturalsPlugin.instance.getClassManager(pDamager)
-						.killEvent(pDamager, snDamager, snplayer);
+				SupernaturalsPlugin.instance.getClassManager(pDamager).killEvent(pDamager, snDamager, snplayer);
 			}
 		}
-		SupernaturalsPlugin.instance.getClassManager(pVictim).deathEvent(
-				pVictim);
+		SupernaturalsPlugin.instance.getClassManager(pVictim).deathEvent(pVictim);
 	}
 }

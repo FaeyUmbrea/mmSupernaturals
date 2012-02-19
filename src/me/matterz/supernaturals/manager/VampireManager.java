@@ -59,13 +59,11 @@ public class VampireManager extends ClassManager {
 		SuperNPlayer snVictim = SuperNManager.get(victim);
 		if (event.getCause().equals(DamageCause.DROWNING)) {
 			if (snVictim.getPower() > SNConfigHandler.vampireDrowningCost) {
-				SuperNManager.alterPower(snVictim,
-						-SNConfigHandler.vampireDrowningCost, "Water!");
+				SuperNManager.alterPower(snVictim, -SNConfigHandler.vampireDrowningCost, "Water!");
 				event.setCancelled(true);
 				return 0;
 			} else {
-				SuperNManager.sendMessage(snVictim,
-						"Not enough power to prevent water damage!");
+				SuperNManager.sendMessage(snVictim, "Not enough power to prevent water damage!");
 				return damage;
 			}
 		} else if (event.getCause().equals(DamageCause.FALL)) {
@@ -82,12 +80,10 @@ public class VampireManager extends ClassManager {
 
 				if (SNConfigHandler.woodMaterials.contains(item.getType())) {
 					damage += damage * SNConfigHandler.woodFactor;
-					SuperNManager.sendMessage(snVictim,
-							"Vampires have a weakness to wood!");
+					SuperNManager.sendMessage(snVictim, "Vampires have a weakness to wood!");
 				} else {
 					damage -= damage
-							* snVictim
-									.scale(1 - SNConfigHandler.vampireDamageReceivedFactor);
+							* snVictim.scale(1 - SNConfigHandler.vampireDamageReceivedFactor);
 				}
 			}
 		}
@@ -102,19 +98,15 @@ public class VampireManager extends ClassManager {
 
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
-		SuperNManager.alterPower(snplayer,
-				-SNConfigHandler.vampireDeathPowerPenalty, "You died!");
+		SuperNManager.alterPower(snplayer, -SNConfigHandler.vampireDeathPowerPenalty, "You died!");
 	}
 
 	@Override
-	public void killEvent(Player pDamager, SuperNPlayer damager,
-			SuperNPlayer victim) {
+	public void killEvent(Player pDamager, SuperNPlayer damager, SuperNPlayer victim) {
 		if (victim == null) {
 			pDamager.setFoodLevel(pDamager.getFoodLevel()
 					+ SNConfigHandler.vampireHungerRegainMob);
-			SuperNManager.alterPower(damager,
-					SNConfigHandler.vampireKillPowerCreatureGain,
-					"Creature death!");
+			SuperNManager.alterPower(damager, SNConfigHandler.vampireKillPowerCreatureGain, "Creature death!");
 		} else {
 			if (!victim.isSuper()) {
 				pDamager.setFoodLevel(pDamager.getFoodLevel()
@@ -122,19 +114,13 @@ public class VampireManager extends ClassManager {
 			}
 			double random = Math.random();
 			if (victim.getPower() > SNConfigHandler.vampireKillPowerPlayerGain) {
-				SuperNManager.alterPower(damager,
-						SNConfigHandler.vampireKillPowerPlayerGain,
-						"Player killed!");
+				SuperNManager.alterPower(damager, SNConfigHandler.vampireKillPowerPlayerGain, "Player killed!");
 			} else {
-				SuperNManager
-						.sendMessage(damager,
-								"You cannot gain power from a player with no power themselves.");
+				SuperNManager.sendMessage(damager, "You cannot gain power from a player with no power themselves.");
 			}
 			if (SNConfigHandler.vampireKillSpreadCurse && !victim.isSuper()) {
 				if (random < SNConfigHandler.spreadChance) {
-					SuperNManager
-							.sendMessage(victim,
-									"You feel your heart stop! You have contracted vampirism.");
+					SuperNManager.sendMessage(victim, "You feel your heart stop! You have contracted vampirism.");
 					SuperNManager.convert(victim, "vampire");
 				}
 			}
@@ -155,8 +141,7 @@ public class VampireManager extends ClassManager {
 						+ " was not allowed to use "
 						+ item.getType().toString());
 			}
-			SuperNManager.sendMessage(snDamager,
-					"Vampires cannot use this weapon!");
+			SuperNManager.sendMessage(snDamager, "Vampires cannot use this weapon!");
 			return 0;
 		}
 
@@ -182,22 +167,18 @@ public class VampireManager extends ClassManager {
 				return false;
 			}
 
-			if (itemMaterial.toString().equalsIgnoreCase(
-					SNConfigHandler.jumpMaterial)) {
-				SuperNManager
-						.jump(player, SNConfigHandler.jumpDeltaSpeed, true);
+			if (itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.jumpMaterial)) {
+				SuperNManager.jump(player, SNConfigHandler.jumpDeltaSpeed, true);
 				event.setCancelled(true);
 				return true;
-			} else if (itemMaterial.toString().equalsIgnoreCase(
-					SNConfigHandler.vampireMaterial)) {
+			} else if (itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.vampireMaterial)) {
 				teleport(player);
 				event.setCancelled(true);
 				return true;
 			}
 		}
 
-		if (!(action.equals(Action.RIGHT_CLICK_AIR) || action
-				.equals(Action.RIGHT_CLICK_BLOCK))) {
+		if (!(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK))) {
 			return false;
 		}
 
@@ -206,12 +187,10 @@ public class VampireManager extends ClassManager {
 				SupernaturalsPlugin.log(snplayer.getName()
 						+ " attempted to eat " + itemMaterial.toString());
 			}
-			SuperNManager.sendMessage(snplayer,
-					"Vampires can't eat food. You must drink blood instead.");
+			SuperNManager.sendMessage(snplayer, "Vampires can't eat food. You must drink blood instead.");
 			event.setCancelled(true);
 			return true;
-		} else if (itemMaterial.toString().equalsIgnoreCase(
-				SNConfigHandler.vampireTeleportMaterial)) {
+		} else if (itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.vampireTeleportMaterial)) {
 			setTeleport(player);
 			return true;
 		}
@@ -279,10 +258,8 @@ public class VampireManager extends ClassManager {
 		ItemStack item = player.getItemInHand();
 		if (SupernaturalsPlugin.instance.getDataHandler().checkPlayer(snplayer)) {
 			if (snplayer.getPower() > SNConfigHandler.vampireTeleportCost) {
-				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.vampireTeleportCost, "Teleport!");
-				player.teleport(SupernaturalsPlugin.instance.getDataHandler()
-						.getTeleport(snplayer));
+				SuperNManager.alterPower(snplayer, -SNConfigHandler.vampireTeleportCost, "Teleport!");
+				player.teleport(SupernaturalsPlugin.instance.getDataHandler().getTeleport(snplayer));
 				if (item.getAmount() == 1) {
 					player.setItemInHand(null);
 				} else {
@@ -290,13 +267,11 @@ public class VampireManager extends ClassManager {
 				}
 				return true;
 			} else {
-				SuperNManager.sendMessage(snplayer,
-						"Not enough power to teleport.");
+				SuperNManager.sendMessage(snplayer, "Not enough power to teleport.");
 				return false;
 			}
 		} else {
-			SuperNManager.sendMessage(snplayer,
-					"You have not set a teleport location yet!");
+			SuperNManager.sendMessage(snplayer, "You have not set a teleport location yet!");
 			return false;
 		}
 	}
@@ -310,25 +285,19 @@ public class VampireManager extends ClassManager {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
 		// The altar must be big enough
-		int count = GeometryUtil
-				.countNearby(
-						centerBlock,
-						Material.getMaterial(SNConfigHandler.vampireAltarInfectMaterialSurround),
-						SNConfigHandler.vampireAltarInfectMaterialRadius);
+		int count = GeometryUtil.countNearby(centerBlock, Material.getMaterial(SNConfigHandler.vampireAltarInfectMaterialSurround), SNConfigHandler.vampireAltarInfectMaterialRadius);
 		if (count == 0) {
 			return;
 		}
 
 		if (count < SNConfigHandler.vampireAltarInfectMaterialSurroundCount) {
 			SuperNManager.sendMessage(snplayer, "Something happens... The "
-					+ SNConfigHandler.vampireAltarInfectMaterial.toLowerCase()
-							.replace('_', ' ')
+					+ SNConfigHandler.vampireAltarInfectMaterial.toLowerCase().replace('_', ' ')
 					+ " draws energy from the "
-					+ SNConfigHandler.vampireAltarInfectMaterialSurround
-							.toLowerCase().replace('_', ' ')
+					+ SNConfigHandler.vampireAltarInfectMaterialSurround.toLowerCase().replace('_', ' ')
 					+ "... But there doesn't seem to be enough "
-					+ SNConfigHandler.vampireAltarInfectMaterialSurround
-							.toLowerCase().replace('_', ' ') + " nearby.");
+					+ SNConfigHandler.vampireAltarInfectMaterialSurround.toLowerCase().replace('_', ' ')
+					+ " nearby.");
 			return;
 		}
 
@@ -337,40 +306,27 @@ public class VampireManager extends ClassManager {
 
 		// Is Vampire
 		if (snplayer.isVampire()) {
-			SuperNManager.sendMessage(snplayer,
-					"This is of no use to you as you are already a vampire.");
+			SuperNManager.sendMessage(snplayer, "This is of no use to you as you are already a vampire.");
 			return;
 		} else if (snplayer.isSuper()) {
-			SuperNManager
-					.sendMessage(snplayer,
-							"This is of no use to you as you are already supernatural.");
+			SuperNManager.sendMessage(snplayer, "This is of no use to you as you are already supernatural.");
 			return;
 		}
 
 		// Is healthy and thus can be infected...
 		if (SNConfigHandler.vampireAltarInfectRecipe.playerHasEnough(player)) {
-			SuperNManager.sendMessage(snplayer,
-					"You use these items on the altar:");
-			SuperNManager.sendMessage(snplayer,
-					SNConfigHandler.vampireAltarInfectRecipe.getRecipeLine());
-			SuperNManager
-					.sendMessage(
-							snplayer,
-							"The "
-									+ SNConfigHandler.vampireAltarInfectMaterial
-											.toLowerCase().replace('_', ' ')
-									+ " draws energy from the "
-									+ SNConfigHandler.vampireAltarInfectMaterialSurround
-											.toLowerCase().replace('_', ' ')
-									+ "... The energy rushes through you and you feel a bitter cold...");
+			SuperNManager.sendMessage(snplayer, "You use these items on the altar:");
+			SuperNManager.sendMessage(snplayer, SNConfigHandler.vampireAltarInfectRecipe.getRecipeLine());
+			SuperNManager.sendMessage(snplayer, "The "
+					+ SNConfigHandler.vampireAltarInfectMaterial.toLowerCase().replace('_', ' ')
+					+ " draws energy from the "
+					+ SNConfigHandler.vampireAltarInfectMaterialSurround.toLowerCase().replace('_', ' ')
+					+ "... The energy rushes through you and you feel a bitter cold...");
 			SNConfigHandler.vampireAltarInfectRecipe.removeFromPlayer(player);
-			SuperNManager.convert(snplayer, "vampire",
-					SNConfigHandler.vampirePowerStart);
+			SuperNManager.convert(snplayer, "vampire", SNConfigHandler.vampirePowerStart);
 		} else {
-			SuperNManager.sendMessage(snplayer,
-					"To use it you need to collect these ingredients:");
-			SuperNManager.sendMessage(snplayer,
-					SNConfigHandler.vampireAltarInfectRecipe.getRecipeLine());
+			SuperNManager.sendMessage(snplayer, "To use it you need to collect these ingredients:");
+			SuperNManager.sendMessage(snplayer, SNConfigHandler.vampireAltarInfectRecipe.getRecipeLine());
 		}
 	}
 
@@ -378,23 +334,19 @@ public class VampireManager extends ClassManager {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
 		// Altar must be big enough
-		int count = GeometryUtil.countNearby(centerBlock, Material
-				.getMaterial(SNConfigHandler.vampireAltarCureMaterialSurround),
-				SNConfigHandler.vampireAltarCureMaterialRadius);
+		int count = GeometryUtil.countNearby(centerBlock, Material.getMaterial(SNConfigHandler.vampireAltarCureMaterialSurround), SNConfigHandler.vampireAltarCureMaterialRadius);
 		if (count == 0) {
 			return;
 		}
 
 		if (count < SNConfigHandler.vampireAltarCureMaterialSurroundCount) {
 			SuperNManager.sendMessage(snplayer, "Something happens... The "
-					+ SNConfigHandler.vampireAltarCureMaterial.toLowerCase()
-							.replace('_', ' ').replace('_', ' ')
+					+ SNConfigHandler.vampireAltarCureMaterial.toLowerCase().replace('_', ' ').replace('_', ' ')
 					+ " draws energy from the "
-					+ SNConfigHandler.vampireAltarCureMaterialSurround
-							.toLowerCase().replace('_', ' ')
+					+ SNConfigHandler.vampireAltarCureMaterialSurround.toLowerCase().replace('_', ' ')
 					+ "... But there doesn't seem to be enough "
-					+ SNConfigHandler.vampireAltarCureMaterialSurround
-							.toLowerCase().replace('_', ' ') + " nearby.");
+					+ SNConfigHandler.vampireAltarCureMaterialSurround.toLowerCase().replace('_', ' ')
+					+ " nearby.");
 			return;
 		}
 
@@ -403,34 +355,24 @@ public class VampireManager extends ClassManager {
 
 		// If healthy
 		if (!snplayer.isVampire()) {
-			SuperNManager.sendMessage(snplayer,
-					"It can probably cure curses, but you feel fine.");
+			SuperNManager.sendMessage(snplayer, "It can probably cure curses, but you feel fine.");
 			return;
 		}
 
 		// Is vampire and thus can be cured...
 		else if (SNConfigHandler.vampireAltarCureRecipe.playerHasEnough(player)) {
-			SuperNManager.sendMessage(snplayer,
-					"You use these items on the altar:");
-			SuperNManager.sendMessage(snplayer,
-					SNConfigHandler.vampireAltarCureRecipe.getRecipeLine());
-			SuperNManager
-					.sendMessage(
-							snplayer,
-							"The "
-									+ SNConfigHandler.vampireAltarCureMaterial
-											.toLowerCase().replace('_', ' ')
-									+ " draws energy from the "
-									+ SNConfigHandler.vampireAltarCureMaterialSurround
-											.toLowerCase().replace('_', ' ')
-									+ "... Then the energy rushes through you and you feel pure and clean.");
+			SuperNManager.sendMessage(snplayer, "You use these items on the altar:");
+			SuperNManager.sendMessage(snplayer, SNConfigHandler.vampireAltarCureRecipe.getRecipeLine());
+			SuperNManager.sendMessage(snplayer, "The "
+					+ SNConfigHandler.vampireAltarCureMaterial.toLowerCase().replace('_', ' ')
+					+ " draws energy from the "
+					+ SNConfigHandler.vampireAltarCureMaterialSurround.toLowerCase().replace('_', ' ')
+					+ "... Then the energy rushes through you and you feel pure and clean.");
 			SNConfigHandler.vampireAltarCureRecipe.removeFromPlayer(player);
 			SuperNManager.cure(snplayer);
 		} else {
-			SuperNManager.sendMessage(snplayer,
-					"To use it you need to collect these ingredients:");
-			SuperNManager.sendMessage(snplayer,
-					SNConfigHandler.vampireAltarCureRecipe.getRecipeLine());
+			SuperNManager.sendMessage(snplayer, "To use it you need to collect these ingredients:");
+			SuperNManager.sendMessage(snplayer, SNConfigHandler.vampireAltarCureRecipe.getRecipeLine());
 		}
 	}
 
@@ -456,8 +398,7 @@ public class VampireManager extends ClassManager {
 
 		if (player.getFireTicks() <= 0
 				&& SNConfigHandler.vampireBurnMessageEnabled) {
-			SuperNManager.sendMessage(snplayer,
-					"Vampires burn in sunlight! Take cover!");
+			SuperNManager.sendMessage(snplayer, "Vampires burn in sunlight! Take cover!");
 		}
 
 		player.setFireTicks(ticksTillNext
@@ -486,8 +427,7 @@ public class VampireManager extends ClassManager {
 	}
 
 	public boolean hasHelmet(Player player) {
-		if (player.getInventory().getHelmet().getType().toString()
-				.equalsIgnoreCase(SNConfigHandler.vampireHelmet)) {
+		if (player.getInventory().getHelmet().getType().toString().equalsIgnoreCase(SNConfigHandler.vampireHelmet)) {
 			return true;
 		}
 		return false;
@@ -514,8 +454,7 @@ public class VampireManager extends ClassManager {
 			while (blockCurrent.getY() + 1 <= 127) {
 				blockCurrent = blockCurrent.getRelative(BlockFace.UP);
 
-				opacity = SNConfigHandler.materialOpacity.get(blockCurrent
-						.getType());
+				opacity = SNConfigHandler.materialOpacity.get(blockCurrent.getType());
 				if (opacity == null) {
 					retVal = true; // Blocks not in that map have opacity 1;
 					break;

@@ -31,15 +31,12 @@ public class SNServerMonitor implements Listener {
 		} else if (enabledPlugin.toString().startsWith("GroupManager")) {
 			SupernaturalsPlugin.log("Found GroupManager");
 			SupernaturalsPlugin.foundPerms = true;
-		} else if (enabledPlugin.toString()
-				.startsWith("EssentialsGroupManager")) {
+		} else if (enabledPlugin.toString().startsWith("EssentialsGroupManager")) {
 			SupernaturalsPlugin.log("Found EssentialsGroupManager");
 			SupernaturalsPlugin.foundPerms = true;
 		} else if (enabledPlugin.toString().startsWith("bPermissions")) {
 			SupernaturalsPlugin.log("Found bPermissions.");
-			SupernaturalsPlugin
-					.log(Level.WARNING,
-							"If something goes wrong with bPermissions and this plugin, I will not help!");
+			SupernaturalsPlugin.log(Level.WARNING, "If something goes wrong with bPermissions and this plugin, I will not help!");
 			SupernaturalsPlugin.foundPerms = true;
 		} else if (enabledPlugin.toString().startsWith("PermissionsBukkit")) {
 			SupernaturalsPlugin.log("Found PermissionsBukkit!");

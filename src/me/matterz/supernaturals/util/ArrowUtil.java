@@ -59,37 +59,29 @@ public class ArrowUtil implements Runnable {
 	@Override
 	public void run() {
 		if (arrow != null) {
-			SupernaturalsPlugin.instance.getHunterManager().splitArrow(player,
-					arrow);
+			SupernaturalsPlugin.instance.getHunterManager().splitArrow(player, arrow);
 			return;
 		} else {
 			if (player.getLocation().distance(targetLocation) < 3) {
-				SupernaturalsPlugin.instance.getHunterManager().stopGrappling(
-						player);
+				SupernaturalsPlugin.instance.getHunterManager().stopGrappling(player);
 				return;
 			}
 
-			if (startTime + 500 + grappleDistance * 70 < System
-					.currentTimeMillis()) {
-				SupernaturalsPlugin.instance.getHunterManager().stopGrappling(
-						player);
+			if (startTime + 500 + grappleDistance * 70 < System.currentTimeMillis()) {
+				SupernaturalsPlugin.instance.getHunterManager().stopGrappling(player);
 				return;
 			}
 
-			Vector travelVector = targetLocation.toVector()
-					.subtract(player.getLocation().toVector()).normalize();
+			Vector travelVector = targetLocation.toVector().subtract(player.getLocation().toVector()).normalize();
 
 			// Always move slightly upwards to combat the evil force of gravity!
-			travelVector = travelVector.setY(travelVector.getY() + 0.2)
-					.normalize();
+			travelVector = travelVector.setY(travelVector.getY() + 0.2).normalize();
 
 			// set travel speed
 			travelVector = travelVector.multiply(1.0);
 			player.setVelocity(travelVector);
-			ArrowUtil gh = new ArrowUtil(player, targetLocation, startTime,
-					grappleDistance);
-			SupernaturalsPlugin.instance.getServer().getScheduler()
-					.scheduleSyncDelayedTask(SupernaturalsPlugin.instance, gh);
+			ArrowUtil gh = new ArrowUtil(player, targetLocation, startTime, grappleDistance);
+			SupernaturalsPlugin.instance.getServer().getScheduler().scheduleSyncDelayedTask(SupernaturalsPlugin.instance, gh);
 		}
 	}
 }

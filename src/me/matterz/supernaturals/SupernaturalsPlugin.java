@@ -266,8 +266,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	// -------------------------------------------- //
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd,
-			String commandLabel, String[] args) {
+	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (sender instanceof Player) {
 			List<String> parameters = new ArrayList<String>(Arrays.asList(args));
 			if (SNConfigHandler.debugMode) {
@@ -289,8 +288,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		}
 	}
 
-	public void handleCommand(CommandSender sender, List<String> parameters,
-			boolean isPlayer) {
+	public void handleCommand(CommandSender sender, List<String> parameters, boolean isPlayer) {
 		if (parameters.size() == 0) {
 			for (SNCommand vampcommand : commands) {
 				if (vampcommand.getName().equalsIgnoreCase("help")) {
@@ -366,8 +364,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 			foundPerms = true;
 		} else if (pm.isPluginEnabled("bPermissions")) {
 			log("Found bPermissions.");
-			log(Level.WARNING,
-					"If something goes wrong with bPermissions and this plugin, I will not help!");
+			log(Level.WARNING, "If something goes wrong with bPermissions and this plugin, I will not help!");
 			foundPerms = true;
 		} else if (pm.isPluginEnabled("GroupManager")) {
 			log("Found GroupManager");
@@ -388,8 +385,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		pm.addPermission(new Permission("supernatural.command.killlist"));
 		pm.addPermission(new Permission("supernatural.player.shrineuse"));
 		pm.addPermission(new Permission("supernatural.player.wolfbane"));
-		pm.addPermission(new Permission(
-				"supernatural.player.preventwaterdamage"));
+		pm.addPermission(new Permission("supernatural.player.preventwaterdamage"));
 		pm.addPermission(new Permission("supernatural.player.preventsundamage"));
 		pm.addPermission(new Permission("supernatural.player.witchhuntersign"));
 		pm.addPermission(new Permission("supernatural.admin.infinitepower"));
@@ -422,27 +418,23 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	}
 
 	public boolean getPvP(Player player) {
-		WorldGuardPlugin worldGuard = SupernaturalsPlugin.instance
-				.getWorldGuard();
+		WorldGuardPlugin worldGuard = SupernaturalsPlugin.instance.getWorldGuard();
 		if (worldGuard == null) {
 			return true;
 		}
 		Vector pt = toVector(player.getLocation());
-		RegionManager regionManager = worldGuard.getRegionManager(player
-				.getWorld());
+		RegionManager regionManager = worldGuard.getRegionManager(player.getWorld());
 		ApplicableRegionSet set = regionManager.getApplicableRegions(pt);
 		return set.allows(DefaultFlag.PVP);
 	}
 
 	public boolean getSpawn(Player player) {
-		WorldGuardPlugin worldGuard = SupernaturalsPlugin.instance
-				.getWorldGuard();
+		WorldGuardPlugin worldGuard = SupernaturalsPlugin.instance.getWorldGuard();
 		if (worldGuard == null) {
 			return true;
 		}
 		Vector pt = toVector(player.getLocation());
-		RegionManager regionManager = worldGuard.getRegionManager(player
-				.getWorld());
+		RegionManager regionManager = worldGuard.getRegionManager(player.getWorld());
 		ApplicableRegionSet set = regionManager.getApplicableRegions(pt);
 		return set.allows(DefaultFlag.MOB_SPAWNING);
 	}
@@ -456,8 +448,8 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	}
 
 	public static void log(Level level, String msg) {
-		Logger.getLogger("Minecraft").log(level,
-				"[" + instance.getDescription().getFullName() + "] " + msg);
+		Logger.getLogger("Minecraft").log(level, "["
+				+ instance.getDescription().getFullName() + "] " + msg);
 	}
 
 }

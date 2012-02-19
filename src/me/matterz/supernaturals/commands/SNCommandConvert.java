@@ -53,8 +53,7 @@ public class SNCommandConvert extends SNCommand {
 			} else {
 				String playername = parameters.get(0);
 				String superType = parameters.get(1).toLowerCase();
-				Player player = SupernaturalsPlugin.instance.getServer()
-						.getPlayer(playername);
+				Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
 
 				if (player == null) {
 					if (!SNConfigHandler.spanish) {
@@ -82,8 +81,7 @@ public class SNCommandConvert extends SNCommand {
 								+ ChatColor.RED + " is already a "
 								+ ChatColor.WHITE + superType + ChatColor.RED
 								+ " !");
-					} else if (snplayer.getOldType()
-							.equalsIgnoreCase(superType)) {
+					} else if (snplayer.getOldType().equalsIgnoreCase(superType)) {
 						this.sendMessage(ChatColor.WHITE + player.getName()
 								+ ChatColor.RED + " was turned BACK into a "
 								+ ChatColor.WHITE + superType + ChatColor.RED
@@ -102,8 +100,7 @@ public class SNCommandConvert extends SNCommand {
 								+ ChatColor.RED + " ya es un "
 								+ ChatColor.WHITE + superType + ChatColor.RED
 								+ " !");
-					} else if (snplayer.getOldType()
-							.equalsIgnoreCase(superType)) {
+					} else if (snplayer.getOldType().equalsIgnoreCase(superType)) {
 						this.sendMessage(ChatColor.WHITE + sender.getName()
 								+ ChatColor.RED + " se convirtio de nuevo en "
 								+ ChatColor.WHITE + superType + ChatColor.RED
@@ -193,8 +190,7 @@ public class SNCommandConvert extends SNCommand {
 			}
 			String playername = parameters.get(0);
 			String superType = parameters.get(1).toLowerCase();
-			Player player = SupernaturalsPlugin.instance.getServer().getPlayer(
-					playername);
+			Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
 
 			if (player == null) {
 				if (!SNConfigHandler.spanish) {

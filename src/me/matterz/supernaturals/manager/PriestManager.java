@@ -69,14 +69,12 @@ public class PriestManager extends HumanManager {
 						+ " was not allowed to use "
 						+ item.getType().toString());
 			}
-			SuperNManager.sendMessage(snDamager,
-					"Priests cannot use this weapon!");
+			SuperNManager.sendMessage(snDamager, "Priests cannot use this weapon!");
 			return 0;
 		}
 
 		if (victim instanceof Animals && !(victim instanceof Wolf)) {
-			SuperNManager.sendMessage(SuperNManager.get(pDamager),
-					"You cannot hurt innocent animals.");
+			SuperNManager.sendMessage(SuperNManager.get(pDamager), "You cannot hurt innocent animals.");
 			damage = 0;
 		} else if (victim instanceof Player) {
 			Player pVictim = (Player) victim;
@@ -89,12 +87,10 @@ public class PriestManager extends HumanManager {
 					pVictim.setFireTicks(SNConfigHandler.priestFireTicks);
 				}
 				damage += damage
-						* SuperNManager.get(pDamager).scale(
-								SNConfigHandler.priestDamageFactorAttackSuper);
+						* SuperNManager.get(pDamager).scale(SNConfigHandler.priestDamageFactorAttackSuper);
 			} else {
 				damage += damage
-						* SuperNManager.get(pDamager).scale(
-								SNConfigHandler.priestDamageFactorAttackHuman);
+						* SuperNManager.get(pDamager).scale(SNConfigHandler.priestDamageFactorAttackHuman);
 			}
 		} else if (victim instanceof Monster) {
 			Monster mVictim = (Monster) victim;
@@ -107,13 +103,11 @@ public class PriestManager extends HumanManager {
 	public void deathEvent(Player player) {
 		super.deathEvent(player);
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		SuperNManager.alterPower(snplayer,
-				-SNConfigHandler.priestDeathPowerPenalty, "You died!");
+		SuperNManager.alterPower(snplayer, -SNConfigHandler.priestDeathPowerPenalty, "You died!");
 	}
 
 	@Override
-	public void killEvent(Player pDamager, SuperNPlayer damager,
-			SuperNPlayer victim) {
+	public void killEvent(Player pDamager, SuperNPlayer damager, SuperNPlayer victim) {
 	}
 
 	// -------------------------------------------- //
@@ -191,16 +185,13 @@ public class PriestManager extends HumanManager {
 				if (Math.abs(locY - SNConfigHandler.priestChurchLocationY) <= 10) {
 					if (Math.abs(locZ - SNConfigHandler.priestChurchLocationZ) <= 10) {
 						if (snplayer.isPriest()) {
-							if (player.getItemInHand().getType()
-									.equals(Material.COAL)) {
-								SuperNManager.sendMessage(snplayer,
-										"The Church excommunicates you!");
+							if (player.getItemInHand().getType().equals(Material.COAL)) {
+								SuperNManager.sendMessage(snplayer, "The Church excommunicates you!");
 								SuperNManager.cure(snplayer);
 							} else {
 								PlayerInventory inv = player.getInventory();
 								ItemStack[] items = inv.getContents();
-								for (Material mat : SNConfigHandler.priestDonationMap
-										.keySet()) {
+								for (Material mat : SNConfigHandler.priestDonationMap.keySet()) {
 									for (ItemStack itemStack : items) {
 										if (itemStack != null) {
 											if (itemStack.getType().equals(mat)) {
@@ -209,31 +200,21 @@ public class PriestManager extends HumanManager {
 										}
 									}
 									delta += amount
-											* SNConfigHandler.priestDonationMap
-													.get(mat);
+											* SNConfigHandler.priestDonationMap.get(mat);
 									amount = 0;
 								}
-								for (Material mat : SNConfigHandler.priestDonationMap
-										.keySet()) {
+								for (Material mat : SNConfigHandler.priestDonationMap.keySet()) {
 									inv.remove(mat);
 								}
 								player.updateInventory();
-								SuperNManager
-										.sendMessage(
-												snplayer,
-												"The Church accepts your gracious donations of Bread, Fish, Grilled Pork and Apples.");
-								SuperNManager.alterPower(snplayer, delta,
-										"Donations!");
+								SuperNManager.sendMessage(snplayer, "The Church accepts your gracious donations of Bread, Fish, Grilled Pork and Apples.");
+								SuperNManager.alterPower(snplayer, delta, "Donations!");
 							}
 						} else {
-							SuperNManager.sendMessage(snplayer,
-									"The Church Altar radiates holy power.");
+							SuperNManager.sendMessage(snplayer, "The Church Altar radiates holy power.");
 							if (snplayer.isSuper()) {
-								SuperNManager
-										.sendMessage(snplayer,
-												"The holy power of the Church tears you asunder!");
-								EntityDamageEvent event = new EntityDamageEvent(
-										player, DamageCause.BLOCK_EXPLOSION, 20);
+								SuperNManager.sendMessage(snplayer, "The holy power of the Church tears you asunder!");
+								EntityDamageEvent event = new EntityDamageEvent(player, DamageCause.BLOCK_EXPLOSION, 20);
 								player.setLastDamageCause(event);
 								player.setHealth(0);
 								if (snplayer.isGhoul()) {
@@ -244,29 +225,15 @@ public class PriestManager extends HumanManager {
 								}
 								return;
 							}
-							if (SNConfigHandler.priestAltarRecipe
-									.playerHasEnough(player)) {
-								SuperNManager
-										.sendMessage(snplayer,
-												"You donate these items to the Church:");
-								SuperNManager.sendMessage(snplayer,
-										SNConfigHandler.priestAltarRecipe
-												.getRecipeLine());
-								SuperNManager
-										.sendMessage(snplayer,
-												"The Church recognizes your holy spirit and accepts you into the priesthood.");
-								SNConfigHandler.priestAltarRecipe
-										.removeFromPlayer(player);
-								SuperNManager.convert(snplayer, "priest",
-										SNConfigHandler.priestPowerStart);
+							if (SNConfigHandler.priestAltarRecipe.playerHasEnough(player)) {
+								SuperNManager.sendMessage(snplayer, "You donate these items to the Church:");
+								SuperNManager.sendMessage(snplayer, SNConfigHandler.priestAltarRecipe.getRecipeLine());
+								SuperNManager.sendMessage(snplayer, "The Church recognizes your holy spirit and accepts you into the priesthood.");
+								SNConfigHandler.priestAltarRecipe.removeFromPlayer(player);
+								SuperNManager.convert(snplayer, "priest", SNConfigHandler.priestPowerStart);
 							} else {
-								SuperNManager
-										.sendMessage(
-												snplayer,
-												"The Church judges your intended donate insufficient.  You must gather the following: ");
-								SuperNManager.sendMessage(snplayer,
-										SNConfigHandler.priestAltarRecipe
-												.getRecipeLine());
+								SuperNManager.sendMessage(snplayer, "The Church judges your intended donate insufficient.  You must gather the following: ");
+								SuperNManager.sendMessage(snplayer, SNConfigHandler.priestAltarRecipe.getRecipeLine());
 							}
 						}
 					}
@@ -281,8 +248,7 @@ public class PriestManager extends HumanManager {
 		PlayerInventory inv = player.getInventory();
 		ItemStack[] items = inv.getContents();
 		double delta = 0;
-		invCheck: for (Material mat : SNConfigHandler.priestDonationMap
-				.keySet()) {
+		invCheck: for (Material mat : SNConfigHandler.priestDonationMap.keySet()) {
 			for (ItemStack itemStack : items) {
 				if (itemStack != null) {
 					if (itemStack.getType().equals(mat)) {
@@ -298,13 +264,10 @@ public class PriestManager extends HumanManager {
 			}
 		}
 		if (delta == 0) {
-			SuperNManager
-					.sendMessage(snplayer,
-							"The Church only accepts donations of Bread, Fish, Grilled Pork and Apples.");
+			SuperNManager.sendMessage(snplayer, "The Church only accepts donations of Bread, Fish, Grilled Pork and Apples.");
 		} else {
 			player.updateInventory();
-			SuperNManager.sendMessage(snplayer,
-					"You receive some power for your remote donations.");
+			SuperNManager.sendMessage(snplayer, "You receive some power for your remote donations.");
 			SuperNManager.alterPower(snplayer, delta * .5, "Donations!");
 		}
 	}
@@ -334,22 +297,17 @@ public class PriestManager extends HumanManager {
 				SupernaturalsPlugin.log(target.getName()
 						+ " is targetted by spell.");
 			}
-			if (itemMaterial
-					.equals(SNConfigHandler.priestSpellMaterials.get(0))) {
+			if (itemMaterial.equals(SNConfigHandler.priestSpellMaterials.get(0))) {
 				banish(player, target);
 				cancelled = true;
-			} else if (itemMaterial.equals(SNConfigHandler.priestSpellMaterials
-					.get(1))) {
+			} else if (itemMaterial.equals(SNConfigHandler.priestSpellMaterials.get(1))) {
 				exorcise(player, target);
 				cancelled = true;
-			} else if (itemMaterial.equals(SNConfigHandler.priestSpellMaterials
-					.get(2))) {
+			} else if (itemMaterial.equals(SNConfigHandler.priestSpellMaterials.get(2))) {
 				cancelled = cure(player, target, itemMaterial);
-			} else if (itemMaterial.equals(SNConfigHandler.priestSpellMaterials
-					.get(3))) {
+			} else if (itemMaterial.equals(SNConfigHandler.priestSpellMaterials.get(3))) {
 				cancelled = heal(player, target);
-			} else if (itemMaterial.equals(SNConfigHandler.priestSpellMaterials
-					.get(4))) {
+			} else if (itemMaterial.equals(SNConfigHandler.priestSpellMaterials.get(4))) {
 				drainPower(player, target);
 				cancelled = true;
 			}
@@ -357,8 +315,7 @@ public class PriestManager extends HumanManager {
 				event.setCancelled(cancelled);
 			}
 			return;
-		} else if (itemMaterial.toString().equalsIgnoreCase(
-				SNConfigHandler.priestSpellGuardianAngel)) {
+		} else if (itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.priestSpellGuardianAngel)) {
 			if (SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log(snplayer.getName()
 						+ " is attempting to cast guardian angel...");
@@ -386,15 +343,13 @@ public class PriestManager extends HumanManager {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNPlayer snvictim = SuperNManager.get(victim);
 		if (!SupernaturalsPlugin.instance.getPvP(victim)) {
-			SuperNManager.sendMessage(snplayer,
-					"Cannot cast in a non-PvP zone.");
+			SuperNManager.sendMessage(snplayer, "Cannot cast in a non-PvP zone.");
 			return false;
 		}
 		if (snplayer.getPower() > SNConfigHandler.priestPowerBanish) {
 			if (snvictim.isSuper()) {
-				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.priestPowerBanish, "Banished "
-								+ victim.getName());
+				SuperNManager.alterPower(snplayer, -SNConfigHandler.priestPowerBanish, "Banished "
+						+ victim.getName());
 				SuperNManager.sendMessage(snvictim, "You were banished by "
 						+ ChatColor.WHITE + snplayer.getName() + ChatColor.RED
 						+ "!");
@@ -407,8 +362,7 @@ public class PriestManager extends HumanManager {
 				}
 				return true;
 			}
-			SuperNManager.sendMessage(snplayer,
-					"Can only banish supernatural players.");
+			SuperNManager.sendMessage(snplayer, "Can only banish supernatural players.");
 			return false;
 		} else {
 			SuperNManager.sendMessage(snplayer, "Not enough power to banish.");
@@ -422,9 +376,8 @@ public class PriestManager extends HumanManager {
 		if (snplayer.getPower() > SNConfigHandler.priestPowerHeal) {
 			if (!snvictim.isSuper() && victim.getHealth() < 20
 					&& !victim.isDead()) {
-				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.priestPowerHeal,
-						"Healed " + victim.getName());
+				SuperNManager.alterPower(snplayer, -SNConfigHandler.priestPowerHeal, "Healed "
+						+ victim.getName());
 				SuperNManager.sendMessage(snvictim, "You were healed by "
 						+ ChatColor.WHITE + snplayer.getName() + ChatColor.RED
 						+ "!");
@@ -455,15 +408,13 @@ public class PriestManager extends HumanManager {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNPlayer snvictim = SuperNManager.get(victim);
 		if (!SupernaturalsPlugin.instance.getPvP(victim)) {
-			SuperNManager.sendMessage(snplayer,
-					"Cannot cast in a non-PvP zone.");
+			SuperNManager.sendMessage(snplayer, "Cannot cast in a non-PvP zone.");
 			return false;
 		}
 		if (snplayer.getPower() > SNConfigHandler.priestPowerExorcise) {
 			if (snvictim.isSuper()) {
-				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.priestPowerExorcise, "Exorcised "
-								+ victim.getName());
+				SuperNManager.alterPower(snplayer, -SNConfigHandler.priestPowerExorcise, "Exorcised "
+						+ victim.getName());
 				SuperNManager.sendMessage(snvictim, "You were exorcised by "
 						+ ChatColor.WHITE + snplayer.getName() + ChatColor.RED
 						+ "!");
@@ -476,13 +427,11 @@ public class PriestManager extends HumanManager {
 				}
 				return true;
 			} else {
-				SuperNManager.sendMessage(snplayer,
-						"Only supernatural players can be exorcised.");
+				SuperNManager.sendMessage(snplayer, "Only supernatural players can be exorcised.");
 				return false;
 			}
 		} else {
-			SuperNManager
-					.sendMessage(snplayer, "Not enough power to exorcise.");
+			SuperNManager.sendMessage(snplayer, "Not enough power to exorcise.");
 			return false;
 		}
 	}
@@ -493,9 +442,8 @@ public class PriestManager extends HumanManager {
 		if (snplayer.getPower() > SNConfigHandler.priestPowerCure) {
 			if (snvictim.isSuper()) {
 				if (victim.getItemInHand().getType().equals(material)) {
-					SuperNManager.alterPower(snplayer,
-							-SNConfigHandler.priestPowerCure,
-							"Cured " + victim.getName());
+					SuperNManager.alterPower(snplayer, -SNConfigHandler.priestPowerCure, "Cured "
+							+ victim.getName());
 					SuperNManager.sendMessage(snvictim, ChatColor.WHITE
 							+ snplayer.getName() + ChatColor.RED
 							+ " has restored your humanity");
@@ -514,16 +462,14 @@ public class PriestManager extends HumanManager {
 					}
 					return true;
 				} else {
-					SuperNManager.sendMessage(snplayer,
-							ChatColor.WHITE + snvictim.getName()
-									+ ChatColor.RED + " is not holding "
-									+ ChatColor.WHITE + material.toString()
-									+ ChatColor.RED + ".");
+					SuperNManager.sendMessage(snplayer, ChatColor.WHITE
+							+ snvictim.getName() + ChatColor.RED
+							+ " is not holding " + ChatColor.WHITE
+							+ material.toString() + ChatColor.RED + ".");
 					return false;
 				}
 			} else {
-				SuperNManager.sendMessage(snplayer,
-						"You can only cure supernatural players.");
+				SuperNManager.sendMessage(snplayer, "You can only cure supernatural players.");
 				return false;
 			}
 		} else {
@@ -536,17 +482,15 @@ public class PriestManager extends HumanManager {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNPlayer snvictim = SuperNManager.get(victim);
 		if (!SupernaturalsPlugin.instance.getPvP(victim)) {
-			SuperNManager.sendMessage(snplayer,
-					"Cannot cast in a non-PvP zone.");
+			SuperNManager.sendMessage(snplayer, "Cannot cast in a non-PvP zone.");
 			return false;
 		}
 		if (snplayer.getPower() > SNConfigHandler.priestPowerDrain) {
 			if (snvictim.isSuper()) {
 				double power = snvictim.getPower();
 				power *= SNConfigHandler.priestDrainFactor;
-				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.priestPowerDrain, "Drained  "
-								+ snvictim.getName() + "'s power!");
+				SuperNManager.alterPower(snplayer, -SNConfigHandler.priestPowerDrain, "Drained  "
+						+ snvictim.getName() + "'s power!");
 				SuperNManager.alterPower(snvictim, -power, "Drained by "
 						+ snplayer.getName());
 				ItemStack item = player.getItemInHand();
@@ -557,13 +501,11 @@ public class PriestManager extends HumanManager {
 				}
 				return true;
 			} else {
-				SuperNManager.sendMessage(snplayer,
-						"Only supernatural players can be power drained.");
+				SuperNManager.sendMessage(snplayer, "Only supernatural players can be power drained.");
 				return false;
 			}
 		} else {
-			SuperNManager.sendMessage(snplayer,
-					"Not enough power to drain power.");
+			SuperNManager.sendMessage(snplayer, "Not enough power to drain power.");
 			return false;
 		}
 	}
@@ -574,30 +516,20 @@ public class PriestManager extends HumanManager {
 
 		if (priest.getPower() > SNConfigHandler.priestPowerGuardianAngel) {
 			if (!snvictim.isSuper()) {
-				if (SupernaturalsPlugin.instance.getDataHandler().hasAngel(
-						priest)) {
-					SuperNManager.sendMessage(
-							priest,
-							"Removed Guardian Angel from "
-									+ ChatColor.WHITE
-									+ SupernaturalsPlugin.instance
-											.getDataHandler()
-											.getAngelPlayer(priest).getName());
-					SuperNManager.sendMessage(SupernaturalsPlugin.instance
-							.getDataHandler().getAngelPlayer(priest),
-							"Guardian Angel removed!");
-					SupernaturalsPlugin.instance.getDataHandler().removeAngel(
-							priest);
+				if (SupernaturalsPlugin.instance.getDataHandler().hasAngel(priest)) {
+					SuperNManager.sendMessage(priest, "Removed Guardian Angel from "
+							+ ChatColor.WHITE
+							+ SupernaturalsPlugin.instance.getDataHandler().getAngelPlayer(priest).getName());
+					SuperNManager.sendMessage(SupernaturalsPlugin.instance.getDataHandler().getAngelPlayer(priest), "Guardian Angel removed!");
+					SupernaturalsPlugin.instance.getDataHandler().removeAngel(priest);
 				}
-				SuperNManager.sendMessage(snvictim,
-						"You now have a Guardian Angel!");
-				SuperNManager.alterPower(
-						priest,
-						-SNConfigHandler.priestPowerGuardianAngel,
-						"Guardian Angel on " + ChatColor.WHITE
-								+ snvictim.getName() + ChatColor.RED + "!");
-				SupernaturalsPlugin.instance.getDataHandler().addAngel(priest,
-						snvictim);
+				SuperNManager.sendMessage(snvictim, "You now have a Guardian Angel!");
+				SuperNManager.alterPower(priest, -SNConfigHandler.priestPowerGuardianAngel, "Guardian Angel on "
+						+ ChatColor.WHITE
+						+ snvictim.getName()
+						+ ChatColor.RED
+						+ "!");
+				SupernaturalsPlugin.instance.getDataHandler().addAngel(priest, snvictim);
 
 				ItemStack item = player.getItemInHand();
 				if (item.getAmount() == 1) {
@@ -607,13 +539,10 @@ public class PriestManager extends HumanManager {
 				}
 				return true;
 			}
-			SuperNManager
-					.sendMessage(priest,
-							"You cannot set a Guardian Angel on a Supernatural player.");
+			SuperNManager.sendMessage(priest, "You cannot set a Guardian Angel on a Supernatural player.");
 			return false;
 		} else {
-			SuperNManager.sendMessage(priest,
-					"Not enough power to cast Guardian Angel.");
+			SuperNManager.sendMessage(priest, "Not enough power to cast Guardian Angel.");
 			return false;
 		}
 	}

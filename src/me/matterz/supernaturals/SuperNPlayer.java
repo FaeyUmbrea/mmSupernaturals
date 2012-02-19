@@ -189,8 +189,7 @@ public class SuperNPlayer implements Serializable {
 	}
 
 	public boolean isDead() {
-		return SupernaturalsPlugin.instance.getServer().getPlayer(playername)
-				.isDead();
+		return SupernaturalsPlugin.instance.getServer().getPlayer(playername).isDead();
 	}
 
 	@Override

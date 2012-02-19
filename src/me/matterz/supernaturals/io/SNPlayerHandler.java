@@ -43,14 +43,12 @@ public class SNPlayerHandler {
 	@SuppressWarnings("unchecked")
 	public static List<SuperNPlayer> load(File file) {
 		Constructor constructor = new Constructor();
-		constructor.addTypeDescription(new TypeDescription(SuperNPlayer.class,
-				new Tag("player")));
+		constructor.addTypeDescription(new TypeDescription(SuperNPlayer.class, new Tag("player")));
 
 		Yaml yaml = new Yaml(constructor);
 
 		try {
-			List<SuperNPlayer> supernaturals = (List<SuperNPlayer>) yaml
-					.load(new FileReader(file));
+			List<SuperNPlayer> supernaturals = (List<SuperNPlayer>) yaml.load(new FileReader(file));
 
 			if (supernaturals == null) {
 				return new ArrayList<SuperNPlayer>();
@@ -76,8 +74,7 @@ public class SNPlayerHandler {
 		try {
 			yaml.dump(supernaturals, new FileWriter(file));
 		} catch (IOException e) {
-			SupernaturalsPlugin.log(Level.WARNING,
-					"Player data could not be written!");
+			SupernaturalsPlugin.log(Level.WARNING, "Player data could not be written!");
 			e.printStackTrace();
 		}
 	}

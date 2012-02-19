@@ -51,14 +51,12 @@ public class SNDataHandler implements Serializable {
 
 	public void write() {
 		try {
-			ObjectOutputStream oos = new ObjectOutputStream(
-					new FileOutputStream(path));
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
 			oos.writeObject(this);
 			oos.flush();
 			oos.close();
 		} catch (Exception e) {
-			SupernaturalsPlugin.log(Level.WARNING,
-					"Storage Data could not be written!");
+			SupernaturalsPlugin.log(Level.WARNING, "Storage Data could not be written!");
 			e.printStackTrace();
 		}
 	}
@@ -66,14 +64,12 @@ public class SNDataHandler implements Serializable {
 	public static SNDataHandler read() {
 		SNDataHandler handler = null;
 		try {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(
-					path));
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));
 			handler = (SNDataHandler) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
 			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(Level.WARNING,
-						"Storage Data not found.");
+				SupernaturalsPlugin.log(Level.WARNING, "Storage Data not found.");
 			}
 		}
 		return handler;
@@ -84,8 +80,7 @@ public class SNDataHandler implements Serializable {
 	// -------------------------------------------- //
 
 	public void addTeleport(SuperNPlayer player) {
-		teleportLocations.put(player, new Location(SupernaturalsPlugin.instance
-				.getServer().getPlayer(player.getName()).getLocation()));
+		teleportLocations.put(player, new Location(SupernaturalsPlugin.instance.getServer().getPlayer(player.getName()).getLocation()));
 	}
 
 	public boolean checkPlayer(SuperNPlayer player) {
@@ -97,9 +92,7 @@ public class SNDataHandler implements Serializable {
 
 	public org.bukkit.Location getTeleport(SuperNPlayer player) {
 		Location location = teleportLocations.get(player);
-		org.bukkit.Location bLocation = new org.bukkit.Location(
-				location.getWorld(), location.getX(), location.getY(),
-				location.getZ());
+		org.bukkit.Location bLocation = new org.bukkit.Location(location.getWorld(), location.getX(), location.getY(), location.getZ());
 		return bLocation;
 	}
 

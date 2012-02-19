@@ -52,8 +52,7 @@ public abstract class ClassManager {
 	public void deathEvent(Player player) {
 	}
 
-	public void killEvent(Player pDamager, SuperNPlayer damager,
-			SuperNPlayer victim) {
+	public void killEvent(Player pDamager, SuperNPlayer damager, SuperNPlayer victim) {
 	}
 
 	public boolean playerInteract(PlayerInteractEvent event) {
@@ -65,8 +64,7 @@ public abstract class ClassManager {
 
 	public void dropItem(Player player, ItemStack item) {
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		SuperNManager.sendMessage(snplayer,
-				"Your class cannot wear this type of armor!");
+		SuperNManager.sendMessage(snplayer, "Your class cannot wear this type of armor!");
 		Item newItem = player.getWorld().dropItem(player.getLocation(), item);
 		newItem.setItemStack(item);
 	}

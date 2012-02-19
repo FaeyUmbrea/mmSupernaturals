@@ -52,8 +52,7 @@ public class SNCommandPower extends SNCommand {
 
 		if (SNConfigHandler.spanish) {
 			if (parameters.isEmpty()) {
-				if (!SupernaturalsPlugin.hasPermissions(senderPlayer,
-						permissions)) {
+				if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
 					this.sendMessage("No tienes permiso para este comando.");
 					return;
 				}
@@ -65,8 +64,7 @@ public class SNCommandPower extends SNCommand {
 						+ (int) snplayer.getPower());
 				return;
 			} else {
-				if (!SupernaturalsPlugin.hasPermissions(senderPlayer,
-						permissions2)) {
+				if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions2)) {
 					this.sendMessage("No tienes permiso para usar este comando.");
 					return;
 				}
@@ -84,12 +82,10 @@ public class SNCommandPower extends SNCommand {
 					}
 
 					SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
-					SuperNManager.alterPower(snplayer, powerGain,
-							"Admin boost!");
+					SuperNManager.alterPower(snplayer, powerGain, "Admin boost!");
 				} else {
 					String playername = parameters.get(0);
-					Player player = SupernaturalsPlugin.instance.getServer()
-							.getPlayer(playername);
+					Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
 					if (player == null) {
 						this.sendMessage("Jugador no encontrado!");
 						return;
@@ -108,14 +104,12 @@ public class SNCommandPower extends SNCommand {
 					this.sendMessage(ChatColor.WHITE + player.getDisplayName()
 							+ ChatColor.RED + " ha sido aumentado de Poderes!");
 					SuperNPlayer snplayer = SuperNManager.get(player);
-					SuperNManager.alterPower(snplayer, powerGain,
-							"Admin boost!");
+					SuperNManager.alterPower(snplayer, powerGain, "Admin boost!");
 				}
 			}
 		} else {
 			if (parameters.isEmpty()) {
-				if (!SupernaturalsPlugin.hasPermissions(senderPlayer,
-						permissions)) {
+				if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
 					this.sendMessage("You do not have permissions to use this command.");
 					return;
 				}
@@ -127,8 +121,7 @@ public class SNCommandPower extends SNCommand {
 						+ ChatColor.WHITE + (int) snplayer.getPower());
 				return;
 			} else {
-				if (!SupernaturalsPlugin.hasPermissions(senderPlayer,
-						permissions2)) {
+				if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions2)) {
 					this.sendMessage("You do not have permissions to use this command.");
 					return;
 				}
@@ -146,12 +139,10 @@ public class SNCommandPower extends SNCommand {
 					}
 
 					SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
-					SuperNManager.alterPower(snplayer, powerGain,
-							"Admin boost!");
+					SuperNManager.alterPower(snplayer, powerGain, "Admin boost!");
 				} else {
 					String playername = parameters.get(0);
-					Player player = SupernaturalsPlugin.instance.getServer()
-							.getPlayer(playername);
+					Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
 					if (player == null) {
 						this.sendMessage("Player not found!");
 						return;
@@ -170,8 +161,7 @@ public class SNCommandPower extends SNCommand {
 					this.sendMessage(ChatColor.WHITE + player.getDisplayName()
 							+ ChatColor.RED + " has been powered up!");
 					SuperNPlayer snplayer = SuperNManager.get(player);
-					SuperNManager.alterPower(snplayer, powerGain,
-							"Admin boost!");
+					SuperNManager.alterPower(snplayer, powerGain, "Admin boost!");
 				}
 			}
 		}

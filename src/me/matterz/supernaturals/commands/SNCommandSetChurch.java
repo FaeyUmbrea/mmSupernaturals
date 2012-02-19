@@ -52,21 +52,16 @@ public class SNCommandSetChurch extends SNCommand {
 			double currentY = senderPlayer.getLocation().getY();
 			double currentZ = senderPlayer.getLocation().getZ();
 
-			SNConfigHandler.priestChurchWorld = senderPlayer.getWorld()
-					.getName();
+			SNConfigHandler.priestChurchWorld = senderPlayer.getWorld().getName();
 			SNConfigHandler.priestChurchLocationX = (int) currentX;
 			SNConfigHandler.priestChurchLocationY = (int) currentY;
 			SNConfigHandler.priestChurchLocationZ = (int) currentZ;
 			SNConfigHandler.priestChurchLocation = senderPlayer.getLocation();
 
-			SNConfigHandler.getConfig().set("Priest.Church.World",
-					SNConfigHandler.priestChurchWorld);
-			SNConfigHandler.getConfig().set("Priest.Church.Location.X",
-					SNConfigHandler.priestChurchLocationX);
-			SNConfigHandler.getConfig().set("Priest.Church.Location.Y",
-					SNConfigHandler.priestChurchLocationY);
-			SNConfigHandler.getConfig().set("Priest.Church.Location.Z",
-					SNConfigHandler.priestChurchLocationZ);
+			SNConfigHandler.getConfig().set("Priest.Church.World", SNConfigHandler.priestChurchWorld);
+			SNConfigHandler.getConfig().set("Priest.Church.Location.X", SNConfigHandler.priestChurchLocationX);
+			SNConfigHandler.getConfig().set("Priest.Church.Location.Y", SNConfigHandler.priestChurchLocationY);
+			SNConfigHandler.getConfig().set("Priest.Church.Location.Z", SNConfigHandler.priestChurchLocationZ);
 
 			SupernaturalsPlugin.saveData();
 
@@ -88,14 +83,10 @@ public class SNCommandSetChurch extends SNCommand {
 		SNConfigHandler.priestChurchLocationZ = (int) currentZ;
 		SNConfigHandler.priestChurchLocation = senderPlayer.getLocation();
 
-		SNConfigHandler.getConfig().set("Priest.Church.World",
-				SNConfigHandler.priestChurchWorld);
-		SNConfigHandler.getConfig().set("Priest.Church.Location.X",
-				SNConfigHandler.priestChurchLocationX);
-		SNConfigHandler.getConfig().set("Priest.Church.Location.Y",
-				SNConfigHandler.priestChurchLocationY);
-		SNConfigHandler.getConfig().set("Priest.Church.Location.Z",
-				SNConfigHandler.priestChurchLocationZ);
+		SNConfigHandler.getConfig().set("Priest.Church.World", SNConfigHandler.priestChurchWorld);
+		SNConfigHandler.getConfig().set("Priest.Church.Location.X", SNConfigHandler.priestChurchLocationX);
+		SNConfigHandler.getConfig().set("Priest.Church.Location.Y", SNConfigHandler.priestChurchLocationY);
+		SNConfigHandler.getConfig().set("Priest.Church.Location.Z", SNConfigHandler.priestChurchLocationZ);
 
 		SupernaturalsPlugin.saveData();
 

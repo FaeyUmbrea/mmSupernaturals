@@ -46,8 +46,7 @@ public class SNCommandReset extends SNCommand {
 				this.sendMessage("Missing player!");
 			} else {
 				String playername = parameters.get(0);
-				Player player = SupernaturalsPlugin.instance.getServer()
-						.getPlayer(playername);
+				Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
 
 				if (player == null) {
 					this.sendMessage("Player not found!");
@@ -71,8 +70,7 @@ public class SNCommandReset extends SNCommand {
 			SuperNManager.alterPower(snplayer, -10000, "Admin");
 		} else {
 			String playername = parameters.get(0);
-			Player player = SupernaturalsPlugin.instance.getServer().getPlayer(
-					playername);
+			Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
 
 			if (player == null) {
 				this.sendMessage("Player not found!");

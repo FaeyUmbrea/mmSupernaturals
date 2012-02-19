@@ -28,8 +28,7 @@ public class SNWhitelistHandler {
 
 	public static void reloadWhitelist() {
 		if (whitelistYamlFile == null) {
-			whitelistYamlFile = new File(plugin.getDataFolder(),
-					"whitelistYaml.yml");
+			whitelistYamlFile = new File(plugin.getDataFolder(), "whitelistYaml.yml");
 		}
 		whitelistYaml = YamlConfiguration.loadConfiguration(whitelistYamlFile);
 		playersInWhitelist = getPlayersInWhitelistYAML();
@@ -49,8 +48,8 @@ public class SNWhitelistHandler {
 		try {
 			whitelistYaml.save(whitelistYamlFile);
 		} catch (IOException ex) {
-			Logger.getLogger("Minecraft").log(Level.SEVERE,
-					"Could not save config to " + whitelistYamlFile, ex);
+			Logger.getLogger("Minecraft").log(Level.SEVERE, "Could not save config to "
+					+ whitelistYamlFile, ex);
 		}
 	}
 
@@ -63,8 +62,7 @@ public class SNWhitelistHandler {
 		if (!SNConfigHandler.enableJoinCommand) {
 			return true;
 		}
-		return SNWhitelistHandler.getPlayersInWhitelistYAML().contains(
-				player.getName());
+		return SNWhitelistHandler.getPlayersInWhitelistYAML().contains(player.getName());
 	}
 
 	public static List<String> getPlayersInWhitelistYAML() {

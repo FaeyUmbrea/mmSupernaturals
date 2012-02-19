@@ -60,8 +60,7 @@ public class SNEntityListener implements Listener {
 			return;
 		}
 		Player shooter = (Player) event.getEntity();
-		boolean cancel = plugin.getClassManager(shooter).shootArrow(shooter,
-				event);
+		boolean cancel = plugin.getClassManager(shooter).shootArrow(shooter, event);
 		event.setCancelled(cancel);
 	}
 
@@ -74,8 +73,7 @@ public class SNEntityListener implements Listener {
 		if (event.getEntity() instanceof Fireball) {
 			Fireball fireball = (Fireball) event.getEntity();
 			if (fireball.getShooter() instanceof Player) {
-				if (!SupernaturalsPlugin.hasPermissions(
-						(Player) fireball.getShooter(), worldPermission)
+				if (!SupernaturalsPlugin.hasPermissions((Player) fireball.getShooter(), worldPermission)
 						&& SNConfigHandler.multiworld) {
 					return;
 				}
@@ -92,8 +90,7 @@ public class SNEntityListener implements Listener {
 								continue;
 							}
 						}
-						lEntity.damage(SNConfigHandler.demonFireballDamage,
-								fireball.getShooter());
+						lEntity.damage(SNConfigHandler.demonFireballDamage, fireball.getShooter());
 						lEntity.setFireTicks(200);
 					}
 				}
@@ -116,8 +113,7 @@ public class SNEntityListener implements Listener {
 			if (edbeEvent.getDamager() instanceof Player
 					&& victim instanceof Player) {
 				Player pVictim = (Player) victim;
-				plugin.getClassManager((Player) edbeEvent.getDamager())
-						.spellEvent(edbeEvent, pVictim);
+				plugin.getClassManager((Player) edbeEvent.getDamager()).spellEvent(edbeEvent, pVictim);
 			}
 		}
 		// Player Damager Event
@@ -126,13 +122,12 @@ public class SNEntityListener implements Listener {
 			Entity damager = edbeEvent.getDamager();
 
 			if (damager instanceof Player) {
-				if (!SupernaturalsPlugin.hasPermissions((Player) damager,
-						worldPermission) && SNConfigHandler.multiworld) {
+				if (!SupernaturalsPlugin.hasPermissions((Player) damager, worldPermission)
+						&& SNConfigHandler.multiworld) {
 					return;
 				}
 
-				damage = plugin.getClassManager((Player) damager).damagerEvent(
-						edbeEvent, damage);
+				damage = plugin.getClassManager((Player) damager).damagerEvent(edbeEvent, damage);
 			}
 		}
 
@@ -148,8 +143,7 @@ public class SNEntityListener implements Listener {
 			SuperNPlayer snvictim = SuperNManager.get(pVictim);
 
 			if (plugin.getGhoulManager().checkBond(pVictim)) {
-				double damageAfterArmor = Armor.getReducedDamage(pVictim,
-						(int) Math.round(damage));
+				double damageAfterArmor = Armor.getReducedDamage(pVictim, (int) Math.round(damage));
 				if (damageAfterArmor > 1) {
 					if (SNConfigHandler.debugMode) {
 						SupernaturalsPlugin.log(snvictim.getName()
@@ -157,10 +151,8 @@ public class SNEntityListener implements Listener {
 					}
 					damage /= 2;
 					damageAfterArmor /= 2;
-					SuperNPlayer ghoul = plugin.getGhoulManager().getGhoul(
-							snvictim);
-					Player gPlayer = plugin.getServer().getPlayer(
-							ghoul.getName());
+					SuperNPlayer ghoul = plugin.getGhoulManager().getGhoul(snvictim);
+					Player gPlayer = plugin.getServer().getPlayer(ghoul.getName());
 					double ghoulDamage = damageAfterArmor;
 					ghoulDamage -= ghoulDamage
 							* ghoul.scale(1 - SNConfigHandler.ghoulDamageReceivedFactor);
@@ -169,8 +161,7 @@ public class SNEntityListener implements Listener {
 						health = 0;
 					}
 					gPlayer.setHealth(health);
-					SuperNManager.alterPower(ghoul,
-							-SNConfigHandler.ghoulPowerBond, "Unholy Bond!");
+					SuperNManager.alterPower(ghoul, -SNConfigHandler.ghoulPowerBond, "Unholy Bond!");
 				}
 			}
 
@@ -179,8 +170,7 @@ public class SNEntityListener implements Listener {
 					SupernaturalsPlugin.log(snvictim.getName()
 							+ " has a guardian angel angel.");
 				}
-				double damageAfterArmor = Armor.getReducedDamage(pVictim,
-						(int) Math.round(damage));
+				double damageAfterArmor = Armor.getReducedDamage(pVictim, (int) Math.round(damage));
 				if (pVictim.getHealth() - damageAfterArmor <= 0) {
 					if (SNConfigHandler.debugMode) {
 						SupernaturalsPlugin.log(snvictim.getName()
@@ -211,8 +201,8 @@ public class SNEntityListener implements Listener {
 			return;
 		}
 
-		if (!SupernaturalsPlugin.hasPermissions((Player) event.getTarget(),
-				worldPermission) && SNConfigHandler.multiworld) {
+		if (!SupernaturalsPlugin.hasPermissions((Player) event.getTarget(), worldPermission)
+				&& SNConfigHandler.multiworld) {
 			return;
 		}
 
@@ -227,12 +217,10 @@ public class SNEntityListener implements Listener {
 		}
 
 		if (snplayer.isVampire()
-				&& SNConfigHandler.vampireTruce.contains(EntityUtil
-						.creatureTypeFromEntity(event.getEntity()))) {
+				&& SNConfigHandler.vampireTruce.contains(EntityUtil.creatureTypeFromEntity(event.getEntity()))) {
 			event.setCancelled(true);
 		} else if (snplayer.isGhoul()
-				&& SNConfigHandler.ghoulTruce.contains(EntityUtil
-						.creatureTypeFromEntity(event.getEntity()))) {
+				&& SNConfigHandler.ghoulTruce.contains(EntityUtil.creatureTypeFromEntity(event.getEntity()))) {
 			event.setCancelled(true);
 		} else if (snplayer.isWere() && SNConfigHandler.wolfTruce
 				&& event.getEntity() instanceof Wolf) {

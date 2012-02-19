@@ -74,44 +74,34 @@ public class HumanManager extends ClassManager {
 				|| e.getCause().equals(DamageCause.FIRE)
 				|| e.getCause().equals(DamageCause.FIRE_TICK)) {
 			if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
-				if (SupernaturalsPlugin.instance.getDemonManager()
-						.checkPlayerApp(player)) {
-					SuperNManager.sendMessage(snplayer,
-							"Hellfire races through your veins!");
-					SuperNManager.convert(snplayer, "demon",
-							SNConfigHandler.demonPowerStart);
+				if (SupernaturalsPlugin.instance.getDemonManager().checkPlayerApp(player)) {
+					SuperNManager.sendMessage(snplayer, "Hellfire races through your veins!");
+					SuperNManager.convert(snplayer, "demon", SNConfigHandler.demonPowerStart);
 				}
 			}
 		}
 
 		if (e instanceof EntityDamageByEntityEvent) {
 			if (((EntityDamageByEntityEvent) e).getDamager() instanceof LivingEntity) {
-				lDamager = (LivingEntity) ((EntityDamageByEntityEvent) e)
-						.getDamager();
+				lDamager = (LivingEntity) ((EntityDamageByEntityEvent) e).getDamager();
 			} else if (((EntityDamageByEntityEvent) e).getDamager() instanceof Projectile) {
-				lDamager = ((Projectile) ((EntityDamageByEntityEvent) e)
-						.getDamager()).getShooter();
+				lDamager = ((Projectile) ((EntityDamageByEntityEvent) e).getDamager()).getShooter();
 			}
 		}
 
 		if (lDamager != null) {
 			double random = Math.random();
 			if (random < SNConfigHandler.spreadChance) {
-				if (player.getWorld().getEnvironment()
-						.equals(Environment.NETHER)) {
+				if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
 					if (lDamager instanceof PigZombie) {
-						SuperNManager.convert(snplayer, "ghoul",
-								SNConfigHandler.ghoulPowerStart);
-						SuperNManager.sendMessage(snplayer,
-								"You have been transformed into a Ghoul!");
+						SuperNManager.convert(snplayer, "ghoul", SNConfigHandler.ghoulPowerStart);
+						SuperNManager.sendMessage(snplayer, "You have been transformed into a Ghoul!");
 					}
 				} else if (lDamager instanceof Wolf) {
 					if (!((Wolf) lDamager).isTamed()
 							&& SuperNManager.worldTimeIsNight(player)) {
-						SuperNManager.convert(snplayer, "werewolf",
-								SNConfigHandler.werePowerStart);
-						SuperNManager.sendMessage(snplayer,
-								"You have mutated into a werewolf!");
+						SuperNManager.convert(snplayer, "werewolf", SNConfigHandler.werePowerStart);
+						SuperNManager.sendMessage(snplayer, "You have mutated into a werewolf!");
 					}
 				}
 			}
@@ -119,8 +109,7 @@ public class HumanManager extends ClassManager {
 	}
 
 	@Override
-	public void killEvent(Player pDamager, SuperNPlayer damager,
-			SuperNPlayer victim) {
+	public void killEvent(Player pDamager, SuperNPlayer damager, SuperNPlayer victim) {
 	}
 
 	// -------------------------------------------- //

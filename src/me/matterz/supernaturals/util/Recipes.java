@@ -38,8 +38,7 @@ public class Recipes {
 	public void removeFromPlayer(Player player) {
 		Inventory inventory = player.getInventory();
 		for (Material material : materialQuantities.keySet()) {
-			inventory.removeItem(new ItemStack(material.getId(),
-					materialQuantities.get(material)));
+			inventory.removeItem(new ItemStack(material.getId(), materialQuantities.get(material)));
 		}
 		player.updateInventory();
 	}
@@ -47,16 +46,14 @@ public class Recipes {
 	public boolean playerHasEnough(Player player) {
 		Inventory inventory = player.getInventory();
 		for (Material material : materialQuantities.keySet()) {
-			if (getMaterialCountFromInventory(material, inventory) < materialQuantities
-					.get(material)) {
+			if (getMaterialCountFromInventory(material, inventory) < materialQuantities.get(material)) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-	public static int getMaterialCountFromInventory(Material material,
-			Inventory inventory) {
+	public static int getMaterialCountFromInventory(Material material, Inventory inventory) {
 		int count = 0;
 		for (ItemStack stack : inventory.all(material).values()) {
 			count += stack.getAmount();
@@ -74,17 +71,15 @@ public class Recipes {
 	}
 
 	// http://stackoverflow.com/questions/2864840/treemap-sort-by-value
-	public static <K, V extends Comparable<? super V>> SortedSet<Map.Entry<K, V>> entriesSortedByValues(
-			Map<K, V> map) {
-		SortedSet<Map.Entry<K, V>> sortedEntries = new TreeSet<Map.Entry<K, V>>(
-				new Comparator<Map.Entry<K, V>>() {
-					@Override
-					public int compare(Map.Entry<K, V> e1, Map.Entry<K, V> e2) {
-						int res = e1.getValue().compareTo(e2.getValue());
-						return res != 0 ? res : 1; // Special fix to preserve
-													// items with equal values
-					}
-				});
+	public static <K, V extends Comparable<? super V>> SortedSet<Map.Entry<K, V>> entriesSortedByValues(Map<K, V> map) {
+		SortedSet<Map.Entry<K, V>> sortedEntries = new TreeSet<Map.Entry<K, V>>(new Comparator<Map.Entry<K, V>>() {
+			@Override
+			public int compare(Map.Entry<K, V> e1, Map.Entry<K, V> e2) {
+				int res = e1.getValue().compareTo(e2.getValue());
+				return res != 0 ? res : 1; // Special fix to preserve
+											// items with equal values
+			}
+		});
 		sortedEntries.addAll(map.entrySet());
 		return sortedEntries;
 	}

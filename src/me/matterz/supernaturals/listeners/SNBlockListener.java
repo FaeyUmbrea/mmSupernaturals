@@ -54,8 +54,7 @@ public class SNBlockListener implements Listener {
 					block.setType(Material.AIR);
 					plugin.getDemonManager().removeWeb(block);
 					if (SNConfigHandler.debugMode) {
-						SupernaturalsPlugin
-								.log("Removed web block through destruction.");
+						SupernaturalsPlugin.log("Removed web block through destruction.");
 					}
 					return;
 				}
@@ -74,13 +73,10 @@ public class SNBlockListener implements Listener {
 		for (int i = 0; i < text.length; i++) {
 			if (text[i].contains(SNConfigHandler.hunterHallMessage)) {
 				if (!SupernaturalsPlugin.hasPermissions(player, permissions)) {
-					SuperNManager
-							.sendMessage(SuperNManager.get(player),
-									"You do not have permission to create WitchHunter signs");
+					SuperNManager.sendMessage(SuperNManager.get(player), "You do not have permission to create WitchHunter signs");
 					event.setCancelled(true);
 					event.getBlock().setTypeId(0);
-					player.getWorld().dropItem(player.getLocation(),
-							new ItemStack(Material.SIGN, 1));
+					player.getWorld().dropItem(player.getLocation(), new ItemStack(Material.SIGN, 1));
 				}
 				return;
 			}

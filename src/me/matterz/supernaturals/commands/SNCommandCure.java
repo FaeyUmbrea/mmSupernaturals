@@ -46,8 +46,7 @@ public class SNCommandCure extends SNCommand {
 				this.sendMessage("Missing Player!");
 			} else {
 				String playername = parameters.get(0);
-				Player player = SupernaturalsPlugin.instance.getServer()
-						.getPlayer(playername);
+				Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
 				if (player == null) {
 					if (!SNConfigHandler.spanish) {
 						this.sendMessage("Player not found.");
@@ -79,8 +78,7 @@ public class SNCommandCure extends SNCommand {
 			SuperNManager.cure(snplayer);
 		} else {
 			String playername = parameters.get(0);
-			Player player = SupernaturalsPlugin.instance.getServer().getPlayer(
-					playername);
+			Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
 			if (player == null) {
 				if (!SNConfigHandler.spanish) {
 					this.sendMessage("Player not found.");

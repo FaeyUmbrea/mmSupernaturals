@@ -60,8 +60,7 @@ public class EnderBornManager extends ClassManager {
 				&& targetItemMaterial.equals(Material.ENDER_PEARL)) {
 			SuperNManager.sendMessage(snplayer, "You have converted "
 					+ ChatColor.WHITE + target.getName() + ChatColor.RED + "!");
-			SuperNManager.sendMessage(sntarget,
-					"An energy takes over your body...");
+			SuperNManager.sendMessage(sntarget, "An energy takes over your body...");
 			SuperNManager.convert(sntarget, "enderborn");
 			event.setCancelled(true);
 		}
@@ -103,11 +102,8 @@ public class EnderBornManager extends ClassManager {
 				if (item.getType() == Material.ENDER_PEARL
 						&& snVictim.getPower() > SNConfigHandler.enderProtectPower) {
 					damage -= damage
-							* snVictim
-									.scale(1 - SNConfigHandler.enderDamageReceivedFactor);
-					SuperNManager.alterPower(snVictim,
-							-SNConfigHandler.enderProtectPower,
-							"Protected by Pearl!");
+							* snVictim.scale(1 - SNConfigHandler.enderDamageReceivedFactor);
+					SuperNManager.alterPower(snVictim, -SNConfigHandler.enderProtectPower, "Protected by Pearl!");
 					return damage;
 				}
 			}
@@ -118,11 +114,9 @@ public class EnderBornManager extends ClassManager {
 	@Override
 	public void deathEvent(Player player) {
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		SuperNManager.alterPower(snplayer,
-				-SNConfigHandler.enderDeathPowerPenalty, "You died!");
+		SuperNManager.alterPower(snplayer, -SNConfigHandler.enderDeathPowerPenalty, "You died!");
 		if (deathTimesMap.get(snplayer).equals(5)) {
-			SuperNManager.sendMessage(snplayer,
-					"You have been reborn as a human.");
+			SuperNManager.sendMessage(snplayer, "You have been reborn as a human.");
 			SuperNManager.cure(snplayer);
 			deathTimesMap.put(snplayer, 0);
 		} else {
@@ -135,13 +129,12 @@ public class EnderBornManager extends ClassManager {
 
 	public void killEvent(SuperNPlayer damager, SuperNPlayer victim) {
 		if (victim == null) {
-			SuperNManager.alterPower(damager, SNConfigHandler.enderKillPower,
-					"Stole power");
+			SuperNManager.alterPower(damager, SNConfigHandler.enderKillPower, "Stole power");
 		} else {
-			SuperNManager.alterPower(victim, -SNConfigHandler.enderKillPower,
-					damager.getName() + " stole some of your power!");
-			SuperNManager.alterPower(damager, SNConfigHandler.enderKillPower,
-					"Stole power from " + victim.getName());
+			SuperNManager.alterPower(victim, -SNConfigHandler.enderKillPower, damager.getName()
+					+ " stole some of your power!");
+			SuperNManager.alterPower(damager, SNConfigHandler.enderKillPower, "Stole power from "
+					+ victim.getName());
 			if (Math.random() == 0.10) {
 				SuperNManager.convert(victim, "enderborn");
 			}
@@ -162,8 +155,7 @@ public class EnderBornManager extends ClassManager {
 				if (willTele(snplayer)) {
 					return true;
 				}
-				SuperNManager.alterPower(snplayer,
-						SNConfigHandler.enderPearlPower, "Taken from pearl.");
+				SuperNManager.alterPower(snplayer, SNConfigHandler.enderPearlPower, "Taken from pearl.");
 				if (item.getAmount() == 1) {
 					player.setItemInHand(null);
 				} else {
@@ -176,9 +168,8 @@ public class EnderBornManager extends ClassManager {
 		if (action.equals(Action.LEFT_CLICK_AIR)
 				|| action.equals(Action.LEFT_CLICK_BLOCK)) {
 			if (itemMaterial.equals(Material.ENDER_PEARL)) {
-				SuperNManager.sendMessage(snplayer,
-						"EnderPearl teleportation set to: "
-								+ changeTele(snplayer));
+				SuperNManager.sendMessage(snplayer, "EnderPearl teleportation set to: "
+						+ changeTele(snplayer));
 			}
 		}
 		return false;

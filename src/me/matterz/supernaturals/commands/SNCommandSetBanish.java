@@ -53,22 +53,17 @@ public class SNCommandSetBanish extends SNCommand {
 			double currentY = senderPlayer.getLocation().getY();
 			double currentZ = senderPlayer.getLocation().getZ();
 
-			SNConfigHandler.priestBanishWorld = senderPlayer.getWorld()
-					.getName();
+			SNConfigHandler.priestBanishWorld = senderPlayer.getWorld().getName();
 			SNConfigHandler.priestBanishLocationX = (int) currentX;
 			SNConfigHandler.priestBanishLocationY = (int) currentY;
 			SNConfigHandler.priestBanishLocationZ = (int) currentZ;
 
 			SNConfigHandler.priestBanishLocation = senderPlayer.getLocation();
 
-			SNConfigHandler.getConfig().set("Priest.Banish.World",
-					SNConfigHandler.priestBanishWorld);
-			SNConfigHandler.getConfig().set("Priest.Banish.Location.X",
-					SNConfigHandler.priestBanishLocationX);
-			SNConfigHandler.getConfig().set("Priest.Banish.Location.Y",
-					SNConfigHandler.priestBanishLocationY);
-			SNConfigHandler.getConfig().set("Priest.Banish.Location.Z",
-					SNConfigHandler.priestBanishLocationZ);
+			SNConfigHandler.getConfig().set("Priest.Banish.World", SNConfigHandler.priestBanishWorld);
+			SNConfigHandler.getConfig().set("Priest.Banish.Location.X", SNConfigHandler.priestBanishLocationX);
+			SNConfigHandler.getConfig().set("Priest.Banish.Location.Y", SNConfigHandler.priestBanishLocationY);
+			SNConfigHandler.getConfig().set("Priest.Banish.Location.Z", SNConfigHandler.priestBanishLocationZ);
 
 			SupernaturalsPlugin.saveData();
 
@@ -91,14 +86,10 @@ public class SNCommandSetBanish extends SNCommand {
 
 		SNConfigHandler.priestBanishLocation = senderPlayer.getLocation();
 
-		SNConfigHandler.getConfig().set("Priest.Banish.World",
-				SNConfigHandler.priestBanishWorld);
-		SNConfigHandler.getConfig().set("Priest.Banish.Location.X",
-				SNConfigHandler.priestBanishLocationX);
-		SNConfigHandler.getConfig().set("Priest.Banish.Location.Y",
-				SNConfigHandler.priestBanishLocationY);
-		SNConfigHandler.getConfig().set("Priest.Banish.Location.Z",
-				SNConfigHandler.priestBanishLocationZ);
+		SNConfigHandler.getConfig().set("Priest.Banish.World", SNConfigHandler.priestBanishWorld);
+		SNConfigHandler.getConfig().set("Priest.Banish.Location.X", SNConfigHandler.priestBanishLocationX);
+		SNConfigHandler.getConfig().set("Priest.Banish.Location.Y", SNConfigHandler.priestBanishLocationY);
+		SNConfigHandler.getConfig().set("Priest.Banish.Location.Z", SNConfigHandler.priestBanishLocationZ);
 
 		SupernaturalsPlugin.saveData();
 
