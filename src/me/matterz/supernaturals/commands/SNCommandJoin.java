@@ -1,9 +1,9 @@
 package me.matterz.supernaturals.commands;
 
-import org.bukkit.entity.Player;
-
 import me.matterz.supernaturals.io.SNConfigHandler;
 import me.matterz.supernaturals.io.SNWhitelistHandler;
+
+import org.bukkit.entity.Player;
 
 public class SNCommandJoin extends SNCommand {
 
