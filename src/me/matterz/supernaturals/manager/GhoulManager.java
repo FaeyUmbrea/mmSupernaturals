@@ -420,7 +420,6 @@ public class GhoulManager extends ClassManager {
 	// Rain Check //
 	// -------------------------------------------- //
 
-	@SuppressWarnings("deprecation")
 	public boolean isUnderRoof(Player player) {
 		/*
 		 * We start checking opacity 2 blocks up. As Max Y is 127 there CAN be a
@@ -433,7 +432,7 @@ public class GhoulManager extends ClassManager {
 		if (player.getLocation().getY() >= 126) {
 			retVal = false;
 		} else {
-			blockCurrent = blockCurrent.getFace(BlockFace.UP, 1);
+			//blockCurrent = blockCurrent.getFace(BlockFace.UP, 1); //What was the point anyway?
 			while (blockCurrent.getY() + 1 <= 127) {
 				blockCurrent = blockCurrent.getRelative(BlockFace.UP);
 
