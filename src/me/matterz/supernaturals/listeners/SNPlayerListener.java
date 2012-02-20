@@ -24,6 +24,8 @@ import me.matterz.supernaturals.SupernaturalsPlugin;
 import me.matterz.supernaturals.io.SNConfigHandler;
 import me.matterz.supernaturals.manager.SuperNManager;
 
+import org.bukkit.Effect;
+import org.bukkit.EntityEffect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -73,6 +75,8 @@ public class SNPlayerListener implements Listener {
 			if (itemMaterial.equals(Material.ENDER_PEARL)) {
 				SuperNManager.sendMessage(snplayer, "The clay changes... it moves...");
 				SuperNManager.sendMessage(snplayer, "It wraps around you, takes over you.");
+				player.playEffect(EntityEffect.HURT);
+				player.playEffect(player.getLocation(), Effect.SMOKE, 5);
 				SuperNManager.convert(snplayer, "enderborn");
 				if (item.getAmount() == 1) {
 					player.setItemInHand(null);
