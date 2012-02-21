@@ -86,6 +86,7 @@ public class SNPlayerMonitor implements Listener {
 		if (!SNConfigHandler.enableLoginMessage) {
 			return;
 		}
+		SuperNManager.updateName(snplayer);
 
 		if (SNConfigHandler.enableColors) {
 			if (SNConfigHandler.spanish) {
