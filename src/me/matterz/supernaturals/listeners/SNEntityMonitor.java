@@ -145,10 +145,10 @@ public class SNEntityMonitor implements Listener {
 			pDamager = (Player) lDamager;
 		} else if (lDamager instanceof Wolf) {
 			Wolf wolf = (Wolf) lDamager;
-			if (wolf.isTamed()) {
+			if (!wolf.isTamed()) {
 				return;
 			}
-			if (wolf.getOwner() instanceof Player) {
+			if (!(wolf.getOwner() instanceof Player)) {
 				return;
 			}
 			pDamager = (Player) wolf.getOwner();
