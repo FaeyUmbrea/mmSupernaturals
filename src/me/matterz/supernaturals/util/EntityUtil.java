@@ -20,12 +20,12 @@
 package me.matterz.supernaturals.util;
 
 import org.bukkit.entity.Creature;
-import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 
 public class EntityUtil {
 
-	public static CreatureType creatureTypeFromEntity(Entity entity) {
+	public static EntityType entityTypeFromEntity(Entity entity) {
 		if (!(entity instanceof Creature)) {
 			return null;
 		}
@@ -33,6 +33,6 @@ public class EntityUtil {
 		String name = entity.getClass().getSimpleName();
 		name = name.substring(5); // Remove "Craft"
 
-		return CreatureType.fromName(name);
+		return EntityType.fromName(name);
 	}
 }

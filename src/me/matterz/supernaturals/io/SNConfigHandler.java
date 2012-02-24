@@ -32,7 +32,7 @@ import me.matterz.supernaturals.util.Recipes;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.Configuration;
-import org.bukkit.entity.CreatureType;
+import org.bukkit.entity.EntityType;
 
 public class SNConfigHandler {
 
@@ -168,7 +168,7 @@ public class SNConfigHandler {
 	public static List<String> hunterArrowTypes = new ArrayList<String>();
 
 	public static List<Material> woodMaterials = new ArrayList<Material>();
-	public static List<CreatureType> vampireTruce = new ArrayList<CreatureType>();
+	public static List<EntityType> vampireTruce = new ArrayList<EntityType>();
 	public static List<Material> foodMaterials = new ArrayList<Material>();
 	public static List<Material> ghoulWeapons = new ArrayList<Material>();
 	public static List<Material> demonWeapons = new ArrayList<Material>();
@@ -177,7 +177,7 @@ public class SNConfigHandler {
 	public static List<Material> hunterWeapons = new ArrayList<Material>();
 	public static List<Material> wereWeapons = new ArrayList<Material>();
 	public static List<Material> ghoulWeaponImmunity = new ArrayList<Material>();
-	public static List<CreatureType> ghoulTruce = new ArrayList<CreatureType>();
+	public static List<EntityType> ghoulTruce = new ArrayList<EntityType>();
 	public static List<Material> priestSpellMaterials = new ArrayList<Material>();
 	public static HashMap<Material, Integer> priestDonationMap = new HashMap<Material, Integer>();
 	public static List<Material> burnableBlocks = new ArrayList<Material>();
@@ -1008,7 +1008,7 @@ public class SNConfigHandler {
 		}
 
 		for (String creature : vampireTruceString) {
-			CreatureType cType = CreatureType.valueOf(creature);
+			EntityType cType = EntityType.valueOf(creature);
 			if (cType != null) {
 				vampireTruce.add(cType);
 			}
@@ -1019,7 +1019,7 @@ public class SNConfigHandler {
 		}
 
 		for (String creature : ghoulTruceString) {
-			CreatureType cType = CreatureType.valueOf(creature);
+			EntityType cType = EntityType.valueOf(creature);
 			if (cType != null) {
 				ghoulTruce.add(cType);
 			}

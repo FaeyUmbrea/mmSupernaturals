@@ -116,10 +116,10 @@ public class SNEntityMonitor implements Listener {
 
 				// Break vampire truce
 				if (snDamager.isVampire()
-						&& SNConfigHandler.vampireTruce.contains(EntityUtil.creatureTypeFromEntity(cVictim))) {
+						&& SNConfigHandler.vampireTruce.contains(EntityUtil.entityTypeFromEntity(cVictim))) {
 					plugin.getSuperManager().truceBreak(snDamager);
 				} else if (snDamager.isGhoul()
-						&& SNConfigHandler.ghoulTruce.contains(EntityUtil.creatureTypeFromEntity(cVictim))) {
+						&& SNConfigHandler.ghoulTruce.contains(EntityUtil.entityTypeFromEntity(cVictim))) {
 					plugin.getSuperManager().truceBreak(snDamager);
 				}
 			}

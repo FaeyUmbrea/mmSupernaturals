@@ -538,7 +538,7 @@ public class HunterManager extends HumanManager {
 		if (arrowType.equalsIgnoreCase("fire")) {
 			if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowFire) {
 				SuperNManager.alterPower(snplayer, -SNConfigHandler.hunterPowerArrowFire, "Fire Arrow!");
-				Arrow arrow = player.shootArrow();
+				Arrow arrow = player.launchProjectile(Arrow.class);
 				arrowMap.put(arrow, arrowType);
 				arrow.setFireTicks(SNConfigHandler.hunterFireArrowFireTicks);
 				return true;
@@ -551,7 +551,7 @@ public class HunterManager extends HumanManager {
 		} else if (arrowType.equalsIgnoreCase("triple")) {
 			if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowTriple) {
 				SuperNManager.alterPower(snplayer, -SNConfigHandler.hunterPowerArrowTriple, "Triple Arrow!");
-				final Arrow arrow = player.shootArrow();
+				final Arrow arrow = player.launchProjectile(Arrow.class);
 				arrowMap.put(arrow, arrowType);
 				SupernaturalsPlugin.instance.getServer().getScheduler().scheduleSyncDelayedTask(SupernaturalsPlugin.instance, new Runnable() {
 					@Override
@@ -569,7 +569,7 @@ public class HunterManager extends HumanManager {
 		} else if (arrowType.equalsIgnoreCase("power")) {
 			if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowPower) {
 				SuperNManager.alterPower(snplayer, -SNConfigHandler.hunterPowerArrowPower, "Power Arrow!");
-				Arrow arrow = player.shootArrow();
+				Arrow arrow = player.launchProjectile(Arrow.class);
 				arrowMap.put(arrow, arrowType);
 				drainedPlayers.add(player);
 				if (SNConfigHandler.debugMode) {
@@ -596,7 +596,7 @@ public class HunterManager extends HumanManager {
 		} else if (arrowType.equalsIgnoreCase("grapple")) {
 			if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowGrapple) {
 				SuperNManager.alterPower(snplayer, -SNConfigHandler.hunterPowerArrowGrapple, "Grapple Arrow!");
-				Arrow arrow = player.shootArrow();
+				Arrow arrow = player.launchProjectile(Arrow.class);
 				arrowMap.put(arrow, arrowType);
 				return true;
 			} else {
@@ -614,7 +614,7 @@ public class HunterManager extends HumanManager {
 		if (SNConfigHandler.debugMode) {
 			SupernaturalsPlugin.log(player.getName() + "'s triple arrow event.");
 		}
-		player.shootArrow();
+		player.launchProjectile(Arrow.class);
 		String arrowType = arrowMap.get(arrow);
 		if (arrowType.equals("triple")) {
 			arrowMap.put(arrow, "double");

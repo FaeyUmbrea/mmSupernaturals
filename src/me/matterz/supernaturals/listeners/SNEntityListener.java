@@ -212,15 +212,15 @@ public class SNEntityListener implements Listener {
 			return;
 		}
 
-		if (EntityUtil.creatureTypeFromEntity(event.getEntity()) == null) {
+		if (EntityUtil.entityTypeFromEntity(event.getEntity()) == null) {
 			return;
 		}
 
 		if (snplayer.isVampire()
-				&& SNConfigHandler.vampireTruce.contains(EntityUtil.creatureTypeFromEntity(event.getEntity()))) {
+				&& SNConfigHandler.vampireTruce.contains(EntityUtil.entityTypeFromEntity(event.getEntity()))) {
 			event.setCancelled(true);
 		} else if (snplayer.isGhoul()
-				&& SNConfigHandler.ghoulTruce.contains(EntityUtil.creatureTypeFromEntity(event.getEntity()))) {
+				&& SNConfigHandler.ghoulTruce.contains(EntityUtil.entityTypeFromEntity(event.getEntity()))) {
 			event.setCancelled(true);
 		} else if (snplayer.isWere() && SNConfigHandler.wolfTruce
 				&& event.getEntity() instanceof Wolf) {

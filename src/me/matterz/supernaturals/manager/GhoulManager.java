@@ -30,8 +30,8 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Boat;
-import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -398,7 +398,7 @@ public class GhoulManager extends ClassManager {
 			return false;
 		}
 		if (snplayer.getPower() > SNConfigHandler.ghoulPowerSummonCost) {
-			player.getWorld().spawnCreature(player.getLocation(), CreatureType.ZOMBIE);
+			player.getWorld().spawnCreature(player.getLocation(), EntityType.ZOMBIE);
 			SuperNManager.alterPower(snplayer, -SNConfigHandler.ghoulPowerSummonCost, "Summoning a Zombie!");
 			if (SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log(snplayer.getName()

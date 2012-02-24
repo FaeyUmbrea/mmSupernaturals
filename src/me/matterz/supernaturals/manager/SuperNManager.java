@@ -323,14 +323,14 @@ public class SuperNManager {
 			}
 
 			if (snplayer.isVampire()
-					&& SNConfigHandler.vampireTruce.contains(EntityUtil.creatureTypeFromEntity(entity))) {
+					&& SNConfigHandler.vampireTruce.contains(EntityUtil.entityTypeFromEntity(entity))) {
 				Creature creature = (Creature) entity;
 				LivingEntity target = creature.getTarget();
 				if (target != null && creature.getTarget().equals(player)) {
 					creature.setTarget(null);
 				}
 			} else if (snplayer.isGhoul()
-					&& SNConfigHandler.ghoulTruce.contains(EntityUtil.creatureTypeFromEntity(entity))) {
+					&& SNConfigHandler.ghoulTruce.contains(EntityUtil.entityTypeFromEntity(entity))) {
 				Creature creature = (Creature) entity;
 				LivingEntity target = creature.getTarget();
 				if (target != null && creature.getTarget().equals(player)) {

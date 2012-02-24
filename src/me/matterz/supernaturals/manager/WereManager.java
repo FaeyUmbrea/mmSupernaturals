@@ -28,8 +28,8 @@ import me.matterz.supernaturals.SupernaturalsPlugin;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
 import org.bukkit.Material;
-import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.block.Action;
@@ -294,7 +294,7 @@ public class WereManager extends ClassManager {
 					}
 				}
 				if (i <= 4) {
-					Wolf wolf = (Wolf) player.getWorld().spawnCreature(player.getLocation(), CreatureType.WOLF);
+					Wolf wolf = (Wolf) player.getWorld().spawnCreature(player.getLocation(), EntityType.WOLF);
 					wolf.setTamed(true);
 					wolf.setOwner(player);
 					wolf.setHealth(20);
