@@ -74,7 +74,7 @@ public class SNPlayerMonitor implements Listener {
 			return;
 		}
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		if (!SNWhitelistHandler.isWhitelisted(player)) {
+		if (!SNWhitelistHandler.isWhitelisted(SuperNManager.get(player))) {
 			SuperNManager.sendMessage(snplayer, "Your class has been reset because you are trying to bypass");
 			SuperNManager.sendMessage(snplayer, "The mmSupernaturals whitelist!");
 		}

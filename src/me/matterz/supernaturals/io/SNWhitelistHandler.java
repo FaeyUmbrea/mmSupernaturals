@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 
 public class SNWhitelistHandler {
 
@@ -58,7 +58,7 @@ public class SNWhitelistHandler {
 		whitelistYaml.set("WhitelistedPlayers", playersInWhitelist);
 	}
 
-	public static boolean isWhitelisted(Player player) {
+	public static boolean isWhitelisted(SuperNPlayer player) {
 		if (!SNConfigHandler.enableJoinCommand) {
 			return true;
 		}
