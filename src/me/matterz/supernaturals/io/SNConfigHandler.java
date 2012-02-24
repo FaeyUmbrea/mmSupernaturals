@@ -282,7 +282,6 @@ public class SNConfigHandler {
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if (SNVersionHandler.readVersion() != plugin.getDescription().getVersion()
 				&& configFile.exists()) {
-			config.set("EnableJoinCommand", false);
 			saveConfig();
 			SNVersionHandler.writeVersion();
 		}
