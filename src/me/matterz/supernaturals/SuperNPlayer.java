@@ -117,10 +117,18 @@ public class SuperNPlayer implements Serializable {
 	public boolean isSuper() {
 		if (getType().equalsIgnoreCase("human")
 				|| getType().equalsIgnoreCase("priest")
-				|| getType().equalsIgnoreCase("witchhunter")) {
+				|| getType().equalsIgnoreCase("witchhunter")
+				|| getType().equalsIgnoreCase("angel")) {
 			return false;
 		}
 		return true;
+	}
+
+	public boolean isAngel() {
+		if(getType().equalsIgnoreCase("angel")) {
+			return true;
+		}
+		return false;
 	}
 
 	public boolean isHuman() {

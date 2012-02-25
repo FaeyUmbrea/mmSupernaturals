@@ -60,6 +60,7 @@ public class SNConfigHandler {
 	public static double vampireDamageReceivedFactor;
 	public static double ghoulDamageReceivedFactor;
 	public static double jumpDeltaSpeed;
+	public static double angelJumpDeltaSpeed;
 	public static double dashDeltaSpeed;
 	public static double ghoulHealthGained;
 	public static double wereHealthGained;
@@ -95,6 +96,13 @@ public class SNConfigHandler {
 	public static int vampireKillPowerPlayerGain;
 	public static int ghoulKillPowerPlayerGain;
 	public static int wereKillPowerPlayerGain;
+	public static int angelHealHealthGain;
+	public static int angelHealPowerCost;
+	public static int angelSummonPowerCost;
+	public static int angelCurePowerCost;
+	public static int angelJumpPowerCost;
+	public static int angelSwimPowerGain;
+	public static int angelKillMonsterPowerGain;
 	public static int vampireCombustFireTicks;
 	public static int vampireDrowningCost;
 	public static int vampireTeleportCost;
@@ -282,6 +290,26 @@ public class SNConfigHandler {
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if (SNVersionHandler.readVersion() != plugin.getDescription().getVersion()
 				&& configFile.exists()) {
+			config.set("Angel.Power.Heal.HealthGain", 5);
+			config.set("Angel.Power.Heal.PowerCost", 3000);
+			config.set("Angel.Power.Summon.PowerCost", 5000);
+			config.set("Angel.Power.Cure.PowerCost", 6000);
+			config.set("Angel.Power.Jump.PowerCost", 1000);
+			config.set("Angel.JumpDelta", 1.2);
+			config.set("Angel.Power.Kill.MonsterGain", 30);
+			config.set("Angel.Power.Swim.PowerGain", 50);
+			if (supernaturalTypes.size() == 0) {
+				supernaturalTypes.add("human");
+				supernaturalTypes.add("vampire");
+				supernaturalTypes.add("werewolf");
+				supernaturalTypes.add("ghoul");
+				supernaturalTypes.add("priest");
+				supernaturalTypes.add("demon");
+				supernaturalTypes.add("witchhunter");
+				supernaturalTypes.add("enderborn");
+				supernaturalTypes.add("angel");
+				config.set("Supernatural.Types", supernaturalTypes);
+			}
 			saveConfig();
 			SNVersionHandler.writeVersion();
 		}
@@ -430,6 +458,15 @@ public class SNConfigHandler {
 			config.set("EnderBorn.Power.Kill", 50);
 			config.set("EnderBorn.Power.EnderPearl", 100);
 
+			config.set("Angel.Power.Heal.HealthGain", 5);
+			config.set("Angel.Power.Heal.PowerCost", 3000);
+			config.set("Angel.Power.Summon.PowerCost", 5000);
+			config.set("Angel.Power.Cure.PowerCost", 6000);
+			config.set("Angel.Power.Jump.PowerCost", 1000);
+			config.set("Angel.JumpDelta", 1.2);
+			config.set("Angel.Power.Kill.MonsterGain", 30);
+			config.set("Angel.Power.Swim.PowerGain", 50);
+
 			if (supernaturalTypes.size() == 0) {
 				supernaturalTypes.add("human");
 				supernaturalTypes.add("vampire");
@@ -439,6 +476,7 @@ public class SNConfigHandler {
 				supernaturalTypes.add("demon");
 				supernaturalTypes.add("witchhunter");
 				supernaturalTypes.add("enderborn");
+				supernaturalTypes.add("angel");
 				config.set("Supernatural.Types", supernaturalTypes);
 			}
 
@@ -993,6 +1031,8 @@ public class SNConfigHandler {
 		enderKillPower = config.getInt("EnderBorn.Power.Kill");
 		enderPearlPower = config.getInt("EnderBorn.Power.EnderPearl");
 		enderWeaponsString = config.getStringList("EnderBorn.Weapon.Restrictions");
+
+		angelHealHealthGain = config.getInt("Angel.Power.Heal.HealthGain");
 
 		for (String wood : woodMaterialsString) {
 			woodMaterials.add(Material.getMaterial(wood));

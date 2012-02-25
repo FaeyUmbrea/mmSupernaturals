@@ -34,6 +34,7 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Wolf;
@@ -152,6 +153,15 @@ public class SNEntityMonitor implements Listener {
 				return;
 			}
 			pDamager = (Player) wolf.getOwner();
+		}
+
+		if (entity instanceof Monster) {
+			if(pDamager != null) {
+				SuperNPlayer snplayer = SuperNManager.get(pDamager);
+				if(snplayer.isAngel()) {
+					SuperNManager.alterPower(snplayer, SNConfigHandler.angelKillMonsterPowerGain, "Killed Monster");
+				}
+			}
 		}
 
 		if (entity instanceof Wolf) {

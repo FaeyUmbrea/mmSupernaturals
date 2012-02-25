@@ -139,6 +139,12 @@ public class SNPlayerMonitor implements Listener {
 					plugin.getServer().broadcastMessage(ChatColor.LIGHT_PURPLE
 							+ "El EnderBorn " + player.getName()
 							+ ChatColor.GOLD + " ha entrado al juego.");
+				} else if (snplayer.isAngel()) {
+					player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.AQUA
+							+ player.getName()));
+					plugin.getServer().broadcastMessage(ChatColor.AQUA
+							+ "El Angel " + player.getName()
+							+ ChatColor.GOLD + " ha entrado al juego.");
 				}
 				return;
 			}
@@ -190,6 +196,12 @@ public class SNPlayerMonitor implements Listener {
 						+ player.getName()));
 				plugin.getServer().broadcastMessage(ChatColor.LIGHT_PURPLE
 						+ "EnderBorn " + player.getName() + ChatColor.GOLD
+						+ " has joined the server.");
+			} else if (snplayer.isAngel()) {
+				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.AQUA
+						+ player.getName()));
+				plugin.getServer().broadcastMessage(ChatColor.AQUA
+						+ "Angel " + player.getName() + ChatColor.GOLD
 						+ " has joined the server.");
 			}
 		}

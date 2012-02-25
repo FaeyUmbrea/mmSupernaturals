@@ -56,6 +56,7 @@ import me.matterz.supernaturals.listeners.SNEntityMonitor;
 import me.matterz.supernaturals.listeners.SNPlayerListener;
 import me.matterz.supernaturals.listeners.SNPlayerMonitor;
 import me.matterz.supernaturals.listeners.SNServerMonitor;
+import me.matterz.supernaturals.manager.AngelManager;
 import me.matterz.supernaturals.manager.ClassManager;
 import me.matterz.supernaturals.manager.DemonManager;
 import me.matterz.supernaturals.manager.EnderBornManager;
@@ -113,6 +114,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	private HunterManager hunterManager = new HunterManager();
 	private DemonManager demonManager = new DemonManager();
 	private EnderBornManager enderManager = new EnderBornManager();
+	private AngelManager angelManager = new AngelManager();
 
 	public List<SNCommand> commands = new ArrayList<SNCommand>();
 
@@ -144,6 +146,10 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
 	public VampireManager getVampireManager() {
 		return vampManager;
+	}
+
+	public AngelManager getAngelManager() {
+		return angelManager;
 	}
 
 	public PriestManager getPriestManager() {

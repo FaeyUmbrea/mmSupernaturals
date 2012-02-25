@@ -486,6 +486,8 @@ public class SuperNManager {
 			color = ChatColor.RED;
 		} else if (snplayer.isEnderBorn()) {
 			color = ChatColor.LIGHT_PURPLE;
+		} else if (snplayer.isAngel()) {
+			color = ChatColor.AQUA;
 		} else {
 			color = ChatColor.WHITE;
 		}
@@ -560,6 +562,10 @@ public class SuperNManager {
 		} else if (snplayer.isWere()) {
 			if (taskCounter % 5 == 0) {
 				regenAdvanceTime(player, 5000);
+			}
+		} else if (snplayer.isAngel()) {
+			if(taskCounter % 10 == 0) {
+				plugin.getAngelManager().waterAdvanceTime(player);
 			}
 		}
 
