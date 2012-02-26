@@ -79,6 +79,8 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.nijiko.permissions.PermissionHandler;
+import com.nijikokun.bukkit.Permissions.Permissions;
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
@@ -121,6 +123,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	private static File dataFolder;
 
 	public static boolean foundPerms = false;
+	public static PermissionHandler permHandler = null;
 
 	private PluginManager pm;
 
@@ -373,10 +376,13 @@ public class SupernaturalsPlugin extends JavaPlugin {
 			log(Level.WARNING, "If something goes wrong with bPermissions and this plugin, I will not help!");
 			foundPerms = true;
 		} else if (pm.isPluginEnabled("GroupManager")) {
-			log("Found GroupManager");
-			foundPerms = true;
-		} else if (pm.isPluginEnabled("EssentialsGroupManager")) {
-			log("Found EssentialsGroupManager");
+			log("Found GroupManager, enabling bridge");
+		    Plugin permissionsPlugin = this.getServer().getPluginManager().getPlugin("Permissions");
+		    
+		    if (permissionsPlugin == null) {
+		        return;
+		    }
+		    permHandler = ((Permissions) permissionsPlugin).getHandler();
 			foundPerms = true;
 		}
 
@@ -409,6 +415,9 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	}
 
 	public static boolean hasPermissions(Player player, String permissions) {
+		if(permHandler != null) {
+			permHandler.has(player, permissions);
+		}
 		return player.hasPermission(permissions);
 	}
 
