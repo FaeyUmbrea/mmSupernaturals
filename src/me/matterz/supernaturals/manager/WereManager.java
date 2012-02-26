@@ -25,6 +25,8 @@ import java.util.List;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
+import me.matterz.supernaturals.events.ConvertReason;
+import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
 import org.bukkit.Material;
@@ -43,12 +45,14 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class WereManager extends ClassManager {
 
-	public WereManager() {
+	public WereManager(SupernaturalsPlugin instance) {
 		super();
+		plugin = instance;
 	}
 
 	private String permissions2 = "supernatural.player.wolfbane";
 	private static HashMap<Wolf, SuperNPlayer> wolvesMap = new HashMap<Wolf, SuperNPlayer>();
+	private SupernaturalsPlugin plugin;
 
 	// -------------------------------------------- //
 	// Damage Events //
@@ -112,6 +116,11 @@ public class WereManager extends ClassManager {
 					&& !victim.isSuper()
 					&& SuperNManager.worldTimeIsNight(SupernaturalsPlugin.instance.getServer().getPlayer(victim.getName()))) {
 				if (random < SNConfigHandler.spreadChance) {
+					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(victim, damager, ConvertReason.PLAYER_KILLED_PLAYER);
+					plugin.getServer().getPluginManager().callEvent(convertEvent);
+					if(convertEvent.isCancelled()) {
+						return;
+					}
 					SuperNManager.sendMessage(victim, "Your basic nature changes... You feel more in touch with your animal side.");
 					SuperNManager.convert(victim, "werewolf");
 				}

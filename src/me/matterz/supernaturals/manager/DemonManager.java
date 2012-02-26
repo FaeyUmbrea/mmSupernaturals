@@ -25,6 +25,8 @@ import java.util.List;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
+import me.matterz.supernaturals.events.ConvertReason;
+import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
 import org.bukkit.ChatColor;
@@ -53,6 +55,11 @@ public class DemonManager extends ClassManager {
 	private HashMap<Block, Location> webMap = new HashMap<Block, Location>();
 	private ArrayList<Player> demonApps = new ArrayList<Player>();
 	private List<Player> demons = new ArrayList<Player>();
+	private SupernaturalsPlugin plugin;
+
+	public DemonManager(SupernaturalsPlugin instance) {
+		plugin = instance;
+	}
 
 	// -------------------------------------------- //
 	// Damage Events //
@@ -397,6 +404,11 @@ public class DemonManager extends ClassManager {
 	public boolean convert(Player player, Player target) {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNPlayer snvictim = SuperNManager.get(target);
+		SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snvictim, snplayer, ConvertReason.PLAYER_CONVERT_SPELL);
+		plugin.getServer().getPluginManager().callEvent(convertEvent);
+		if(convertEvent.isCancelled()) {
+			return false;
+		}
 		if (snplayer.getPower() < SNConfigHandler.demonConvertPower) {
 			SuperNManager.sendMessage(snplayer, "Not enough power to convert!");
 			return false;

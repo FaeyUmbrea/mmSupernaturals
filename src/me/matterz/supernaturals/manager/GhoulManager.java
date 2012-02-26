@@ -23,6 +23,8 @@ import java.util.HashMap;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
+import me.matterz.supernaturals.events.ConvertReason;
+import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
 import org.bukkit.ChatColor;
@@ -43,12 +45,14 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class GhoulManager extends ClassManager {
 
-	public GhoulManager() {
+	public GhoulManager(SupernaturalsPlugin instance) {
 		super();
+		plugin = instance;
 	}
 
 	private String permissions = "supernatural.player.preventwaterdamage";
 	private HashMap<SuperNPlayer, SuperNPlayer> bonds = new HashMap<SuperNPlayer, SuperNPlayer>();
+	private SupernaturalsPlugin plugin;
 
 	// -------------------------------------------- //
 	// Damage Events //
@@ -126,6 +130,11 @@ public class GhoulManager extends ClassManager {
 			}
 			if (SNConfigHandler.ghoulKillSpreadCurse && !victim.isSuper()) {
 				if (random < SNConfigHandler.spreadChance) {
+					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(victim, damager, ConvertReason.PLAYER_KILLED_PLAYER);
+					plugin.getServer().getPluginManager().callEvent(convertEvent);
+					if(convertEvent.isCancelled()) {
+						return;
+					}
 					SuperNManager.sendMessage(victim, "Your body dies... You feel a deep hatred for the living.");
 					SuperNManager.convert(victim, "ghoul");
 				}

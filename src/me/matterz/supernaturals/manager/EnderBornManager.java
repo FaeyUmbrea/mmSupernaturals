@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
+import me.matterz.supernaturals.events.ConvertReason;
+import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
 import org.bukkit.ChatColor;
@@ -18,12 +20,13 @@ import org.bukkit.inventory.ItemStack;
 
 public class EnderBornManager extends ClassManager {
 
-	public SupernaturalsPlugin plugin = SupernaturalsPlugin.instance;
+	public SupernaturalsPlugin plugin;
 	public HashMap<SuperNPlayer, Boolean> teleMap = new HashMap<SuperNPlayer, Boolean>();
 	public HashMap<SuperNPlayer, Integer> deathTimesMap = new HashMap<SuperNPlayer, Integer>();
 
-	public EnderBornManager() {
+	public EnderBornManager(SupernaturalsPlugin instance) {
 		super();
+		plugin = instance;
 	}
 
 	public boolean changeTele(SuperNPlayer snplayer) {
@@ -58,6 +61,11 @@ public class EnderBornManager extends ClassManager {
 		SuperNPlayer sntarget = SuperNManager.get(target);
 		if (itemMaterial.equals(Material.ENDER_PEARL)
 				&& targetItemMaterial.equals(Material.ENDER_PEARL)) {
+			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(sntarget, snplayer, ConvertReason.PLAYER_CONVERT_SPELL);
+			plugin.getServer().getPluginManager().callEvent(convertEvent);
+			if(convertEvent.isCancelled()) {
+				return;
+			}
 			SuperNManager.sendMessage(snplayer, "You have converted "
 					+ ChatColor.WHITE + target.getName() + ChatColor.RED + "!");
 			SuperNManager.sendMessage(sntarget, "An energy takes over your body...");

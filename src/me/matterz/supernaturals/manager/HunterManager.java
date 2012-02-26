@@ -27,6 +27,8 @@ import java.util.logging.Level;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
+import me.matterz.supernaturals.events.ConvertReason;
+import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 import me.matterz.supernaturals.util.ArrowUtil;
 
@@ -51,8 +53,9 @@ import org.bukkit.util.Vector;
 
 public class HunterManager extends HumanManager {
 
-	public HunterManager() {
+	public HunterManager(SupernaturalsPlugin instance) {
 		super();
+		this.plugin = instance;
 	}
 
 	private HashMap<Arrow, String> arrowMap = new HashMap<Arrow, String>();
@@ -62,6 +65,7 @@ public class HunterManager extends HumanManager {
 	private ArrayList<Location> hallDoors = new ArrayList<Location>();
 	private ArrayList<SuperNPlayer> playerInvites = new ArrayList<SuperNPlayer>();
 	private static ArrayList<SuperNPlayer> bountyList = new ArrayList<SuperNPlayer>();
+	private SupernaturalsPlugin plugin;
 
 	private String arrowType = "normal";
 
@@ -438,6 +442,11 @@ public class HunterManager extends HumanManager {
 
 	public boolean join(SuperNPlayer snplayer) {
 		if (playerInvites.contains(snplayer)) {
+			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, null, ConvertReason.PLAYER_KILLED_PLAYER);
+			plugin.getServer().getPluginManager().callEvent(convertEvent);
+			if(convertEvent.isCancelled()) {
+				return false;
+			}
 			SuperNManager.sendMessage(snplayer, "Welcome to the WitchHunter society!");
 			SuperNManager.convert(snplayer, "witchhunter", SNConfigHandler.hunterPowerStart);
 			return true;

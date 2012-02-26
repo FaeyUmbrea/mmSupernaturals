@@ -24,6 +24,10 @@ import org.bukkit.util.Vector;
 
 public class AngelManager extends ClassManager {
 
+	public AngelManager() {
+		super();
+	}
+
 	@Override
 	public double damagerEvent(EntityDamageByEntityEvent event, double damage) {
 		Player player = (Player) event.getEntity();

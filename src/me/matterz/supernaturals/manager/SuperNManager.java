@@ -27,7 +27,6 @@ import java.util.logging.Level;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
-import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 import me.matterz.supernaturals.util.EntityUtil;
 import me.matterz.supernaturals.util.SNTaskTimer;
@@ -111,11 +110,6 @@ public class SuperNManager {
 
 	public static void convert(SuperNPlayer snplayer, String superType, int powerLevel) {
 		if (!SNConfigHandler.supernaturalTypes.contains(superType)) {
-			return;
-		}
-		SupernaturalConvertEvent event = new SupernaturalConvertEvent(snplayer);
-		plugin.getServer().getPluginManager().callEvent(event);
-		if(event.isCancelled()) {
 			return;
 		}
 		String type = superType.toLowerCase();

@@ -106,14 +106,14 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	private SNServerMonitor serverMonitor;
 
 	private SuperNManager superManager = new SuperNManager(this);
-	private HumanManager humanManager = new HumanManager();
+	private HumanManager humanManager = new HumanManager(this);
 	private VampireManager vampManager = new VampireManager();
-	private PriestManager priestManager = new PriestManager();
-	private WereManager wereManager = new WereManager();
-	private GhoulManager ghoulManager = new GhoulManager();
-	private HunterManager hunterManager = new HunterManager();
-	private DemonManager demonManager = new DemonManager();
-	private EnderBornManager enderManager = new EnderBornManager();
+	private PriestManager priestManager = new PriestManager(this);
+	private WereManager wereManager = new WereManager(this);
+	private GhoulManager ghoulManager = new GhoulManager(this);
+	private HunterManager hunterManager = new HunterManager(this);
+	private DemonManager demonManager = new DemonManager(this);
+	private EnderBornManager enderManager = new EnderBornManager(this);
 	private AngelManager angelManager = new AngelManager();
 
 	public List<SNCommand> commands = new ArrayList<SNCommand>();
