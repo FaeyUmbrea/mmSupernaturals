@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
-import me.matterz.supernaturals.events.ConvertReason;
 import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
@@ -61,7 +60,7 @@ public class EnderBornManager extends ClassManager {
 		SuperNPlayer sntarget = SuperNManager.get(target);
 		if (itemMaterial.equals(Material.ENDER_PEARL)
 				&& targetItemMaterial.equals(Material.ENDER_PEARL)) {
-			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(sntarget, snplayer, ConvertReason.PLAYER_CONVERT_SPELL);
+			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(sntarget, snplayer);
 			plugin.getServer().getPluginManager().callEvent(convertEvent);
 			if(convertEvent.isCancelled()) {
 				return;

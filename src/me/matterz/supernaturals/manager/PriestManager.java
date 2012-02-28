@@ -21,7 +21,6 @@ package me.matterz.supernaturals.manager;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
-import me.matterz.supernaturals.events.ConvertReason;
 import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
@@ -231,7 +230,7 @@ public class PriestManager extends HumanManager {
 								return;
 							}
 							if (SNConfigHandler.priestAltarRecipe.playerHasEnough(player)) {
-								SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, null, ConvertReason.PLAYER_INTERACTED_BLOCK);
+								SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, null);
 								plugin.getServer().getPluginManager().callEvent(convertEvent);
 								if(convertEvent.isCancelled()) {
 									return;

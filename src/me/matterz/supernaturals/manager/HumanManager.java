@@ -21,7 +21,6 @@ package me.matterz.supernaturals.manager;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
-import me.matterz.supernaturals.events.ConvertReason;
 import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
@@ -84,7 +83,7 @@ public class HumanManager extends ClassManager {
 				|| e.getCause().equals(DamageCause.FIRE_TICK)) {
 			if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
 				if (SupernaturalsPlugin.instance.getDemonManager().checkPlayerApp(player)) {
-					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, null, ConvertReason.PLAYER_DIED);
+					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, null);
 					plugin.getServer().getPluginManager().callEvent(convertEvent);
 					if(convertEvent.isCancelled()) {
 						return;

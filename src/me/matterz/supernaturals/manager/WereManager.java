@@ -25,7 +25,6 @@ import java.util.List;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
-import me.matterz.supernaturals.events.ConvertReason;
 import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
@@ -116,7 +115,7 @@ public class WereManager extends ClassManager {
 					&& !victim.isSuper()
 					&& SuperNManager.worldTimeIsNight(SupernaturalsPlugin.instance.getServer().getPlayer(victim.getName()))) {
 				if (random < SNConfigHandler.spreadChance) {
-					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(victim, damager, ConvertReason.PLAYER_KILLED_PLAYER);
+					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(victim, damager);
 					plugin.getServer().getPluginManager().callEvent(convertEvent);
 					if(convertEvent.isCancelled()) {
 						return;

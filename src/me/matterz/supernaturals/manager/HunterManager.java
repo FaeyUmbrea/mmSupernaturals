@@ -27,7 +27,6 @@ import java.util.logging.Level;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
-import me.matterz.supernaturals.events.ConvertReason;
 import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 import me.matterz.supernaturals.util.ArrowUtil;
@@ -442,7 +441,7 @@ public class HunterManager extends HumanManager {
 
 	public boolean join(SuperNPlayer snplayer) {
 		if (playerInvites.contains(snplayer)) {
-			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, null, ConvertReason.PLAYER_KILLED_PLAYER);
+			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, null);
 			plugin.getServer().getPluginManager().callEvent(convertEvent);
 			if(convertEvent.isCancelled()) {
 				return false;

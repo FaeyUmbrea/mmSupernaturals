@@ -25,7 +25,6 @@ import java.util.List;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
-import me.matterz.supernaturals.events.ConvertReason;
 import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
@@ -404,7 +403,7 @@ public class DemonManager extends ClassManager {
 	public boolean convert(Player player, Player target) {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNPlayer snvictim = SuperNManager.get(target);
-		SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snvictim, snplayer, ConvertReason.PLAYER_CONVERT_SPELL);
+		SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snvictim, snplayer);
 		plugin.getServer().getPluginManager().callEvent(convertEvent);
 		if(convertEvent.isCancelled()) {
 			return false;
