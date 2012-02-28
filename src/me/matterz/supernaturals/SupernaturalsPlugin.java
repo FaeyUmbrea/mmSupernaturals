@@ -69,6 +69,8 @@ import me.matterz.supernaturals.manager.VampireManager;
 import me.matterz.supernaturals.manager.WereManager;
 import me.matterz.supernaturals.util.TextUtil;
 
+import org.anjocaido.groupmanager.GroupManager;
+import org.anjocaido.groupmanager.permissions.AnjoPermissionsHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -79,8 +81,6 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.nijiko.permissions.PermissionHandler;
-import com.nijikokun.bukkit.Permissions.Permissions;
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
@@ -123,9 +123,11 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	private static File dataFolder;
 
 	public static boolean foundPerms = false;
-	public static PermissionHandler permHandler = null;
+	public static boolean usingGroupManager = false;
 
-	private PluginManager pm;
+	public static GroupManager groupManager;
+
+	public PluginManager pm;
 
 	public SNDataHandler getDataHandler() {
 		return snData;
@@ -376,13 +378,11 @@ public class SupernaturalsPlugin extends JavaPlugin {
 			log(Level.WARNING, "If something goes wrong with bPermissions and this plugin, I will not help!");
 			foundPerms = true;
 		} else if (pm.isPluginEnabled("GroupManager")) {
-			log("Found GroupManager, enabling bridge");
-		    Plugin permissionsPlugin = this.getServer().getPluginManager().getPlugin("Permissions");
-		    
-		    if (permissionsPlugin == null) {
-		        return;
-		    }
-		    permHandler = ((Permissions) permissionsPlugin).getHandler();
+			log("Found GroupManager.");
+			Plugin groupManagerPlugin = pm.getPlugin("GroupManager");
+			if(groupManagerPlugin != null) {
+				groupManager = (GroupManager) groupManagerPlugin;
+			}
 			foundPerms = true;
 		}
 
@@ -415,8 +415,12 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	}
 
 	public static boolean hasPermissions(Player player, String permissions) {
-		if(permHandler != null) {
-			permHandler.has(player, permissions);
+		if(usingGroupManager) {
+			final AnjoPermissionsHandler handler = groupManager.getWorldsHolder().getWorldPermissions(player);
+			if (handler == null) {
+				return false;
+			}
+			return handler.has(player, permissions);
 		}
 		return player.hasPermission(permissions);
 	}
