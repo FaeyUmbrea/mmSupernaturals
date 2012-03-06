@@ -153,21 +153,29 @@ public class PriestManager extends HumanManager {
 		ItemStack leggings = inv.getLeggings();
 		ItemStack boots = inv.getBoots();
 
-		if (!SNConfigHandler.priestArmor.contains(helmet.getType())) {
-			inv.setHelmet(null);
-			dropItem(player, helmet);
+		if (helmet != null) {
+			if (!SNConfigHandler.priestArmor.contains(helmet.getType())) {
+				inv.setHelmet(null);
+				dropItem(player, helmet);
+			}
 		}
-		if (!SNConfigHandler.priestArmor.contains(chest.getType())) {
-			inv.setChestplate(null);
-			dropItem(player, chest);
+		if (chest != null) {
+			if (!SNConfigHandler.priestArmor.contains(chest.getType())) {
+				inv.setChestplate(null);
+				dropItem(player, chest);
+			}
 		}
-		if (!SNConfigHandler.priestArmor.contains(leggings.getType())) {
-			inv.setLeggings(null);
-			dropItem(player, leggings);
+		if (leggings != null) {
+			if (!SNConfigHandler.priestArmor.contains(leggings.getType())) {
+				inv.setLeggings(null);
+				dropItem(player, leggings);
+			}
 		}
-		if (!SNConfigHandler.priestArmor.contains(boots.getType())) {
-			inv.setBoots(null);
-			dropItem(player, boots);
+		if (boots != null) {
+			if (!SNConfigHandler.priestArmor.contains(boots.getType())) {
+				inv.setBoots(null);
+				dropItem(player, boots);
+			}
 		}
 	}
 
@@ -232,7 +240,7 @@ public class PriestManager extends HumanManager {
 							if (SNConfigHandler.priestAltarRecipe.playerHasEnough(player)) {
 								SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, null);
 								plugin.getServer().getPluginManager().callEvent(convertEvent);
-								if(convertEvent.isCancelled()) {
+								if (convertEvent.isCancelled()) {
 									return;
 								}
 								SuperNManager.sendMessage(snplayer, "You donate these items to the Church:");

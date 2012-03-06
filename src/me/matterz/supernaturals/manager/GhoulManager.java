@@ -131,7 +131,7 @@ public class GhoulManager extends ClassManager {
 				if (random < SNConfigHandler.spreadChance) {
 					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(victim, damager);
 					plugin.getServer().getPluginManager().callEvent(convertEvent);
-					if(convertEvent.isCancelled()) {
+					if (convertEvent.isCancelled()) {
 						return;
 					}
 					SuperNManager.sendMessage(victim, "Your body dies... You feel a deep hatred for the living.");
@@ -175,21 +175,29 @@ public class GhoulManager extends ClassManager {
 		ItemStack leggings = inv.getLeggings();
 		ItemStack boots = inv.getBoots();
 
-		if (!SNConfigHandler.ghoulArmor.contains(helmet.getType())) {
-			inv.setHelmet(null);
-			dropItem(player, helmet);
+		if (helmet != null) {
+			if (!SNConfigHandler.ghoulArmor.contains(helmet.getType())) {
+				inv.setHelmet(null);
+				dropItem(player, helmet);
+			}
 		}
-		if (!SNConfigHandler.ghoulArmor.contains(chest.getType())) {
-			inv.setChestplate(null);
-			dropItem(player, chest);
+		if (chest != null) {
+			if (!SNConfigHandler.ghoulArmor.contains(chest.getType())) {
+				inv.setChestplate(null);
+				dropItem(player, chest);
+			}
 		}
-		if (!SNConfigHandler.ghoulArmor.contains(leggings.getType())) {
-			inv.setLeggings(null);
-			dropItem(player, leggings);
+		if (leggings != null) {
+			if (!SNConfigHandler.ghoulArmor.contains(leggings.getType())) {
+				inv.setLeggings(null);
+				dropItem(player, leggings);
+			}
 		}
-		if (!SNConfigHandler.ghoulArmor.contains(boots.getType())) {
-			inv.setBoots(null);
-			dropItem(player, boots);
+		if (boots != null) {
+			if (!SNConfigHandler.ghoulArmor.contains(boots.getType())) {
+				inv.setBoots(null);
+				dropItem(player, boots);
+			}
 		}
 	}
 
@@ -440,7 +448,8 @@ public class GhoulManager extends ClassManager {
 		if (player.getLocation().getY() >= 126) {
 			retVal = false;
 		} else {
-			//blockCurrent = blockCurrent.getFace(BlockFace.UP, 1); //What was the point anyway?
+			// blockCurrent = blockCurrent.getFace(BlockFace.UP, 1); //What was
+			// the point anyway?
 			while (blockCurrent.getY() + 1 <= 127) {
 				blockCurrent = blockCurrent.getRelative(BlockFace.UP);
 

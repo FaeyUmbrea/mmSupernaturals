@@ -117,7 +117,7 @@ public class WereManager extends ClassManager {
 				if (random < SNConfigHandler.spreadChance) {
 					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(victim, damager);
 					plugin.getServer().getPluginManager().callEvent(convertEvent);
-					if(convertEvent.isCancelled()) {
+					if (convertEvent.isCancelled()) {
 						return;
 					}
 					SuperNManager.sendMessage(victim, "Your basic nature changes... You feel more in touch with your animal side.");
@@ -245,21 +245,29 @@ public class WereManager extends ClassManager {
 		ItemStack leggings = inv.getLeggings();
 		ItemStack boots = inv.getBoots();
 
-		if (!SNConfigHandler.wereArmor.contains(helmet.getType())) {
-			inv.setHelmet(null);
-			dropItem(player, helmet);
+		if (helmet != null) {
+			if (!SNConfigHandler.wereArmor.contains(helmet.getType())) {
+				inv.setHelmet(null);
+				dropItem(player, helmet);
+			}
 		}
-		if (!SNConfigHandler.wereArmor.contains(chest.getType())) {
-			inv.setChestplate(null);
-			dropItem(player, chest);
+		if (chest != null) {
+			if (!SNConfigHandler.wereArmor.contains(chest.getType())) {
+				inv.setChestplate(null);
+				dropItem(player, chest);
+			}
 		}
-		if (!SNConfigHandler.wereArmor.contains(leggings.getType())) {
-			inv.setLeggings(null);
-			dropItem(player, leggings);
+		if (leggings != null) {
+			if (!SNConfigHandler.wereArmor.contains(leggings.getType())) {
+				inv.setLeggings(null);
+				dropItem(player, leggings);
+			}
 		}
-		if (!SNConfigHandler.wereArmor.contains(boots.getType())) {
-			inv.setBoots(null);
-			dropItem(player, boots);
+		if (boots != null) {
+			if (!SNConfigHandler.wereArmor.contains(boots.getType())) {
+				inv.setBoots(null);
+				dropItem(player, boots);
+			}
 		}
 	}
 

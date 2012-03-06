@@ -240,21 +240,29 @@ public class DemonManager extends ClassManager {
 		ItemStack leggings = inv.getLeggings();
 		ItemStack boots = inv.getBoots();
 
-		if (!SNConfigHandler.demonArmor.contains(helmet.getType())) {
-			inv.setHelmet(null);
-			dropItem(player, helmet);
+		if (helmet != null) {
+			if (!SNConfigHandler.demonArmor.contains(helmet.getType())) {
+				inv.setHelmet(null);
+				dropItem(player, helmet);
+			}
 		}
-		if (!SNConfigHandler.demonArmor.contains(chest.getType())) {
-			inv.setChestplate(null);
-			dropItem(player, chest);
+		if (chest != null) {
+			if (!SNConfigHandler.demonArmor.contains(chest.getType())) {
+				inv.setChestplate(null);
+				dropItem(player, chest);
+			}
 		}
-		if (!SNConfigHandler.demonArmor.contains(leggings.getType())) {
-			inv.setLeggings(null);
-			dropItem(player, leggings);
+		if (leggings != null) {
+			if (!SNConfigHandler.demonArmor.contains(leggings.getType())) {
+				inv.setLeggings(null);
+				dropItem(player, leggings);
+			}
 		}
-		if (!SNConfigHandler.demonArmor.contains(boots.getType())) {
-			inv.setBoots(null);
-			dropItem(player, boots);
+		if (boots != null) {
+			if (!SNConfigHandler.demonArmor.contains(boots.getType())) {
+				inv.setBoots(null);
+				dropItem(player, boots);
+			}
 		}
 	}
 
@@ -405,7 +413,7 @@ public class DemonManager extends ClassManager {
 		SuperNPlayer snvictim = SuperNManager.get(target);
 		SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snvictim, snplayer);
 		plugin.getServer().getPluginManager().callEvent(convertEvent);
-		if(convertEvent.isCancelled()) {
+		if (convertEvent.isCancelled()) {
 			return false;
 		}
 		if (snplayer.getPower() < SNConfigHandler.demonConvertPower) {

@@ -200,21 +200,29 @@ public class HunterManager extends HumanManager {
 		ItemStack leggings = inv.getLeggings();
 		ItemStack boots = inv.getBoots();
 
-		if (!SNConfigHandler.hunterArmor.contains(helmet.getType())) {
-			inv.setHelmet(null);
-			dropItem(player, helmet);
+		if (helmet != null) {
+			if (!SNConfigHandler.hunterArmor.contains(helmet.getType())) {
+				inv.setHelmet(null);
+				dropItem(player, helmet);
+			}
 		}
-		if (!SNConfigHandler.hunterArmor.contains(chest.getType())) {
-			inv.setChestplate(null);
-			dropItem(player, chest);
+		if (chest != null) {
+			if (!SNConfigHandler.hunterArmor.contains(chest.getType())) {
+				inv.setChestplate(null);
+				dropItem(player, chest);
+			}
 		}
-		if (!SNConfigHandler.hunterArmor.contains(leggings.getType())) {
-			inv.setLeggings(null);
-			dropItem(player, leggings);
+		if (leggings != null) {
+			if (!SNConfigHandler.hunterArmor.contains(leggings.getType())) {
+				inv.setLeggings(null);
+				dropItem(player, leggings);
+			}
 		}
-		if (!SNConfigHandler.hunterArmor.contains(boots.getType())) {
-			inv.setBoots(null);
-			dropItem(player, boots);
+		if (boots != null) {
+			if (!SNConfigHandler.hunterArmor.contains(boots.getType())) {
+				inv.setBoots(null);
+				dropItem(player, boots);
+			}
 		}
 	}
 
@@ -443,7 +451,7 @@ public class HunterManager extends HumanManager {
 		if (playerInvites.contains(snplayer)) {
 			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, null);
 			plugin.getServer().getPluginManager().callEvent(convertEvent);
-			if(convertEvent.isCancelled()) {
+			if (convertEvent.isCancelled()) {
 				return false;
 			}
 			SuperNManager.sendMessage(snplayer, "Welcome to the WitchHunter society!");
