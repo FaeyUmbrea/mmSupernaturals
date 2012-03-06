@@ -107,6 +107,7 @@ public class DemonManager extends ClassManager {
 		SuperNPlayer snDamager = SuperNManager.get(pDamager);
 		ItemStack item = pDamager.getItemInHand();
 
+		if(item != null)
 		if (SNConfigHandler.demonWeapons.contains(item.getType())) {
 			if (SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log(pDamager.getName()

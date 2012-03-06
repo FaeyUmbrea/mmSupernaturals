@@ -72,12 +72,14 @@ public class GhoulManager extends ClassManager {
 				SuperNPlayer snVictim = SuperNManager.get(victim);
 				ItemStack item = pDamager.getItemInHand();
 
-				if (SNConfigHandler.ghoulWeaponImmunity.contains(item.getType())) {
-					damage = 0;
-					SuperNManager.sendMessage(snDamager, "Ghouls are immune to that weapon!");
-				} else {
-					damage -= damage
-							* snVictim.scale(1 - SNConfigHandler.ghoulDamageReceivedFactor);
+				if(item != null) {
+					if (SNConfigHandler.ghoulWeaponImmunity.contains(item.getType())) {
+						damage = 0;
+						SuperNManager.sendMessage(snDamager, "Ghouls are immune to that weapon!");
+					} else {
+						damage -= damage
+								* snVictim.scale(1 - SNConfigHandler.ghoulDamageReceivedFactor);
+					}
 				}
 			}
 		}
@@ -91,17 +93,19 @@ public class GhoulManager extends ClassManager {
 		SuperNPlayer snDamager = SuperNManager.get(pDamager);
 		ItemStack item = pDamager.getItemInHand();
 
-		if (SNConfigHandler.ghoulWeapons.contains(item.getType())) {
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(pDamager.getName()
-						+ " was not allowed to use "
-						+ item.getType().toString());
+		if (item != null) {
+			if (SNConfigHandler.ghoulWeapons.contains(item.getType())) {
+				if (SNConfigHandler.debugMode) {
+					SupernaturalsPlugin.log(pDamager.getName()
+							+ " was not allowed to use "
+							+ item.getType().toString());
+				}
+				SuperNManager.sendMessage(snDamager, "Ghouls cannot use this weapon!");
+				damage = 0;
+			} else {
+				damage += damage
+						* snDamager.scale(SNConfigHandler.ghoulDamageFactor);
 			}
-			SuperNManager.sendMessage(snDamager, "Ghouls cannot use this weapon!");
-			damage = 0;
-		} else {
-			damage += damage
-					* snDamager.scale(SNConfigHandler.ghoulDamageFactor);
 		}
 		return damage;
 	}

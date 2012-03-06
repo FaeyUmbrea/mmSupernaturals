@@ -79,12 +79,14 @@ public class VampireManager extends ClassManager {
 				Player pDamager = (Player) damager;
 				ItemStack item = pDamager.getItemInHand();
 
-				if (SNConfigHandler.woodMaterials.contains(item.getType())) {
-					damage += damage * SNConfigHandler.woodFactor;
-					SuperNManager.sendMessage(snVictim, "Vampires have a weakness to wood!");
-				} else {
-					damage -= damage
-							* snVictim.scale(1 - SNConfigHandler.vampireDamageReceivedFactor);
+				if(item != null) {
+					if (SNConfigHandler.woodMaterials.contains(item.getType())) {
+						damage += damage * SNConfigHandler.woodFactor;
+						SuperNManager.sendMessage(snVictim, "Vampires have a weakness to wood!");
+					} else {
+						damage -= damage
+								* snVictim.scale(1 - SNConfigHandler.vampireDamageReceivedFactor);
+					}
 				}
 			}
 		}
@@ -141,14 +143,16 @@ public class VampireManager extends ClassManager {
 
 		ItemStack item = pDamager.getItemInHand();
 
-		if (SNConfigHandler.vampireWeapons.contains(item.getType())) {
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(pDamager.getName()
-						+ " was not allowed to use "
-						+ item.getType().toString());
+		if(item != null) {
+			if (SNConfigHandler.vampireWeapons.contains(item.getType())) {
+				if (SNConfigHandler.debugMode) {
+					SupernaturalsPlugin.log(pDamager.getName()
+							+ " was not allowed to use "
+							+ item.getType().toString());
+				}
+				SuperNManager.sendMessage(snDamager, "Vampires cannot use this weapon!");
+				return 0;
 			}
-			SuperNManager.sendMessage(snDamager, "Vampires cannot use this weapon!");
-			return 0;
 		}
 
 		damage += damage * snDamager.scale(SNConfigHandler.vampireDamageFactor);
@@ -188,6 +192,7 @@ public class VampireManager extends ClassManager {
 			return false;
 		}
 
+		if(itemMaterial != null) {
 		if (SNConfigHandler.foodMaterials.contains(itemMaterial)) {
 			if (SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log(snplayer.getName()
@@ -199,6 +204,7 @@ public class VampireManager extends ClassManager {
 		} else if (itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.vampireTeleportMaterial)) {
 			setTeleport(player);
 			return true;
+		}
 		}
 		return false;
 	}

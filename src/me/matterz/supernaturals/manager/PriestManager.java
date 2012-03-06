@@ -67,14 +67,16 @@ public class PriestManager extends HumanManager {
 		SuperNPlayer snDamager = SuperNManager.get(pDamager);
 		ItemStack item = pDamager.getItemInHand();
 
-		if (SNConfigHandler.priestWeapons.contains(item.getType())) {
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(pDamager.getName()
-						+ " was not allowed to use "
-						+ item.getType().toString());
+		if(item != null) {
+			if (SNConfigHandler.priestWeapons.contains(item.getType())) {
+				if (SNConfigHandler.debugMode) {
+					SupernaturalsPlugin.log(pDamager.getName()
+							+ " was not allowed to use "
+							+ item.getType().toString());
+				}
+				SuperNManager.sendMessage(snDamager, "Priests cannot use this weapon!");
+				return 0;
 			}
-			SuperNManager.sendMessage(snDamager, "Priests cannot use this weapon!");
-			return 0;
 		}
 
 		if (victim instanceof Animals && !(victim instanceof Wolf)) {
@@ -305,6 +307,7 @@ public class PriestManager extends HumanManager {
 			return;
 		}
 
+		if (itemMaterial != null) {
 		if (SNConfigHandler.priestSpellMaterials.contains(itemMaterial)) {
 			if (SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log(snplayer.getName()
@@ -353,6 +356,7 @@ public class PriestManager extends HumanManager {
 			}
 			remoteDonations(player);
 			return;
+		}
 		}
 	}
 

@@ -80,18 +80,20 @@ public class EnderBornManager extends ClassManager {
 		SuperNPlayer snDamager = SuperNManager.get(pDamager);
 
 		ItemStack item = pDamager.getItemInHand();
-		Material itemMaterial = item.getType();
+		if(item != null){ 
+			Material itemMaterial = item.getType();
 
-		if (SNConfigHandler.enderWeapons.contains(itemMaterial)) {
-			SuperNManager.sendMessage(snDamager, ChatColor.RED
-					+ "EnderBorns cannot use "
-					+ itemMaterial.toString().replace('_', ' '));
-			return 0;
-		}
-		if (Math.random() == 0.35) {
-			damage += damage
-					* snDamager.scale(SNConfigHandler.enderDamageFactor);
-			return damage;
+			if (SNConfigHandler.enderWeapons.contains(itemMaterial)) {
+				SuperNManager.sendMessage(snDamager, ChatColor.RED
+						+ "EnderBorns cannot use "
+						+ itemMaterial.toString().replace('_', ' '));
+				return 0;
+			}
+			if (Math.random() == 0.35) {
+				damage += damage
+						* snDamager.scale(SNConfigHandler.enderDamageFactor);
+				return damage;
+			}
 		}
 		return damage;
 	}

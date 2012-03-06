@@ -73,8 +73,10 @@ public class SNEntityMonitor implements Listener {
 				} else if (arrowType.equalsIgnoreCase("fire")) {
 					arrow.getLocation();
 					Block block = arrow.getWorld().getBlockAt(arrow.getLocation());
-					if (SNConfigHandler.burnableBlocks.contains(block.getType())) {
-						block.setType(Material.FIRE);
+					if(block != null) {
+						if (SNConfigHandler.burnableBlocks.contains(block.getType())) {
+							block.setType(Material.FIRE);
+						}
 					}
 				}
 				plugin.getHunterManager().removeArrow(arrow);

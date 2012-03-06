@@ -120,14 +120,16 @@ public class HunterManager extends HumanManager {
 			ItemStack item = pDamager.getItemInHand();
 
 			// Check Weapons and Modify Damage
-			if (SNConfigHandler.hunterWeapons.contains(item.getType())) {
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(pDamager.getName()
-							+ " was not allowed to use "
-							+ item.getType().toString());
+			if(item != null) {
+				if (SNConfigHandler.hunterWeapons.contains(item.getType())) {
+					if (SNConfigHandler.debugMode) {
+						SupernaturalsPlugin.log(pDamager.getName()
+								+ " was not allowed to use "
+								+ item.getType().toString());
+					}
+					SuperNManager.sendMessage(snDamager, "WitchHunters cannot use this weapon!");
+					return 0;
 				}
-				SuperNManager.sendMessage(snDamager, "WitchHunters cannot use this weapon!");
-				return 0;
 			}
 			if (SNConfigHandler.debugMode) {
 				SupernaturalsPlugin.log("Bow Event with " + damage + " damage");
