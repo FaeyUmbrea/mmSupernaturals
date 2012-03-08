@@ -79,7 +79,7 @@ public class VampireManager extends ClassManager {
 				Player pDamager = (Player) damager;
 				ItemStack item = pDamager.getItemInHand();
 
-				if(item != null) {
+				if (item != null) {
 					if (SNConfigHandler.woodMaterials.contains(item.getType())) {
 						damage += damage * SNConfigHandler.woodFactor;
 						SuperNManager.sendMessage(snVictim, "Vampires have a weakness to wood!");
@@ -125,7 +125,7 @@ public class VampireManager extends ClassManager {
 				if (random < SNConfigHandler.spreadChance) {
 					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(victim, damager);
 					plugin.getServer().getPluginManager().callEvent(convertEvent);
-					if(convertEvent.isCancelled()) {
+					if (convertEvent.isCancelled()) {
 						return;
 					}
 					SuperNManager.sendMessage(victim, "You feel your heart stop! You have contracted vampirism.");
@@ -143,7 +143,7 @@ public class VampireManager extends ClassManager {
 
 		ItemStack item = pDamager.getItemInHand();
 
-		if(item != null) {
+		if (item != null) {
 			if (SNConfigHandler.vampireWeapons.contains(item.getType())) {
 				if (SNConfigHandler.debugMode) {
 					SupernaturalsPlugin.log(pDamager.getName()
@@ -192,19 +192,19 @@ public class VampireManager extends ClassManager {
 			return false;
 		}
 
-		if(itemMaterial != null) {
-		if (SNConfigHandler.foodMaterials.contains(itemMaterial)) {
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(snplayer.getName()
-						+ " attempted to eat " + itemMaterial.toString());
+		if (itemMaterial != null) {
+			if (SNConfigHandler.foodMaterials.contains(itemMaterial)) {
+				if (SNConfigHandler.debugMode) {
+					SupernaturalsPlugin.log(snplayer.getName()
+							+ " attempted to eat " + itemMaterial.toString());
+				}
+				SuperNManager.sendMessage(snplayer, "Vampires can't eat food. You must drink blood instead.");
+				event.setCancelled(true);
+				return true;
+			} else if (itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.vampireTeleportMaterial)) {
+				setTeleport(player);
+				return true;
 			}
-			SuperNManager.sendMessage(snplayer, "Vampires can't eat food. You must drink blood instead.");
-			event.setCancelled(true);
-			return true;
-		} else if (itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.vampireTeleportMaterial)) {
-			setTeleport(player);
-			return true;
-		}
 		}
 		return false;
 	}
@@ -221,25 +221,25 @@ public class VampireManager extends ClassManager {
 		ItemStack leggings = inv.getLeggings();
 		ItemStack boots = inv.getBoots();
 
-		if(helmet != null) {
+		if (helmet != null) {
 			if (!SNConfigHandler.vampireArmor.contains(helmet.getType())) {
 				inv.setHelmet(null);
 				dropItem(player, helmet);
 			}
 		}
-		if(chest != null) {
+		if (chest != null) {
 			if (!SNConfigHandler.vampireArmor.contains(chest.getType())) {
 				inv.setChestplate(null);
 				dropItem(player, chest);
 			}
 		}
-		if(leggings != null) {
+		if (leggings != null) {
 			if (!SNConfigHandler.vampireArmor.contains(leggings.getType())) {
 				inv.setLeggings(null);
 				dropItem(player, leggings);
 			}
 		}
-		if(boots != null) {
+		if (boots != null) {
 			if (!SNConfigHandler.vampireArmor.contains(boots.getType())) {
 				inv.setBoots(null);
 				dropItem(player, boots);
@@ -335,9 +335,9 @@ public class VampireManager extends ClassManager {
 
 		// Is healthy and thus can be infected...
 		if (SNConfigHandler.vampireAltarInfectRecipe.playerHasEnough(player)) {
-			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, null);
+			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, snplayer);
 			plugin.getServer().getPluginManager().callEvent(convertEvent);
-			if(convertEvent.isCancelled()) {
+			if (convertEvent.isCancelled()) {
 				return;
 			}
 			SuperNManager.sendMessage(snplayer, "You use these items on the altar:");
@@ -470,7 +470,8 @@ public class VampireManager extends ClassManager {
 		if (player.getLocation().getY() >= 126) {
 			retVal = false;
 		} else {
-			//blockCurrent = blockCurrent.getFace(BlockFace.UP, 1); //What was the point?
+			// blockCurrent = blockCurrent.getFace(BlockFace.UP, 1); //What was
+			// the point?
 
 			double opacityAccumulator = 0;
 			Double opacity;

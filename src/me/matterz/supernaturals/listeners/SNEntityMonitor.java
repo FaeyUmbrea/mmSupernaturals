@@ -73,7 +73,7 @@ public class SNEntityMonitor implements Listener {
 				} else if (arrowType.equalsIgnoreCase("fire")) {
 					arrow.getLocation();
 					Block block = arrow.getWorld().getBlockAt(arrow.getLocation());
-					if(block != null) {
+					if (block != null) {
 						if (SNConfigHandler.burnableBlocks.contains(block.getType())) {
 							block.setType(Material.FIRE);
 						}
@@ -158,9 +158,9 @@ public class SNEntityMonitor implements Listener {
 		}
 
 		if (entity instanceof Monster) {
-			if(pDamager != null) {
+			if (pDamager != null) {
 				SuperNPlayer snplayer = SuperNManager.get(pDamager);
-				if(snplayer.isAngel()) {
+				if (snplayer.isAngel()) {
 					SuperNManager.alterPower(snplayer, SNConfigHandler.angelKillMonsterPowerGain, "Killed Monster");
 				}
 			}

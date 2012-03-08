@@ -32,7 +32,7 @@ public class SNServerMonitor implements Listener {
 		} else if (enabledPlugin.toString().startsWith("GroupManager")) {
 			SupernaturalsPlugin.log("Found GroupManager");
 			Plugin groupManagerPlugin = plugin.pm.getPlugin("GroupManager");
-			if(groupManagerPlugin != null) {
+			if (groupManagerPlugin != null) {
 				SupernaturalsPlugin.groupManager = (GroupManager) groupManagerPlugin;
 			}
 			SupernaturalsPlugin.foundPerms = true;

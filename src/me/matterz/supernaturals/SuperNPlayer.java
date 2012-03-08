@@ -125,7 +125,7 @@ public class SuperNPlayer implements Serializable {
 	}
 
 	public boolean isAngel() {
-		if(getType().equalsIgnoreCase("angel")) {
+		if (getType().equalsIgnoreCase("angel")) {
 			return true;
 		}
 		return false;

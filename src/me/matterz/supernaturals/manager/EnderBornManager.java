@@ -62,7 +62,7 @@ public class EnderBornManager extends ClassManager {
 				&& targetItemMaterial.equals(Material.ENDER_PEARL)) {
 			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(sntarget, snplayer);
 			plugin.getServer().getPluginManager().callEvent(convertEvent);
-			if(convertEvent.isCancelled()) {
+			if (convertEvent.isCancelled()) {
 				return;
 			}
 			SuperNManager.sendMessage(snplayer, "You have converted "
@@ -80,7 +80,7 @@ public class EnderBornManager extends ClassManager {
 		SuperNPlayer snDamager = SuperNManager.get(pDamager);
 
 		ItemStack item = pDamager.getItemInHand();
-		if(item != null){ 
+		if (item != null) {
 			Material itemMaterial = item.getType();
 
 			if (SNConfigHandler.enderWeapons.contains(itemMaterial)) {

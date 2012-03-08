@@ -380,7 +380,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		} else if (pm.isPluginEnabled("GroupManager")) {
 			log("Found GroupManager.");
 			Plugin groupManagerPlugin = pm.getPlugin("GroupManager");
-			if(groupManagerPlugin != null) {
+			if (groupManagerPlugin != null) {
 				groupManager = (GroupManager) groupManagerPlugin;
 			}
 			foundPerms = true;
@@ -415,7 +415,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	}
 
 	public static boolean hasPermissions(Player player, String permissions) {
-		if(usingGroupManager) {
+		if (usingGroupManager) {
 			final AnjoPermissionsHandler handler = groupManager.getWorldsHolder().getWorldPermissions(player);
 			if (handler == null) {
 				return false;

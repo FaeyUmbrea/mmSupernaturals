@@ -120,7 +120,7 @@ public class HunterManager extends HumanManager {
 			ItemStack item = pDamager.getItemInHand();
 
 			// Check Weapons and Modify Damage
-			if(item != null) {
+			if (item != null) {
 				if (SNConfigHandler.hunterWeapons.contains(item.getType())) {
 					if (SNConfigHandler.debugMode) {
 						SupernaturalsPlugin.log(pDamager.getName()
@@ -451,7 +451,7 @@ public class HunterManager extends HumanManager {
 
 	public boolean join(SuperNPlayer snplayer) {
 		if (playerInvites.contains(snplayer)) {
-			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, null);
+			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, snplayer);
 			plugin.getServer().getPluginManager().callEvent(convertEvent);
 			if (convertEvent.isCancelled()) {
 				return false;

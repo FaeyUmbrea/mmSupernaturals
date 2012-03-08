@@ -83,9 +83,9 @@ public class HumanManager extends ClassManager {
 				|| e.getCause().equals(DamageCause.FIRE_TICK)) {
 			if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
 				if (SupernaturalsPlugin.instance.getDemonManager().checkPlayerApp(player)) {
-					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, null);
+					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, snplayer);
 					plugin.getServer().getPluginManager().callEvent(convertEvent);
-					if(convertEvent.isCancelled()) {
+					if (convertEvent.isCancelled()) {
 						return;
 					}
 					SuperNManager.sendMessage(snplayer, "Hellfire races through your veins!");

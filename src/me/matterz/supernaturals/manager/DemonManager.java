@@ -107,16 +107,16 @@ public class DemonManager extends ClassManager {
 		SuperNPlayer snDamager = SuperNManager.get(pDamager);
 		ItemStack item = pDamager.getItemInHand();
 
-		if(item != null)
-		if (SNConfigHandler.demonWeapons.contains(item.getType())) {
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(pDamager.getName()
-						+ " was not allowed to use "
-						+ item.getType().toString());
+		if (item != null)
+			if (SNConfigHandler.demonWeapons.contains(item.getType())) {
+				if (SNConfigHandler.debugMode) {
+					SupernaturalsPlugin.log(pDamager.getName()
+							+ " was not allowed to use "
+							+ item.getType().toString());
+				}
+				SuperNManager.sendMessage(snDamager, "Demons cannot use this weapon!");
+				damage = 0;
 			}
-			SuperNManager.sendMessage(snDamager, "Demons cannot use this weapon!");
-			damage = 0;
-		}
 		if (victim instanceof Player) {
 			Player pVictim = (Player) victim;
 			double random = Math.random();

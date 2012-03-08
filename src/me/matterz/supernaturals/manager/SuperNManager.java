@@ -558,7 +558,7 @@ public class SuperNManager {
 				regenAdvanceTime(player, 5000);
 			}
 		} else if (snplayer.isAngel()) {
-			if(taskCounter % 10 == 0) {
+			if (taskCounter % 10 == 0) {
 				plugin.getAngelManager().waterAdvanceTime(player);
 			}
 		}

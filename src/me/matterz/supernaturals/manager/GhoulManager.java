@@ -72,7 +72,7 @@ public class GhoulManager extends ClassManager {
 				SuperNPlayer snVictim = SuperNManager.get(victim);
 				ItemStack item = pDamager.getItemInHand();
 
-				if(item != null) {
+				if (item != null) {
 					if (SNConfigHandler.ghoulWeaponImmunity.contains(item.getType())) {
 						damage = 0;
 						SuperNManager.sendMessage(snDamager, "Ghouls are immune to that weapon!");
