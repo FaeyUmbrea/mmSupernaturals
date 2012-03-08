@@ -72,7 +72,7 @@ public class HumanManager extends ClassManager {
 		LivingEntity lDamager = null;
 		EntityDamageEvent e = player.getLastDamageCause();
 
-		SupernaturalsPlugin.instance.getDataHandler().removePlayerApp(snplayer);
+		plugin.getDataHandler().removePlayerApp(snplayer);
 
 		if (e == null) {
 			return;
@@ -82,7 +82,7 @@ public class HumanManager extends ClassManager {
 				|| e.getCause().equals(DamageCause.FIRE)
 				|| e.getCause().equals(DamageCause.FIRE_TICK)) {
 			if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
-				if (SupernaturalsPlugin.instance.getDemonManager().checkPlayerApp(player)) {
+				if (plugin.getDemonManager().checkPlayerApp(player) || plugin.getDemonManager().checkInventory(player)) {
 					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, snplayer);
 					plugin.getServer().getPluginManager().callEvent(convertEvent);
 					if (convertEvent.isCancelled()) {

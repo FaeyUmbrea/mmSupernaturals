@@ -271,7 +271,7 @@ public class DemonManager extends ClassManager {
 	// Demon Applications //
 	// -------------------------------------------- //
 
-	public void checkInventory(Player player) {
+	public boolean checkInventory(Player player) {
 		PlayerInventory inv = player.getInventory();
 		if (SNConfigHandler.debugMode) {
 			SupernaturalsPlugin.log("Player teleported to Nether.  Checking inventory...");
@@ -296,12 +296,15 @@ public class DemonManager extends ClassManager {
 						if (SNConfigHandler.debugMode) {
 							SupernaturalsPlugin.log("Leather Boots");
 						}
-						demonApps.add(player);
-						return;
+						if(!demonApps.contains(player)) {
+							demonApps.add(player);
+						}
+						return true;
 					}
 				}
 			}
 		}
+		return false;
 	}
 
 	public boolean checkPlayerApp(Player player) {
