@@ -415,7 +415,7 @@ public class DemonManager extends ClassManager {
 	public boolean convert(Player player, Player target) {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNPlayer snvictim = SuperNManager.get(target);
-		SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snvictim, snplayer);
+		SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snvictim);
 		plugin.getServer().getPluginManager().callEvent(convertEvent);
 		if (convertEvent.isCancelled()) {
 			return false;

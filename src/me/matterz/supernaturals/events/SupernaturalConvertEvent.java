@@ -11,12 +11,9 @@ public class SupernaturalConvertEvent extends Event implements Cancellable {
 	private static final HandlerList handlers = new HandlerList();
 	private SuperNPlayer converted;
 	private boolean cancelled;
-	private SuperNPlayer converterPlayer;
 
-	public SupernaturalConvertEvent(SuperNPlayer snplayer,
-			SuperNPlayer converter) {
+	public SupernaturalConvertEvent(SuperNPlayer snplayer) {
 		converted = snplayer;
-		converterPlayer = converter;
 	}
 
 	/**
@@ -26,17 +23,6 @@ public class SupernaturalConvertEvent extends Event implements Cancellable {
 	 */
 	public SuperNPlayer getConvertedPlayer() {
 		return converted;
-	}
-
-	/**
-	 * Gets the player that converted the player being converted If the player
-	 * being converted was not converted by a player, this will return
-	 * {@code null}
-	 * 
-	 * @return The player who converted the player being converted.
-	 */
-	public SuperNPlayer getConverter() {
-		return converterPlayer;
 	}
 
 	@Override

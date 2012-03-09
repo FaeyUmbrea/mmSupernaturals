@@ -240,7 +240,7 @@ public class PriestManager extends HumanManager {
 								return;
 							}
 							if (SNConfigHandler.priestAltarRecipe.playerHasEnough(player)) {
-								SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, snplayer);
+								SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer);
 								plugin.getServer().getPluginManager().callEvent(convertEvent);
 								if (convertEvent.isCancelled()) {
 									return;

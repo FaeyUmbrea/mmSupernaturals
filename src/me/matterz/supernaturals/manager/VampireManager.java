@@ -123,7 +123,7 @@ public class VampireManager extends ClassManager {
 			}
 			if (SNConfigHandler.vampireKillSpreadCurse && !victim.isSuper()) {
 				if (random < SNConfigHandler.spreadChance) {
-					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(victim, damager);
+					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(victim);
 					plugin.getServer().getPluginManager().callEvent(convertEvent);
 					if (convertEvent.isCancelled()) {
 						return;
@@ -335,7 +335,7 @@ public class VampireManager extends ClassManager {
 
 		// Is healthy and thus can be infected...
 		if (SNConfigHandler.vampireAltarInfectRecipe.playerHasEnough(player)) {
-			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, snplayer);
+			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer);
 			plugin.getServer().getPluginManager().callEvent(convertEvent);
 			if (convertEvent.isCancelled()) {
 				return;

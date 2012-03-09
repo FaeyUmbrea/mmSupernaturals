@@ -74,7 +74,7 @@ public class SNPlayerListener implements Listener {
 		if (action.equals(Action.RIGHT_CLICK_BLOCK)
 				&& player.getTargetBlock(null, 20).getType() == Material.CLAY) {
 			if (itemMaterial.equals(Material.ENDER_PEARL)) {
-				SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, snplayer);
+				SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer);
 				plugin.getServer().getPluginManager().callEvent(convertEvent);
 				if (convertEvent.isCancelled()) {
 					return;

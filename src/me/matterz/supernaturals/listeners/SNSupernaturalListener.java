@@ -18,12 +18,8 @@ public class SNSupernaturalListener implements Listener {
 	@EventHandler
 	public void onSupernaturalConvert(SupernaturalConvertEvent event) {
 		SuperNPlayer convertedPlayer = event.getConvertedPlayer();
-		SuperNPlayer converterPlayer = event.getConverter();
 		if (!SNWhitelistHandler.isWhitelisted(convertedPlayer)) {
 			event.setCancelled(true);
-			if (!converterPlayer.equals(convertedPlayer)) {
-				SuperNManager.sendMessage(converterPlayer, "The player you have tried to convert has not used the join command!");
-			}
 			SuperNManager.sendMessage(convertedPlayer, "You have not used the sn join command!");
 		}
 	}

@@ -60,7 +60,7 @@ public class EnderBornManager extends ClassManager {
 		SuperNPlayer sntarget = SuperNManager.get(target);
 		if (itemMaterial.equals(Material.ENDER_PEARL)
 				&& targetItemMaterial.equals(Material.ENDER_PEARL)) {
-			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(sntarget, snplayer);
+			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(sntarget);
 			plugin.getServer().getPluginManager().callEvent(convertEvent);
 			if (convertEvent.isCancelled()) {
 				return;

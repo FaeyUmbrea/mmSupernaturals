@@ -451,7 +451,7 @@ public class HunterManager extends HumanManager {
 
 	public boolean join(SuperNPlayer snplayer) {
 		if (playerInvites.contains(snplayer)) {
-			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, snplayer);
+			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer);
 			plugin.getServer().getPluginManager().callEvent(convertEvent);
 			if (convertEvent.isCancelled()) {
 				return false;

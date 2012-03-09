@@ -83,7 +83,7 @@ public class HumanManager extends ClassManager {
 				|| e.getCause().equals(DamageCause.FIRE_TICK)) {
 			if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
 				if (plugin.getDemonManager().checkPlayerApp(player) || plugin.getDemonManager().checkInventory(player)) {
-					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer, snplayer);
+					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer);
 					plugin.getServer().getPluginManager().callEvent(convertEvent);
 					if (convertEvent.isCancelled()) {
 						return;

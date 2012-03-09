@@ -133,7 +133,7 @@ public class GhoulManager extends ClassManager {
 			}
 			if (SNConfigHandler.ghoulKillSpreadCurse && !victim.isSuper()) {
 				if (random < SNConfigHandler.spreadChance) {
-					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(victim, damager);
+					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(victim);
 					plugin.getServer().getPluginManager().callEvent(convertEvent);
 					if (convertEvent.isCancelled()) {
 						return;

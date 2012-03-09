@@ -117,7 +117,7 @@ public class WereManager extends ClassManager {
 					&& !victim.isSuper()
 					&& SuperNManager.worldTimeIsNight(SupernaturalsPlugin.instance.getServer().getPlayer(victim.getName()))) {
 				if (random < SNConfigHandler.spreadChance) {
-					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(victim, damager);
+					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(victim);
 					plugin.getServer().getPluginManager().callEvent(convertEvent);
 					if (convertEvent.isCancelled()) {
 						return;
