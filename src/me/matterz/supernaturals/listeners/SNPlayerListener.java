@@ -21,7 +21,6 @@ package me.matterz.supernaturals.listeners;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
-import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 import me.matterz.supernaturals.manager.SuperNManager;
 
@@ -74,11 +73,6 @@ public class SNPlayerListener implements Listener {
 		if (action.equals(Action.RIGHT_CLICK_BLOCK)
 				&& player.getTargetBlock(null, 20).getType() == Material.CLAY) {
 			if (itemMaterial.equals(Material.ENDER_PEARL)) {
-				SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer);
-				plugin.getServer().getPluginManager().callEvent(convertEvent);
-				if (convertEvent.isCancelled()) {
-					return;
-				}
 				SuperNManager.sendMessage(snplayer, "The clay changes... it moves...");
 				SuperNManager.sendMessage(snplayer, "It wraps around you, takes over you.");
 				player.playEffect(EntityEffect.HURT);

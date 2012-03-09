@@ -25,7 +25,6 @@ import java.util.List;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
-import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
 import org.bukkit.Material;
@@ -117,11 +116,6 @@ public class WereManager extends ClassManager {
 					&& !victim.isSuper()
 					&& SuperNManager.worldTimeIsNight(SupernaturalsPlugin.instance.getServer().getPlayer(victim.getName()))) {
 				if (random < SNConfigHandler.spreadChance) {
-					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(victim);
-					plugin.getServer().getPluginManager().callEvent(convertEvent);
-					if (convertEvent.isCancelled()) {
-						return;
-					}
 					SuperNManager.sendMessage(victim, "Your basic nature changes... You feel more in touch with your animal side.");
 					SuperNManager.convert(victim, "werewolf");
 				}

@@ -21,7 +21,6 @@ package me.matterz.supernaturals.manager;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
-import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 import me.matterz.supernaturals.util.GeometryUtil;
 
@@ -123,11 +122,6 @@ public class VampireManager extends ClassManager {
 			}
 			if (SNConfigHandler.vampireKillSpreadCurse && !victim.isSuper()) {
 				if (random < SNConfigHandler.spreadChance) {
-					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(victim);
-					plugin.getServer().getPluginManager().callEvent(convertEvent);
-					if (convertEvent.isCancelled()) {
-						return;
-					}
 					SuperNManager.sendMessage(victim, "You feel your heart stop! You have contracted vampirism.");
 					SuperNManager.convert(victim, "vampire");
 				}
@@ -335,11 +329,6 @@ public class VampireManager extends ClassManager {
 
 		// Is healthy and thus can be infected...
 		if (SNConfigHandler.vampireAltarInfectRecipe.playerHasEnough(player)) {
-			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer);
-			plugin.getServer().getPluginManager().callEvent(convertEvent);
-			if (convertEvent.isCancelled()) {
-				return;
-			}
 			SuperNManager.sendMessage(snplayer, "You use these items on the altar:");
 			SuperNManager.sendMessage(snplayer, SNConfigHandler.vampireAltarInfectRecipe.getRecipeLine());
 			SuperNManager.sendMessage(snplayer, "The "

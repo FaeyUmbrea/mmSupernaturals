@@ -21,7 +21,6 @@ package me.matterz.supernaturals.manager;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
-import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
 import org.bukkit.World.Environment;
@@ -83,11 +82,6 @@ public class HumanManager extends ClassManager {
 				|| e.getCause().equals(DamageCause.FIRE_TICK)) {
 			if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
 				if (plugin.getDemonManager().checkPlayerApp(player) || plugin.getDemonManager().checkInventory(player)) {
-					SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer);
-					plugin.getServer().getPluginManager().callEvent(convertEvent);
-					if (convertEvent.isCancelled()) {
-						return;
-					}
 					SuperNManager.sendMessage(snplayer, "Hellfire races through your veins!");
 					SuperNManager.convert(snplayer, "demon", SNConfigHandler.demonPowerStart);
 				}

@@ -25,7 +25,6 @@ import java.util.List;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
-import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
 import org.bukkit.ChatColor;
@@ -415,11 +414,6 @@ public class DemonManager extends ClassManager {
 	public boolean convert(Player player, Player target) {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNPlayer snvictim = SuperNManager.get(target);
-		SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snvictim);
-		plugin.getServer().getPluginManager().callEvent(convertEvent);
-		if (convertEvent.isCancelled()) {
-			return false;
-		}
 		if (snplayer.getPower() < SNConfigHandler.demonConvertPower) {
 			SuperNManager.sendMessage(snplayer, "Not enough power to convert!");
 			return false;

@@ -66,7 +66,7 @@ public class SNWhitelistHandler {
 	}
 
 	public static List<String> getPlayersInWhitelistYAML() {
-		return whitelistYaml.getStringList("WhitelistedPlayers");
+		return getWhitelist().getStringList("WhitelistedPlayers");
 	}
 
 }

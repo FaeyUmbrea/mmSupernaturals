@@ -28,6 +28,7 @@ import java.util.logging.Level;
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
 import me.matterz.supernaturals.io.SNConfigHandler;
+import me.matterz.supernaturals.io.SNWhitelistHandler;
 import me.matterz.supernaturals.util.EntityUtil;
 import me.matterz.supernaturals.util.SNTaskTimer;
 
@@ -110,6 +111,10 @@ public class SuperNManager {
 
 	public static void convert(SuperNPlayer snplayer, String superType, int powerLevel) {
 		if (!SNConfigHandler.supernaturalTypes.contains(superType)) {
+			return;
+		}
+		if (!SNWhitelistHandler.isWhitelisted(snplayer) && !snplayer.isHuman()) {
+			SuperNManager.sendMessage(snplayer, "You have not used the \"/sn join\" command!");
 			return;
 		}
 		String type = superType.toLowerCase();

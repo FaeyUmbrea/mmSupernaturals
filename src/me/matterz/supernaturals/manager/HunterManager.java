@@ -27,7 +27,6 @@ import java.util.logging.Level;
 
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
-import me.matterz.supernaturals.events.SupernaturalConvertEvent;
 import me.matterz.supernaturals.io.SNConfigHandler;
 import me.matterz.supernaturals.util.ArrowUtil;
 
@@ -451,11 +450,6 @@ public class HunterManager extends HumanManager {
 
 	public boolean join(SuperNPlayer snplayer) {
 		if (playerInvites.contains(snplayer)) {
-			SupernaturalConvertEvent convertEvent = new SupernaturalConvertEvent(snplayer);
-			plugin.getServer().getPluginManager().callEvent(convertEvent);
-			if (convertEvent.isCancelled()) {
-				return false;
-			}
 			SuperNManager.sendMessage(snplayer, "Welcome to the WitchHunter society!");
 			SuperNManager.convert(snplayer, "witchhunter", SNConfigHandler.hunterPowerStart);
 			return true;
