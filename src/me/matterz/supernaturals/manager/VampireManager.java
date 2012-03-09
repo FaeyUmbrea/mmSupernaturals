@@ -452,8 +452,10 @@ public class VampireManager extends ClassManager {
 	}
 
 	public boolean hasHelmet(Player player) {
-		if (player.getInventory().getHelmet().getType().toString().equalsIgnoreCase(SNConfigHandler.vampireHelmet)) {
-			return true;
+		if (player.getInventory().getHelmet() != null) {
+			if(player.getInventory().getHelmet().getType().toString().equalsIgnoreCase(SNConfigHandler.vampireHelmet)) {
+				return true;
+			}
 		}
 		return false;
 	}
