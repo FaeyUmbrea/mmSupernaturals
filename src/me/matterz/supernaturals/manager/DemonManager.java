@@ -279,29 +279,35 @@ public class DemonManager extends ClassManager {
 		ItemStack chestplate = inv.getChestplate();
 		ItemStack leggings = inv.getLeggings();
 		ItemStack boots = inv.getBoots();
-		if (helmet.getType().equals(Material.LEATHER_HELMET)) {
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log("Leather Helm");
+		boolean helm = false;
+		boolean chest = false;
+		boolean legs = false;
+		boolean boot = false;
+		if (helmet != null) {
+			if (helmet.getType().equals(Material.LEATHER_HELMET)) {
+				helm = true;
 			}
+		}
+		if (chestplate != null) {
 			if (chestplate.getType().equals(Material.LEATHER_CHESTPLATE)) {
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log("Leather Chest");
-				}
-				if (leggings.getType().equals(Material.LEATHER_LEGGINGS)) {
-					if (SNConfigHandler.debugMode) {
-						SupernaturalsPlugin.log("Leather Legs");
-					}
-					if (boots.getType().equals(Material.LEATHER_BOOTS)) {
-						if (SNConfigHandler.debugMode) {
-							SupernaturalsPlugin.log("Leather Boots");
-						}
-						if(!demonApps.contains(player)) {
-							demonApps.add(player);
-						}
-						return true;
-					}
-				}
+				chest = true;
 			}
+		}
+		if (leggings != null) {
+			if (leggings.getType().equals(Material.LEATHER_LEGGINGS)) {
+				legs = false;
+			}
+		}
+		if (boots != null) {
+			if (boots.getType().equals(Material.LEATHER_BOOTS)) {
+				boot = false;
+			}
+		}
+		if(boot && legs && chest && helm) {
+			if (!demonApps.contains(player)) {
+				demonApps.add(player);
+			}
+			return true;
 		}
 		return false;
 	}
