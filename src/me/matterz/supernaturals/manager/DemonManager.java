@@ -53,11 +53,6 @@ public class DemonManager extends ClassManager {
 	private HashMap<Block, Location> webMap = new HashMap<Block, Location>();
 	private ArrayList<Player> demonApps = new ArrayList<Player>();
 	private List<Player> demons = new ArrayList<Player>();
-	private SupernaturalsPlugin plugin;
-
-	public DemonManager(SupernaturalsPlugin instance) {
-		plugin = instance;
-	}
 
 	// -------------------------------------------- //
 	// Damage Events //

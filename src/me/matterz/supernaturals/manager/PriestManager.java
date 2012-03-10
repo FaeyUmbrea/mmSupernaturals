@@ -42,12 +42,9 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class PriestManager extends HumanManager {
 
-	public PriestManager(SupernaturalsPlugin instance) {
+	public PriestManager() {
 		super();
-		this.plugin = instance;
 	}
-
-	private SupernaturalsPlugin plugin;
 
 	// -------------------------------------------- //
 	// Damage Events //

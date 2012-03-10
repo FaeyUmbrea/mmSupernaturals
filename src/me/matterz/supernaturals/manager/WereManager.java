@@ -43,14 +43,12 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class WereManager extends ClassManager {
 
-	public WereManager(SupernaturalsPlugin instance) {
+	public WereManager() {
 		super();
-		plugin = instance;
 	}
 
 	private String permissions2 = "supernatural.player.wolfbane";
 	private static HashMap<Wolf, SuperNPlayer> wolvesMap = new HashMap<Wolf, SuperNPlayer>();
-	private SupernaturalsPlugin plugin;
 
 	// -------------------------------------------- //
 	// Damage Events //

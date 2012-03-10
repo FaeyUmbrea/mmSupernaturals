@@ -51,9 +51,8 @@ import org.bukkit.util.Vector;
 
 public class HunterManager extends HumanManager {
 
-	public HunterManager(SupernaturalsPlugin instance) {
+	public HunterManager() {
 		super();
-		this.plugin = instance;
 	}
 
 	private HashMap<Arrow, String> arrowMap = new HashMap<Arrow, String>();
@@ -63,7 +62,6 @@ public class HunterManager extends HumanManager {
 	private ArrayList<Location> hallDoors = new ArrayList<Location>();
 	private ArrayList<SuperNPlayer> playerInvites = new ArrayList<SuperNPlayer>();
 	private static ArrayList<SuperNPlayer> bountyList = new ArrayList<SuperNPlayer>();
-	private SupernaturalsPlugin plugin;
 
 	private String arrowType = "normal";
 

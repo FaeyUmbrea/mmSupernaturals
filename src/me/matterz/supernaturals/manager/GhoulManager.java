@@ -43,14 +43,12 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class GhoulManager extends ClassManager {
 
-	public GhoulManager(SupernaturalsPlugin instance) {
+	public GhoulManager() {
 		super();
-		plugin = instance;
 	}
 
 	private String permissions = "supernatural.player.preventwaterdamage";
 	private HashMap<SuperNPlayer, SuperNPlayer> bonds = new HashMap<SuperNPlayer, SuperNPlayer>();
-	private SupernaturalsPlugin plugin;
 
 	// -------------------------------------------- //
 	// Damage Events //
