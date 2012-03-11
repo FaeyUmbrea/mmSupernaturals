@@ -4,7 +4,6 @@ import java.util.logging.Level;
 
 import me.matterz.supernaturals.SupernaturalsPlugin;
 
-import org.anjocaido.groupmanager.GroupManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -31,12 +30,7 @@ public class SNServerMonitor implements Listener {
 			SupernaturalsPlugin.foundPerms = true;
 		} else if (enabledPlugin.toString().startsWith("GroupManager")) {
 			SupernaturalsPlugin.log("Found GroupManager");
-			Plugin groupManagerPlugin = plugin.pm.getPlugin("GroupManager");
-			if (groupManagerPlugin != null) {
-				SupernaturalsPlugin.groupManager = (GroupManager) groupManagerPlugin;
-			}
 			SupernaturalsPlugin.foundPerms = true;
-			SupernaturalsPlugin.usingGroupManager = true;
 		} else if (enabledPlugin.toString().startsWith("bPermissions")) {
 			SupernaturalsPlugin.log("Found bPermissions.");
 			SupernaturalsPlugin.log(Level.WARNING, "If something goes wrong with bPermissions and this plugin, I will not help!");

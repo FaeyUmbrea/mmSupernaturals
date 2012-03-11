@@ -69,8 +69,6 @@ import me.matterz.supernaturals.manager.VampireManager;
 import me.matterz.supernaturals.manager.WereManager;
 import me.matterz.supernaturals.util.TextUtil;
 
-import org.anjocaido.groupmanager.GroupManager;
-import org.anjocaido.groupmanager.permissions.AnjoPermissionsHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -123,9 +121,6 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	private static File dataFolder;
 
 	public static boolean foundPerms = false;
-	public static boolean usingGroupManager = false;
-
-	public static GroupManager groupManager;
 
 	public PluginManager pm;
 
@@ -379,10 +374,6 @@ public class SupernaturalsPlugin extends JavaPlugin {
 			foundPerms = true;
 		} else if (pm.isPluginEnabled("GroupManager")) {
 			log("Found GroupManager.");
-			Plugin groupManagerPlugin = pm.getPlugin("GroupManager");
-			if (groupManagerPlugin != null) {
-				groupManager = (GroupManager) groupManagerPlugin;
-			}
 			foundPerms = true;
 		}
 
@@ -415,13 +406,6 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	}
 
 	public static boolean hasPermissions(Player player, String permissions) {
-		if (usingGroupManager) {
-			final AnjoPermissionsHandler handler = groupManager.getWorldsHolder().getWorldPermissions(player);
-			if (handler == null) {
-				return false;
-			}
-			return handler.has(player, permissions);
-		}
 		return player.hasPermission(permissions);
 	}
 
