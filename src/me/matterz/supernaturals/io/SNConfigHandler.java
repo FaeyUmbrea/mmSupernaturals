@@ -290,26 +290,7 @@ public class SNConfigHandler {
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if (SNVersionHandler.readVersion() != plugin.getDescription().getVersion()
 				&& configFile.exists()) {
-			config.set("Angel.Power.Heal.HealthGain", 5);
-			config.set("Angel.Power.Heal.PowerCost", 3000);
-			config.set("Angel.Power.Summon.PowerCost", 5000);
-			config.set("Angel.Power.Cure.PowerCost", 6000);
-			config.set("Angel.Power.Jump.PowerCost", 1000);
-			config.set("Angel.JumpDelta", 1.2);
-			config.set("Angel.Power.Kill.MonsterGain", 30);
-			config.set("Angel.Power.Swim.PowerGain", 50);
-			if (supernaturalTypes.size() == 0) {
-				supernaturalTypes.add("human");
-				supernaturalTypes.add("vampire");
-				supernaturalTypes.add("werewolf");
-				supernaturalTypes.add("ghoul");
-				supernaturalTypes.add("priest");
-				supernaturalTypes.add("demon");
-				supernaturalTypes.add("witchhunter");
-				supernaturalTypes.add("enderborn");
-				supernaturalTypes.add("angel");
-				config.set("Supernatural.Types", supernaturalTypes);
-			}
+			config.set("EnableJoinCommand", false);
 			saveConfig();
 			SNVersionHandler.writeVersion();
 		}
@@ -319,7 +300,7 @@ public class SNConfigHandler {
 			config.set("MultiWorld", false);
 			config.set("EnableChatColors", true);
 			config.set("EnableLoginMessage", true);
-			config.set("EnableJoinCommand", true);
+			config.set("EnableJoinCommand", false);
 			config.set("Supernatural.Truce.BreakTime", 120000);
 			config.set("Supernatural.SpreadChance", 0.35);
 
