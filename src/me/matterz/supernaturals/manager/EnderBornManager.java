@@ -121,12 +121,21 @@ public class EnderBornManager extends ClassManager {
 		if (deathTimesMap.get(snplayer).equals(5)) {
 			SuperNManager.sendMessage(snplayer, "You have been reborn as a human.");
 			SuperNManager.cure(snplayer);
-			deathTimesMap.put(snplayer, 0);
+			deathTimesMap.remove(snplayer);
 		} else {
 			deathTimesMap.put(snplayer, (deathTimesMap.get(snplayer) + 1));
 			SuperNManager.sendMessage(snplayer, "You have "
-					+ (5 - deathTimesMap.get(snplayer))
+					+ (5 - getDeathTimes(snplayer))
 					+ " deaths untill you are reborn as human.");
+		}
+	}
+
+	public int getDeathTimes(SuperNPlayer snplayer) {
+		if(!deathTimesMap.containsKey(snplayer)) {
+			deathTimesMap.put(snplayer, 1);
+			return 1;
+		} else {
+			return deathTimesMap.get(snplayer);
 		}
 	}
 
