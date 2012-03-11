@@ -104,7 +104,8 @@ public class HumanManager extends ClassManager {
 						SuperNManager.convert(snplayer, "ghoul", SNConfigHandler.ghoulPowerStart);
 						SuperNManager.sendMessage(snplayer, "You have been transformed into a Ghoul!");
 					}
-				} else if (lDamager instanceof Wolf) {
+				}
+				if (lDamager instanceof Wolf) {
 					if (!((Wolf) lDamager).isTamed()
 							&& SuperNManager.worldTimeIsNight(player)) {
 						SuperNManager.convert(snplayer, "werewolf", SNConfigHandler.werePowerStart);
