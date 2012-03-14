@@ -318,6 +318,11 @@ public class VampireManager extends ClassManager {
 		// Always examine first
 		SuperNManager.sendMessage(snplayer, "This altar looks really evil.");
 
+		if(!SupernaturalsPlugin.hasPermissions(player, "supernatural.player.shrineuse.vampire")) {
+			SuperNManager.sendMessage(snplayer, "You cannot use vampire altars.");
+			return;
+		}
+
 		// Is Vampire
 		if (snplayer.isVampire()) {
 			SuperNManager.sendMessage(snplayer, "This is of no use to you as you are already a vampire.");
@@ -366,6 +371,11 @@ public class VampireManager extends ClassManager {
 
 		// Always examine first
 		SuperNManager.sendMessage(snplayer, "This altar looks pure and clean.");
+
+		if(!SupernaturalsPlugin.hasPermissions(player, "supernatural.player.shrineuse.vampire")) {
+			SuperNManager.sendMessage(snplayer, "You cannot use vampire altars.");
+			return;
+		}
 
 		// If healthy
 		if (!snplayer.isVampire()) {

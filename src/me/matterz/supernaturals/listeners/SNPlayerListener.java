@@ -43,7 +43,6 @@ import org.bukkit.material.Door;
 public class SNPlayerListener implements Listener {
 
 	public SupernaturalsPlugin plugin;
-	private String permissions = "supernatural.player.shrineuse";
 	private String worldPermission = "supernatural.world.enabled";
 
 	public SNPlayerListener(SupernaturalsPlugin instance) {
@@ -165,10 +164,6 @@ public class SNPlayerListener implements Listener {
 		}
 
 		Material blockMaterial = event.getClickedBlock().getType();
-
-		if (!SupernaturalsPlugin.hasPermissions(player, permissions)) {
-			return;
-		}
 
 		if (blockMaterial == Material.getMaterial(SNConfigHandler.vampireAltarInfectMaterial)) {
 			if (SNConfigHandler.debugMode) {

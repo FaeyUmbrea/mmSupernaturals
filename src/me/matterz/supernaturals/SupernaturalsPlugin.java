@@ -386,7 +386,8 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		pm.addPermission(new Permission("supernatural.command.power"));
 		pm.addPermission(new Permission("supernatural.command.classes"));
 		pm.addPermission(new Permission("supernatural.command.killlist"));
-		pm.addPermission(new Permission("supernatural.player.shrineuse"));
+		pm.addPermission(new Permission("supernatural.player.shrineuse.vampire"));
+		pm.addPermission(new Permission("supernatural.player.shrineuse.priest"));
 		pm.addPermission(new Permission("supernatural.player.wolfbane"));
 		pm.addPermission(new Permission("supernatural.player.preventwaterdamage"));
 		pm.addPermission(new Permission("supernatural.player.preventsundamage"));

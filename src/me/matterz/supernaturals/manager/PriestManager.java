@@ -236,6 +236,10 @@ public class PriestManager extends HumanManager {
 								return;
 							}
 							if (SNConfigHandler.priestAltarRecipe.playerHasEnough(player)) {
+								if(!SupernaturalsPlugin.hasPermissions(player, "supernatural.player.shrineuse.priest")) {
+									SuperNManager.sendMessage(snplayer, "You cannot use priest altars.");
+									return;
+								}
 								SuperNManager.sendMessage(snplayer, "You donate these items to the Church:");
 								SuperNManager.sendMessage(snplayer, SNConfigHandler.priestAltarRecipe.getRecipeLine());
 								SuperNManager.sendMessage(snplayer, "The Church recognizes your holy spirit and accepts you into the priesthood.");
