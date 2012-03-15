@@ -274,35 +274,11 @@ public class DemonManager extends ClassManager {
 		ItemStack chestplate = inv.getChestplate();
 		ItemStack leggings = inv.getLeggings();
 		ItemStack boots = inv.getBoots();
-		boolean helm = false;
-		boolean chest = false;
-		boolean legs = false;
-		boolean boot = false;
-		if (helmet != null) {
-			if (helmet.getType().equals(Material.LEATHER_HELMET)) {
-				helm = true;
-			}
-		}
-		if (chestplate != null) {
-			if (chestplate.getType().equals(Material.LEATHER_CHESTPLATE)) {
-				chest = true;
-			}
-		}
-		if (leggings != null) {
-			if (leggings.getType().equals(Material.LEATHER_LEGGINGS)) {
-				legs = false;
-			}
-		}
-		if (boots != null) {
-			if (boots.getType().equals(Material.LEATHER_BOOTS)) {
-				boot = false;
-			}
-		}
-		if(boot && legs && chest && helm) {
-			if (!demonApps.contains(player)) {
+		if(helmet != null && chestplate != null && leggings != null && boots != null) {
+			if(helmet.getType().equals(Material.LEATHER_HELMET) && chestplate.getType().equals(Material.LEATHER_CHESTPLATE) && leggings.getType().equals(Material.LEATHER_LEGGINGS) && boots.getType().equals(Material.LEATHER_BOOTS)) {
 				demonApps.add(player);
+				return true;
 			}
-			return true;
 		}
 		return false;
 	}
