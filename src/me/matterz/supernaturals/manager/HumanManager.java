@@ -23,6 +23,7 @@ import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
 import me.matterz.supernaturals.io.SNConfigHandler;
 
+import org.bukkit.Material;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.PigZombie;
@@ -75,6 +76,13 @@ public class HumanManager extends ClassManager {
 
 		if (e == null) {
 			return;
+		}
+
+		if (e.getCause().equals(DamageCause.FALL)) {
+			if(player.getItemInHand().getType().equals(Material.FEATHER)) {
+				SuperNManager.sendMessage(snplayer, "Your spirit is lifted");
+				SuperNManager.convert(snplayer, "angel");
+			}
 		}
 
 		if (e.getCause().equals(DamageCause.LAVA)
