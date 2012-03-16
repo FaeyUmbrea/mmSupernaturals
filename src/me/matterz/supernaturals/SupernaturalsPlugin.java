@@ -394,7 +394,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		pm.addPermission(new Permission("supernatural.player.witchhuntersign"));
 		pm.addPermission(new Permission("supernatural.admin.infinitepower"));
 		pm.addPermission(new Permission("supernatural.admin.partial.curse"));
-		pm.addPermission(new Permission("supernatural.world.disabled"));
+		pm.addPermission(new Permission("supernatural.world.enabled"));
 		pm.addPermission(new Permission("supernatural.admin.command.adminhelp"));
 		pm.addPermission(new Permission("supernatural.admin.command.cure"));
 		pm.addPermission(new Permission("supernatural.admin.command.curse"));
