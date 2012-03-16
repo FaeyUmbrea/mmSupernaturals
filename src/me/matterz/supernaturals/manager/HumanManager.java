@@ -105,20 +105,17 @@ public class HumanManager extends ClassManager {
 		}
 
 		if (lDamager != null) {
-			double random = Math.random();
-			if (random < SNConfigHandler.spreadChance) {
-				if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
-					if (lDamager instanceof PigZombie) {
-						SuperNManager.convert(snplayer, "ghoul", SNConfigHandler.ghoulPowerStart);
-						SuperNManager.sendMessage(snplayer, "You have been transformed into a Ghoul!");
-					}
+			if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
+				if (lDamager instanceof PigZombie) {
+					SuperNManager.convert(snplayer, "ghoul", SNConfigHandler.ghoulPowerStart);
+					SuperNManager.sendMessage(snplayer, "You have been transformed into a Ghoul!");
 				}
-				if (lDamager instanceof Wolf) {
-					if (!((Wolf) lDamager).isTamed()
-							&& SuperNManager.worldTimeIsNight(player)) {
-						SuperNManager.convert(snplayer, "werewolf", SNConfigHandler.werePowerStart);
-						SuperNManager.sendMessage(snplayer, "You have mutated into a werewolf!");
-					}
+			}
+			if (lDamager instanceof Wolf) {
+				if (!((Wolf) lDamager).isTamed()
+						&& SuperNManager.worldTimeIsNight(player)) {
+					SuperNManager.convert(snplayer, "werewolf", SNConfigHandler.werePowerStart);
+					SuperNManager.sendMessage(snplayer, "You have mutated into a werewolf!");
 				}
 			}
 		}
