@@ -461,14 +461,14 @@ public class VampireManager extends ClassManager {
 
 	public boolean isUnderRoof(Player player) {
 		/*
-		 * We start checking opacity 2 blocks up. As Max Y is 127 there CAN be a
-		 * roof over the player if he is standing in block 125: 127 Solid Block
-		 * 126 125 Player However if he is standing in 126 there is no chance.
+		 * We start checking opacity 2 blocks up. As Max Y is 255 there CAN be a
+		 * roof over the player if he is standing in block 253: 255 Solid Block
+		 * 254 253 Player However if he is standing in 254 there is no chance.
 		 */
 		boolean retVal = false;
 		Block blockCurrent = player.getLocation().getBlock();
 
-		if (player.getLocation().getY() >= 126) {
+		if (player.getLocation().getY() >= 254) {
 			retVal = false;
 		} else {
 			// blockCurrent = blockCurrent.getFace(BlockFace.UP, 1); //What was
@@ -477,7 +477,7 @@ public class VampireManager extends ClassManager {
 			double opacityAccumulator = 0;
 			Double opacity;
 
-			while (blockCurrent.getY() + 1 <= 127) {
+			while (blockCurrent.getY() + 1 <= 255) {
 				blockCurrent = blockCurrent.getRelative(BlockFace.UP);
 
 				opacity = SNConfigHandler.materialOpacity.get(blockCurrent.getType());
