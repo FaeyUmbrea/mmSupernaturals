@@ -381,29 +381,6 @@ public class SupernaturalsPlugin extends JavaPlugin {
 			log("Permission system not detected, defaulting to SuperPerms");
 			log("A permissions system may be detected later, just wait.");
 		}
-		pm.addPermission(new Permission("supernatural.command.help"));
-		pm.addPermission(new Permission("supernatural.command.list"));
-		pm.addPermission(new Permission("supernatural.command.power"));
-		pm.addPermission(new Permission("supernatural.command.classes"));
-		pm.addPermission(new Permission("supernatural.command.killlist"));
-		pm.addPermission(new Permission("supernatural.player.shrineuse.vampire"));
-		pm.addPermission(new Permission("supernatural.player.shrineuse.priest"));
-		pm.addPermission(new Permission("supernatural.player.wolfbane"));
-		pm.addPermission(new Permission("supernatural.player.preventwaterdamage"));
-		pm.addPermission(new Permission("supernatural.player.preventsundamage"));
-		pm.addPermission(new Permission("supernatural.player.witchhuntersign"));
-		pm.addPermission(new Permission("supernatural.admin.infinitepower"));
-		pm.addPermission(new Permission("supernatural.admin.partial.curse"));
-		pm.addPermission(new Permission("supernatural.world.enabled"));
-		pm.addPermission(new Permission("supernatural.admin.command.adminhelp"));
-		pm.addPermission(new Permission("supernatural.admin.command.cure"));
-		pm.addPermission(new Permission("supernatural.admin.command.curse"));
-		pm.addPermission(new Permission("supernatural.admin.command.power"));
-		pm.addPermission(new Permission("supernatural.admin.command.reset"));
-		pm.addPermission(new Permission("supernatural.admin.command.reload"));
-		pm.addPermission(new Permission("supernatural.admin.command.save"));
-		pm.addPermission(new Permission("supernatural.admin.command.setchurch"));
-		pm.addPermission(new Permission("supernatural.admin.command.setbanish"));
 	}
 
 	public static boolean hasPermissions(Player player, String permissions) {

@@ -6,3 +6,66 @@ commands:
   sn:
     description: Supernatural commands
     usage: /<command> - lists commands
+permissions:
+    supernatural.*:
+        description: Gives access to every supernatural permission.
+        children:
+            supernatural.command.help: true
+            supernatural.command.list: true
+            supernatural.command.power: true
+            supernatural.command.classes: true
+            supernatural.command.killlist: true
+            supernatural.player.shrineuse.vampire: true
+            supernatural.player.shrineuse.priest: true
+            supernatural.player.wolfbane: true
+            supernatural.player.preventwaterdamage: true
+            supernatural.player.preventsundamage: true
+            supernatural.player.witchhuntersign: true
+            supernatural.admin.infinitepower: true
+            supernatural.admin.partial.curse: true
+            supernatural.world.enabled: true
+            supernatural.admin.command.adminhelp: true
+            supernatural.admin.command.cure: true
+            supernatural.admin.command.curse: true
+            supernatural.admin.command.power: true
+            supernatural.admin.command.reset: true
+            supernatural.admin.command.reload: true
+            supernatural.admin.command.save: true
+            supernatural.admin.command.setchurch: true
+            supernatural.admin.command.setbanish: true
+    supernatural.command.*:
+        description: Gives access to all player-commands
+        children:
+            supernatural.command.help: true
+            supernatural.command.list: true
+            supernatural.command.power: true
+            supernatural.command.classes: true
+            supernatural.command.killlist: true
+    supernatural.player.*:
+        description: Gives access to all player actions
+        children:
+            supernatural.player.shrineuse.vampire: true
+            supernatural.player.shrineuse.priest: true
+            supernatural.player.wolfbane: true
+            supernatural.player.preventwaterdamage: true
+            supernatural.player.preventsundamage: true
+            supernatural.player.witchhuntersign: true
+    supernatural.player.shrineuse.*:
+        description: Gives access to all shrines
+        children:
+            supernatural.player.shrineuse.vampire: true
+            supernatural.player.shrineuse.priest: true
+    supernatural.admin.*:
+        description: Gives access to all admin actions and commands
+        children:
+            supernatural.admin.infinitepower: true
+            supernatural.admin.partial.curse: true
+            supernatural.admin.command.adminhelp: true
+            supernatural.admin.command.cure: true
+            supernatural.admin.command.curse: true
+            supernatural.admin.command.power: true
+            supernatural.admin.command.reset: true
+            supernatural.admin.command.reload: true
+            supernatural.admin.command.save: true
+            supernatural.admin.command.setchurch: true
+            supernatural.admin.command.setbanish: true
