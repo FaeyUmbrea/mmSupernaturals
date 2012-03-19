@@ -118,6 +118,12 @@ public class EnderBornManager extends ClassManager {
 	public void deathEvent(Player player) {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNManager.alterPower(snplayer, -SNConfigHandler.enderDeathPowerPenalty, "You died!");
+		if (!deathTimesMap.containsKey(snplayer)) {
+			deathTimesMap.put(snplayer, 1);
+			SuperNManager.sendMessage(snplayer, "You have "
+					+ (5 - getDeathTimes(snplayer))
+					+ " deaths untill you are reborn as human.");
+		}
 		if (deathTimesMap.get(snplayer).equals(5)) {
 			SuperNManager.sendMessage(snplayer, "You have been reborn as a human.");
 			SuperNManager.cure(snplayer);
