@@ -288,29 +288,7 @@ public class SNConfigHandler {
 
 	public static void loadValues(Configuration config) {
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
-		if (SNVersionHandler.readVersion() != plugin.getDescription().getVersion()
-				&& configFile.exists()) {
-			config.set("Angel.Power.Heal.HealthGain", 5);
-			config.set("Angel.Power.Heal.PowerCost", 3000);
-			config.set("Angel.Power.Summon.PowerCost", 5000);
-			config.set("Angel.Power.Cure.PowerCost", 6000);
-			config.set("Angel.Power.Jump.PowerCost", 1000);
-			config.set("Angel.JumpDelta", 1.2);
-			config.set("Angel.Power.Kill.MonsterGain", 30);
-			config.set("Angel.Power.Swim.PowerGain", 50);
-
-			if (supernaturalTypes.size() == 0) {
-				supernaturalTypes.add("human");
-				supernaturalTypes.add("vampire");
-				supernaturalTypes.add("werewolf");
-				supernaturalTypes.add("ghoul");
-				supernaturalTypes.add("priest");
-				supernaturalTypes.add("demon");
-				supernaturalTypes.add("witchhunter");
-				supernaturalTypes.add("enderborn");
-				supernaturalTypes.add("angel");
-				config.set("Supernatural.Types", supernaturalTypes);
-			}
+		if (SNVersionHandler.readVersion() != plugin.getDescription().getVersion() && configFile.exists()) {
 			saveConfig();
 			SNVersionHandler.writeVersion();
 		}
@@ -1034,6 +1012,13 @@ public class SNConfigHandler {
 		enderWeaponsString = config.getStringList("EnderBorn.Weapon.Restrictions");
 
 		angelHealHealthGain = config.getInt("Angel.Power.Heal.HealthGain");
+		angelHealPowerCost = config.getInt("Angel.Power.Heal.PowerCost", 3000);
+		angelSummonPowerCost = config.getInt("Angel.Power.Summon.PowerCost", 5000);
+		angelCurePowerCost = config.getInt("Angel.Power.Cure.PowerCost", 6000);
+		angelJumpPowerCost = config.getInt("Angel.Power.Jump.PowerCost", 1000);
+		angelSwimPowerGain = config.getInt("Angel.Power.Swim.PowerGain", 50);
+		angelJumpDeltaSpeed = config.getDouble("Angel.JumpDelta", 1.2);
+		angelKillMonsterPowerGain = config.getInt("Angel.Power.Kill.MonsterGain", 30);
 
 		for (String wood : woodMaterialsString) {
 			woodMaterials.add(Material.getMaterial(wood));
