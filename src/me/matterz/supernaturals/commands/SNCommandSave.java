@@ -36,7 +36,7 @@ public class SNCommandSave extends SNCommandReload {
 	@Override
 	public void perform() {
 		if (!(sender instanceof Player)) {
-			SupernaturalsPlugin.saveData();
+			SupernaturalsPlugin.saveAll();
 			this.sendMessage("All config/player data has been saved!");
 		}
 		Player senderPlayer = (Player) sender;
@@ -45,14 +45,14 @@ public class SNCommandSave extends SNCommandReload {
 				this.sendMessage("You do not have permissions to use this command.");
 				return;
 			}
-			SupernaturalsPlugin.saveData();
+			SupernaturalsPlugin.saveAll();
 			this.sendMessage("All config/player data has been saved!");
 		} else {
 			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
 				this.sendMessage("No tienes permiso para este comando.");
 				return;
 			}
-			SupernaturalsPlugin.saveData();
+			SupernaturalsPlugin.saveAll();
 			this.sendMessage("Los datos y configuraciones han sido guardados!");
 		}
 	}

@@ -65,7 +65,7 @@ public class SNCommandSetBanish extends SNCommand {
 			SNConfigHandler.getConfig().set("Priest.Banish.Location.Y", SNConfigHandler.priestBanishLocationY);
 			SNConfigHandler.getConfig().set("Priest.Banish.Location.Z", SNConfigHandler.priestBanishLocationZ);
 
-			SupernaturalsPlugin.saveData();
+			SNConfigHandler.saveConfig();
 
 			this.sendMessage("Lugar de teletransporte definido.");
 			return;
@@ -91,7 +91,7 @@ public class SNCommandSetBanish extends SNCommand {
 		SNConfigHandler.getConfig().set("Priest.Banish.Location.Y", SNConfigHandler.priestBanishLocationY);
 		SNConfigHandler.getConfig().set("Priest.Banish.Location.Z", SNConfigHandler.priestBanishLocationZ);
 
-		SupernaturalsPlugin.saveData();
+		SNConfigHandler.saveConfig();
 
 		this.sendMessage("Banish location set.");
 	}

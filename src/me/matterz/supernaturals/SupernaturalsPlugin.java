@@ -328,11 +328,16 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	// Data Management //
 	// -------------------------------------------- //
 
-	public static void saveData() {
+	public static void saveAll() {
 		File file = new File(dataFolder, "data.yml");
 		SNPlayerHandler.save(SuperNManager.getSupernaturals(), file);
 
 		SNConfigHandler.saveConfig();
+	}
+
+	public static void saveData() {
+		File file = new File(dataFolder, "data.yml");
+		SNPlayerHandler.save(SuperNManager.getSupernaturals(), file);
 	}
 
 	public static void loadData() {

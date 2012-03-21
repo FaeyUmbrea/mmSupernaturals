@@ -63,7 +63,7 @@ public class SNCommandSetChurch extends SNCommand {
 			SNConfigHandler.getConfig().set("Priest.Church.Location.Y", SNConfigHandler.priestChurchLocationY);
 			SNConfigHandler.getConfig().set("Priest.Church.Location.Z", SNConfigHandler.priestChurchLocationZ);
 
-			SupernaturalsPlugin.saveData();
+			SNConfigHandler.saveConfig();
 
 			this.sendMessage("La localizaci�n de la Iglesia ha sido definida.");
 			return;
@@ -88,7 +88,7 @@ public class SNCommandSetChurch extends SNCommand {
 		SNConfigHandler.getConfig().set("Priest.Church.Location.Y", SNConfigHandler.priestChurchLocationY);
 		SNConfigHandler.getConfig().set("Priest.Church.Location.Z", SNConfigHandler.priestChurchLocationZ);
 
-		SupernaturalsPlugin.saveData();
+		SNConfigHandler.saveConfig();
 
 		this.sendMessage("Church location set.");
 	}
