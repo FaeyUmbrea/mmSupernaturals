@@ -69,3 +69,49 @@ permissions:
             supernatural.admin.command.save: true
             supernatural.admin.command.setchurch: true
             supernatural.admin.command.setbanish: true
+    supernatural.command.help:
+        default: true
+    supernatural.command.list:
+        default: true
+    supernatural.command.power:
+        default: true
+    supernatural.command.classes:
+        default: true
+    supernatural.command.killlist:
+        default: true
+    supernatural.player.shrineuse.vampire:
+        default: true
+    supernatural.player.shrineuse.priest:
+        default: true
+    supernatural.player.wolfbane:
+        default: true
+    supernatural.player.preventwaterdamage:
+        default: false
+    supernatural.player.preventsundamage:
+        default: false
+    supernatural.player.witchhuntersign:
+        default: true
+    supernatural.admin.infinitepower:
+        default: op
+    supernatural.admin.partial.curse:
+        default: op
+    supernatural.world.enabled:
+        default: true
+    supernatural.admin.command.adminhelp:
+        default: op
+    supernatural.admin.command.cure:
+        default: op
+    supernatural.admin.command.curse:
+        default: op
+    supernatural.admin.command.power:
+        default: op
+    supernatural.admin.command.reset:
+        default: op
+    supernatural.admin.command.reload:
+        default: op
+    supernatural.admin.command.save:
+        default: op
+    supernatural.admin.command.setchurch:
+        default: op
+    supernatural.admin.command.setbanish:
+        default: op
