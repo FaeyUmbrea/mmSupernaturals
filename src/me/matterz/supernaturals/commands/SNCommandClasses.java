@@ -60,6 +60,7 @@ public class SNCommandClasses extends SNCommand {
 				+ "- Possesses an unholy union with fire.");
 		classMessages.add("EnderBorn: " + ChatColor.WHITE
 				+ "A possessed human with strange powers.");
+		classMessages.add("Angel: " + ChatColor.WHITE + "A Human with a free spirit.");
 		spanishClassMessages.add("*** " + ChatColor.WHITE
 				+ "Clases de Seres Místicos " + ChatColor.RED + "***");
 		spanishClassMessages.add("Humano: " + ChatColor.WHITE

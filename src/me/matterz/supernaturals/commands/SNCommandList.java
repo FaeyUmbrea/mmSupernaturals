@@ -52,6 +52,7 @@ public class SNCommandList extends SNCommand {
 			List<String> hunters = new ArrayList<String>();
 			List<String> demons = new ArrayList<String>();
 			List<String> enderborns = new ArrayList<String>();
+			List<String> angels = new ArrayList<String>();
 
 			for (SuperNPlayer snplayer : SuperNManager.findAllOnline()) {
 				if (snplayer.isVampire()) {
@@ -68,6 +69,8 @@ public class SNCommandList extends SNCommand {
 					demons.add(snplayer.getName());
 				} else if (snplayer.isEnderBorn()) {
 					enderborns.add(snplayer.getName());
+				} else if (snplayer.isAngel()) {
+					angels.add(snplayer.getName());
 				}
 			}
 
@@ -132,6 +135,7 @@ public class SNCommandList extends SNCommand {
 		List<String> hunters = new ArrayList<String>();
 		List<String> demons = new ArrayList<String>();
 		List<String> enderborns = new ArrayList<String>();
+		List<String> angels = new ArrayList<String>();
 
 		for (SuperNPlayer snplayer : SuperNManager.findAllOnline()) {
 			if (snplayer.isVampire()) {
@@ -148,6 +152,8 @@ public class SNCommandList extends SNCommand {
 				demons.add(snplayer.getName());
 			} else if (snplayer.isEnderBorn()) {
 				enderborns.add(snplayer.getName());
+			} else if (snplayer.isAngel()) {
+				angels.add(snplayer.getName());
 			}
 		}
 
@@ -170,6 +176,7 @@ public class SNCommandList extends SNCommand {
 				+ TextUtil.implode(demons, ", "));
 		messages.add("EnderBorns: " + ChatColor.WHITE
 				+ TextUtil.implode(enderborns, ", "));
+		messages.add("Angels: " + ChatColor.WHITE + TextUtil.implode(angels, ", "));
 		messagesSpanish.add("*** " + ChatColor.WHITE
 				+ "Seres Místicos conectados: " + ChatColor.RED + "***");
 		messagesSpanish.add("Vampiros: " + ChatColor.WHITE
